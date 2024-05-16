@@ -13,7 +13,7 @@ import Link from "next/link";
 
 const LoginForm = () => {
   return (
-    <Card className="mx-auto w-full max-w-sm">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Chào mừng đến với Lumi</CardTitle>
         {/* <CardDescription>

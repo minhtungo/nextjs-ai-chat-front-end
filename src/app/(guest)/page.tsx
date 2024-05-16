@@ -12,7 +12,7 @@ export default function Home() {
             Lumi đã sẵn sàng!
           </p>
         </div>
-        <h1 className="max-w-4xl text-4xl font-bold md:text-5xl lg:text-6xl">
+        <h1 className="max-w-4xl text-4xl font-bold md:text-5xl md:!leading-tight lg:text-6xl">
           Nâng Cao Kiến Thức, Đơn Giản Hơn Bao Giờ Hết
         </h1>
         <p className="mt-5 max-w-prose text-muted-foreground sm:text-lg">
@@ -25,8 +25,7 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href="/dashboard"
-          target="_blank"
+          href="/chat"
         >
           Bắt Đầu
         </Link>

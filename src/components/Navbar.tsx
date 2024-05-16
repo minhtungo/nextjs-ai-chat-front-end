@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import MobileMenu from "./MobileMenu";
 import { NAV_LINKS } from "@/lib/constant";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -34,11 +35,8 @@ const Navbar = () => {
     >
       <MaxWidthWrapper>
         <div className="flex h-14 items-center">
-          <Link
-            href="/"
-            className="z-40 flex text-lg font-semibold text-blue-500"
-          >
-            <span>Lumi</span>
+          <Link href="/">
+            <Logo />
           </Link>
           <nav className="hidden sm:block">
             <ul className="ml-10 flex gap-x-6">

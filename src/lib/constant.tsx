@@ -1,4 +1,10 @@
-import { DiscIcon, Facebook, FacebookIcon } from "lucide-react";
+import {
+  BotMessageSquare,
+  DiscIcon,
+  Facebook,
+  FacebookIcon,
+  Home,
+} from "lucide-react";
 
 export const NAV_LINKS = [
   {
@@ -8,6 +14,19 @@ export const NAV_LINKS = [
   {
     title: "Pricing",
     href: "#/",
+  },
+];
+
+export const DASHBOARD_LINKS = [
+  {
+    title: "Dashboard",
+    href: "#",
+    icon: <Home className="h-5 w-5" />,
+  },
+  {
+    title: "Hỏi AI",
+    href: "/chat",
+    icon: <BotMessageSquare className="h-5 w-5" />,
   },
 ];
 

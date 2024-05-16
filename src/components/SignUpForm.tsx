@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 
 const SignUpForm = () => {
   return (
-    <Card className="mx-auto w-full max-w-sm">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-xl">Đăng ký tải khoản Lumi</CardTitle>
         {/* <CardDescription>
@@ -17,7 +17,7 @@ const SignUpForm = () => {
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <Label htmlFor="full-name">Tên của bạn</Label>
+            <Label htmlFor="full-name">Tên</Label>
             <Input
               id="full-name"
               type="text"
