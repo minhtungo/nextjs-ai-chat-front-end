@@ -1,12 +1,10 @@
-import { SquarePen } from "lucide-react";
 import Link from "next/link";
 
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
+import DSideMenu from "@/components/dashboard/DSideMenu";
 import UserMenu from "@/components/dashboard/UserMenu";
-import { Button } from "@/components/ui/button";
-import { DASHBOARD_LINKS } from "@/lib/constant";
 export default function DashBoardLayout({
   children,
 }: Readonly<{
@@ -26,18 +24,7 @@ export default function DashBoardLayout({
             </Button> */}
           </div>
           <div className="flex-1">
-            <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-              {DASHBOARD_LINKS.map(({ title, href, icon }) => (
-                <Link
-                  key={`${title}-desktop-dashboard-link`}
-                  href={href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-muted"
-                >
-                  {icon}
-                  {title}
-                </Link>
-              ))}
-            </nav>
+            <DSideMenu />
           </div>
         </div>
       </div>

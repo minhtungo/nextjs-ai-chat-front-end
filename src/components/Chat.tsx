@@ -14,16 +14,27 @@ import {
 import { useChat } from "ai/react";
 import ChatInput from "./ChatInput";
 import { Card } from "./ui/card";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const Chat = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const chatFormRef = useRef<HTMLFormElement | null>(null);
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    console.log(messages);
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollIntoView(false);
+    }
+  }, [messages]);
 
   return (
     <>
       <ScrollArea className="h-full flex-1 py-4 lg:py-6">
-        <div className="mx-auto flex h-full max-w-5xl flex-1 flex-col gap-y-5 overflow-hidden px-4 lg:px-6">
+        <div
+          className="mx-auto flex h-full max-w-5xl flex-1 flex-col gap-y-5 overflow-hidden px-4 lg:px-6"
+          ref={chatBoxRef}
+        >
           {messages.map((m) => (
             <div key={m.id} className="whitespace-pre-wrap">
               {m.role === "user" ? (
