@@ -1,13 +1,12 @@
-import { Search, SquarePen } from "lucide-react";
+import { SquarePen } from "lucide-react";
 import Link from "next/link";
 
 import Logo from "@/components/Logo";
+import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import UserMenu from "@/components/dashboard/UserMenu";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { DASHBOARD_LINKS } from "@/lib/constant";
-import ThemeToggle from "@/components/ThemeToggle";
 export default function DashBoardLayout({
   children,
 }: Readonly<{

@@ -25,9 +25,9 @@ export default function Home() {
             size: "lg",
             className: "mt-5",
           })}
-          href="/chat"
+          href="/dashboard/chat"
         >
-          Bắt Đầu
+          Hỏi Lumi
         </Link>
       </MaxWidthWrapper>
 
