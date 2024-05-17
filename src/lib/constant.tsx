@@ -20,12 +20,12 @@ export const NAV_LINKS = [
 export const DASHBOARD_LINKS = [
   {
     title: "Dashboard",
-    href: "#",
+    href: "/dashboard",
     icon: <Home className="h-5 w-5" />,
   },
   {
     title: "Hỏi AI",
-    href: "/chat",
+    href: "/dashboard/chat",
     icon: <BotMessageSquare className="h-5 w-5" />,
   },
 ];

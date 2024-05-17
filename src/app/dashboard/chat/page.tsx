@@ -1,9 +1,6 @@
 import Chat from "@/components/Chat";
-import { FC } from "react";
 
-interface ChatPageProps {}
-
-const ChatPage: FC<ChatPageProps> = () => {
+const ChatPage = () => {
   return <Chat />;
 };
 

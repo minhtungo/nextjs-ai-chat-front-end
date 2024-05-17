@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main>
-      <MaxWidthWrapper className="mb-12 mt-28 flex flex-col items-center justify-center text-center sm:mt-40">
+      <MaxWidthWrapper className="mb-12 mt-20 flex flex-col items-center justify-center text-center sm:mt-28">
         <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-border bg-card px-7 py-2 shadow-md backdrop-blur transition-all">
           <p className="text-sm font-semibold text-card-foreground">
             Lumi đã sẵn sàng!
@@ -31,7 +31,6 @@ export default function Home() {
         </Link>
       </MaxWidthWrapper>
 
-      {/* value proposition section */}
       <div>
         <div className="relative isolate">
           <div
