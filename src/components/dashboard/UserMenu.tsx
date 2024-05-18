@@ -8,8 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FC } from "react";
 import { cn } from "@/lib/utils";
+import { FC } from "react";
 
 interface UserMenuProps {
   className?: string;

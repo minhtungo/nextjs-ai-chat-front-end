@@ -1,15 +1,12 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import Google from "./icons/Google";
+import { signInWithCredentials, signInWithGoogle } from "@/auth/helpers";
+import EmailAuthButton from "./EmailAuthButton";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 const LoginForm = () => {
   return (
@@ -40,12 +37,8 @@ const LoginForm = () => {
             </div>
             <Input id="password" type="password" required />
           </div>
-          <Button type="submit" className="w-full">
-            Đăng nhập
-          </Button>
-          <Button variant="outline" className="w-full">
-            Đăng nhập với Discord
-          </Button>
+          <EmailAuthButton />
+          <GoogleAuthButton />
         </div>
         <div className="mt-4 text-center text-sm">
           Bạn chưa có tài khoản?{" "}

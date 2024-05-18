@@ -38,7 +38,7 @@ const Chat = () => {
           {messages.map((m) => (
             <div key={m.id} className="whitespace-pre-wrap">
               {m.role === "user" ? (
-                <Card className="ml-auto w-fit bg-secondary px-3 py-2">
+                <Card className="ml-auto w-fit bg-secondary px-3 py-2 lg:px-4 lg:py-3">
                   {m.content}
                 </Card>
               ) : (
