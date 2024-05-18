@@ -35,7 +35,6 @@ const providers: Provider[] = [
         // return json object with the user data
         return user;
       } catch (error) {
-        console.log("-------", error);
         if (error instanceof ZodError) {
           // Return `null` to indicate that the credentials are invalid
           return null;

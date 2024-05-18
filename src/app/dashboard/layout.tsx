@@ -1,13 +1,13 @@
-import Link from "next/link";
-import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import Logo from "@/components/Logo";
+import NewMessageButton from "@/components/NewMessageButton";
 import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import DSideMenu from "@/components/dashboard/DSideMenu";
-import DUserMenu from "@/components/dashboard/DUserMenu";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import DSideMenuSettings from "@/components/dashboard/DSideMenuSettings";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { SessionProvider } from "next-auth/react";
+import Link from "next/link";
 export default async function DashBoardLayout({
   children,
 }: Readonly<{
@@ -43,7 +43,7 @@ export default async function DashBoardLayout({
             <DMobileMenu />
             <div className="ml-auto flex items-center gap-x-2">
               <ThemeToggle />
-              <DUserMenu />
+              <NewMessageButton />
             </div>
           </header>
           <main className="relative flex h-full max-h-[calc(100vh-56px)] w-full flex-1 flex-col gap-4 overflow-hidden lg:max-h-[calc(100vh-60px)]">
