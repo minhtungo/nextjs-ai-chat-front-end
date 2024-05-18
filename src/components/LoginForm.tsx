@@ -10,7 +10,7 @@ import GoogleAuthButton from "./GoogleAuthButton";
 
 const LoginForm = () => {
   return (
-    <Card className="mx-auto w-full max-w-md">
+    <Card className="mx-auto w-full max-w-md border-none shadow-none">
       <CardHeader>
         <CardTitle className="text-2xl">Chào mừng đến với Lumi</CardTitle>
         {/* <CardDescription>

@@ -13,8 +13,9 @@ interface GoogleAuthButtonProps {
 const GoogleAuthButton: FC<GoogleAuthButtonProps> = ({ className }) => {
   return (
     <Button
+      variant="outline"
       type="submit"
-      className={cn("w-full", className)}
+      className={cn("flex w-full items-center gap-2", className)}
       onClick={async () => await signInWithGoogle()}
     >
       <Google className="h-4 w-4" /> Đăng nhập với Google

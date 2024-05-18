@@ -18,7 +18,7 @@ const DSideMenu: FC<DSideMenuProps> = () => {
           key={`${title}-desktop-dashboard-link`}
           href={href}
           className={cn(
-            "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-accent",
+            "flex items-center gap-2 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:bg-accent",
             pathname === href && "bg-accent",
           )}
         >

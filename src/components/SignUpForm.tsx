@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 const SignUpForm = () => {
   return (
-    <Card className="mx-auto w-full max-w-md">
+    <Card className="mx-auto w-full max-w-md border-none shadow-none">
       <CardHeader>
         <CardTitle className="text-xl">Đăng ký tải khoản Lumi</CardTitle>
         {/* <CardDescription>
@@ -41,9 +42,7 @@ const SignUpForm = () => {
           <Button type="submit" className="w-full">
             Tạo tài khoản
           </Button>
-          <Button variant="outline" className="w-full">
-            Đăng ký với Discord
-          </Button>
+          <GoogleAuthButton />
         </div>
         <div className="mt-4 text-center text-sm">
           Bạn đã có tài khoản?{" "}
