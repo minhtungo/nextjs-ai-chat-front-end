@@ -22,7 +22,6 @@ const Chat = () => {
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    console.log(messages);
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollIntoView(false);
     }

@@ -24,7 +24,7 @@ export const DASHBOARD_LINKS = [
     icon: <Home className="h-5 w-5" />,
   },
   {
-    title: "Hỏi AI",
+    title: "Hỏi Lumi",
     href: "/dashboard/chat",
     icon: <BotMessageSquare className="h-5 w-5" />,
   },

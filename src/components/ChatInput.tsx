@@ -31,7 +31,6 @@ const ChatInput: FC<ChatInputProps> = ({ value, onChange, chatFormRef }) => {
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
-      console.log(chatFormRef.current);
       if (chatFormRef.current) {
         chatFormRef.current.requestSubmit();
       }

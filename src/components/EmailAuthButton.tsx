@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithCredentials } from "@/auth/helpers";
+import { signInWithCredentials } from "@/auth/actions";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Button } from "./ui/button";

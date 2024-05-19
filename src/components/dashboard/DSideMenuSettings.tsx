@@ -34,7 +34,9 @@ const DSideMenuSettings: FC<DSideMenuSettingsProps> = ({ className }) => {
               alt={`${data?.user?.name}-avatar`}
             />
             <AvatarFallback className="text-[13px]">
-              {data?.user?.name?.split(" ").pop()?.charAt(0)}
+              {data?.user?.name
+                ? data.user.name.split(" ").pop()?.charAt(0)
+                : "G"}
             </AvatarFallback>
           </Avatar>
           <span>{data?.user?.name}</span>
@@ -56,7 +58,13 @@ const DSideMenuSettings: FC<DSideMenuSettingsProps> = ({ className }) => {
           <Settings className="h-4 w-4" /> Cài đặt
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={async () => await signOut()}>
+        <DropdownMenuItem
+          onClick={async () =>
+            await signOut({
+              callbackUrl: "/",
+            })
+          }
+        >
           <LogOut className="h-4 w-4" /> Đăng xuất
         </DropdownMenuItem>
       </DropdownMenuContent>

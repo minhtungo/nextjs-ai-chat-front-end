@@ -10,7 +10,6 @@ interface DSideMenuProps {}
 
 const DSideMenu: FC<DSideMenuProps> = () => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <nav className="grid items-start gap-1 px-2 text-sm font-medium lg:px-3">
       {DASHBOARD_LINKS.map(({ title, href, icon }) => (

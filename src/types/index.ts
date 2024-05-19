@@ -17,8 +17,3 @@ export interface Session {
      */
   } & DefaultSession["user"];
 }
-
-export interface User {
-  id: string;
-  email: string;
-}
