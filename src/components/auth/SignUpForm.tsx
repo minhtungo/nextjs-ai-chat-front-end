@@ -32,6 +32,7 @@ const SignUpForm = () => {
     defaultValues: {
       email: "",
       password: "",
+      confirm_password: "",
       name: "",
     },
   });
@@ -53,7 +54,7 @@ const SignUpForm = () => {
   return (
     <Card className="mx-auto w-full max-w-md border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-xl">Đăng ký tải khoản Lumi</CardTitle>
+        <CardTitle className="text-2xl">Đăng ký tải khoản Lumi</CardTitle>
         {/* <CardDescription>
           Enter your information to create an account
         </CardDescription> */}
@@ -97,6 +98,19 @@ const SignUpForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Mật khẩu</FormLabel>
+                  <FormControl>
+                    <Input type="password" placeholder="********" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="confirm_password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nhập lại mật khẩu</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="********" {...field} />
                   </FormControl>
