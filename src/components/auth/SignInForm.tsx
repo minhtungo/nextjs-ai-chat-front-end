@@ -96,7 +96,10 @@ const SignInForm = () => {
               )}
             />
             {(error || urlError) && <FormError message={error || urlError} />}
-            <EmailAuthButton />
+            <EmailAuthButton
+              label="Đăng nhập"
+              isLoading={form.formState.isLoading}
+            />
           </form>
         </Form>
         <GoogleAuthButton className="mt-3" />

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
+import { signUpWithCredentials } from "@/auth/actions";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -15,12 +15,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { startTransition, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import GoogleAuthButton from "./GoogleAuthButton";
-import { startTransition, useState } from "react";
-import { signUpWithCredentials } from "@/auth/actions";
+import EmailAuthButton from "./EmailAuthButton";
 import FormError from "./FormError";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 const SignUpForm = () => {
   const [error, setError] = useState("");
@@ -101,9 +101,10 @@ const SignUpForm = () => {
               )}
             />
             {error && <FormError message={error} />}
-            <Button type="submit" className="w-full">
-              Tạo tài khoản
-            </Button>
+            <EmailAuthButton
+              label="Tạo tài khoản"
+              isLoading={form.formState.isSubmitting}
+            />
           </form>
         </Form>
         <GoogleAuthButton className="mt-3" />
