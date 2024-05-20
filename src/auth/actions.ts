@@ -1,12 +1,14 @@
 "use server";
 
 import { signOut as naSignOut, signIn } from "@/auth";
+import { getPasswordResetTokenByToken } from "@/data/password-reset-token";
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { saltAndHashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import {
   forgotPasswordSchema,
+  resetPasswordSchema,
   signInSchema,
   signUpSchema,
 } from "@/lib/definitions";
@@ -175,4 +177,55 @@ export const forgotPassword = async (
   return {
     success: `Link lấy lại mật khẩu vừa được gửi tới ${email}, vui lòng kiểm tra email`,
   };
+};
+
+export const setNewPassword = async (
+  values: z.infer<typeof resetPasswordSchema>,
+  token: string | null,
+) => {
+  if (!token) {
+    return { error: "Missing token" };
+  }
+
+  const validatedFields = resetPasswordSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      error: "Invalid fields",
+    };
+  }
+
+  const { password } = validatedFields.data;
+
+  const existingToken = await getPasswordResetTokenByToken(token);
+
+  if (!existingToken) {
+    return { error: "Invalid token" };
+  }
+  const hasExpired = new Date(existingToken.expires) < new Date();
+
+  if (hasExpired) {
+    return { error: "Token has expired" };
+  }
+
+  const existingUser = await getUserByEmail(existingToken.email);
+
+  if (!existingUser) {
+    return { error: "Không có tài khoản với email bạn cung cấp" };
+  }
+
+  const hashedPassword = await saltAndHashPassword(password);
+
+  await db.user.update({
+    where: { id: existingUser.id },
+    data: { password: hashedPassword },
+  });
+
+  await db.passwordResetToken.delete({
+    where: {
+      id: existingToken.id,
+    },
+  });
+
+  return { success: "Mật khẩu đã được thay đổi" };
 };
