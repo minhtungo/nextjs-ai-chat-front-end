@@ -9,6 +9,8 @@ import MobileMenu from "./MobileMenu";
 import { NAV_LINKS } from "@/lib/constant";
 import ThemeToggle from "./ThemeToggle";
 import Logo from "./Logo";
+import { signInHref } from "@/routes";
+import { signUpHref } from "./../routes";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -55,7 +57,7 @@ const Navbar = () => {
             <ThemeToggle className="ml-2 sm:order-1 sm:ml-4" />
             <div className="hidden items-center space-x-4 sm:flex">
               <Link
-                href="/sign-up"
+                href={signUpHref}
                 className={buttonVariants({
                   variant: "ghost",
                   size: "sm",
@@ -65,7 +67,7 @@ const Navbar = () => {
               </Link>
 
               <Link
-                href="/sign-in"
+                href={signInHref}
                 className={buttonVariants({
                   size: "sm",
                 })}

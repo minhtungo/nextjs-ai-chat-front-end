@@ -12,6 +12,7 @@ import Link from "next/link";
 import { FC } from "react";
 import { buttonVariants } from "./ui/button";
 import { NAV_LINKS } from "@/lib/constant";
+import { signInHref, signUpHref } from "@/routes";
 
 interface MobileMenuProps {}
 
@@ -41,7 +42,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
           <SheetFooter className="gap-1.5 border-t border-border py-4">
             <SheetClose asChild>
               <Link
-                href="/sign-up"
+                href={signUpHref}
                 className={buttonVariants({
                   variant: "ghost",
                   size: "sm",
@@ -52,7 +53,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
             </SheetClose>
             <SheetClose asChild>
               <Link
-                href="/sign-in"
+                href={signInHref}
                 className={buttonVariants({
                   size: "sm",
                 })}

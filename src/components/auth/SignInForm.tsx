@@ -21,6 +21,7 @@ import EmailAuthButton from "./EmailAuthButton";
 import FormError from "./FormError";
 import FormWrapper from "./FormWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
+import { signUpHref } from "@/routes";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -104,7 +105,7 @@ const SignInForm = () => {
       <GoogleAuthButton className="mt-3" />
       <div className="mt-4 text-center text-sm">
         Bạn chưa có tài khoản?{" "}
-        <Link href="/sign-up" className="underline">
+        <Link href={signUpHref} className="underline">
           Đăng ký
         </Link>
       </div>

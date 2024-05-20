@@ -5,6 +5,7 @@ import {
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
+  signInHref,
 } from "./routes";
 
 const { auth } = NextAuth(authConfig);
@@ -27,7 +28,7 @@ export default auth((req) => {
     return null;
   }
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL("/sign-in", nextUrl));
+    return Response.redirect(new URL(signInHref, nextUrl));
   }
   return null;
 });

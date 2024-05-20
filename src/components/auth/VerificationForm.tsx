@@ -7,6 +7,7 @@ import Spinner from "../Spinner";
 import { verifyNewUserEmail } from "@/auth/actions";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
+import { signInHref } from "@/routes";
 
 interface VerificationFormProps {}
 
@@ -40,7 +41,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   return (
     <FormWrapper
       headerLabel="Xác thực email"
-      backButtonHref="/sign-in"
+      backButtonHref={signInHref}
       backButtonLabel="Đăng nhập"
     >
       {!errorMessage && !successMessage && <Spinner />}

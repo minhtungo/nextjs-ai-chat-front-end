@@ -22,6 +22,7 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
+import { signInHref } from "@/routes";
 
 const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -118,7 +119,7 @@ const SignUpForm = () => {
       <GoogleAuthButton className="mt-3" />
       <div className="mt-4 text-center text-sm">
         Bạn đã có tài khoản?{" "}
-        <Link href="/sign-in" className="underline">
+        <Link href={signInHref} className="underline">
           Đăng nhập
         </Link>
       </div>

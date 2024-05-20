@@ -4,13 +4,14 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import authConfig from "./config";
 import { type UserRole } from "@prisma/client";
+import { authErrorHref, signInHref } from "@/routes";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   pages: {
-    signIn: "/sign-in",
-    error: "/auth-error",
+    signIn: signInHref,
+    error: authErrorHref,
   },
   events: {
     async linkAccount({ user }) {
