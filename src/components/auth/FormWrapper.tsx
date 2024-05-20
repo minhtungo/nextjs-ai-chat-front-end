@@ -24,7 +24,7 @@ const FormWrapper: FC<formWrapperProps> = ({
   backButtonLabel,
 }) => {
   return (
-    <Card className="mx-auto w-full max-w-md border-none shadow-none">
+    <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
       </CardHeader>

@@ -2,6 +2,7 @@
 
 import { signOut as naSignOut, signIn } from "@/auth";
 import { getUserByEmail } from "@/data/user";
+import { getVerificationTokenByToken } from "@/data/verification-token";
 import { saltAndHashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { signInSchema, signUpSchema } from "@/lib/definitions";
@@ -104,11 +105,38 @@ export const signUpWithCredentials = async (
   const verificationToken = await generateVerificationToken(email);
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: "Sent" };
+  return { success: "Chúng tôi đã gửi 1 email xác thực cho bạn" };
 };
 
 export const signOut = async () => {
   await naSignOut({
     redirectTo: "/",
   });
+};
+
+export const verifyNewUserEmail = async (token: string) => {
+  const existingToken = await getVerificationTokenByToken(token);
+  if (!existingToken) {
+    return { error: "Invalid token" };
+  }
+  const hasExpired = new Date(existingToken.expires) < new Date();
+
+  if (hasExpired) {
+    return { error: "Token has expired" };
+  }
+
+  const existingUser = await getUserByEmail(existingToken.email);
+
+  if (!existingUser) {
+    return { error: "Email not found" };
+  }
+
+  await db.user.update({
+    where: { id: existingUser.id },
+    data: { emailVerified: new Date() },
+  });
+
+  await db.verificationToken.delete({ where: { id: existingToken.id } });
+
+  return { success: "Email has been verified" };
 };
