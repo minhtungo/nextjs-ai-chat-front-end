@@ -5,6 +5,7 @@ import { getUserByEmail } from "@/data/user";
 import { saltAndHashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { signInSchema, signUpSchema } from "@/lib/definitions";
+import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
@@ -101,6 +102,7 @@ export const signUpWithCredentials = async (
     },
   });
   const verificationToken = await generateVerificationToken(email);
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
   return { success: "Sent" };
 };
