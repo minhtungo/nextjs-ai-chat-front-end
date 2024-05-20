@@ -10,12 +10,14 @@ import {
   signInSchema,
   signUpSchema,
 } from "@/lib/definitions";
-import { sendVerificationEmail } from "@/lib/mail";
-import { generateVerificationToken } from "@/lib/tokens";
+import { sendPasswordResetEmail, sendVerificationEmail } from "@/lib/mail";
+import {
+  generatePasswordResetToken,
+  generateVerificationToken,
+} from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-import { resetPasswordSchema } from "./../lib/definitions";
 
 export const signInWithGoogle = async () => {
   await signIn("google", {
@@ -163,6 +165,12 @@ export const forgotPassword = async (
   if (!existingUser) {
     return { error: "Không có tài khoản với email bạn cung cấp" };
   }
+
+  const passwordResetToken = await generatePasswordResetToken(email);
+  await sendPasswordResetEmail(
+    passwordResetToken.email,
+    passwordResetToken.token,
+  );
 
   return {
     success: `Link lấy lại mật khẩu vừa được gửi tới ${email}, vui lòng kiểm tra email`,

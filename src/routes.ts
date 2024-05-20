@@ -9,6 +9,7 @@ export const signUpHref = "/auth/sign-up";
 export const forgotPasswordHref = "/auth/forgot-password";
 export const authErrorHref = "/auth/error";
 export const emailVerificationHref = "/auth/verification";
+export const resetPasswordHref = "/auth/reset-password";
 
 export const authRoutes = [
   signInHref,
@@ -16,4 +17,5 @@ export const authRoutes = [
   authErrorHref,
   emailVerificationHref,
   forgotPasswordHref,
+  resetPasswordHref,
 ];

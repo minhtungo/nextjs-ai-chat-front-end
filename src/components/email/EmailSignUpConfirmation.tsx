@@ -7,7 +7,7 @@ interface EmailSignUpConfirmationProps {
 export const EmailSignUpConfirmation: React.FC<
   Readonly<EmailSignUpConfirmationProps>
 > = ({ confirmationLink }) => (
-  <a href={confirmationLink} target="_blank">
-    {confirmationLink}!
-  </a>
+  <div>
+    <a href={confirmationLink}>{confirmationLink}</a>
+  </div>
 );
