@@ -21,6 +21,7 @@ import FormError from "./FormError";
 import { startTransition, useState } from "react";
 import { signInWithCredentials } from "@/auth/actions";
 import { useSearchParams } from "next/navigation";
+import FormSuccess from "./FormSuccess";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -28,7 +29,8 @@ const SignInForm = () => {
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different credentials"
       : "";
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -38,12 +40,14 @@ const SignInForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof signInSchema>) => {
-    setError("");
+    setErrorMessage("");
 
     startTransition(() => {
       signInWithCredentials(values).then((data) => {
         if (data?.error) {
-          setError(data.error);
+          setErrorMessage(data.error);
+        } else if (data?.success) {
+          setSuccessMessage(data.success);
         }
       });
     });
@@ -95,7 +99,10 @@ const SignInForm = () => {
                 </FormItem>
               )}
             />
-            {(error || urlError) && <FormError message={error || urlError} />}
+            {(errorMessage || urlError) && (
+              <FormError message={errorMessage || urlError} />
+            )}
+            {successMessage && <FormSuccess message={successMessage} />}
             <EmailAuthButton
               label="Đăng nhập"
               isLoading={form.formState.isLoading}

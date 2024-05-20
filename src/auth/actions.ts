@@ -29,6 +29,17 @@ export const signInWithCredentials = async (
 
   const { email, password } = validatedFields.data;
 
+  const existingUser = await getUserByEmail(email);
+
+  if (
+    !existingUser ||
+    !existingUser.email ||
+    !existingUser.password ||
+    !existingUser.emailVerified
+  ) {
+    return { error: "Invalid credentials" };
+  }
+
   try {
     await signIn("credentials", {
       email,
@@ -61,15 +72,26 @@ export const signUpWithCredentials = async (
   }
 
   const { email, password, name } = validatedFields.data;
-  const hashedPassword = await saltAndHashPassword(password);
 
   const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
+    if (!existingUser.emailVerified) {
+      const newVerificationToken = await generateVerificationToken(
+        existingUser.email,
+      );
+      return {
+        success:
+          "You have to verify your email first. We just sent a new verification email.",
+      };
+    }
+
     return {
       error: "Email đã được sử dụng",
     };
   }
+
+  const hashedPassword = await saltAndHashPassword(password);
 
   await db.user.create({
     data: {
