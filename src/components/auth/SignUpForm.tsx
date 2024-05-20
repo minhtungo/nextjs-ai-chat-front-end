@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -10,32 +13,32 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInSchema } from "@/lib/definitions";
+import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import EmailAuthButton from "./EmailAuthButton";
 import GoogleAuthButton from "./GoogleAuthButton";
-import FormError from "./FormError";
 import { startTransition, useState } from "react";
-import { signInWithCredentials } from "@/auth/actions";
+import { signUpWithCredentials } from "@/auth/actions";
+import FormError from "./FormError";
 
-const SignInForm = () => {
+const SignUpForm = () => {
   const [error, setError] = useState("");
-  const form = useForm<z.infer<typeof signInSchema>>({
-    resolver: zodResolver(signInSchema),
+
+  const form = useForm<z.infer<typeof signUpSchema>>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       password: "",
+      name: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signInSchema>) => {
+  const onSubmit = (values: z.infer<typeof signUpSchema>) => {
     setError("");
 
     startTransition(() => {
-      signInWithCredentials(values).then((data) => {
+      signUpWithCredentials(values).then((data) => {
         if (data?.error) {
           setError(data.error);
         }
@@ -46,11 +49,27 @@ const SignInForm = () => {
   return (
     <Card className="mx-auto w-full max-w-md border-none shadow-none">
       <CardHeader>
-        <CardTitle className="text-2xl">Chào mừng đến với Lumi</CardTitle>
+        <CardTitle className="text-xl">Đăng ký tải khoản Lumi</CardTitle>
+        {/* <CardDescription>
+          Enter your information to create an account
+        </CardDescription> */}
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tên</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Họ và tên" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="email"
@@ -73,15 +92,7 @@ const SignInForm = () => {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <div className="flex items-center">
-                    <FormLabel>Mật khẩu</FormLabel>
-                    <Link
-                      href="#"
-                      className="ml-auto inline-block text-sm underline"
-                    >
-                      Quên mật khẩu?
-                    </Link>
-                  </div>
+                  <FormLabel>Mật khẩu</FormLabel>
                   <FormControl>
                     <Input type="password" placeholder="********" {...field} />
                   </FormControl>
@@ -90,19 +101,21 @@ const SignInForm = () => {
               )}
             />
             {error && <FormError message={error} />}
-            <EmailAuthButton />
-            <GoogleAuthButton />
-            <div className="mt-4 text-center text-sm">
-              Bạn chưa có tài khoản?{" "}
-              <Link href="/sign-up" className="underline">
-                Đăng ký
-              </Link>
-            </div>
+            <Button type="submit" className="w-full">
+              Tạo tài khoản
+            </Button>
           </form>
         </Form>
+        <GoogleAuthButton className="mt-3" />
+        <div className="mt-4 text-center text-sm">
+          Bạn đã có tài khoản?{" "}
+          <Link href="/sign-in" className="underline">
+            Đăng nhập
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );
 };
 
-export default SignInForm;
+export default SignUpForm;

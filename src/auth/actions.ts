@@ -10,7 +10,9 @@ import { AuthError } from "next-auth";
 import { z } from "zod";
 
 export const signInWithGoogle = async () => {
-  await signIn("google");
+  await signIn("google", {
+    redirectTo: DEFAULT_LOGIN_REDIRECT,
+  });
 };
 
 export const signInWithCredentials = async (

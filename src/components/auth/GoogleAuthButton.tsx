@@ -3,8 +3,8 @@
 import { signInWithGoogle } from "@/auth/actions";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
-import { Button } from "./ui/button";
-import Google from "./icons/Google";
+import { Button } from "../ui/button";
+import Google from "../icons/Google";
 
 interface GoogleAuthButtonProps {
   className?: string;
