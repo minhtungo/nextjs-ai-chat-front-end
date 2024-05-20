@@ -1,5 +1,6 @@
 import { EmailResetPassword } from "@/components/email/EmailResetPassword";
 import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
+import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
 import { emailVerificationHref, resetPasswordHref } from "@/routes";
 import { Resend } from "resend";
 
@@ -25,8 +26,18 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   await resend.emails.send({
     from: fromEmail,
     to: [email],
-    subject: "Confirmation Email",
+    subject: "Reset Password Email",
     react: EmailResetPassword({ resetPasswordLink: resetPasswordLink }),
-    text: "Confirmation Email",
+    text: "Reset Password Email",
+  });
+};
+
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+  await resend.emails.send({
+    from: fromEmail,
+    to: [email],
+    subject: "Two Factor Code Email",
+    react: EmailTwoFactor({ token }),
+    text: "Two Factor Code Email",
   });
 };

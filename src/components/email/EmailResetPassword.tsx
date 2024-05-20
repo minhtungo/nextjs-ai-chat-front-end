@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Html, Link } from "@react-email/components";
 
 interface EmailResetPasswordProps {
   resetPasswordLink: string;
@@ -7,7 +8,7 @@ interface EmailResetPasswordProps {
 export const EmailResetPassword: React.FC<
   Readonly<EmailResetPasswordProps>
 > = ({ resetPasswordLink }) => (
-  <div>
-    <a href={resetPasswordLink}>{resetPasswordLink}</a>
-  </div>
+  <Html>
+    <Link href={resetPasswordLink}>Link</Link>
+  </Html>
 );

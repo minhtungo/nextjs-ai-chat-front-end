@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Html, Link } from "@react-email/components";
 
 interface EmailSignUpConfirmationProps {
   confirmationLink: string;
@@ -7,7 +8,7 @@ interface EmailSignUpConfirmationProps {
 export const EmailSignUpConfirmation: React.FC<
   Readonly<EmailSignUpConfirmationProps>
 > = ({ confirmationLink }) => (
-  <div>
-    <a href={confirmationLink}>{confirmationLink}</a>
-  </div>
+  <Html>
+    <Link href={confirmationLink}>{confirmationLink}</Link>
+  </Html>
 );

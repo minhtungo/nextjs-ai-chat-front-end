@@ -42,3 +42,5 @@ export const SOCIAL_LINKS = [
     icon: <DiscIcon className="h-5 w-5" />,
   },
 ];
+
+export const EXPIRY_PERIOD = 1800 * 1000;
