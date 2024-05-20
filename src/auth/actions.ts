@@ -5,12 +5,17 @@ import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
 import { saltAndHashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { signInSchema, signUpSchema } from "@/lib/definitions";
+import {
+  forgotPasswordSchema,
+  signInSchema,
+  signUpSchema,
+} from "@/lib/definitions";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { z } from "zod";
+import { resetPasswordSchema } from "./../lib/definitions";
 
 export const signInWithGoogle = async () => {
   await signIn("google", {
@@ -128,7 +133,7 @@ export const verifyNewUserEmail = async (token: string) => {
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Email not found" };
+    return { error: "Không có tài khoản với email bạn cung cấp" };
   }
 
   await db.user.update({
@@ -138,5 +143,28 @@ export const verifyNewUserEmail = async (token: string) => {
 
   await db.verificationToken.delete({ where: { id: existingToken.id } });
 
-  return { success: "Email has been verified" };
+  return { success: "Email của bạn đã được xác nhận" };
+};
+
+export const forgotPassword = async (
+  values: z.infer<typeof forgotPasswordSchema>,
+) => {
+  const validatedFields = forgotPasswordSchema.safeParse(values);
+
+  if (!validatedFields.success) {
+    return {
+      error: "Invalid fields",
+    };
+  }
+
+  const { email } = validatedFields.data;
+
+  const existingUser = await getUserByEmail(email);
+  if (!existingUser) {
+    return { error: "Không có tài khoản với email bạn cung cấp" };
+  }
+
+  return {
+    success: `Link lấy lại mật khẩu vừa được gửi tới ${email}, vui lòng kiểm tra email`,
+  };
 };

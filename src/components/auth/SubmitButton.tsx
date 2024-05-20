@@ -5,13 +5,13 @@ import { FC } from "react";
 import Spinner from "../Spinner";
 import { Button } from "../ui/button";
 
-interface EmailAuthButtonProps {
+interface SubmitButtonProps {
   className?: string;
   label: string;
   isLoading?: boolean;
 }
 
-const EmailAuthButton: FC<EmailAuthButtonProps> = ({
+const SubmitButton: FC<SubmitButtonProps> = ({
   className,
   label,
   isLoading,
@@ -28,4 +28,4 @@ const EmailAuthButton: FC<EmailAuthButtonProps> = ({
   );
 };
 
-export default EmailAuthButton;
+export default SubmitButton;

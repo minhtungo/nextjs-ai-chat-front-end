@@ -14,14 +14,14 @@ import { signInSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { startTransition, useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import EmailAuthButton from "./EmailAuthButton";
+import SubmitButton from "./SubmitButton";
 import FormError from "./FormError";
 import FormWrapper from "./FormWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
-import { signUpHref } from "@/routes";
+import { forgotPasswordHref, signUpHref } from "@/routes";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -29,7 +29,10 @@ const SignInForm = () => {
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different credentials"
       : "";
+
   const [errorMessage, setErrorMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
+
   // const [successMessage, setSuccessMessage] = useState("");
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -79,7 +82,7 @@ const SignInForm = () => {
                 <div className="flex items-center">
                   <FormLabel>Mật khẩu</FormLabel>
                   <Link
-                    href="#"
+                    href={forgotPasswordHref}
                     className="ml-auto inline-block text-sm underline"
                   >
                     Quên mật khẩu?
@@ -96,10 +99,7 @@ const SignInForm = () => {
             <FormError message={errorMessage || urlError} />
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
-          <EmailAuthButton
-            label="Đăng nhập"
-            isLoading={form.formState.isLoading}
-          />
+          <SubmitButton label="Đăng nhập" isLoading={isPending} />
         </form>
       </Form>
       <GoogleAuthButton className="mt-3" />

@@ -30,3 +30,9 @@ export const signUpSchema = object({
   message: "Mật khẩu xác thực không khớp",
   path: ["confirm_password"],
 });
+
+export const forgotPasswordSchema = object({
+  email: string({ required_error: "Email không được để trống" })
+    .min(1, "Email không được để trống")
+    .email({ message: "Email không hợp lệ" }),
+});

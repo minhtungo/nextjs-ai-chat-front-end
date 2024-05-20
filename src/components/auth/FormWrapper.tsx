@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { FC, ReactNode } from "react";
 import { buttonVariants } from "../ui/button";
+import BackButton from "./BackButton";
 
 interface formWrapperProps {
   children?: ReactNode;
@@ -28,17 +29,17 @@ const FormWrapper: FC<formWrapperProps> = ({
       <CardHeader>
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
       </CardHeader>
-      <CardContent>{children}</CardContent>
-      {backButtonHref && backButtonLabel && (
-        <CardFooter>
-          <Link
+      <CardContent>
+        {children}
+        {backButtonHref && backButtonLabel && (
+          <BackButton
+            className="mt-3"
             href={backButtonHref}
-            className={cn(buttonVariants({ variant: "default" }))}
-          >
-            {backButtonLabel}
-          </Link>
-        </CardFooter>
-      )}
+            label={backButtonLabel}
+            variant="outline"
+          />
+        )}
+      </CardContent>
     </Card>
   );
 };

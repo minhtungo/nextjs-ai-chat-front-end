@@ -14,10 +14,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { startTransition, useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import EmailAuthButton from "./EmailAuthButton";
+import SubmitButton from "./SubmitButton";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
@@ -27,6 +27,7 @@ import { signInHref } from "@/routes";
 const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -110,10 +111,7 @@ const SignUpForm = () => {
           />
           {errorMessage && <FormError message={errorMessage} />}
           {successMessage && <FormSuccess message={successMessage} />}
-          <EmailAuthButton
-            label="Tạo tài khoản"
-            isLoading={form.formState.isSubmitting}
-          />
+          <SubmitButton label="Tạo tài khoản" isLoading={isPending} />
         </form>
       </Form>
       <GoogleAuthButton className="mt-3" />
