@@ -21,9 +21,11 @@ import { z } from "zod";
 import EmailAuthButton from "./EmailAuthButton";
 import FormError from "./FormError";
 import GoogleAuthButton from "./GoogleAuthButton";
+import FormSuccess from "./FormSuccess";
 
 const SignUpForm = () => {
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
@@ -35,12 +37,14 @@ const SignUpForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof signUpSchema>) => {
-    setError("");
+    setErrorMessage("");
 
     startTransition(() => {
       signUpWithCredentials(values).then((data) => {
         if (data?.error) {
-          setError(data.error);
+          setErrorMessage(data.error);
+        } else if (data?.success) {
+          setSuccessMessage(data.success);
         }
       });
     });
@@ -100,7 +104,8 @@ const SignUpForm = () => {
                 </FormItem>
               )}
             />
-            {error && <FormError message={error} />}
+            {errorMessage && <FormError message={errorMessage} />}
+            {successMessage && <FormSuccess message={successMessage} />}
             <EmailAuthButton
               label="Tạo tài khoản"
               isLoading={form.formState.isSubmitting}

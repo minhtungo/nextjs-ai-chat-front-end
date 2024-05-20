@@ -5,6 +5,7 @@ import { getUserByEmail } from "@/data/user";
 import { saltAndHashPassword } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { signInSchema, signUpSchema } from "@/lib/definitions";
+import { generateVerificationToken } from "@/lib/tokens";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { z } from "zod";
@@ -77,6 +78,9 @@ export const signUpWithCredentials = async (
       password: hashedPassword,
     },
   });
+  const verificationToken = await generateVerificationToken(email);
+
+  return { success: "Sent" };
 };
 
 export const signOut = async () => {
