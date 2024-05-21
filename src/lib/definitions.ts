@@ -52,3 +52,7 @@ export const resetPasswordSchema = object({
   message: "Mật khẩu xác thực không khớp",
   path: ["confirm_password"],
 });
+
+export const updateUserProfileSchema = object({
+  name: string().min(1, "Tên không được để trống"),
+});

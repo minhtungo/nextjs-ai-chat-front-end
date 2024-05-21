@@ -1,18 +1,19 @@
-import { User } from "next-auth";
+import { ExtendedUser } from "@/types/next-auth";
 import { FC } from "react";
-import { Card, CardHeader, CardTitle } from "../ui/card";
+
+import TwoFactorSetting from "./TwoFactorSetting";
+import UserInfo from "./UserInfo";
 
 interface UserProfileProps {
-  user?: User;
+  user: ExtendedUser;
 }
 
 const UserProfile: FC<UserProfileProps> = ({ user }) => {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{user?.name}</CardTitle>
-      </CardHeader>
-    </Card>
+    <>
+      <UserInfo user={user} />
+      <TwoFactorSetting isTwoFactorEnabled={user.isTwoFactorEnabled} />
+    </>
   );
 };
 

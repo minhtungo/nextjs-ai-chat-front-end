@@ -20,7 +20,7 @@ const MobileMenu: FC<MobileMenuProps> = () => {
   return (
     <div className="sm:hidden">
       <Sheet>
-        <SheetTrigger asChild>
+        <SheetTrigger>
           <Menu />
         </SheetTrigger>
         <SheetContent className="">

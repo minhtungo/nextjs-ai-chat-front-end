@@ -12,8 +12,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { cn } from "@/lib/utils";
-import { CreditCard, LogOut, Settings } from "lucide-react";
+import { CreditCard, LogOut, Settings, UserRound } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 import { FC } from "react";
 interface UserMenuProps {
   className?: string;
@@ -45,11 +46,20 @@ const UserMenu: FC<UserMenuProps> = ({ className }) => {
           <div className="text-[13px] text-muted-foreground">{user?.email}</div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <CreditCard className="h-4 w-4" /> Billing
+        <DropdownMenuItem asChild>
+          <Link href="/dashboard/profile" className="gap-x-1.5">
+            <UserRound className="h-4 w-4" /> Profile
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings className="h-4 w-4" /> Cài đặt
+        <DropdownMenuItem asChild>
+          <Link href="/dashboard/billing" className="gap-x-1.5">
+            <CreditCard className="h-4 w-4" /> Billing
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/dashboard/settings" className="gap-x-1.5">
+            <Settings className="h-4 w-4" /> Cài đặt
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem

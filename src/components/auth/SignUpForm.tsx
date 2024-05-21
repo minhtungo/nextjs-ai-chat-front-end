@@ -14,9 +14,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import SubmitButton from "./SubmitButton";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";

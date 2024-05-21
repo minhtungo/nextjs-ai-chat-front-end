@@ -18,6 +18,8 @@ export default async function DashBoardLayout({
     session.user = {
       name: session.user.name,
       email: session.user.email,
+      role: session.user.role,
+      isTwoFactorEnabled: session.user.isTwoFactorEnabled,
     };
   }
   return (

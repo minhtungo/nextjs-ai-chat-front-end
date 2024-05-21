@@ -1,5 +1,5 @@
 import { type UserRole } from "@prisma/client";
-import { type DefaultSession } from "next-auth";
+import { User, type DefaultSession } from "next-auth";
 
 declare module "next-auth" {
   /**
@@ -9,6 +9,7 @@ declare module "next-auth" {
     user: {
       /** The user's postal address. */
       role: UserRole;
+      isTwoFactorEnabled: boolean;
       /**
        * By default, TypeScript merges new interface properties and overwrites existing ones.
        * In this case, the default session user properties will be overwritten,
@@ -17,4 +18,9 @@ declare module "next-auth" {
        */
     } & DefaultSession["user"];
   }
+}
+
+export interface ExtendedUser extends User {
+  role: UserRole;
+  isTwoFactorEnabled: boolean;
 }
