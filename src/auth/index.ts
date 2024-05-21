@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type UserRole } from "@prisma/client";
+import { getAccountByUserId } from "@/data/account";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -54,6 +55,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       if (!existingUser) return token;
 
+      const existingAccount = await getAccountByUserId(existingUser.id);
+
+      token.isAuth = !!existingAccount;
       token.name = existingUser.name;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
@@ -73,6 +77,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       if (session.user) {
         session.user.name = token.name;
+        session.user.isOauth = token.isOauth as boolean;
       }
 
       return session;

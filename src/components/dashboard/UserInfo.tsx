@@ -39,7 +39,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
-      name: user.name! || "",
+      name: user.name! || undefined,
     },
   });
 
@@ -50,11 +50,12 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
           if (data?.error) {
             toast.error(data.error);
           } else if (data?.success) {
+            update();
             toast.success(data.success);
           }
         })
-        .then(() => {
-          update();
+        .catch(() => {
+          toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
         });
     });
   };
