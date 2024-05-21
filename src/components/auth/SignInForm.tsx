@@ -33,7 +33,7 @@ const SignInForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isPending, startTransition] = useTransition();
   const [showTwoFactor, setShowTwoFactor] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  // const [successMessage, setSuccessMessage] = useState("");
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -52,9 +52,10 @@ const SignInForm = () => {
           if (data?.error) {
             form.reset();
             setErrorMessage(data.error);
-          } else if (data?.success) {
-            setSuccessMessage(data?.success);
           }
+          // else if (data?.success) {
+          //   setSuccessMessage(data?.success);
+          // }
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
