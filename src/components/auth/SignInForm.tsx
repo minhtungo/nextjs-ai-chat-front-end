@@ -17,7 +17,7 @@ import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
 import FormWrapper from "./FormWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
@@ -135,6 +135,7 @@ const SignInForm = () => {
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
           <SubmitButton
+            className="w-full"
             label={showTwoFactor ? "Xác nhận" : "Đăng nhập"}
             isLoading={isPending}
           />

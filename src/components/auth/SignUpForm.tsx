@@ -17,7 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
@@ -111,7 +111,11 @@ const SignUpForm = () => {
           />
           {errorMessage && <FormError message={errorMessage} />}
           {successMessage && <FormSuccess message={successMessage} />}
-          <SubmitButton label="Tạo tài khoản" isLoading={isPending} />
+          <SubmitButton
+            className="w-full"
+            label="Tạo tài khoản"
+            isLoading={isPending}
+          />
         </form>
       </Form>
       <GoogleAuthButton className="mt-3" />

@@ -1,17 +1,6 @@
 "use client";
 
-import { FC, useTransition } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { ExtendedUser } from "@/types/next-auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { updateUserProfile } from "@/actions/settings";
 import {
   Form,
   FormControl,
@@ -20,10 +9,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
 import { updateUserProfileSchema } from "@/lib/definitions";
+import { ExtendedUser } from "@/types/next-auth";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { z } from "zod";
+import SubmitButton from "../SubmitButton";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
 
 interface UserInfoProps {
   user: ExtendedUser;
@@ -31,6 +34,7 @@ interface UserInfoProps {
 
 const UserInfo: FC<UserInfoProps> = ({ user }) => {
   const [isPending, startTransition] = useTransition();
+  const { update } = useSession();
 
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
@@ -40,15 +44,19 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
   });
 
   const onSubmit = (values: z.infer<typeof updateUserProfileSchema>) => {
-    // startTransition(() => {
-    //   signUpWithCredentials(values).then((data) => {
-    //     if (data?.error) {
-    //       setErrorMessage(data.error);
-    //     } else if (data?.success) {
-    //       setSuccessMessage(data.success);
-    //     }
-    //   });
-    // });
+    startTransition(() => {
+      updateUserProfile(values)
+        .then((data) => {
+          if (data?.error) {
+            toast.error(data.error);
+          } else if (data?.success) {
+            toast.success(data.success);
+          }
+        })
+        .then(() => {
+          update();
+        });
+    });
   };
 
   return (
@@ -57,9 +65,9 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
         <CardTitle className="text-xl">Profile</CardTitle>
         <CardDescription>{user.email}</CardDescription>
       </CardHeader>
-      <CardContent className="w-full">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <CardContent className="w-full space-y-4">
             <FormField
               control={form.control}
               name="name"
@@ -73,12 +81,12 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
                 </FormItem>
               )}
             />
-          </form>
-        </Form>
-      </CardContent>
-      <CardFooter className="justify-end border-t py-3 sm:py-3">
-        <Button size="sm">Lưu</Button>
-      </CardFooter>
+          </CardContent>
+          <CardFooter className="justify-end border-t py-3 sm:py-3">
+            <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
+          </CardFooter>
+        </form>
+      </Form>
     </Card>
   );
 };

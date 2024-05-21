@@ -8,6 +8,7 @@ import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
+import { Toaster } from "@/components/ui/sonner";
 export default async function DashBoardLayout({
   children,
 }: Readonly<{
@@ -53,6 +54,7 @@ export default async function DashBoardLayout({
           </main>
         </div>
       </div>
+      <Toaster closeButton />
     </SessionProvider>
   );
 }

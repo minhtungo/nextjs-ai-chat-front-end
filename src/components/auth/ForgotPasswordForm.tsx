@@ -18,7 +18,7 @@ import { z } from "zod";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
 import { forgotPassword } from "@/actions/auth";
 
 const ForgotPasswordForm = () => {
@@ -72,7 +72,11 @@ const ForgotPasswordForm = () => {
 
           {errorMessage && <FormError message={errorMessage} />}
           {successMessage && <FormSuccess message={successMessage} />}
-          <SubmitButton label="Lấy lại mật khẩu" isLoading={isPending} />
+          <SubmitButton
+            className="w-full"
+            label="Lấy lại mật khẩu"
+            isLoading={isPending}
+          />
         </form>
       </Form>
     </FormWrapper>

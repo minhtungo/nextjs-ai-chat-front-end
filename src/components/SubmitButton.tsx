@@ -2,10 +2,10 @@
 
 import { cn } from "@/lib/utils";
 import { FC } from "react";
-import Spinner from "../Spinner";
-import { Button } from "../ui/button";
+import Spinner from "./Spinner";
+import { Button, ButtonProps } from "./ui/button";
 
-interface SubmitButtonProps {
+interface SubmitButtonProps extends ButtonProps {
   className?: string;
   label: string;
   isLoading?: boolean;
@@ -15,12 +15,14 @@ const SubmitButton: FC<SubmitButtonProps> = ({
   className,
   label,
   isLoading,
+  ...props
 }) => {
   return (
     <Button
       type="submit"
       disabled={isLoading}
-      className={cn("flex w-full items-center gap-x-2", className)}
+      className={cn("flex items-center gap-x-2", className)}
+      {...props}
     >
       {label}
       {isLoading && <Spinner />}

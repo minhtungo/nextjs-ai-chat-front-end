@@ -18,7 +18,7 @@ import { z } from "zod";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../SubmitButton";
 import { useSearchParams } from "next/navigation";
 
 const ResetPasswordForm = () => {
@@ -83,7 +83,11 @@ const ResetPasswordForm = () => {
           />
           {errorMessage && <FormError message={errorMessage} />}
           {successMessage && <FormSuccess message={successMessage} />}
-          <SubmitButton label="Đặt mật khẩu" isLoading={isPending} />
+          <SubmitButton
+            className="w-full"
+            label="Đặt mật khẩu"
+            isLoading={isPending}
+          />
         </form>
       </Form>
     </FormWrapper>
