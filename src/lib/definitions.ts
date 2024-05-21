@@ -1,4 +1,4 @@
-import { object, string } from "zod";
+import { object, string, optional } from "zod";
 import { passwordRegex } from "./regex";
 
 export const signInSchema = object({
@@ -9,6 +9,7 @@ export const signInSchema = object({
     1,
     "Mật khẩu không được để trống",
   ),
+  code: optional(string()),
 });
 
 export const signUpSchema = object({

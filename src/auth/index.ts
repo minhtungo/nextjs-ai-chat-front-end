@@ -1,10 +1,11 @@
+import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
+import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { type UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
 import authConfig from "./config";
-import { type UserRole } from "@prisma/client";
-import { authErrorHref, signInHref } from "@/routes";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -27,12 +28,24 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       const existingUser = await getUserById(user.id);
 
-      if (!existingUser?.emailVerified) return false;
+      if (!existingUser || !existingUser?.emailVerified) return false;
 
-      // const existingUser = await getUserById(user.id);
-      // if (!existingUser || !existingUser.emailVerified) {
-      //   return false;
-      // }
+      if (existingUser.isTwoFactorEnabled) {
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
+          existingUser.id,
+        );
+
+        if (!twoFactorConfirmation) {
+          return false;
+        }
+
+        await db.twoFactorConfirmation.delete({
+          where: {
+            id: twoFactorConfirmation.id,
+          },
+        });
+      }
+
       return true;
     },
     async jwt({ token }) {
