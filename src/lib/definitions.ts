@@ -9,7 +9,6 @@ export const signInSchema = object({
     1,
     "Mật khẩu không được để trống",
   ),
-  code: optional(string()),
 });
 
 export const signUpSchema = object({

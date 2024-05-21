@@ -6,7 +6,7 @@ import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
-import { saltAndHashPassword } from "@/lib/auth";
+import { saltAndHashPassword } from "@/lib/security";
 import { db } from "@/lib/db";
 import {
   forgotPasswordSchema,

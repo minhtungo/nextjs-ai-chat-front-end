@@ -1,11 +1,11 @@
+import authConfig from "./config";
+import NextAuth from "next-auth";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type UserRole } from "@prisma/client";
-import NextAuth from "next-auth";
-import authConfig from "./config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),

@@ -30,10 +30,7 @@ const UserMenu: FC<UserMenuProps> = ({ className }) => {
           className="justify-start gap-2 rounded-lg px-3 py-2"
         >
           <Avatar className="h-5 w-5">
-            <AvatarImage
-              src={user?.image || undefined}
-              alt={`${user?.name}-avatar`}
-            />
+            <AvatarImage src={user?.image || ""} alt={`${user?.name}-avatar`} />
             <AvatarFallback className="text-[13px]">
               {user?.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
             </AvatarFallback>
