@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { signUpWithCredentials } from "@/auth/actions";
+import { signUpWithCredentials } from "@/actions/auth";
 import {
   Form,
   FormControl,

@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithCredentials } from "@/auth/actions";
+import { signInWithCredentials } from "@/actions/auth";
 import {
   Form,
   FormControl,

@@ -1,6 +1,6 @@
 "use client";
 
-import { setNewPassword, signUpWithCredentials } from "@/auth/actions";
+import { setNewPassword, signUpWithCredentials } from "@/actions/auth";
 import {
   Form,
   FormControl,

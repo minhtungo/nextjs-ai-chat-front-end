@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import FormWrapper from "./FormWrapper";
 import { useSearchParams } from "next/navigation";
 import Spinner from "../Spinner";
-import { verifyNewUserEmail } from "@/auth/actions";
+import { verifyNewUserEmail } from "@/actions/auth";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import { signInHref } from "@/routes";

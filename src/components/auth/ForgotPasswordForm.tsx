@@ -19,7 +19,7 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
 import SubmitButton from "./SubmitButton";
-import { forgotPassword } from "@/auth/actions";
+import { forgotPassword } from "@/actions/auth";
 
 const ForgotPasswordForm = () => {
   const [errorMessage, setErrorMessage] = useState("");

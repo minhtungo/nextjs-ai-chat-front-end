@@ -1,6 +1,6 @@
 "use client";
 
-import { signInWithGoogle } from "@/auth/actions";
+import { signInWithGoogle } from "@/actions/auth";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Button } from "../ui/button";
