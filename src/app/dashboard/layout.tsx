@@ -4,7 +4,7 @@ import NewMessageButton from "@/components/NewMessageButton";
 import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import DSideMenu from "@/components/dashboard/DSideMenu";
-import DSideMenuSettings from "@/components/dashboard/DSideMenuSettings";
+import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
@@ -34,7 +34,7 @@ export default async function DashBoardLayout({
               <DSideMenu />
             </ScrollArea>
             <div className="w-full px-2 lg:px-3">
-              <DSideMenuSettings className="w-full" />
+              <UserMenu className="w-full" />
             </div>
           </div>
         </div>

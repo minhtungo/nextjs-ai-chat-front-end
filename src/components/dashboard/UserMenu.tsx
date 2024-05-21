@@ -10,16 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { cn } from "@/lib/utils";
 import { CreditCard, LogOut, Settings } from "lucide-react";
-import { useSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { FC } from "react";
-interface DSideMenuSettingsProps {
+interface UserMenuProps {
   className?: string;
 }
 
-const DSideMenuSettings: FC<DSideMenuSettingsProps> = ({ className }) => {
-  const { data } = useSession();
+const UserMenu: FC<UserMenuProps> = ({ className }) => {
+  const user = useCurrentUser();
 
   return (
     <DropdownMenu>
@@ -30,25 +31,21 @@ const DSideMenuSettings: FC<DSideMenuSettingsProps> = ({ className }) => {
         >
           <Avatar className="h-5 w-5">
             <AvatarImage
-              src={data?.user?.image || undefined}
-              alt={`${data?.user?.name}-avatar`}
+              src={user?.image || undefined}
+              alt={`${user?.name}-avatar`}
             />
             <AvatarFallback className="text-[13px]">
-              {data?.user?.name
-                ? data.user.name.split(" ").pop()?.charAt(0)
-                : "G"}
+              {user?.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
             </AvatarFallback>
           </Avatar>
-          <span>{data?.user?.name}</span>
+          <span>{user?.name}</span>
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
-          <div>{data?.user?.name}</div>
-          <div className="text-[13px] text-muted-foreground">
-            {data?.user?.email}
-          </div>
+          <div>{user?.name}</div>
+          <div className="text-[13px] text-muted-foreground">{user?.email}</div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
@@ -72,4 +69,4 @@ const DSideMenuSettings: FC<DSideMenuSettingsProps> = ({ className }) => {
   );
 };
 
-export default DSideMenuSettings;
+export default UserMenu;
