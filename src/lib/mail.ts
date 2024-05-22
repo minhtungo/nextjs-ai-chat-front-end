@@ -1,8 +1,10 @@
+import { EmailNotiChangePassword } from "@/components/email/EmailNotiChangePassword";
 import { EmailResetPassword } from "@/components/email/EmailResetPassword";
 import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
 import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
 import { emailVerificationHref, resetPasswordHref } from "@/routes";
 import { Resend } from "resend";
+import { formatDate } from "./utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -38,6 +40,17 @@ export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
     to: [email],
     subject: "Two Factor Code Email",
     react: EmailTwoFactor({ token }),
+    text: "Two Factor Code Email",
+  });
+};
+
+export const sendChangePasswordEmail = async (email: string, name: string) => {
+  const currentTime = formatDate(new Date());
+  await resend.emails.send({
+    from: fromEmail,
+    to: [email],
+    subject: "Password Change",
+    react: EmailNotiChangePassword({ name, currentTime }),
     text: "Two Factor Code Email",
   });
 };

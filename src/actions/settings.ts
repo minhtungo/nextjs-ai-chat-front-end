@@ -10,6 +10,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
+import { sendChangePasswordEmail } from "@/lib/mail";
 
 export const updateUserProfile = async (
   values: z.infer<typeof updateUserProfileSchema>,
@@ -97,6 +98,8 @@ export const changeUserPassword = async (
         password: hashedPassword,
       },
     });
+
+    sendChangePasswordEmail(dbUser.email, dbUser?.name!);
 
     return { success: "Đổi mật khẩu thành công" };
   }
