@@ -56,7 +56,10 @@ export const resetPasswordSchema = object({
 
 export const updateUserProfileSchema = object({
   name: string().min(1, "Tên không được để trống"),
-  isTwoFactorEnabled: optional(boolean()),
+});
+
+export const twoFactorToggleSchema = object({
+  isTwoFactorEnabled: boolean(),
 });
 
 export const changeUserPasswordSchema = object({

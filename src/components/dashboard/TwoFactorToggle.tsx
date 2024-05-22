@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUserProfile } from "@/actions/settings";
+import { toggleTwoFactor, updateUserProfile } from "@/actions/settings";
 import {
   Card,
   CardContent,
@@ -16,7 +16,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { updateUserProfileSchema } from "@/lib/definitions";
+import { twoFactorToggleSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
 import { FC, useTransition } from "react";
@@ -34,17 +34,16 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
   const [isPending, startTransition] = useTransition();
   const { update } = useSession();
 
-  const form = useForm<z.infer<typeof updateUserProfileSchema>>({
-    resolver: zodResolver(updateUserProfileSchema),
+  const form = useForm<z.infer<typeof twoFactorToggleSchema>>({
+    resolver: zodResolver(twoFactorToggleSchema),
     defaultValues: {
       isTwoFactorEnabled: isTwoFactorEnabled || undefined,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof updateUserProfileSchema>) => {
-    console.log("hellllooooo");
+  const onSubmit = (values: z.infer<typeof twoFactorToggleSchema>) => {
     startTransition(() => {
-      updateUserProfile(values)
+      toggleTwoFactor(values)
         .then((data) => {
           if (data?.error) {
             toast.error(data.error);
