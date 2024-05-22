@@ -57,11 +57,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       const existingAccount = await getAccountByUserId(existingUser.id);
 
-      token.isAuth = !!existingAccount;
+      token.isOauth = !!existingAccount;
       token.name = existingUser.name;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-
+      console.log(token);
       return token;
     },
     async session({ token, session }) {

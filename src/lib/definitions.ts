@@ -1,4 +1,4 @@
-import { object, string, optional } from "zod";
+import { object, string, optional, boolean } from "zod";
 import { passwordRegex } from "./regex";
 
 export const signInSchema = object({
@@ -56,4 +56,29 @@ export const resetPasswordSchema = object({
 
 export const updateUserProfileSchema = object({
   name: string().min(1, "Tên không được để trống"),
+  isTwoFactorEnabled: optional(boolean()),
 });
+
+export const changeUserPasswordSchema = object({
+  password: string({
+    required_error: "Mật khẩu hiện tại không được để trống",
+  }).min(1, "Mật khẩu hiện tại không được để trống"),
+  newPassword: string({ required_error: "Mật khẩu mới không được để trống" })
+    .min(8, "Mật khẩu cần có ít nhất 8 kí tự")
+    .max(64, "Mật khẩu có tối đa 64 kí tự")
+    .regex(
+      passwordRegex,
+      "Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 kí tự đặc biệt và 1 số.",
+    ),
+  confirmNewPassword: string({
+    required_error: "Mật khẩu xác thực không được để trống",
+  }).min(1, "Mật khẩu xác thực không được để trống"),
+})
+  .refine((data) => data.password !== data.newPassword, {
+    message: "Mật khẩu mới không được trùng mật khẩu hiện tại",
+    path: ["newPassword"],
+  })
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Mật khẩu xác thực không khớp",
+    path: ["confirmNewPassword"],
+  });
