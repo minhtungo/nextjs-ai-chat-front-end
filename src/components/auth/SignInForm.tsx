@@ -25,6 +25,7 @@ import { forgotPasswordHref, signUpHref } from "@/routes";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
+  const redirectURL = searchParams.get("redirect");
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
       ? "Email already in use with different credentials"
@@ -47,7 +48,7 @@ const SignInForm = () => {
     setErrorMessage("");
 
     startTransition(() => {
-      signInWithCredentials(values)
+      signInWithCredentials(values, redirectURL)
         .then((data) => {
           if (data?.error) {
             form.reset();

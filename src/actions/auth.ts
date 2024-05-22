@@ -28,14 +28,15 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 import { AuthError } from "next-auth";
 import { z } from "zod";
 
-export const signInWithGoogle = async () => {
+export const signInWithGoogle = async (redirectURL: string | null) => {
   await signIn("google", {
-    redirectTo: DEFAULT_LOGIN_REDIRECT,
+    redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
   });
 };
 
 export const signInWithCredentials = async (
   values: z.infer<typeof signInSchema>,
+  redirectURL: string | null,
 ) => {
   const validatedFields = signInSchema.safeParse(values);
 
@@ -106,7 +107,7 @@ export const signInWithCredentials = async (
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (error) {
     if (error instanceof AuthError) {

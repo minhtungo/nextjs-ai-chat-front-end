@@ -28,7 +28,14 @@ export default auth((req) => {
     return null;
   }
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL(signInHref, nextUrl));
+    let redirectURL = nextUrl.pathname;
+    if (nextUrl.search) {
+      redirectURL += nextUrl.search;
+    }
+    const encodedRedirectURL = encodeURIComponent(redirectURL);
+    return Response.redirect(
+      new URL(`${signInHref}?redirect=${encodedRedirectURL}`, nextUrl),
+    );
   }
   return null;
 });
