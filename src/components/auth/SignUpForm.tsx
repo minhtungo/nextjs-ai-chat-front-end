@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useTransition } from "react";
+import { Suspense, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
@@ -118,7 +118,9 @@ const SignUpForm = () => {
           />
         </form>
       </Form>
-      <GoogleAuthButton className="mt-3" />
+      <Suspense>
+        <GoogleAuthButton className="mt-3" />
+      </Suspense>
       <div className="mt-4 text-center text-sm">
         Bạn đã có tài khoản?{" "}
         <Link href={signInHref} className="underline">
