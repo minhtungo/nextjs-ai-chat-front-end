@@ -27,6 +27,9 @@ export default auth((req) => {
     }
     return null;
   }
+  if (isPublicRoute && isLoggedIn) {
+    return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  }
   if (!isLoggedIn && !isPublicRoute) {
     let redirectURL = nextUrl.pathname;
     if (nextUrl.search) {
