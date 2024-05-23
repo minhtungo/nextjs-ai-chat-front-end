@@ -1,4 +1,4 @@
-export const publicRoutes = ["/", "/vi"];
+export const publicRoutes = ["/"];
 
 export const apiAuthPrefix = "/api/auth";
 

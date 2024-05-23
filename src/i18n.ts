@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { getRequestConfig } from "next-intl/server";
-import { locales } from "./lib/constant";
+import { locales } from "@/lib/config";
 
 // Can be imported from a shared config
 
