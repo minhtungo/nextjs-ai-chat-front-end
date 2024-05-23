@@ -6,7 +6,7 @@ import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation
 import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
 import { getUserByEmail } from "@/data/user";
 import { getVerificationTokenByToken } from "@/data/verification-token";
-import { saltAndHashPassword } from "@/lib/security";
+import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { db } from "@/lib/db";
 import {
   forgotPasswordSchema,
@@ -97,6 +97,15 @@ export const signInWithCredentials = async (
         },
       });
     } else {
+      const passwordMatch = await comparePassword(
+        password,
+        existingUser.password,
+      );
+
+      if (!passwordMatch) {
+        return { error: "Invalid Credentials" };
+      }
+
       const twoFactorToken = await generateTwoFactorToken(existingUser.email);
       await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token);
 
