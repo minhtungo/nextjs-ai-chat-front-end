@@ -1,35 +1,10 @@
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { buttonVariants } from "@/components/ui/button";
+import Hero from "@/components/home/Hero";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      <MaxWidthWrapper className="mb-12 mt-20 flex flex-col items-center justify-center text-center sm:mt-28">
-        <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-border bg-card px-7 py-2 shadow-md backdrop-blur transition-all">
-          <p className="text-sm font-semibold text-card-foreground">
-            Lumi đã sẵn sàng!
-          </p>
-        </div>
-        <h1 className="max-w-4xl text-4xl font-bold md:text-5xl md:!leading-tight lg:text-6xl">
-          Nâng Cao Kiến Thức, Đơn Giản Hơn Bao Giờ Hết
-        </h1>
-        <p className="mt-5 max-w-prose text-muted-foreground sm:text-lg">
-          Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp
-          bạn học tập hiệu quả và đạt kết quả cao hơn.
-        </p>
-
-        <Link
-          className={buttonVariants({
-            size: "lg",
-            className: "mt-5",
-          })}
-          href="/dashboard/chat"
-        >
-          Hỏi Lumi
-        </Link>
-      </MaxWidthWrapper>
+      <Hero />
 
       <div>
         <div className="relative isolate">

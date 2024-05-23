@@ -44,3 +44,5 @@ export const SOCIAL_LINKS = [
 ];
 
 export const EXPIRY_PERIOD = 1800 * 1000;
+
+export const locales = ["vi", "en"];
