@@ -42,7 +42,7 @@ export const signInWithCredentials = async (
 
   if (!validatedFields.success) {
     return {
-      error: "Invalid fields",
+      error: "error.invalidFields",
     };
   }
 
@@ -56,7 +56,7 @@ export const signInWithCredentials = async (
     !existingUser.password ||
     !existingUser.emailVerified
   ) {
-    return { error: "Invalid credentials" };
+    return { error: "error.invalidCredentials" };
   }
 
   if (existingUser.isTwoFactorEnabled && existingUser.email) {
@@ -64,17 +64,17 @@ export const signInWithCredentials = async (
       const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
 
       if (!twoFactorToken) {
-        return { error: "Invalid token" };
+        return { error: "error.tokenInvalid" };
       }
 
       if (twoFactorToken.token !== code) {
-        return { error: "Invalid code" };
+        return { error: "error.invalidCode" };
       }
 
       const hasExpired = new Date(twoFactorToken.expires) < new Date();
 
       if (hasExpired) {
-        return { error: "Code has expired" };
+        return { error: "error.expiredCode" };
       }
 
       await db.twoFactorToken.delete({
@@ -103,7 +103,7 @@ export const signInWithCredentials = async (
       );
 
       if (!passwordMatch) {
-        return { error: "Invalid Credentials" };
+        return { error: "error.invalidCredentials" };
       }
 
       const twoFactorToken = await generateTwoFactorToken(existingUser.email);
@@ -122,9 +122,9 @@ export const signInWithCredentials = async (
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return { error: "Invalid credentials" };
+          return { error: "error.invalidCredentials" };
         default:
-          return { error: "Something went wrong" };
+          return { error: "error.generalError" };
       }
     }
 
@@ -139,7 +139,7 @@ export const signUpWithCredentials = async (
 
   if (!validatedFields.success) {
     return {
-      error: "Invalid fields",
+      error: "error.invalidFields",
     };
   }
 
@@ -153,13 +153,12 @@ export const signUpWithCredentials = async (
         existingUser.email,
       );
       return {
-        success:
-          "You have to verify your email first. We just sent a new verification email.",
+        success: "success.signUp",
       };
     }
 
     return {
-      error: "Email đã được sử dụng",
+      error: "error.emailInUse",
     };
   }
 
@@ -175,7 +174,7 @@ export const signUpWithCredentials = async (
   const verificationToken = await generateVerificationToken(email);
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
-  return { success: "Chúng tôi đã gửi 1 email xác thực cho bạn" };
+  return { success: "success.signUp" };
 };
 
 export const signOut = async () => {
@@ -187,18 +186,18 @@ export const signOut = async () => {
 export const verifyNewUserEmail = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
   if (!existingToken) {
-    return { error: "Invalid token" };
+    return { error: "error.tokenInvalid" };
   }
   const hasExpired = new Date(existingToken.expires) < new Date();
 
   if (hasExpired) {
-    return { error: "Token has expired" };
+    return { error: "error.tokenExpired" };
   }
 
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Không có tài khoản với email bạn cung cấp" };
+    return { error: "error.invalidVerificationEmail" };
   }
 
   await db.user.update({
@@ -208,7 +207,7 @@ export const verifyNewUserEmail = async (token: string) => {
 
   await db.verificationToken.delete({ where: { id: existingToken.id } });
 
-  return { success: "Email của bạn đã được xác nhận" };
+  return { success: "success.emailVerified" };
 };
 
 export const forgotPassword = async (
@@ -218,7 +217,7 @@ export const forgotPassword = async (
 
   if (!validatedFields.success) {
     return {
-      error: "Invalid fields",
+      error: "error.invalidFields",
     };
   }
 
@@ -226,7 +225,7 @@ export const forgotPassword = async (
 
   const existingUser = await getUserByEmail(email);
   if (!existingUser) {
-    return { error: "Không có tài khoản với email bạn cung cấp" };
+    return { error: "error.invalidVerificationEmail" };
   }
 
   const passwordResetToken = await generatePasswordResetToken(email);
@@ -236,7 +235,7 @@ export const forgotPassword = async (
   );
 
   return {
-    success: `Link lấy lại mật khẩu vừa được gửi tới ${email}, vui lòng kiểm tra email`,
+    success: "success.resetPasswordEmailSent",
   };
 };
 
@@ -245,14 +244,14 @@ export const setNewPassword = async (
   token: string | null,
 ) => {
   if (!token) {
-    return { error: "Missing token" };
+    return { error: "error.tokenMissing" };
   }
 
   const validatedFields = resetPasswordSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return {
-      error: "Invalid fields",
+      error: "error.invalidFields",
     };
   }
 
@@ -261,18 +260,18 @@ export const setNewPassword = async (
   const existingToken = await getPasswordResetTokenByToken(token);
 
   if (!existingToken) {
-    return { error: "Invalid token" };
+    return { error: "error.tokenInvalid" };
   }
   const hasExpired = new Date(existingToken.expires) < new Date();
 
   if (hasExpired) {
-    return { error: "Token has expired" };
+    return { error: "error.tokenExpired" };
   }
 
   const existingUser = await getUserByEmail(existingToken.email);
 
   if (!existingUser) {
-    return { error: "Không có tài khoản với email bạn cung cấp" };
+    return { error: "error.invalidVerificationEmail" };
   }
 
   const hashedPassword = await saltAndHashPassword(password);
@@ -288,5 +287,5 @@ export const setNewPassword = async (
     },
   });
 
-  return { success: "Mật khẩu đã được thay đổi" };
+  return { success: "success.passwordChanged" };
 };

@@ -2,60 +2,54 @@ import { object, string, optional, boolean } from "zod";
 import { passwordRegex } from "./regex";
 
 export const signInSchema = object({
-  email: string({ required_error: "Email không được để trống" })
-    .min(1, "Email không được để trống")
-    .email({ message: "Email không hợp lệ" }),
-  password: string({ required_error: "Mật khẩu không được để trống" }).min(
+  email: string({ required_error: "auth.error.email" })
+    .min(1, "auth.error.email")
+    .email({ message: "auth.error.invalidEmail" }),
+  password: string({ required_error: "auth.error.password" }).min(
     1,
-    "Mật khẩu không được để trống",
+    "auth.error.password",
   ),
   code: optional(string()),
 });
 
 export const signUpSchema = object({
-  email: string({ required_error: "Email không được để trống" })
-    .min(1, "Email không được để trống")
-    .email({ message: "Email không hợp lệ" }),
-  password: string({ required_error: "Mật khẩu không được để trống" })
-    .min(8, "Mật khẩu cần có ít nhất 8 kí tự")
-    .max(64, "Mật khẩu có tối đa 64 kí tự")
-    .regex(
-      passwordRegex,
-      "Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 kí tự đặc biệt và 1 số.",
-    ),
+  email: string({ required_error: "auth.error.email" })
+    .min(1, "auth.error.email")
+    .email({ message: "auth.error.invalidEmail" }),
+  password: string({ required_error: "auth.error.password" })
+    .min(8, "auth.error.minPasswordLength")
+    .max(64, "auth.error.maxPasswordLength")
+    .regex(passwordRegex, "auth.error.passwordInvalid"),
   confirm_password: string({
-    required_error: "Mật khẩu xác thực không được để trống",
-  }).min(1, "Mật khẩu xác thực không được để trống"),
-  name: string().min(1, "Tên không được để trống"),
+    required_error: "auth.error.confirmPassword",
+  }).min(1, "auth.error.confirmPassword"),
+  name: string().min(1, "auth.error.name"),
 }).refine((data) => data.password === data.confirm_password, {
-  message: "Mật khẩu xác thực không khớp",
+  message: "auth.error.confirmPasswordInvalid",
   path: ["confirm_password"],
 });
 
 export const forgotPasswordSchema = object({
-  email: string({ required_error: "Email không được để trống" })
-    .min(1, "Email không được để trống")
-    .email({ message: "Email không hợp lệ" }),
+  email: string({ required_error: "auth.error.email" })
+    .min(1, "auth.error.email")
+    .email({ message: "auth.error.invalidEmail" }),
 });
 
 export const resetPasswordSchema = object({
-  password: string({ required_error: "Mật khẩu không được để trống" })
-    .min(8, "Mật khẩu cần có ít nhất 8 kí tự")
-    .max(64, "Mật khẩu có tối đa 64 kí tự")
-    .regex(
-      passwordRegex,
-      "Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 kí tự đặc biệt và 1 số.",
-    ),
+  password: string({ required_error: "auth.error.password" })
+    .min(8, "auth.error.minPasswordLength")
+    .max(64, "auth.error.maxPasswordLength")
+    .regex(passwordRegex, "auth.error.passwordInvalid"),
   confirm_password: string({
-    required_error: "Mật khẩu xác thực không được để trống",
-  }).min(1, "Mật khẩu xác thực không được để trống"),
+    required_error: "auth.error.confirmPassword",
+  }).min(1, "auth.error.confirmPassword"),
 }).refine((data) => data.password === data.confirm_password, {
-  message: "Mật khẩu xác thực không khớp",
+  message: "auth.error.confirmPasswordInvalid",
   path: ["confirm_password"],
 });
 
 export const updateUserProfileSchema = object({
-  name: string().min(1, "Tên không được để trống"),
+  name: string().min(1, "auth.error.name"),
 });
 
 export const twoFactorToggleSchema = object({
@@ -64,24 +58,21 @@ export const twoFactorToggleSchema = object({
 
 export const changeUserPasswordSchema = object({
   password: string({
-    required_error: "Mật khẩu hiện tại không được để trống",
-  }).min(1, "Mật khẩu hiện tại không được để trống"),
-  newPassword: string({ required_error: "Mật khẩu mới không được để trống" })
-    .min(8, "Mật khẩu cần có ít nhất 8 kí tự")
-    .max(64, "Mật khẩu có tối đa 64 kí tự")
-    .regex(
-      passwordRegex,
-      "Mật khẩu phải có ít nhất 1 chữ hoa, 1 chữ thường, 1 kí tự đặc biệt và 1 số.",
-    ),
+    required_error: "auth.error.currentPassword",
+  }).min(1, "auth.error.currentPassword"),
+  newPassword: string({ required_error: "auth.error.newPassword" })
+    .min(8, "auth.error.minPasswordLength")
+    .max(64, "auth.error.maxPasswordLength")
+    .regex(passwordRegex, "auth.error.newPasswordInvalid"),
   confirmNewPassword: string({
-    required_error: "Mật khẩu xác thực không được để trống",
-  }).min(1, "Mật khẩu xác thực không được để trống"),
+    required_error: "auth.error.confirmPassword",
+  }).min(1, "auth.error.confirmPassword"),
 })
   .refine((data) => data.password !== data.newPassword, {
-    message: "Mật khẩu mới không được trùng mật khẩu hiện tại",
+    message: "auth.error.passwordDuplicated",
     path: ["newPassword"],
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
-    message: "Mật khẩu xác thực không khớp",
+    message: "auth.error.confirmPasswordInvalid",
     path: ["confirmNewPassword"],
   });

@@ -1,8 +1,114 @@
 {
   "public": {
     "Hero": {
+      "noti": "Lumi is ready",
       "title": "Your AI copilot for goal-based learning",
-      "subtitle": "Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp bạn học tập hiệu quả và đạt kết quả cao hơn."
+      "subtitle": "Use advanced AI technology to provide personalized tutoring, helping you study effectively and achieve higher results.",
+      "cta": "Ask Lumi"
+    }
+  },
+  "auth": {
+    "SignUp": {
+      "title": "Sign up for a Lumi account",
+      "cta": "Sign up",
+      "action": {
+        "title": "Already signed up?",
+        "link": "Login"
+      },
+      "fields": {
+        "name": {
+          "label": "Name",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": ""
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": ""
+        },
+        "confirmPassword": {
+          "label": "Confirm Password",
+          "placeholder": ""
+        }
+      }
+    },
+    "SignIn": {
+      "title": "Sign In",
+      "cta": "Sign In",
+      "action": {
+        "title": "Not a member?",
+        "link": "Sign Up"
+      },
+      "confirm": "Confirm",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": ""
+        },
+        "password": {
+          "label": "Password",
+          "placeholder": "",
+          "action": "Forgot password?"
+        }
+      }
+    },
+    "ResetPassword": {
+      "title": "Reset Password",
+      "cta": "Set Password",
+      "fields": {
+        "password": {
+          "label": "New password",
+          "placeholder": ""
+        },
+        "confirmPassword": {
+          "label": "Confirm new password",
+          "placeholder": ""
+        }
+      }
+    },
+    "Verification": {
+      "title": "Verify Email",
+      "cta": "Sign In"
+    },
+    "OAuth": {
+      "title": "Continue with Google"
+    },
+    "error": {
+      "email": "Email required",
+      "invalidEmail": "Invalid email",
+      "password": "Password required",
+      "currentPassword": "Current password required",
+      "currentPasswordInvalid": "Current password is invalid",
+      "newPassword": "New password required",
+      "newPasswordInvalid": "New password need to have at least one uppercase letter, one lowercase letter and one number",
+      "passwordDuplicated": "New password must be different than current password",
+      "minPasswordLength": "Password must be at least 8 characters long",
+      "maxPasswordLength": "Password must be at most 64 characters long",
+      "name": "Name is required",
+      "confirmPassword": "Confirm Password is required",
+      "invalidFields": "Invalid fields",
+      "emailInUse": "Email is already in use",
+      "emailInvalid": "Invalid email",
+      "passwordInvalid": "Password need to have at least one uppercase letter, one lowercase letter and one number",
+      "confirmPasswordInvalid": "Confirm Password is invalid",
+      "OAuthAccountNotLinked": "Email already in use with different credentials",
+      "generalError": "Something went wrong! Please try again",
+      "tokenMissing": "Missing token",
+      "tokenInvalid": "Invalid token",
+      "tokenExpired": "Token expired",
+      "invalidVerificationEmail": "There is no account with the provided email",
+      "invalidCredentials": "Invalid credentials",
+      "invalidCode": "Invalid code",
+      "expiredCode": "Code expired"
+    },
+    "success": {
+      "signUp": "We have sent you an account registration confirmation email. Please check your email to confirm your account",
+      "emailVerified": "Your email has been verified",
+      "passwordChanged": "Your password has been changed",
+      "resetPasswordEmailSent": "An email with the reset password link was sent to your email",
+      "twoFactorEmailSent": "2FA code was sent to your email. Please check your email"
     }
   }
 }

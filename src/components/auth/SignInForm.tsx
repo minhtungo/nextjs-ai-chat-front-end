@@ -22,13 +22,17 @@ import FormError from "./FormError";
 import FormWrapper from "./FormWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
 import { forgotPasswordHref, signUpHref } from "@/routes";
+import { useTranslations } from "next-intl";
+import FormSuccess from "./FormSuccess";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
   const redirectURL = searchParams.get("redirect");
+  const t = useTranslations("auth");
+
   const urlError =
     searchParams.get("error") === "OAuthAccountNotLinked"
-      ? "Email already in use with different credentials"
+      ? "error.OAuthAccountNotLinked"
       : "";
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -62,12 +66,12 @@ const SignInForm = () => {
             setShowTwoFactor(true);
           }
         })
-        .catch(() => setErrorMessage("Something went wrong"));
+        .catch(() => setErrorMessage("error.generalError"));
     });
   };
 
   return (
-    <FormWrapper headerLabel="Chào mừng đến với Lumi">
+    <FormWrapper headerLabel={t("SignIn.title")}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!showTwoFactor ? (
@@ -77,11 +81,11 @@ const SignInForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>{t("SignIn.fields.email.label")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Địa chỉ email"
+                        placeholder={t("SignIn.fields.email.placeholder")}
                         {...field}
                       />
                     </FormControl>
@@ -95,18 +99,18 @@ const SignInForm = () => {
                 render={({ field }) => (
                   <FormItem>
                     <div className="flex items-center">
-                      <FormLabel>Mật khẩu</FormLabel>
+                      <FormLabel>{t("SignIn.fields.password.label")}</FormLabel>
                       <Link
                         href={forgotPasswordHref}
                         className="ml-auto inline-block text-sm underline"
                       >
-                        Quên mật khẩu?
+                        {t("SignIn.fields.password.action")}
                       </Link>
                     </div>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="********"
+                        placeholder={t("SignIn.fields.password.placeholder")}
                         {...field}
                       />
                     </FormControl>
@@ -116,28 +120,31 @@ const SignInForm = () => {
               />
             </>
           ) : (
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>2FA code</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="123456" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <>
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>2FA code</FormLabel>
+                    <FormControl>
+                      <Input type="number" placeholder="123456" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormSuccess message={t("success.twoFactorEmailSent")} />
+            </>
           )}
-
+          {/* @ts-ignore*/}
           {(errorMessage || urlError) && (
-            <FormError message={errorMessage || urlError} />
+            <FormError message={t(errorMessage || urlError)} />
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
           <SubmitButton
             className="w-full"
-            label={showTwoFactor ? "Xác nhận" : "Đăng nhập"}
+            label={showTwoFactor ? t("SignIn.confirm") : t("SignIn.cta")}
             isLoading={isPending}
           />
         </form>
@@ -146,9 +153,9 @@ const SignInForm = () => {
         <>
           <GoogleAuthButton className="mt-3" />
           <div className="mt-4 text-center text-sm">
-            Bạn chưa có tài khoản?{" "}
+            {t("SignIn.action.title")}{" "}
             <Link href={signUpHref} className="underline">
-              Đăng ký
+              {t("SignIn.action.link")}
             </Link>
           </div>
         </>

@@ -8,6 +8,7 @@ import { verifyNewUserEmail } from "@/actions/auth";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import { signInHref } from "@/routes";
+import { useTranslations } from "next-intl";
 
 interface VerificationFormProps {}
 
@@ -17,6 +18,8 @@ const VerificationForm: FC<VerificationFormProps> = () => {
 
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+
+  const t = useTranslations("auth");
 
   const onSubmit = useCallback(() => {
     if (!token) {
@@ -30,7 +33,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
         setErrorMessage(data.error);
       })
       .catch(() => {
-        setErrorMessage("Something went wrong!");
+        setErrorMessage("error.generalError");
       });
   }, [token]);
 
@@ -40,13 +43,15 @@ const VerificationForm: FC<VerificationFormProps> = () => {
 
   return (
     <FormWrapper
-      headerLabel="Xác thực email"
+      headerLabel={t("Verification.title")}
       backButtonHref={signInHref}
-      backButtonLabel="Đăng nhập"
+      backButtonLabel={t("Verification.cta")}
     >
       {!errorMessage && !successMessage && <Spinner />}
-      {errorMessage && <FormError message={errorMessage} />}
-      {successMessage && <FormSuccess message={successMessage} />}
+      {/* @ts-ignore*/}
+      {errorMessage && <FormError message={t(errorMessage)} />}
+      {/* @ts-ignore*/}
+      {successMessage && <FormSuccess message={t(successMessage)} />}
     </FormWrapper>
   );
 };

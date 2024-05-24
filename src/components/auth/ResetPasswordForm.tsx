@@ -20,10 +20,13 @@ import FormSuccess from "./FormSuccess";
 import FormWrapper from "./FormWrapper";
 import SubmitButton from "../SubmitButton";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+
+  const t = useTranslations("auth");
 
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
@@ -52,7 +55,7 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <FormWrapper headerLabel="Tạo mật khẩu mới">
+    <FormWrapper headerLabel={t("ResetPassword.title")}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -60,9 +63,15 @@ const ResetPasswordForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Mật khẩu mới</FormLabel>
+                <FormLabel>
+                  {t("ResetPassword.fields.password.label")}
+                </FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder={t("ResetPassword.fields.password.placeholder")}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -73,19 +82,29 @@ const ResetPasswordForm = () => {
             name="confirm_password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Nhập lại mật khẩu</FormLabel>
+                <FormLabel>
+                  {t("ResetPassword.fields.confirmPassword.label")}
+                </FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="********" {...field} />
+                  <Input
+                    type="password"
+                    placeholder={t(
+                      "ResetPassword.fields.confirmPassword.placeholder",
+                    )}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          {errorMessage && <FormError message={errorMessage} />}
-          {successMessage && <FormSuccess message={successMessage} />}
+          {/* @ts-ignore*/}
+          {errorMessage && <FormError message={t(errorMessage)} />}
+          {/* @ts-ignore*/}
+          {successMessage && <FormSuccess message={t(successMessage)} />}
           <SubmitButton
             className="w-full"
-            label="Đặt mật khẩu"
+            label={t("ResetPassword.cta")}
             isLoading={isPending}
           />
         </form>

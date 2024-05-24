@@ -1,8 +1,114 @@
 {
   "public": {
     "Hero": {
+      "noti": "Lumi đã sẵn sàng",
       "title": "Cộng sự AI của bạn cho việc học dựa trên mục tiêu",
-      "subtitle": "Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp bạn học tập hiệu quả và đạt kết quả cao hơn."
+      "subtitle": "Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp bạn học tập hiệu quả và đạt kết quả cao hơn.",
+      "cta": "Hỏi Lumi"
+    }
+  },
+  "auth": {
+    "SignUp": {
+      "title": "Đăng ký tài khoản Lumi",
+      "cta": "Đăng ký",
+      "action": {
+        "title": "Bạn đã có tài khoản?",
+        "link": "Đăng nhập"
+      },
+      "fields": {
+        "name": {
+          "label": "Tên",
+          "placeholder": ""
+        },
+        "email": {
+          "label": "Email",
+          "placeholder": ""
+        },
+        "password": {
+          "label": "Mật khẩu",
+          "placeholder": ""
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu",
+          "placeholder": ""
+        }
+      }
+    },
+    "SignIn": {
+      "title": "Chào Mừng Đến Với Lumi",
+      "cta": "Đăng nhập",
+      "action": {
+        "title": "Bạn chưa có tài khoản?",
+        "link": "Đăng ký"
+      },
+      "confirm": "Xác nhận",
+      "fields": {
+        "email": {
+          "label": "Email",
+          "placeholder": ""
+        },
+        "password": {
+          "label": "Mật khẩu",
+          "placeholder": "",
+          "action": "Quên mật khẩu?"
+        }
+      }
+    },
+    "ResetPassword": {
+      "title": "Tạo mật khẩu mới",
+      "cta": "Đặt mật khẩu",
+      "fields": {
+        "password": {
+          "label": "Mật khẩu mới",
+          "placeholder": ""
+        },
+        "confirmPassword": {
+          "label": "Xác nhận mật khẩu mới",
+          "placeholder": ""
+        }
+      }
+    },
+    "Verification": {
+      "title": "Xác thực email",
+      "cta": "Đăng nhập"
+    },
+    "OAuth": {
+      "title": "Tiếp tục với Google"
+    },
+    "error": {
+      "email": "Vui lòng nhập email",
+      "invalidEmail": "Email không hợp lệ",
+      "password": "Vui lòng nhập mật khẩu",
+      "currentPassword": "Vui lòng nhập mật khẩu hiện tại",
+      "currentPasswordInvalid": "Mật khẩu hiện tại không đúng",
+      "newPassword": "Vui lòng nhập mật khẩu mới",
+      "newPasswordInvalid": "Mật khẩu mới cần có ít nhất 1 chữ hoa, 1 chữ thường và 1 số",
+      "passwordDuplicated": "Mật khẩu mới không được trùng mật khẩu hiện tại",
+      "minPasswordLength": "Mật khẩu cần có ít nhất 8 kí tự",
+      "maxPasswordLength": "Mật khẩu có tối đa 64 kí tự",
+      "name": "Vui lòng nhập tên",
+      "confirmPassword": "Vui lòng xác nhận mật khẩu",
+      "invalidFields": "Thông tin nhập không hợp lệ",
+      "emailInUse": "Email đã được sử dụng",
+      "emailInvalid": "Email không hợp lệ",
+      "passwordInvalid": "Mật khẩu cần có ít nhất 1 chữ hoa, 1 chữ thường và 1 số",
+      "confirmPasswordInvalid": "Mật khẩu xác thực không hợp lệ",
+      "OAuthAccountNotLinked": "Email đã được sử dụng với thông tin xác thực khác",
+      "generalError": "Đã có lỗi xảy ra, vui lòng thử lại sau",
+      "tokenMissing": "Thiếu token",
+      "tokenInvalid": "Token không hợp lệ",
+      "tokenExpired": "Token đã hết hạn",
+      "invalidVerificationEmail": "Không có tài khoản với email bạn cung cấp",
+      "invalidCredentials": "Thông tin không đúng",
+      "invalidCode": "Code không đúng",
+      "expiredCode": "Code đã hết hạn"
+    },
+    "success": {
+      "signUp": "Chúng tôi đã gửi email xác nhận đăng ký tài khoản. Vui lòng kiểm tra email để xác nhận tài khoản",
+      "emailVerified": "Email của bạn đã được xác thực",
+      "passwordChanged": "Mật khẩu của bạn đã được thay đổi",
+      "resetPasswordEmailSent": "Link lấy lại mật khẩu vừa được gửi tới email của bạn, vui lòng kiểm tra email",
+      "twoFactorEmailSent": "2FA code đã gửi tới email của bạn, vui lòng kiểm tra email"
     }
   }
 }
