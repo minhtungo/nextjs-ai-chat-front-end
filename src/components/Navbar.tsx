@@ -11,6 +11,7 @@ import ThemeToggle from "./ThemeToggle";
 import Logo from "./Logo";
 import { signInHref } from "@/routes";
 import { signUpHref } from "./../routes";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
@@ -55,6 +56,7 @@ const Navbar = () => {
           <div className="ml-auto flex items-center">
             <MobileMenu />
             <ThemeToggle className="ml-2 sm:order-1 sm:ml-4" />
+            <LanguageSwitcher className="ml-2 sm:order-2 sm:ml-4" />
             <div className="hidden items-center space-x-4 sm:flex">
               <Link
                 href={signUpHref}

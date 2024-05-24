@@ -110,5 +110,9 @@
       "resetPasswordEmailSent": "Link lấy lại mật khẩu vừa được gửi tới email của bạn, vui lòng kiểm tra email",
       "twoFactorEmailSent": "2FA code đã gửi tới email của bạn, vui lòng kiểm tra email"
     }
+  },
+  "LocaleSwitcher": {
+    "label": "Đổi ngôn ngữ",
+    "locale": "{locale, select, vi {VI} en {EN} other {Unknown}}"
   }
 }
