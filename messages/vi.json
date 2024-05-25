@@ -1,4 +1,30 @@
 {
+  "pages": {
+    "Home": {
+      "title": "Trang chủ",
+      "description": ""
+    },
+    "SignIn": {
+      "title": "Đăng nhập",
+      "description": ""
+    },
+    "SignUp": {
+      "title": "Đăng ký",
+      "description": ""
+    },
+    "ForgotPassword": {
+      "title": "Quên mật khẩu",
+      "description": ""
+    },
+    "ResetPassword": {
+      "title": "Đặt lại mật khẩu",
+      "description": ""
+    },
+    "EmailVerification": {
+      "title": "Xác thực email",
+      "description": ""
+    }
+  },
   "public": {
     "Hero": {
       "noti": "Lumi đã sẵn sàng",

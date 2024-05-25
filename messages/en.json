@@ -1,4 +1,30 @@
 {
+  "pages": {
+    "Home": {
+      "title": "Home",
+      "description": ""
+    },
+    "SignIn": {
+      "title": "Sign In",
+      "description": ""
+    },
+    "SignUp": {
+      "title": "Sign Up",
+      "description": ""
+    },
+    "ForgotPassword": {
+      "title": "Forgot password",
+      "description": ""
+    },
+    "ResetPassword": {
+      "title": "Reset Password",
+      "description": ""
+    },
+    "EmailVerification": {
+      "title": "Email Verification",
+      "description": ""
+    }
+  },
   "public": {
     "Hero": {
       "noti": "Lumi is ready",

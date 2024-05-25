@@ -1,10 +1,24 @@
 import SignUpForm from "@/components/auth/SignUpForm";
-import { Metadata } from "next";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Đăng ký",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: "pages.SignUp" });
 
-export default function SignUp() {
+  return {
+    title: t("title"),
+  };
+}
+
+export default function SignUp({
+  params: { locale },
+}: Readonly<{
+  params: { locale: string };
+}>) {
+  unstable_setRequestLocale(locale);
+
   return <SignUpForm />;
 }

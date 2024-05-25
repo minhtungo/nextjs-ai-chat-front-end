@@ -1,6 +1,13 @@
 import AuthError from "@/components/auth/AuthError";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const AuthErrorPage = () => {
+const AuthErrorPage = ({
+  params: { locale },
+}: Readonly<{
+  params: { locale: string };
+}>) => {
+  unstable_setRequestLocale(locale);
+
   return <AuthError />;
 };
 

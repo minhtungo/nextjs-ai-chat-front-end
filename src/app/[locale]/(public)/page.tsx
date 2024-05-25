@@ -1,6 +1,18 @@
 import Hero from "@/components/home/Hero";
 import Image from "next/image";
-import { unstable_setRequestLocale } from "next-intl/server";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({ locale, namespace: "pages.Home" });
+
+  return {
+    title: t("title"),
+  };
+}
 
 export default function Home({
   params: { locale },
@@ -11,7 +23,6 @@ export default function Home({
   return (
     <main>
       <Hero />
-
       <div>
         <div className="relative isolate">
           <div

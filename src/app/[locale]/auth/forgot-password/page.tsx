@@ -1,10 +1,27 @@
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
-import { Metadata } from "next";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Quên mật khẩu",
-};
+export async function generateMetadata({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) {
+  const t = await getTranslations({
+    locale,
+    namespace: "pages.ForgotPassword",
+  });
 
-export default function ForgotPasswordPage() {
+  return {
+    title: t("title"),
+  };
+}
+
+export default function ForgotPasswordPage({
+  params: { locale },
+}: Readonly<{
+  params: { locale: string };
+}>) {
+  unstable_setRequestLocale(locale);
+
   return <ForgotPasswordForm />;
 }
