@@ -7,8 +7,8 @@ interface ContainerProps {
 
 const Container: FC<ContainerProps> = ({ children }) => {
   return (
-    <ScrollArea className="h-full flex-1">
-      <div className="sm:px- mx-auto flex h-full w-full max-w-5xl flex-1 flex-col gap-y-5 overflow-hidden px-4 py-10">
+    <ScrollArea className="h-full w-full flex-1 py-4 lg:py-6">
+      <div className="mx-auto flex h-full w-full max-w-5xl flex-1 flex-col gap-y-5 overflow-hidden px-4 lg:px-6">
         {children}
       </div>
     </ScrollArea>

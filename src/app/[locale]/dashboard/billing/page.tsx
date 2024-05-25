@@ -1,3 +1,4 @@
+import PaymentMethods from "@/components/dashboard/PaymentMethods";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,7 +6,7 @@ export const metadata: Metadata = {
 };
 
 const BillingPage = () => {
-  return <div></div>;
+  return <PaymentMethods />;
 };
 
 export default BillingPage;

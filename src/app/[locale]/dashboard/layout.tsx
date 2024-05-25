@@ -9,6 +9,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
 import { Toaster } from "@/components/ui/sonner";
+import Container from "@/components/dashboard/Container";
 export default async function DashBoardLayout({
   children,
 }: Readonly<{
@@ -21,6 +22,7 @@ export default async function DashBoardLayout({
       email: session.user.email,
       role: session.user.role,
       isTwoFactorEnabled: session.user.isTwoFactorEnabled,
+      isOauth: session.user.isOauth,
     };
   }
   return (

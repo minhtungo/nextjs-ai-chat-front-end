@@ -1,6 +1,6 @@
 export const publicRoutes = ["/"];
 
-export const apiAuthPrefix = "/api/auth";
+export const apiAuthPrefix = "/api";
 
 export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
 
