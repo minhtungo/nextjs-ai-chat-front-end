@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import SubmitButton from "../SubmitButton";
 import { forgotPassword } from "@/actions/auth";
 
@@ -49,7 +49,7 @@ const ForgotPasswordForm = () => {
   };
 
   return (
-    <FormWrapper
+    <CardWrapper
       headerLabel="Quên mật khẩu"
       backButtonHref={signInHref}
       backButtonLabel="Quay lại đăng nhập"
@@ -79,7 +79,7 @@ const ForgotPasswordForm = () => {
           />
         </form>
       </Form>
-    </FormWrapper>
+    </CardWrapper>
   );
 };
 

@@ -18,53 +18,51 @@ interface MobileMenuProps {}
 
 const MobileMenu: FC<MobileMenuProps> = () => {
   return (
-    <div className="sm:hidden">
-      <Sheet>
-        <SheetTrigger>
-          <Menu />
-        </SheetTrigger>
-        <SheetContent className="">
-          <SheetHeader>
-            <SheetTitle>Lumi</SheetTitle>
-          </SheetHeader>
-          <nav>
-            <ul className="pb-10 pt-8">
-              {NAV_LINKS.map(({ title, href }) => (
-                <li
-                  key={`${title}-mobile-menu-link`}
-                  className="border-t  border-border py-2 font-semibold first:border-none"
-                >
-                  <Link href={href}>{title}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <SheetFooter className="gap-1.5 border-t border-border py-4">
-            <SheetClose asChild>
-              <Link
-                href={signUpHref}
-                className={buttonVariants({
-                  variant: "ghost",
-                  size: "sm",
-                })}
+    <Sheet>
+      <SheetTrigger className="sm:hidden">
+        <Menu />
+      </SheetTrigger>
+      <SheetContent className="">
+        <SheetHeader>
+          <SheetTitle>Lumi</SheetTitle>
+        </SheetHeader>
+        <nav>
+          <ul className="pb-10 pt-8">
+            {NAV_LINKS.map(({ title, href }) => (
+              <li
+                key={`${title}-mobile-menu-link`}
+                className="border-t  border-border py-2 font-semibold first:border-none"
               >
-                Đăng Ký
-              </Link>
-            </SheetClose>
-            <SheetClose asChild>
-              <Link
-                href={signInHref}
-                className={buttonVariants({
-                  size: "sm",
-                })}
-              >
-                Đăng Nhập
-              </Link>
-            </SheetClose>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
-    </div>
+                <Link href={href}>{title}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <SheetFooter className="gap-1.5 border-t border-border py-4">
+          <SheetClose asChild>
+            <Link
+              href={signUpHref}
+              className={buttonVariants({
+                variant: "ghost",
+                size: "sm",
+              })}
+            >
+              Đăng Ký
+            </Link>
+          </SheetClose>
+          <SheetClose asChild>
+            <Link
+              href={signInHref}
+              className={buttonVariants({
+                size: "sm",
+              })}
+            >
+              Đăng Nhập
+            </Link>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 

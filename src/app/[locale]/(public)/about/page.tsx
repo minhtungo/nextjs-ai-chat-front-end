@@ -14,7 +14,7 @@ export async function generateMetadata({
   };
 }
 
-export default function PricingPage({
+export default function AboutPage({
   params: { locale },
 }: {
   params: { locale: string };

@@ -1,15 +1,14 @@
 import { auth } from "@/auth";
 import Logo from "@/components/Logo";
-import NewMessageButton from "@/components/NewMessageButton";
 import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import DSideMenu from "@/components/dashboard/DSideMenu";
+import FeedbackDropdown from "@/components/dashboard/FeedbackDropdown";
 import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import Link from "next/link";
-import { Toaster } from "@/components/ui/sonner";
-import Container from "@/components/dashboard/Container";
 export default async function DashBoardLayout({
   children,
 }: Readonly<{
@@ -47,8 +46,8 @@ export default async function DashBoardLayout({
           <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
             <DMobileMenu />
             <div className="ml-auto flex items-center gap-x-2">
+              <FeedbackDropdown />
               <ThemeToggle />
-              <NewMessageButton />
             </div>
           </header>
           <main className="relative flex h-full max-h-[calc(100vh-56px)] w-full flex-1 flex-col gap-4 overflow-hidden lg:max-h-[calc(100vh-60px)]">

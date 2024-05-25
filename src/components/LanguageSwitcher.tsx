@@ -48,7 +48,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
       <SelectTrigger className={cn("w-[65px]", className)}>
         <SelectValue placeholder={t("label")} />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="min-w-0">
         {locales.map((cur) => (
           <SelectItem key={cur} value={cur}>
             {t("locale", { locale: cur })}

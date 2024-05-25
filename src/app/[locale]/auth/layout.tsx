@@ -20,7 +20,7 @@ export default function AuthLayout({
   return (
     <>
       <Navbar />
-      <main className="flex h-[calc(100vh-56px)] w-full items-center justify-center">
+      <main className="flex min-h-[calc(100vh-56px)] w-full items-center justify-center px-4 sm:px-6">
         {children}
       </main>
       <Footer />

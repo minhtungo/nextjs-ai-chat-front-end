@@ -1,35 +1,38 @@
 import {
   Card,
   CardContent,
-  CardFooter,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { FC, ReactNode } from "react";
-import { buttonVariants } from "../ui/button";
-import BackButton from "./BackButton";
+import BackButton from "./auth/BackButton";
+import { cn } from "@/lib/utils";
 
-interface formWrapperProps {
+interface cardWrapperProps {
   children?: ReactNode;
   headerLabel: string;
   backButtonLabel?: string;
   backButtonHref?: string;
+  description?: string;
+  className?: string;
 }
 
-const FormWrapper: FC<formWrapperProps> = ({
+const CardWrapper: FC<cardWrapperProps> = ({
   children,
   headerLabel,
   backButtonHref,
   backButtonLabel,
+  description,
+  className,
 }) => {
   return (
     <Card className="mx-auto w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent>
+      <CardContent className={cn(className)}>
         {children}
         {backButtonHref && backButtonLabel && (
           <BackButton
@@ -44,4 +47,4 @@ const FormWrapper: FC<formWrapperProps> = ({
   );
 };
 
-export default FormWrapper;
+export default CardWrapper;

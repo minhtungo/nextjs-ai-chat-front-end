@@ -19,7 +19,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
 import { forgotPasswordHref, signUpHref } from "@/routes";
 import { useTranslations } from "next-intl";
@@ -71,7 +71,7 @@ const SignInForm = () => {
   };
 
   return (
-    <FormWrapper headerLabel={t("SignIn.title")}>
+    <CardWrapper headerLabel={t("SignIn.title")}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!showTwoFactor ? (
@@ -149,9 +149,19 @@ const SignInForm = () => {
           />
         </form>
       </Form>
+      <div className="relative my-4">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            {t("OAuth.alternative")}
+          </span>
+        </div>
+      </div>
       {!showTwoFactor && (
         <>
-          <GoogleAuthButton className="mt-3" />
+          <GoogleAuthButton />
           <div className="mt-4 text-center text-sm">
             {t("SignIn.action.title")}{" "}
             <Link href={signUpHref} className="underline">
@@ -160,7 +170,7 @@ const SignInForm = () => {
           </div>
         </>
       )}
-    </FormWrapper>
+    </CardWrapper>
   );
 };
 

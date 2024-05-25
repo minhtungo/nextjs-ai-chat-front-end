@@ -1,5 +1,5 @@
 import { FC } from "react";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import { signInHref } from "@/routes";
 
 interface AuthErrorProps {
@@ -8,7 +8,7 @@ interface AuthErrorProps {
 
 const AuthError: FC<AuthErrorProps> = ({ className }) => {
   return (
-    <FormWrapper
+    <CardWrapper
       headerLabel="Something went wrong!"
       backButtonLabel="Quay lại đăng nhập"
       backButtonHref={signInHref}

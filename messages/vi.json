@@ -4,6 +4,14 @@
       "title": "Trang chủ",
       "description": ""
     },
+    "Pricing": {
+      "title": "Pricing",
+      "description": ""
+    },
+    "About": {
+      "title": "Về Lumi",
+      "description": ""
+    },
     "SignIn": {
       "title": "Đăng nhập",
       "description": ""
@@ -99,7 +107,8 @@
       "cta": "Đăng nhập"
     },
     "OAuth": {
-      "title": "Tiếp tục với Google"
+      "title": "Tiếp tục với Google",
+      "alternative": "hoặc"
     },
     "error": {
       "email": "Vui lòng nhập email",

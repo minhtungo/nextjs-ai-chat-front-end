@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useCallback, useEffect, useState } from "react";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import { useSearchParams } from "next/navigation";
 import Spinner from "../Spinner";
 import { verifyNewUserEmail } from "@/actions/auth";
@@ -42,7 +42,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   }, [onSubmit]);
 
   return (
-    <FormWrapper
+    <CardWrapper
       headerLabel={t("Verification.title")}
       backButtonHref={signInHref}
       backButtonLabel={t("Verification.cta")}
@@ -52,7 +52,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
       {errorMessage && <FormError message={t(errorMessage)} />}
       {/* @ts-ignore*/}
       {successMessage && <FormSuccess message={t(successMessage)} />}
-    </FormWrapper>
+    </CardWrapper>
   );
 };
 

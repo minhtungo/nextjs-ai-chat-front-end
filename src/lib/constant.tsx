@@ -9,11 +9,11 @@ import {
 export const NAV_LINKS = [
   {
     title: "Về Lumi",
-    href: "#",
+    href: "/about",
   },
   {
     title: "Pricing",
-    href: "#/",
+    href: "/pricing",
   },
 ];
 

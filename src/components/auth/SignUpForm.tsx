@@ -22,7 +22,7 @@ import { z } from "zod";
 import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
 
 const SignUpForm = () => {
@@ -57,7 +57,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <FormWrapper headerLabel={t("SignUp.title")}>
+    <CardWrapper headerLabel={t("SignUp.title")}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -140,6 +140,16 @@ const SignUpForm = () => {
           />
         </form>
       </Form>
+      <div className="relative my-4">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            {t("OAuth.alternative")}
+          </span>
+        </div>
+      </div>
       <Suspense>
         <GoogleAuthButton className="mt-3" />
       </Suspense>
@@ -149,7 +159,7 @@ const SignUpForm = () => {
           {t("SignUp.action.link")}
         </Link>
       </div>
-    </FormWrapper>
+    </CardWrapper>
   );
 };
 

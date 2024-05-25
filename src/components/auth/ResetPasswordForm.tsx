@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
-import FormWrapper from "./FormWrapper";
+import CardWrapper from "../CardWrapper";
 import SubmitButton from "../SubmitButton";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -55,7 +55,7 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <FormWrapper headerLabel={t("ResetPassword.title")}>
+    <CardWrapper headerLabel={t("ResetPassword.title")}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
@@ -109,7 +109,7 @@ const ResetPasswordForm = () => {
           />
         </form>
       </Form>
-    </FormWrapper>
+    </CardWrapper>
   );
 };
 

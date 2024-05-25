@@ -30,7 +30,7 @@ const Chat = () => {
 
   return (
     <>
-      <Container>
+      <Container className="max-w-5xl">
         <div
           className="flex h-full w-full flex-1 flex-col gap-y-5"
           ref={chatBoxRef}
