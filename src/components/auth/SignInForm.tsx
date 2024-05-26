@@ -24,6 +24,7 @@ import GoogleAuthButton from "./GoogleAuthButton";
 import { forgotPasswordHref, signUpHref } from "@/routes";
 import { useTranslations } from "next-intl";
 import FormSuccess from "./FormSuccess";
+import PasswordInput from "./PasswordInput";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -108,8 +109,7 @@ const SignInForm = () => {
                       </Link>
                     </div>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         placeholder={t("SignIn.fields.password.placeholder")}
                         {...field}
                       />

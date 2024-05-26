@@ -2,28 +2,36 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Card = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "rounded-lg bg-card text-card-foreground sm:border sm:shadow-sm",
-      className,
-    )}
-    {...props}
-  />
-));
+type CardProps = HTMLDivElement & {
+  showBorderOnMobile?: boolean;
+};
+
+const Card = React.forwardRef<CardProps, React.HTMLAttributes<HTMLDivElement>>(
+  ({ className, showBorderOnMobile, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "rounded-lg bg-card text-card-foreground",
+        showBorderOnMobile ? "border shadow-sm" : "sm:border sm:shadow-sm",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
 Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, showBorderOnMobile, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex flex-col space-y-1.5 px-0 py-4 sm:p-6", className)}
+    className={cn(
+      "flex flex-col space-y-1.5 sm:p-6",
+      showBorderOnMobile ? "p-4" : "px-0 py-4",
+      className,
+    )}
     {...props}
   />
 ));
@@ -59,10 +67,14 @@ CardDescription.displayName = "CardDescription";
 const CardContent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, showBorderOnMobile, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("px-0 py-4 pt-0 sm:p-6 sm:pt-0", className)}
+    className={cn(
+      "pt-0 sm:p-6 sm:pt-0",
+      showBorderOnMobile ? "p-4" : "px-0 py-4",
+      className,
+    )}
     {...props}
   />
 ));
@@ -71,10 +83,14 @@ CardContent.displayName = "CardContent";
 const CardFooter = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+>(({ className, showBorderOnMobile, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center px-0 py-4 pt-0 sm:p-6", className)}
+    className={cn(
+      "flex items-center pt-0 sm:p-6 sm:pt-0",
+      showBorderOnMobile ? "p-4" : "px-0 py-4",
+      className,
+    )}
     {...props}
   />
 ));

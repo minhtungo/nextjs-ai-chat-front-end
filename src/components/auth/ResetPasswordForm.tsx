@@ -1,6 +1,6 @@
 "use client";
 
-import { setNewPassword, signUpWithCredentials } from "@/actions/auth";
+import { setNewPassword } from "@/actions/auth";
 import {
   Form,
   FormControl,
@@ -12,15 +12,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { resetPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import FormError from "./FormError";
-import FormSuccess from "./FormSuccess";
 import CardWrapper from "../CardWrapper";
 import SubmitButton from "../SubmitButton";
-import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import FormError from "./FormError";
+import FormSuccess from "./FormSuccess";
+import PasswordInput from "./PasswordInput";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -67,8 +68,7 @@ const ResetPasswordForm = () => {
                   {t("ResetPassword.fields.password.label")}
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder={t("ResetPassword.fields.password.placeholder")}
                     {...field}
                   />
@@ -86,8 +86,7 @@ const ResetPasswordForm = () => {
                   {t("ResetPassword.fields.confirmPassword.label")}
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder={t(
                       "ResetPassword.fields.confirmPassword.placeholder",
                     )}

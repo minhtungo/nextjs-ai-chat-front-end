@@ -19,11 +19,12 @@ import { useTranslations } from "next-intl";
 import { Suspense, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import CardWrapper from "../CardWrapper";
 import SubmitButton from "../SubmitButton";
 import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
-import CardWrapper from "../CardWrapper";
 import GoogleAuthButton from "./GoogleAuthButton";
+import PasswordInput from "./PasswordInput";
 
 const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -100,8 +101,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>{t("SignUp.fields.password.label")}</FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder={t("SignUp.fields.password.placeholder")}
                     {...field}
                   />
@@ -119,8 +119,7 @@ const SignUpForm = () => {
                   {t("SignUp.fields.confirmPassword.label")}
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    type="password"
+                  <PasswordInput
                     placeholder={t("SignUp.fields.confirmPassword.placeholder")}
                     {...field}
                   />

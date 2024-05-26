@@ -39,6 +39,65 @@
       "title": "Your AI copilot for goal-based learning",
       "subtitle": "Use advanced AI technology to provide personalized tutoring, helping you study effectively and achieve higher results.",
       "cta": "Ask Lumi"
+    },
+    "About": {
+      "title": "About Lumi",
+      "subtitle": "Our mission",
+      "content": "<p>At Lumi, our mission is to empower students to achieve their academic goals with the help of cutting-edge AI technology. We believe that personalized, high-impact tutoring can make a significant difference in a student's learning journey.</p><p>Our platform offers an AI-powered chatbot that assists students with their exercises and study queries. Whether you need help understanding a complex concept, solving a tricky problem, or preparing for an exam, our chatbot is here to guide you every step of the way. Available both on our web app and as a Discord bot, our service ensures that you can access support whenever and wherever you need it.</p><p>We invite you to join our platform and experience the difference that personalized, AI-driven tutoring can make in your education. Let’s learn and grow together!</p>"
+    },
+    "Pricing": {
+      "title": "Pricing",
+      "subtitle": "Start for free and scale as you grow.",
+      "plan": {
+        "free": {
+          "title": "Free",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        },
+        "pro": {
+          "title": "Pro",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        },
+        "premium": {
+          "title": "Premium",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        }
+      }
     }
   },
   "auth": {
@@ -149,5 +208,21 @@
   "LocaleSwitcher": {
     "label": "Change Language",
     "locale": "{locale, select, vi {VI} en {EN} other {Unknown}}"
+  },
+  "common": {
+    "Navbar": {
+      "About": {
+        "title": "About Lumi"
+      },
+      "Pricing": {
+        "title": "Pricing"
+      },
+      "SignUp": {
+        "title": "Sign up"
+      },
+      "SignIn": {
+        "title": "Sign in"
+      }
+    }
   }
 }

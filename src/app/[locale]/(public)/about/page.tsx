@@ -1,5 +1,4 @@
-import Hero from "@/components/home/Hero";
-import Image from "next/image";
+import AboutUs from "@/components/AboutUs";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
@@ -7,7 +6,7 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations({ locale, namespace: "pages.Pricing" });
+  const t = await getTranslations({ locale, namespace: "pages.About" });
 
   return {
     title: t("title"),
@@ -20,5 +19,5 @@ export default function AboutPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div></div>;
+  return <AboutUs />;
 }

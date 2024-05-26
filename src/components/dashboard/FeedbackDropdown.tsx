@@ -23,7 +23,11 @@ const FeedbackDropdown: FC<FeedbackDropdownProps> = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-1">
+        <Button
+          variant="outline"
+          size="sm"
+          className="hidden gap-1 sm:inline-flex"
+        >
           <MessageSquareMore className="h-4 w-4" /> Feedback
         </Button>
       </DropdownMenuTrigger>

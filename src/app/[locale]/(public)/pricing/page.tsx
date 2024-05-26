@@ -1,5 +1,6 @@
-import Hero from "@/components/home/Hero";
-import Image from "next/image";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import Pricing from "@/components/Pricing";
+import Typography from "@/components/ui/typography";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
@@ -20,5 +21,5 @@ export default function PricingPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <div></div>;
+  return <Pricing />;
 }

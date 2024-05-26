@@ -1,32 +1,36 @@
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { DASHBOARD_LINKS } from "@/lib/constant";
-import { Menu } from "lucide-react";
+import { DASHBOARD_MOBILE_LINKS } from "@/lib/constant";
 import Link from "next/link";
 import { FC } from "react";
+import SheetWrapper from "../SheetWrapper";
+import { SheetClose } from "../ui/sheet";
 
 interface DMobileMenuProps {}
 
 const DMobileMenu: FC<DMobileMenuProps> = () => {
   return (
-    <Sheet>
-      <SheetTrigger className="md:hidden">
-        <Menu />
-      </SheetTrigger>
-      <SheetContent side="left" className="flex flex-col">
-        <nav className="grid gap-2 text-lg font-medium">
-          {DASHBOARD_LINKS.map(({ title, href, icon }) => (
-            <Link
-              key={`${title}-mobile-dashboard-link`}
-              href={href}
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+    <SheetWrapper side="left" className="sm:block md:hidden">
+      <nav>
+        <ul className="flex flex-col">
+          {DASHBOARD_MOBILE_LINKS.map(({ title, href, icon }) => (
+            <li
+              key={`${title}-dashboard-menu-item`}
+              className="border-t border-border py-2.5 font-medium first:border-none"
             >
-              {icon}
-              {title}
-            </Link>
+              <SheetClose asChild>
+                <Link
+                  key={`${title}-mobile-dashboard-item`}
+                  href={href}
+                  className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                >
+                  {icon}
+                  {title}
+                </Link>
+              </SheetClose>
+            </li>
           ))}
-        </nav>
-      </SheetContent>
-    </Sheet>
+        </ul>
+      </nav>
+    </SheetWrapper>
   );
 };
 

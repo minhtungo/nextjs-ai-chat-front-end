@@ -1,20 +1,27 @@
 "use client";
 
-import Link from "next/link";
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import { buttonVariants } from "./ui/button";
-import React, { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
-import MobileMenu from "./MobileMenu";
 import { NAV_LINKS } from "@/lib/constant";
-import ThemeToggle from "./ThemeToggle";
-import Logo from "./Logo";
+import { cn } from "@/lib/utils";
 import { signInHref } from "@/routes";
+import { useLocale, useTranslations } from "next-intl";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { signUpHref } from "./../routes";
 import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import MobileMenu from "./MobileMenu";
+import ThemeToggle from "./ThemeToggle";
+import { buttonVariants } from "./ui/button";
 
 const Navbar = () => {
   const [scrolling, setScrolling] = useState(false);
+
+  const pathname = usePathname();
+  const locale = useLocale();
+
+  const t = useTranslations("common.Navbar");
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -46,18 +53,18 @@ const Navbar = () => {
               {NAV_LINKS.map(({ title, href }) => (
                 <li
                   key={`${title}-desktop-menu-link`}
-                  className="font-medium  hover:text-primary/80"
+                  className={cn(
+                    "text-sm font-medium text-muted-foreground hover:text-primary",
+                    pathname.split(`/${locale}`)[1] === href && "text-primary",
+                  )}
                 >
-                  <Link href={href}>{title}</Link>
+                  <Link href={href}>{t(title)}</Link>
                 </li>
               ))}
             </ul>
           </nav>
-          <div className="ml-auto flex items-center">
-            <MobileMenu />
-            <ThemeToggle className="ml-2 sm:order-1 sm:ml-4" />
-            <LanguageSwitcher className="ml-2 sm:order-2 sm:ml-4" />
-            <div className="hidden items-center space-x-4 sm:flex">
+          <div className="ml-auto flex items-center space-x-3">
+            <div className="hidden items-center space-x-3 sm:flex">
               <Link
                 href={signUpHref}
                 className={buttonVariants({
@@ -65,7 +72,7 @@ const Navbar = () => {
                   size: "sm",
                 })}
               >
-                Đăng Ký
+                {t("SignUp.title")}
               </Link>
 
               <Link
@@ -74,9 +81,12 @@ const Navbar = () => {
                   size: "sm",
                 })}
               >
-                Đăng Nhập
+                {t("SignIn.title")}
               </Link>
             </div>
+            <ThemeToggle />
+            <MobileMenu />
+            <LanguageSwitcher className="hidden sm:flex" />
           </div>
         </div>
       </MaxWidthWrapper>

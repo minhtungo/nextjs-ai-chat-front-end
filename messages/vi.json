@@ -39,6 +39,65 @@
       "title": "Cộng sự AI của bạn cho việc học dựa trên mục tiêu",
       "subtitle": "Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp bạn học tập hiệu quả và đạt kết quả cao hơn.",
       "cta": "Hỏi Lumi"
+    },
+    "About": {
+      "title": "Về Lumi",
+      "subtitle": "Sứ mệnh của chúng tôi",
+      "content": "<p>Tại Lumi, sứ mệnh của chúng tôi là giúp học sinh đạt được mục tiêu học tập của mình với sự hỗ trợ của công nghệ AI tiên tiến. Chúng tôi tin rằng gia sư cá nhân hóa, hiệu quả cao có thể tạo ra sự khác biệt lớn trong hành trình học tập của mỗi học sinh.</p><p>Nền tảng của chúng tôi cung cấp một chatbot được trang bị AI giúp học sinh giải quyết các bài tập và câu hỏi học tập. Cho dù bạn cần giúp đỡ để hiểu một khái niệm phức tạp, giải một bài toán khó, hay chuẩn bị cho kỳ thi, chatbot của chúng tôi sẽ hướng dẫn bạn từng bước. Có sẵn trên cả ứng dụng web và bot Discord, dịch vụ của chúng tôi đảm bảo bạn có thể truy cập sự hỗ trợ bất cứ khi nào và bất cứ đâu bạn cần.</p><p>Chúng tôi mời bạn tham gia nền tảng của chúng tôi và trải nghiệm sự khác biệt mà gia sư cá nhân hóa, được hỗ trợ bởi AI, có thể mang lại cho việc học của bạn. Hãy cùng học hỏi và phát triển!</p>"
+    },
+    "Pricing": {
+      "title": "Pricing",
+      "subtitle": "Start for free and scale as you grow.",
+      "plan": {
+        "free": {
+          "title": "Free",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        },
+        "pro": {
+          "title": "Pro",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        },
+        "premium": {
+          "title": "Enterprise",
+          "duration": "month",
+          "cta": "Hỏi Lumi",
+          "features": {
+            "1": {
+              "title": "Chat with Lumi 1"
+            },
+            "2": {
+              "title": "Chat with Lumi 2"
+            },
+            "3": {
+              "title": "Chat with Lumi 3"
+            }
+          }
+        }
+      }
     }
   },
   "auth": {
@@ -149,5 +208,21 @@
   "LocaleSwitcher": {
     "label": "Đổi ngôn ngữ",
     "locale": "{locale, select, vi {VI} en {EN} other {Unknown}}"
+  },
+  "common": {
+    "Navbar": {
+      "About": {
+        "title": "Về Lumi"
+      },
+      "Pricing": {
+        "title": "Pricing"
+      },
+      "SignUp": {
+        "title": "Đăng ký"
+      },
+      "SignIn": {
+        "title": "Đăng nhập"
+      }
+    }
   }
 }

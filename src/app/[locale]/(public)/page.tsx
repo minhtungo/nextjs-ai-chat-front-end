@@ -1,6 +1,7 @@
 import Hero from "@/components/home/Hero";
 import Image from "next/image";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import ThemeImage from "@/components/ThemeImage";
 
 export async function generateMetadata({
   params: { locale },
@@ -42,13 +43,14 @@ export default function Home({
             <div className="mx-auto max-w-6xl">
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="card-wrapper z-0 rounded-xl p-1 ring-1 ring-inset ring-border lg:rounded-2xl">
-                  <Image
-                    src="/images/hero.png"
-                    alt="product preview"
-                    width={1200}
-                    height={600}
-                    quality={100}
-                    className="relative rounded-xl shadow-2xl  lg:rounded-2xl"
+                  <ThemeImage
+                    srcLight="/images/hero.png"
+                    srcDark="/images/hero-dark.png"
+                    width={1916}
+                    height={966}
+                    fetchPriority="high"
+                    alt="Product Preview"
+                    className="relative rounded-xl shadow-2xl lg:rounded-2xl"
                   />
                 </div>
               </div>

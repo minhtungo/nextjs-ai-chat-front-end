@@ -1,10 +1,9 @@
 "use client";
 
-import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
+import { CornerDownLeft, Paperclip } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Tooltip,
   TooltipContent,
@@ -12,10 +11,10 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useChat } from "ai/react";
-import ChatInput from "./ChatInput";
-import { Card } from "./ui/card";
 import { useEffect, useRef } from "react";
-import Container from "./dashboard/Container";
+import { Card } from "../ui/card";
+import ChatInput from "./ChatInput";
+import Container from "./Container";
 
 const Chat = () => {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -38,7 +37,7 @@ const Chat = () => {
           {messages.map((m) => (
             <div key={m.id} className="whitespace-pre-wrap">
               {m.role === "user" ? (
-                <Card className="ml-auto w-fit bg-secondary p-3 sm:p-4">
+                <Card className="ml-auto w-fit bg-secondary p-3 sm:px-4 sm:py-3">
                   {m.content}
                 </Card>
               ) : (
@@ -72,7 +71,7 @@ const Chat = () => {
                   <TooltipContent side="top">Attach File</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              <TooltipProvider>
+              {/* <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Button variant="ghost" size="icon">
@@ -82,7 +81,7 @@ const Chat = () => {
                   </TooltipTrigger>
                   <TooltipContent side="top">Use Microphone</TooltipContent>
                 </Tooltip>
-              </TooltipProvider>
+              </TooltipProvider> */}
             </div>
             <Label htmlFor="message" className="sr-only">
               Message

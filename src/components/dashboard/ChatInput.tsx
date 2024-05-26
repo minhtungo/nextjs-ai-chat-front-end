@@ -6,7 +6,7 @@ import {
   useEffect,
   useRef,
 } from "react";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "../ui/textarea";
 import { ChatRequestOptions } from "ai";
 
 interface ChatInputProps {
