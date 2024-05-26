@@ -36,6 +36,21 @@ export const DASHBOARD_MOBILE_LINKS = [
   },
 ];
 
+export const SETTINGS_LINKS = [
+  {
+    title: "Profile",
+    href: "/dashboard/settings",
+  },
+  {
+    title: "Billing",
+    href: "/dashboard/settings/billing",
+  },
+  {
+    title: "Security",
+    href: "/dashboard/settings/security",
+  },
+];
+
 export const DASHBOARD_LINKS = [
   {
     title: "Dashboard",
