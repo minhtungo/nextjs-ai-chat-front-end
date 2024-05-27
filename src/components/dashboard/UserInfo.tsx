@@ -9,6 +9,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { ExtendedUser } from "@/types/next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,6 +34,8 @@ import {
 } from "../ui/card";
 import { Input } from "../ui/input";
 import { useSession } from "next-auth/react";
+import { LANGUAGES } from "@/lib/constant";
+import { Calendar } from "./DateOfBirthPicker";
 
 interface UserInfoProps {
   user: ExtendedUser;
@@ -40,6 +49,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
+      language: user.language || undefined,
     },
   });
 
@@ -66,6 +76,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
         <CardTitle className="text-xl">Profile</CardTitle>
         <CardDescription>{user.email}</CardDescription>
       </CardHeader>
+      <Calendar />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="w-full space-y-4">
@@ -78,6 +89,36 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
                   <FormControl>
                     <Input placeholder="Họ và tên" {...field} />
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="language"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Language</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a language" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {LANGUAGES.map((language) => (
+                        <SelectItem
+                          key={`user-preferred-${language}`}
+                          value={language.locale}
+                        >
+                          {language.title}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

@@ -26,3 +26,14 @@ export const createUser = async (user: User) => {
     data: user,
   });
 };
+
+export const getUserAndSettingsById = async (id: string | undefined) => {
+  try {
+    return await db.user.findUnique({
+      where: { id },
+      include: { settings: true },
+    });
+  } catch (error) {
+    return null;
+  }
+};

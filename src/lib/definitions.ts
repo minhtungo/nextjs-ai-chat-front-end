@@ -50,6 +50,7 @@ export const resetPasswordSchema = object({
 
 export const updateUserProfileSchema = object({
   name: string().min(1, "auth.error.name"),
+  language: string().min(1),
 });
 
 export const twoFactorToggleSchema = object({

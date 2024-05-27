@@ -132,3 +132,14 @@ export const PRICING_PLANS = [
     ],
   },
 ];
+
+export const LANGUAGES = [
+  {
+    title: "Tiếng việt",
+    locale: "vi",
+  },
+  {
+    title: "English",
+    locale: "en",
+  },
+];

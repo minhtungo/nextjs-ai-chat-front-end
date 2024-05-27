@@ -30,9 +30,25 @@ model User {
   accounts      Account[]
   isTwoFactorEnabled  Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
+  settings  UserSettings?
+
+  dateOfBirth DateTime?
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Languages {
+  VI
+  EN
+}
+
+model UserSettings {
+  id            String          @id @default(cuid())
+  userId        String 
+  preferredLang Languages @default(VI)
+  user          User   @relation(fields: [userId], references: [id])
+  @@unique([userId])
 }
  
 model Account {

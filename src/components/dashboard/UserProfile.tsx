@@ -1,12 +1,12 @@
 import { ExtendedUser } from "@/types/next-auth";
 import { FC } from "react";
 
-import TwoFactorToggle from "./TwoFactorToggle";
-import UserInfo from "./UserInfo";
+import { UserSettings } from "@prisma/client";
 import ChangePassword from "./ChangePassword";
+import UserInfo from "./UserInfo";
 
 interface UserProfileProps {
-  user: ExtendedUser | undefined;
+  user: ExtendedUser & UserSettings;
 }
 
 const UserProfile: FC<UserProfileProps> = ({ user }) => {
