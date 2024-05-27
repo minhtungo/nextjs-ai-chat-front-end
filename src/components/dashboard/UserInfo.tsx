@@ -35,7 +35,7 @@ import {
 import { Input } from "../ui/input";
 import { useSession } from "next-auth/react";
 import { LANGUAGES } from "@/lib/constant";
-import { Calendar } from "./DateOfBirthPicker";
+import { DatePickerDemo } from "../DatePicker";
 
 interface UserInfoProps {
   user: ExtendedUser;
@@ -76,7 +76,6 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
         <CardTitle className="text-xl">Profile</CardTitle>
         <CardDescription>{user.email}</CardDescription>
       </CardHeader>
-      <Calendar />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="w-full space-y-4">
@@ -93,6 +92,11 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
                 </FormItem>
               )}
             />
+            <FormItem className="flex flex-col">
+              <FormLabel>Date of Birth</FormLabel>
+              <DatePickerDemo />
+              <FormMessage />
+            </FormItem>
             <FormField
               control={form.control}
               name="language"

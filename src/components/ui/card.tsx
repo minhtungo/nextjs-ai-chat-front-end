@@ -2,17 +2,19 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-type CardProps = HTMLDivElement & {
+type CardProps = React.HTMLAttributes<HTMLDivElement> & {
   showBorderOnMobile?: boolean;
+  noBorder?: boolean;
 };
 
-const Card = React.forwardRef<CardProps, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, showBorderOnMobile, ...props }, ref) => (
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, showBorderOnMobile, noBorder, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
         "rounded-lg bg-card text-card-foreground",
         showBorderOnMobile ? "border shadow-sm" : "sm:border sm:shadow-sm",
+        noBorder && "sm:border-none sm:shadow-none",
         className,
       )}
       {...props}
@@ -21,20 +23,20 @@ const Card = React.forwardRef<CardProps, React.HTMLAttributes<HTMLDivElement>>(
 );
 Card.displayName = "Card";
 
-const CardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, showBorderOnMobile, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "flex flex-col space-y-1.5 sm:p-6",
-      showBorderOnMobile ? "p-4" : "px-0 py-4",
-      className,
-    )}
-    {...props}
-  />
-));
+const CardHeader = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, showBorderOnMobile, noBorder, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-col space-y-1.5 sm:p-6",
+        showBorderOnMobile ? "p-4" : "px-0 py-4",
+        noBorder && "p-0 sm:p-0",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
 CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
@@ -64,36 +66,36 @@ const CardDescription = React.forwardRef<
 ));
 CardDescription.displayName = "CardDescription";
 
-const CardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, showBorderOnMobile, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "pt-0 sm:p-6 sm:pt-0",
-      showBorderOnMobile ? "p-4" : "px-0 py-4",
-      className,
-    )}
-    {...props}
-  />
-));
+const CardContent = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, showBorderOnMobile, noBorder, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "pt-0 sm:p-6 sm:pt-0",
+        showBorderOnMobile ? "p-4" : "px-0 py-4",
+        noBorder && "p-0 sm:p-0",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
 CardContent.displayName = "CardContent";
 
-const CardFooter = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, showBorderOnMobile, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn(
-      "flex items-center pt-0 sm:p-6 sm:pt-0",
-      showBorderOnMobile ? "p-4" : "px-0 py-4",
-      className,
-    )}
-    {...props}
-  />
-));
+const CardFooter = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, showBorderOnMobile, noBorder, ...props }, ref) => (
+    <div
+      ref={ref}
+      className={cn(
+        "flex items-center pt-0 sm:p-6 sm:pt-0",
+        showBorderOnMobile ? "p-4" : "px-0 py-4",
+        noBorder && "p-0 sm:p-0",
+        className,
+      )}
+      {...props}
+    />
+  ),
+);
 CardFooter.displayName = "CardFooter";
 
 export {
