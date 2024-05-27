@@ -17,14 +17,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import SubmitButton from "../SubmitButton";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
-import { Input } from "../ui/input";
+import PasswordInput from "../auth/PasswordInput";
+import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
+import Typography from "../ui/typography";
 
 interface ChangePasswordProps {}
 
@@ -59,13 +54,15 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader className="w-full">
-        <CardTitle className="text-xl">Đổi mật khẩu</CardTitle>
+    <Card className="w-full" noBorder>
+      <CardHeader className="w-full" noBorder>
+        <Typography variant="h5" tag="h3">
+          Đổi mật khẩu
+        </Typography>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4">
+          <CardContent className="w-full space-y-4" noBorder>
             <FormField
               control={form.control}
               name="password"
@@ -73,7 +70,7 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
                 <FormItem>
                   <FormLabel>Mật khẩu hiện tại</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -86,7 +83,7 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
                 <FormItem>
                   <FormLabel>Mật khẩu mới</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -99,14 +96,14 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
                 <FormItem>
                   <FormLabel>Xác nhận mật khẩu mới</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} />
+                    <PasswordInput {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </CardContent>
-          <CardFooter className="justify-end border-t py-3 sm:py-3">
+          <CardFooter noBorder>
             <SubmitButton
               isLoading={isPending}
               size="sm"

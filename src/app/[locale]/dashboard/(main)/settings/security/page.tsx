@@ -1,5 +1,6 @@
+import ChangePassword from "@/components/dashboard/ChangePassword";
 import TwoFactorToggle from "@/components/dashboard/TwoFactorToggle";
-import UserProfile from "@/components/dashboard/UserProfile";
+import { Separator } from "@/components/ui/separator";
 import { getCurrentUser } from "@/lib/auth";
 import { Metadata } from "next";
 
@@ -16,8 +17,14 @@ const SecurityPage = async () => {
 
   return (
     <>
-      {!user.isOauth && (
+      {user.isOauth && (
         <TwoFactorToggle isTwoFactorEnabled={user?.isTwoFactorEnabled} />
+      )}
+      {user.isOauth && (
+        <>
+          <Separator className="my-6" />
+          <ChangePassword />
+        </>
       )}
     </>
   );

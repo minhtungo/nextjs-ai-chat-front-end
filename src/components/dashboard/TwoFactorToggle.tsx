@@ -59,13 +59,10 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader className="w-full">
-        <CardTitle className="text-xl">Security</CardTitle>
-      </CardHeader>
+    <Card className="w-full" noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4">
+          <CardContent className="w-full space-y-4" noBorder>
             <FormField
               control={form.control}
               name="isTwoFactorEnabled"
@@ -90,7 +87,7 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
               )}
             />
           </CardContent>
-          <CardFooter className="justify-end border-t py-3 sm:py-3">
+          <CardFooter noBorder>
             <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
           </CardFooter>
         </form>

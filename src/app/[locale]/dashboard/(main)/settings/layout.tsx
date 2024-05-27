@@ -8,7 +8,7 @@ export default async function SettingsLayout({
   return (
     <>
       <SettingsNav />
-      {children}
+      <div className="flex-1 lg:max-w-3xl">{children}</div>
     </>
   );
 }

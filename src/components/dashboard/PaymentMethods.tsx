@@ -25,14 +25,8 @@ interface PaymentMethodsProps {}
 
 const PaymentMethods: FC<PaymentMethodsProps> = () => {
   return (
-    <Card className="max-w-md">
-      <CardHeader>
-        <CardTitle>Payment Method</CardTitle>
-        <CardDescription>
-          Add a new payment method to your account.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid gap-6">
+    <Card noBorder>
+      <CardContent className="grid gap-6" noBorder>
         <RadioGroup defaultValue="card" className="grid grid-cols-3 gap-4">
           <div>
             <RadioGroupItem
@@ -118,7 +112,7 @@ const PaymentMethods: FC<PaymentMethodsProps> = () => {
           </div>
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter noBorder>
         <Button className="w-full">Continue</Button>
       </CardFooter>
     </Card>

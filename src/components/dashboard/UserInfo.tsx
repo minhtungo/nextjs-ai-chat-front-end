@@ -16,26 +16,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { LANGUAGES } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { ExtendedUser } from "@/types/next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 import { FC, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import SubmitButton from "../SubmitButton";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
+import { Card, CardContent, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
-import { useSession } from "next-auth/react";
-import { LANGUAGES } from "@/lib/constant";
-import { DatePickerDemo } from "../DatePicker";
+import { Label } from "../ui/label";
 
 interface UserInfoProps {
   user: ExtendedUser;
@@ -49,7 +42,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
-      language: user.language || undefined,
+      language: user?.settings?.language || undefined,
     },
   });
 
@@ -71,14 +64,14 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader className="w-full">
-        <CardTitle className="text-xl">Profile</CardTitle>
-        <CardDescription>{user.email}</CardDescription>
-      </CardHeader>
+    <Card className="w-full" noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4">
+          <CardContent className="w-full space-y-4" noBorder>
+            <div className="space-y-2">
+              <Label>Email</Label>
+              <Input placeholder="Email" value={user.email} disabled />
+            </div>
             <FormField
               control={form.control}
               name="name"
@@ -92,11 +85,11 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
                 </FormItem>
               )}
             />
-            <FormItem className="flex flex-col">
+            {/* <FormItem className="flex flex-col">
               <FormLabel>Date of Birth</FormLabel>
               <DatePickerDemo />
               <FormMessage />
-            </FormItem>
+            </FormItem> */}
             <FormField
               control={form.control}
               name="language"
@@ -128,7 +121,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
               )}
             />
           </CardContent>
-          <CardFooter className="justify-end border-t py-3 sm:py-3">
+          <CardFooter noBorder>
             <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
           </CardFooter>
         </form>

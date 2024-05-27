@@ -136,10 +136,25 @@ export const PRICING_PLANS = [
 export const LANGUAGES = [
   {
     title: "Tiếng việt",
-    locale: "vi",
+    locale: "VI",
   },
   {
     title: "English",
-    locale: "en",
+    locale: "EN",
   },
+];
+
+export const MONTH_NAMES = [
+  "Month.Jan",
+  "Month.Feb",
+  "Month.Mar",
+  "Month.Apr",
+  "Month.May",
+  "Month.Jun",
+  "Month.Jul",
+  "Month.Aug",
+  "Month.Sep",
+  "Month.Oct",
+  "Month.Nov",
+  "Month.Dec",
 ];

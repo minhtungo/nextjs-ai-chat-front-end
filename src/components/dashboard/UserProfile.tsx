@@ -2,7 +2,6 @@ import { ExtendedUser } from "@/types/next-auth";
 import { FC } from "react";
 
 import { UserSettings } from "@prisma/client";
-import ChangePassword from "./ChangePassword";
 import UserInfo from "./UserInfo";
 
 interface UserProfileProps {
@@ -15,7 +14,6 @@ const UserProfile: FC<UserProfileProps> = ({ user }) => {
   return (
     <>
       <UserInfo user={user} />
-      {!user.isOauth && <ChangePassword />}
     </>
   );
 };

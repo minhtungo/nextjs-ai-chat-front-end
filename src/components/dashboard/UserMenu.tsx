@@ -47,12 +47,12 @@ const UserMenu: FC<UserMenuProps> = ({ className }) => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/profile" className="gap-x-1.5">
+          <Link href="/dashboard/settings/profile" className="gap-x-1.5">
             <UserRound className="h-4 w-4" /> Profile
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href="/dashboard/billing" className="gap-x-1.5">
+          <Link href="/dashboard/settings/billing" className="gap-x-1.5">
             <CreditCard className="h-4 w-4" /> Billing
           </Link>
         </DropdownMenuItem>

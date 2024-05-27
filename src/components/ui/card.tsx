@@ -30,7 +30,7 @@ const CardHeader = React.forwardRef<HTMLDivElement, CardProps>(
       className={cn(
         "flex flex-col space-y-1.5 sm:p-6",
         showBorderOnMobile ? "p-4" : "px-0 py-4",
-        noBorder && "p-0 sm:p-0",
+        noBorder && "px-0 pb-4 pt-0 sm:px-0 sm:pb-4 sm:pt-0",
         className,
       )}
       {...props}
@@ -73,7 +73,7 @@ const CardContent = React.forwardRef<HTMLDivElement, CardProps>(
       className={cn(
         "pt-0 sm:p-6 sm:pt-0",
         showBorderOnMobile ? "p-4" : "px-0 py-4",
-        noBorder && "p-0 sm:p-0",
+        noBorder && "px-0 pt-0 sm:px-0 sm:pt-0",
         className,
       )}
       {...props}
@@ -89,7 +89,7 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardProps>(
       className={cn(
         "flex items-center pt-0 sm:p-6 sm:pt-0",
         showBorderOnMobile ? "p-4" : "px-0 py-4",
-        noBorder && "p-0 sm:p-0",
+        noBorder && "px-0 pb-0 sm:px-0 sm:pb-0",
         className,
       )}
       {...props}
