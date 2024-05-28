@@ -12,7 +12,7 @@ const DSideMenu: FC<DSideMenuProps> = () => {
   const pathname = usePathname();
   return (
     <nav className="grid items-start gap-1 px-2 text-sm font-medium lg:px-3">
-      {DASHBOARD_LINKS.map(({ title, href, icon }) => (
+      {/* {DASHBOARD_LINKS.map(({ title, href, icon }) => (
         <Link
           key={`${title}-desktop-dashboard-link`}
           href={href}
@@ -24,7 +24,7 @@ const DSideMenu: FC<DSideMenuProps> = () => {
           {icon}
           {title}
         </Link>
-      ))}
+      ))} */}
     </nav>
   );
 };

@@ -1,14 +1,15 @@
 import { auth } from "@/auth";
+import Chat from "@/components/dashboard/Chat";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Lumi Chatbot",
 };
 
 const Dashboard = async () => {
   const session = await auth();
 
-  return <div>{session && session.user?.email}</div>;
+  return <Chat />;
 };
 
 export default Dashboard;

@@ -1,5 +1,7 @@
+import Momo from "@/components/icons/Momo";
 import {
   BotMessageSquare,
+  CreditCard,
   DiscIcon,
   Facebook,
   FacebookIcon,
@@ -146,8 +148,14 @@ export const LANGUAGES = [
 
 export const PAYMENT_METHODS = [
   {
-    title: "Visa",
-    icon: <Facebook className="h-5 w-5" />,
+    title: "Card",
+    icon: <CreditCard className="h-5 w-5" />,
+    key: "card",
+  },
+  {
+    title: "MoMo",
+    icon: <Momo className="h-5 w-5" />,
+    key: "momo",
   },
 ];
 
