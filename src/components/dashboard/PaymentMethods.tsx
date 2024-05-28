@@ -20,10 +20,14 @@ import {
 } from "@/components/ui/select";
 import { CreditCard } from "lucide-react";
 import Momo from "../icons/Momo";
+import { useTranslations } from "next-intl";
+import { MONTH_NAMES } from "@/lib/constant";
 
 interface PaymentMethodsProps {}
 
 const PaymentMethods: FC<PaymentMethodsProps> = () => {
+  const t = useTranslations("common");
+
   return (
     <Card noBorder>
       <CardContent className="grid gap-6" noBorder>
@@ -76,18 +80,11 @@ const PaymentMethods: FC<PaymentMethodsProps> = () => {
                 <SelectValue placeholder="Month" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="1">January</SelectItem>
-                <SelectItem value="2">February</SelectItem>
-                <SelectItem value="3">March</SelectItem>
-                <SelectItem value="4">April</SelectItem>
-                <SelectItem value="5">May</SelectItem>
-                <SelectItem value="6">June</SelectItem>
-                <SelectItem value="7">July</SelectItem>
-                <SelectItem value="8">August</SelectItem>
-                <SelectItem value="9">September</SelectItem>
-                <SelectItem value="10">October</SelectItem>
-                <SelectItem value="11">November</SelectItem>
-                <SelectItem value="12">December</SelectItem>
+                {MONTH_NAMES.map((month) => (
+                  <SelectItem key={t(month.title)} value={month.value}>
+                    {t(month.title)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
