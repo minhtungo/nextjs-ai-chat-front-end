@@ -43,15 +43,17 @@ export default function Home({
             <div className="mx-auto max-w-6xl">
               <div className="mt-16 flow-root sm:mt-24">
                 <div className="card-wrapper z-0 rounded-xl p-1 ring-1 ring-inset ring-border lg:rounded-2xl">
-                  <ThemeImage
-                    srcLight="/images/hero.png"
-                    srcDark="/images/hero-dark.png"
-                    width={1916}
-                    height={966}
-                    fetchPriority="high"
-                    alt="Product Preview"
-                    className="relative rounded-xl shadow-2xl lg:rounded-2xl"
-                  />
+                  <div className="card-content z-10 h-full w-full bg-background">
+                    <ThemeImage
+                      srcLight="/images/hero.png"
+                      srcDark="/images/hero-dark.png"
+                      width={1916}
+                      height={864}
+                      fetchPriority="high"
+                      alt="Product Preview"
+                      className="relative hidden rounded-xl bg-red-500 shadow-2xl lg:rounded-2xl"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
