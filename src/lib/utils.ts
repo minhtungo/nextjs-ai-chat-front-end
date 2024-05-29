@@ -1,9 +1,15 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { customAlphabet } from "nanoid";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const nanoid = customAlphabet(
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+  7,
+); // 7-character random string
 
 export const formatDate = (date: Date) => {
   const months = [
@@ -31,3 +37,16 @@ export const formatDate = (date: Date) => {
 
   return `${month} ${day}, ${year} ${formattedHours}:${minutes}${ampm}`;
 };
+
+export async function getMissingKeys() {
+  const keysRequired = ["OPENAI_API_KEY"];
+  return keysRequired
+    .map((key) => (process.env[key] ? "" : key))
+    .filter((key) => key !== "");
+}
+
+export const formatNumber = (value: number) =>
+  new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  }).format(value);

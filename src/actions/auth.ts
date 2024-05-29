@@ -169,6 +169,9 @@ export const signUpWithCredentials = async (
       name,
       email,
       password: hashedPassword,
+      settings: {
+        create: {},
+      },
     },
   });
   const verificationToken = await generateVerificationToken(email);

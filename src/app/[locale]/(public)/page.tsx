@@ -1,7 +1,6 @@
-import Hero from "@/components/home/Hero";
-import Image from "next/image";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import ThemeImage from "@/components/ThemeImage";
+import Hero from "@/components/home/Hero";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
   params: { locale },
@@ -21,6 +20,7 @@ export default function Home({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
+
   return (
     <main>
       <Hero />
