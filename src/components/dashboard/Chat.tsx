@@ -4,13 +4,14 @@ import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { Message } from "@/types/chat";
 import { ExtendedUser } from "@/types/next-auth";
-import { useUIState } from "ai/rsc";
-import { usePathname } from "next/navigation";
+import { useAIState, useActions, useUIState } from "ai/rsc";
+import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useRef, useState } from "react";
 import ButtonScrollToBottom from "../ButtonScrollToBottom";
 import ChatList from "./ChatList";
 import ChatPanel from "./ChatPanel";
 import Container from "./Container";
+import { Button } from "../ui/button";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
@@ -18,10 +19,12 @@ export interface ChatProps extends React.ComponentProps<"div"> {
   user?: ExtendedUser;
 }
 
-const Chat: FC<ChatProps> = ({ id, className, user }) => {
+const Chat: FC<ChatProps> = ({ id, className, user, initialMessages }) => {
+  const router = useRouter();
   const path = usePathname();
   const [input, setInput] = useState("");
   const [messages] = useUIState();
+  const [aiState] = useAIState();
 
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
@@ -36,10 +39,17 @@ const Chat: FC<ChatProps> = ({ id, className, user }) => {
   useEffect(() => {
     if (user) {
       if (!path.includes("chat") && messages.length === 1) {
-        // window.history.replaceState({}, "", `/chat/${id}`);
+        window.history.replaceState({}, "", `/dashboard/chat/${id}`);
       }
     }
   }, [id, path, user, messages]);
+
+  useEffect(() => {
+    const messagesLength = aiState.messages?.length;
+    if (messagesLength === 2) {
+      router.refresh();
+    }
+  }, [aiState.messages, router]);
 
   useEffect(() => {
     setNewChatId(id);

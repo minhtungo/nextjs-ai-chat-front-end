@@ -1,16 +1,15 @@
 "use server";
 
-import { auth } from "@/auth";
 import { getCurrentUser } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { Chat, Conversation } from "@/types/chat";
+import { Chat } from "@/types/chat";
 
 export async function saveChat(chat: Chat) {
   const user = await getCurrentUser();
 
   if (user) {
     try {
-      await db.conversation.create({
+      await db.chat.create({
         data: {
           id: chat.id,
           title: chat.title,
@@ -18,7 +17,8 @@ export async function saveChat(chat: Chat) {
             create: chat.messages.map((message) => ({
               id: message.id,
               content: message.content as string,
-              role: message.role as string,
+              role: message.role,
+              userId: user.id!,
             })),
           },
           user: {
@@ -28,8 +28,25 @@ export async function saveChat(chat: Chat) {
           },
         },
       });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     return { error: "error.unauthorized" };
   }
+}
+
+export async function getChat(id: string, userId: string) {
+  const chat = await db.chat.findUnique({
+    where: { id, userId },
+    include: {
+      messages: true,
+    },
+  });
+
+  if (!chat || (userId && chat.userId !== userId)) {
+    return null;
+  }
+
+  return chat;
 }

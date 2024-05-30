@@ -12,8 +12,6 @@ const SettingsPage = async () => {
 
   const userWithSettings = await getUserAndSettingsById(user?.id);
 
-  console.log(userWithSettings);
-
   return <UserProfile user={userWithSettings} />;
 };
 

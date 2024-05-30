@@ -33,6 +33,8 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
     }
   }, []);
 
+  console.log("=========>", _);
+
   return (
     <form
       ref={formRef}
@@ -60,7 +62,10 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
         // Submit and get response message
         const responseMessage = await submitUserMessage(value);
         console.log("---------------------", responseMessage);
-        setMessages((currentMessages) => [...currentMessages, responseMessage]);
+        setMessages((currentMessages) => [
+          ...currentMessages,
+          responseMessage.display,
+        ]);
       }}
       className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
     >

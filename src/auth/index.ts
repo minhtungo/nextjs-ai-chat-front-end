@@ -61,7 +61,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.name = existingUser.name;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
-      console.log(token);
       return token;
     },
     async session({ token, session }) {

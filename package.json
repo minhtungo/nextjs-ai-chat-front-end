@@ -41,6 +41,7 @@
     "next-auth": "^5.0.0-beta.18",
     "next-intl": "^3.14.0",
     "next-themes": "^0.3.0",
+    "openai": "^4.47.2",
     "react": "^18",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18",

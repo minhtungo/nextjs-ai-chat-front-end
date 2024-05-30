@@ -26,8 +26,6 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
   const params = useParams();
 
   const onSelectChange = (nextLocale: string) => {
-    console.log(params);
-    console.log(pathname);
     startTransition(() => {
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
