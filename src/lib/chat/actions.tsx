@@ -93,7 +93,6 @@ async function submitUserMessage(content: string) {
   const result = await streamUI({
     model: openai("gpt-3.5-turbo"),
     initial: <Spinner />,
-
     messages: [
       ...aiState.get().messages.map((message: any) => ({
         role: message.role,
@@ -127,7 +126,7 @@ async function submitUserMessage(content: string) {
       return textNode;
     },
   });
-
+  console.log("hereeeeeeeee");
   return {
     id: nanoid(),
     display: result.value,

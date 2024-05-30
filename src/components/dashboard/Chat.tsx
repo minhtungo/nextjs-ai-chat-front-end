@@ -1,34 +1,28 @@
 "use client";
 
-import { CornerDownLeft, Paperclip } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { useChat } from "ai/react";
-import { FC, useEffect, useRef } from "react";
-import BotMessage from "./BotMessage";
-import ChatInput from "./ChatInput";
-import Container from "./Container";
-import UserMessage from "./UserMessage";
+import { useLocalStorage } from "@/hooks/use-local-storage";
+import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { Message } from "@/types/chat";
 import { ExtendedUser } from "@/types/next-auth";
+import { useUIState } from "ai/rsc";
+import { usePathname } from "next/navigation";
+import { FC, useEffect, useRef, useState } from "react";
+import ButtonScrollToBottom from "../ButtonScrollToBottom";
+import ChatList from "./ChatList";
+import ChatPanel from "./ChatPanel";
+import Container from "./Container";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];
   id?: string;
   user?: ExtendedUser;
-  missingKeys: string[];
 }
 
-const Chat: FC<ChatProps> = ({ id, className, user, missingKeys }) => {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
-  const chatFormRef = useRef<HTMLFormElement | null>(null);
+const Chat: FC<ChatProps> = ({ id, className, user }) => {
+  const path = usePathname();
+  const [input, setInput] = useState("");
+  const [messages] = useUIState();
+
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -37,6 +31,23 @@ const Chat: FC<ChatProps> = ({ id, className, user, missingKeys }) => {
     }
   }, [messages]);
 
+  const [_, setNewChatId] = useLocalStorage("newChatId", id);
+
+  useEffect(() => {
+    if (user) {
+      if (!path.includes("chat") && messages.length === 1) {
+        // window.history.replaceState({}, "", `/chat/${id}`);
+      }
+    }
+  }, [id, path, user, messages]);
+
+  useEffect(() => {
+    setNewChatId(id);
+  }, [id]);
+
+  const { messagesRef, scrollRef, visibilityRef, isAtBottom, scrollToBottom } =
+    useScrollAnchor();
+
   return (
     <>
       <Container className="max-w-5xl">
@@ -44,62 +55,15 @@ const Chat: FC<ChatProps> = ({ id, className, user, missingKeys }) => {
           className="flex h-full w-full flex-1 flex-col gap-y-5"
           ref={chatBoxRef}
         >
-          {messages.map((m) => (
-            <div key={m.id} className="whitespace-pre-wrap">
-              {m.role === "user" ? (
-                <UserMessage>{m.content}</UserMessage>
-              ) : (
-                <BotMessage>{m.content}</BotMessage>
-              )}
-            </div>
-          ))}
+          {messages.length > 0 && <ChatList messages={messages} user={user} />}
         </div>
+        <div className="h-px w-full" ref={visibilityRef} />
+        <ButtonScrollToBottom
+          isAtBottom={isAtBottom}
+          scrollToBottom={scrollToBottom}
+        />
       </Container>
-      <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
-        <form
-          className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(e);
-          }}
-          ref={chatFormRef}
-        >
-          <div className="flex w-full items-center gap-1.5 p-1.5 lg:gap-3.5">
-            <div className="flex items-center gap-1.5">
-              <TooltipProvider delayDuration={100}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Paperclip className="size-4" />
-                      <span className="sr-only">Attach file</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">Attach File</TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-            <Label htmlFor="message" className="sr-only">
-              Message
-            </Label>
-            <div className="mr-1.5 flex flex-1">
-              <ChatInput
-                value={input}
-                onChange={handleInputChange}
-                chatFormRef={chatFormRef}
-              />
-            </div>
-
-            <Button
-              variant="outline"
-              type="submit"
-              size="icon"
-              className="ml-auto gap-1.5"
-            >
-              <CornerDownLeft className="size-3.5" />
-            </Button>
-          </div>
-        </form>
-      </div>
+      <ChatPanel input={input} setInput={setInput} />
     </>
   );
 };

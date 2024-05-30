@@ -51,7 +51,7 @@ export default function Home({
                       height={864}
                       fetchPriority="high"
                       alt="Product Preview"
-                      className="relative hidden rounded-xl bg-red-500 shadow-2xl lg:rounded-2xl"
+                      className="relative hidden rounded-xl bg-background shadow-2xl lg:rounded-2xl"
                     />
                   </div>
                 </div>

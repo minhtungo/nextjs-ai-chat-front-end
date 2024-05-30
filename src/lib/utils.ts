@@ -38,13 +38,6 @@ export const formatDate = (date: Date) => {
   return `${month} ${day}, ${year} ${formattedHours}:${minutes}${ampm}`;
 };
 
-export async function getMissingKeys() {
-  const keysRequired = ["OPENAI_API_KEY"];
-  return keysRequired
-    .map((key) => (process.env[key] ? "" : key))
-    .filter((key) => key !== "");
-}
-
 export const formatNumber = (value: number) =>
   new Intl.NumberFormat("vi-VN", {
     style: "currency",

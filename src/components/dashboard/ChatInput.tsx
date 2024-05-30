@@ -1,13 +1,5 @@
-import {
-  ChangeEvent,
-  FC,
-  FormEvent,
-  MutableRefObject,
-  useEffect,
-  useRef,
-} from "react";
+import { ChangeEvent, FC, MutableRefObject, useEffect, useRef } from "react";
 import { Textarea } from "../ui/textarea";
-import { ChatRequestOptions } from "ai";
 
 interface ChatInputProps {
   value: string;
