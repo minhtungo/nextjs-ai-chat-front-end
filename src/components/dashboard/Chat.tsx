@@ -11,13 +11,22 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useChat } from "ai/react";
-import { useEffect, useRef } from "react";
+import { FC, useEffect, useRef } from "react";
 import BotMessage from "./BotMessage";
 import ChatInput from "./ChatInput";
 import Container from "./Container";
 import UserMessage from "./UserMessage";
+import { Message } from "@/types/chat";
+import { ExtendedUser } from "@/types/next-auth";
 
-const Chat = () => {
+export interface ChatProps extends React.ComponentProps<"div"> {
+  initialMessages?: Message[];
+  id?: string;
+  user?: ExtendedUser;
+  missingKeys: string[];
+}
+
+const Chat: FC<ChatProps> = ({ id, className, user, missingKeys }) => {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const chatFormRef = useRef<HTMLFormElement | null>(null);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
@@ -68,17 +77,6 @@ const Chat = () => {
                   <TooltipContent side="top">Attach File</TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-              {/* <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button variant="ghost" size="icon">
-                      <Mic className="size-4" />
-                      <span className="sr-only">Use Microphone</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="top">Use Microphone</TooltipContent>
-                </Tooltip>
-              </TooltipProvider> */}
             </div>
             <Label htmlFor="message" className="sr-only">
               Message

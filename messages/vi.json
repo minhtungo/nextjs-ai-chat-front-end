@@ -195,7 +195,8 @@
       "invalidVerificationEmail": "Không có tài khoản với email bạn cung cấp",
       "invalidCredentials": "Thông tin không đúng",
       "invalidCode": "Code không đúng",
-      "expiredCode": "Code đã hết hạn"
+      "expiredCode": "Code đã hết hạn",
+      "unauthorized": "Thông tin không hợp lệ"
     },
     "success": {
       "signUp": "Chúng tôi đã gửi email xác nhận đăng ký tài khoản. Vui lòng kiểm tra email để xác nhận tài khoản",

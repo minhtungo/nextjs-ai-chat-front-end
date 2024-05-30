@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import {
   createAI,
@@ -14,8 +14,9 @@ import { nanoid } from "@/lib/utils";
 import { auth } from "@/auth";
 import { z } from "zod";
 import BotMessage from "@/components/dashboard/BotMessage";
-import { getUIStateFromAIState } from "@/lib/chat";
 import Spinner from "@/components/Spinner";
+import { getUIStateFromAIState } from ".";
+import { saveChat } from "@/actions/chat";
 
 export const AI = createAI<AIState, UIState>({
   actions: {
@@ -24,6 +25,7 @@ export const AI = createAI<AIState, UIState>({
   initialUIState: [],
   initialAIState: { chatId: nanoid(), messages: [] },
   onGetUIState: async () => {
+    "use server";
     const session = await auth();
 
     if (session && session.user) {
@@ -102,7 +104,7 @@ async function submitUserMessage(content: string) {
     text: ({ content, done, delta }) => {
       if (!textStream) {
         textStream = createStreamableValue("");
-        textNode = <BotMessage>{textStream.value}</BotMessage>;
+        textNode = <BotMessage>{textStream.value as string}</BotMessage>;
       }
 
       if (done) {

@@ -57,17 +57,19 @@ model UserSettings {
 
 model Conversation {
   id        String   @id
+  title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  messages ChatMessage[]
+  messages Message[]
 }
 
-model ChatMessage {
+model Message {
   id             String        @id @default(cuid())
-  message        String
+  content        String
+  role           String
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
   conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)

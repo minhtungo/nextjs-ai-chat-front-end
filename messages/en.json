@@ -195,7 +195,8 @@
       "invalidVerificationEmail": "There is no account with the provided email",
       "invalidCredentials": "Invalid credentials",
       "invalidCode": "Invalid code",
-      "expiredCode": "Code expired"
+      "expiredCode": "Code expired",
+      "unauthorized": "Unauthorized"
     },
     "success": {
       "signUp": "We have sent you an account registration confirmation email. Please check your email to confirm your account",
