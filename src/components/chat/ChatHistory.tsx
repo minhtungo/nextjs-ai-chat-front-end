@@ -5,12 +5,12 @@ import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
 import SidebarList from "./SidebarList";
+import { getCurrentUser } from "@/lib/auth";
 
-interface ChatHistoryProps {
-  userId?: string;
-}
+interface ChatHistoryProps {}
 
-const ChatHistory: FC<ChatHistoryProps> = ({ userId }) => {
+const ChatHistory: FC<ChatHistoryProps> = async ({}) => {
+  const user = await getCurrentUser();
   return (
     <div className="flex h-full flex-col">
       <div className="mb-2 px-2">
@@ -34,7 +34,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({ userId }) => {
           </div>
         }
       >
-        <SidebarList userId={userId} />
+        <SidebarList userId={user.id} />
       </Suspense>
     </div>
   );

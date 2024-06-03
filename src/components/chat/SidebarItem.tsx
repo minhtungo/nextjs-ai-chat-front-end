@@ -47,7 +47,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
         <MessageCircle className="mr-2 mt-1 text-zinc-500" />
       </div>
       <Link
-        href={chat.path}
+        href={`/dashboard/chat/${chat.id}`}
         className={cn(
           buttonVariants({ variant: "ghost" }),
           "group w-full px-8 transition-colors hover:bg-zinc-200/40 dark:hover:bg-zinc-300/10",

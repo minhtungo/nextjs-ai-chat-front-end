@@ -69,7 +69,10 @@ export async function getChats(userId?: string | null) {
 
   try {
     const chats = await db.chat.findMany({
-      where: { userId },
+      where: { userId: "clwys0n300000ip1dyr672p6e" },
+      include: {
+        messages: true,
+      },
     });
 
     return chats;

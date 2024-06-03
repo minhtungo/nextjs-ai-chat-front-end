@@ -10,7 +10,6 @@ import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
-import Link from "next/link";
 export default async function DashBoardLayout({
   children,
 }: Readonly<{
@@ -36,7 +35,7 @@ export default async function DashBoardLayout({
               <NewMessageButton className="ml-auto" />
             </div>
             <ScrollArea className="h-full flex-1">
-              <ChatHistory userId={session?.user?.id} />
+              <ChatHistory />
               <DSideMenu />
             </ScrollArea>
             <div className="w-full px-2 lg:px-3">

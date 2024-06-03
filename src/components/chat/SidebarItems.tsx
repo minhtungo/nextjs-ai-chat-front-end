@@ -11,7 +11,7 @@ interface SidebarItemsProps {
 
 const SidebarItems: FC<SidebarItemsProps> = ({ chats }) => {
   if (!chats?.length) return null;
-
+  console.log("chatt", chats);
   return (
     <AnimatePresence>
       {chats.map(
