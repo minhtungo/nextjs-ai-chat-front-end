@@ -1,9 +1,7 @@
 import { getChat } from "@/actions/chat";
-import { auth } from "@/auth";
-import Chat from "@/components/dashboard/Chat";
+import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";
-import { useActions } from "ai/rsc";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
@@ -44,8 +42,6 @@ const ChatPage = async ({ params }: ChatPageProps) => {
   if (chat?.userId !== user?.id) {
     notFound();
   }
-
-  console.log("chat", chat);
 
   return (
     <AI initialAIState={{ chatId: chat.id, messages: chat.messages }}>

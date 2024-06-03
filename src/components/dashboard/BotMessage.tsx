@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 
 import { Redo, ThumbsDown, ThumbsUp } from "lucide-react";
@@ -10,15 +12,19 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Card } from "../ui/card";
+import { StreamableValue } from "ai/rsc";
+import { useStreamableText } from "@/hooks/use-streamable-text";
 
 interface BotMessageProps {
-  children: React.ReactNode;
+  content: string | StreamableValue<string>;
 }
 
-const BotMessage: FC<BotMessageProps> = ({ children }) => {
+const BotMessage: FC<BotMessageProps> = ({ content }) => {
+  const text = useStreamableText(content);
+
   return (
     <div className="space-y-1.5">
-      <Card className="bg-primary-muted w-fit p-3 sm:p-4">{children}</Card>
+      <Card className="bg-primary-muted w-fit p-3 sm:p-4">{text}</Card>
       <TooltipProvider delayDuration={100}>
         <div className="flex items-center gap-[2px] text-muted-foreground">
           <Tooltip>

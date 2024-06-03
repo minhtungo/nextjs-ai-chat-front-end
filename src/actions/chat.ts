@@ -9,8 +9,22 @@ export async function saveChat(chat: Chat) {
 
   if (user) {
     try {
-      await db.chat.create({
-        data: {
+      const latestMessage = chat.messages[chat.messages.length - 1];
+
+      await db.chat.upsert({
+        where: { id: chat.id },
+        update: {
+          title: chat.title,
+          messages: {
+            create: {
+              id: latestMessage.id,
+              content: latestMessage.content as string,
+              role: latestMessage.role,
+              userId: user.id!,
+            },
+          },
+        },
+        create: {
           id: chat.id,
           title: chat.title,
           messages: {
@@ -21,18 +35,15 @@ export async function saveChat(chat: Chat) {
               userId: user.id!,
             })),
           },
-          user: {
-            connect: {
-              id: user.id,
-            },
-          },
+          userId: user.id!,
         },
       });
     } catch (error) {
-      console.error(error);
+      console.error("Error saving chat:", error);
     }
   } else {
-    return { error: "error.unauthorized" };
+    console.error("User not authenticated");
+    return;
   }
 }
 
@@ -49,4 +60,21 @@ export async function getChat(id: string, userId: string) {
   }
 
   return chat;
+}
+
+export async function getChats(userId?: string | null) {
+  if (!userId) {
+    return [];
+  }
+
+  try {
+    const chats = await db.chat.findMany({
+      where: { userId },
+    });
+
+    return chats;
+  } catch (error) {
+    console.error("Error fetching chats:", error);
+    return [];
+  }
 }

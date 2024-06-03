@@ -18,7 +18,6 @@ import { getUIStateFromAIState } from ".";
 
 export const submitUserMessage = async (content: string) => {
   "use server";
-  console.log("hereeeeeeeee2");
 
   const aiState = getMutableAIState<typeof AI>();
 
@@ -50,7 +49,7 @@ export const submitUserMessage = async (content: string) => {
     text: ({ content, done, delta }) => {
       if (!textStream) {
         textStream = createStreamableValue("");
-        textNode = <BotMessage>{textStream.value as string}</BotMessage>;
+        textNode = <BotMessage content={textStream.value} />;
       }
 
       if (done) {

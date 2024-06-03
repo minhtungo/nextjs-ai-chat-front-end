@@ -1,4 +1,4 @@
-import Chat from "@/components/dashboard/Chat";
+import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";
 import { nanoid } from "@/lib/utils";

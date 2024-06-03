@@ -14,7 +14,7 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { AI } from "@/lib/chat/actions";
 import { useActions, useUIState } from "ai/rsc";
 import { nanoid } from "nanoid";
-import UserMessage from "./UserMessage";
+import UserMessage from "../dashboard/UserMessage";
 
 interface PromptFormProps {
   input: string;
@@ -32,8 +32,6 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
       inputRef.current.focus();
     }
   }, []);
-
-  console.log("=========>", _);
 
   return (
     <form
@@ -61,11 +59,7 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
 
         // Submit and get response message
         const responseMessage = await submitUserMessage(value);
-        console.log("---------------------", responseMessage);
-        setMessages((currentMessages) => [
-          ...currentMessages,
-          responseMessage.display,
-        ]);
+        setMessages((currentMessages) => [...currentMessages, responseMessage]);
       }}
       className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
     >

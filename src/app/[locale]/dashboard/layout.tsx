@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import Logo from "@/components/Logo";
 import NewMessageButton from "@/components/NewMessageButton";
 import ThemeToggle from "@/components/ThemeToggle";
+import ChatHistory from "@/components/chat/ChatHistory";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import DSideMenu from "@/components/dashboard/DSideMenu";
 import FeedbackDropdown from "@/components/dashboard/FeedbackDropdown";
@@ -35,6 +36,7 @@ export default async function DashBoardLayout({
               <NewMessageButton className="ml-auto" />
             </div>
             <ScrollArea className="h-full flex-1">
+              <ChatHistory userId={session?.user?.id} />
               <DSideMenu />
             </ScrollArea>
             <div className="w-full px-2 lg:px-3">
