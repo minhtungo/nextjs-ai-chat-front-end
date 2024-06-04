@@ -12,32 +12,46 @@ import { ScrollArea } from "./ui/scroll-area";
 
 interface SheetWrapperProps {
   className?: string;
+  triggerClassName?: string;
+  footerClassName?: string;
   title?: string;
-  children: React.ReactNode;
+  content: React.ReactNode;
+  footer?: React.ReactNode;
   side?: "top" | "bottom" | "left" | "right" | null | undefined;
 }
 
 const SheetWrapper: FC<SheetWrapperProps> = ({
   className,
-  children,
+  content,
+  footer,
+  footerClassName,
   title,
+  triggerClassName,
   side,
 }) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn("", className)}>
+      <SheetTrigger className={cn(triggerClassName)}>
         <Menu />
       </SheetTrigger>
       <SheetContent className="h-full w-full" side={side}>
         <div className="relative flex h-screen w-full flex-1 flex-col">
           <ScrollArea className="flex h-full w-full flex-1 flex-col py-4 lg:py-6">
-            <SheetHeader>
-              <SheetTitle>{title ? title : "Lumi"}</SheetTitle>
-            </SheetHeader>
-            <div className="mt-6 h-full w-full flex-1 px-4 sm:px-6">
-              {children}
+            {title && (
+              <SheetHeader>
+                <SheetTitle>{title}</SheetTitle>
+              </SheetHeader>
+            )}
+            <div
+              className={cn(
+                "mt-8 h-full w-full flex-1 px-4 sm:px-6",
+                className,
+              )}
+            >
+              {content}
             </div>
           </ScrollArea>
+          {footer ? <div className={cn(footerClassName)}>{footer}</div> : null}
         </div>
       </SheetContent>
     </Sheet>

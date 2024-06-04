@@ -28,7 +28,7 @@ const UserMenu: FC<UserMenuProps> = ({ className }) => {
       <DropdownMenuTrigger className={cn(className)} asChild>
         <Button
           variant="ghost"
-          className="justify-start gap-2 rounded-lg px-3 py-2"
+          className="w-full justify-start gap-2 rounded-lg px-3 py-2"
         >
           <Avatar className="h-5 w-5">
             <AvatarImage src={user?.image || ""} alt={`${user?.name}-avatar`} />

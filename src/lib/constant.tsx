@@ -209,3 +209,5 @@ export const MONTH_NAMES = [
     value: 12,
   },
 ];
+
+export const PROTECTED_BASED_URL = "/dashboard";

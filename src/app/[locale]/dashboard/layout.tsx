@@ -1,13 +1,7 @@
 import { auth } from "@/auth";
-import NewMessageButton from "@/components/NewMessageButton";
 import Sidebar from "@/components/Sidebar";
-import ThemeToggle from "@/components/ThemeToggle";
 import ChatHistory from "@/components/chat/ChatHistory";
-import DMobileMenu from "@/components/dashboard/DMobileMenu";
-import DSideMenu from "@/components/dashboard/DSideMenu";
-import FeedbackDropdown from "@/components/dashboard/FeedbackDropdown";
 import Header from "@/components/dashboard/Header";
-import SidebarToggle from "@/components/dashboard/SidebarToggle";
 import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";
@@ -37,11 +31,10 @@ export default async function DashBoardLayout({
             <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-muted/40 duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[250px] xl:w-[300px]">
               <div className="flex h-full max-h-screen flex-col gap-2 py-3">
                 <ScrollArea className="h-full flex-1">
-                  <ChatHistory />
-                  <DSideMenu />
+                  <ChatHistory className="px-2" />
                 </ScrollArea>
-                <div className="w-full px-2 lg:px-3">
-                  <UserMenu className="w-full" />
+                <div className="w-full px-2">
+                  <UserMenu />
                 </div>
               </div>
             </Sidebar>

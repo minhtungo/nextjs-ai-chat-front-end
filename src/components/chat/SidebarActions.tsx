@@ -41,11 +41,12 @@ const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
           <TooltipTrigger asChild>
             <Button
               variant="ghost"
-              className="size-6 p-0 hover:bg-background"
+              size="xs"
+              className="hover:bg-background"
               disabled={isRemovePending}
               onClick={() => setDeleteDialogOpen(true)}
             >
-              <Trash />
+              <Trash className="size-4" />
               <span className="sr-only">Delete</span>
             </Button>
           </TooltipTrigger>
