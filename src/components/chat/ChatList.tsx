@@ -1,14 +1,12 @@
 import { UIState } from "@/lib/chat/actions";
-import { ExtendedUser } from "@/types/next-auth";
 import { FC } from "react";
-import { Separator } from "../ui/separator";
 
 interface ChatListProps {
   messages: UIState;
-  user?: ExtendedUser;
 }
 
-const ChatList: FC<ChatListProps> = ({ messages, user }) => {
+const ChatList: FC<ChatListProps> = ({ messages }) => {
+  console.log("messages chatlist", messages);
   if (!messages.length) {
     return null;
   }

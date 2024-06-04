@@ -1,5 +1,3 @@
-import { AI } from "@/lib/chat/actions";
-import { useAIState, useActions, useUIState } from "ai/rsc";
 import { FC } from "react";
 import PromptForm from "./PromptForm";
 

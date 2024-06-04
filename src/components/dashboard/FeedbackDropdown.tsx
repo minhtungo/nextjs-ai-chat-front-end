@@ -26,7 +26,7 @@ const FeedbackDropdown: FC<FeedbackDropdownProps> = () => {
         <Button
           variant="outline"
           size="sm"
-          className="hidden gap-1 sm:inline-flex"
+          className="hidden gap-1 md:inline-flex"
         >
           <MessageSquareMore className="h-4 w-4" /> Feedback
         </Button>

@@ -36,6 +36,7 @@ export async function saveChat(chat: Chat) {
             })),
           },
           userId: user.id!,
+          path: chat.path,
         },
       });
     } catch (error) {
@@ -69,7 +70,7 @@ export async function getChats(userId?: string | null) {
 
   try {
     const chats = await db.chat.findMany({
-      where: { userId: "clwys0n300000ip1dyr672p6e" },
+      where: { userId },
       include: {
         messages: true,
       },
@@ -79,5 +80,28 @@ export async function getChats(userId?: string | null) {
   } catch (error) {
     console.error("Error fetching chats:", error);
     return [];
+  }
+}
+
+export async function removeChat(chatID: string) {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    return { error: "Unauthorized" };
+  }
+
+  try {
+    await db.chat.delete({
+      where: {
+        id_userId: {
+          id: chatID,
+          userId: user.id!,
+        },
+      },
+    });
+
+    return { success: "Chat removed successfully" };
+  } catch (error) {
+    return { error: "Error removing chat" };
   }
 }

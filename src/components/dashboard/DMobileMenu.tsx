@@ -8,7 +8,7 @@ interface DMobileMenuProps {}
 
 const DMobileMenu: FC<DMobileMenuProps> = () => {
   return (
-    <SheetWrapper side="left" className="sm:block md:hidden">
+    <SheetWrapper side="left" className="lg:hidden">
       <nav>
         <ul className="flex flex-col">
           {DASHBOARD_MOBILE_LINKS.map(({ title, href, icon }) => (

@@ -11,9 +11,12 @@ interface ChatHistoryProps {}
 
 const ChatHistory: FC<ChatHistoryProps> = async ({}) => {
   const user = await getCurrentUser();
+
+  if (!user) return null;
+
   return (
-    <div className="flex h-full flex-col">
-      <div className="mb-2 px-2">
+    <div className="flex h-full flex-col px-2">
+      <div className="mb-2">
         <Link
           href="/dashboard"
           className={cn(

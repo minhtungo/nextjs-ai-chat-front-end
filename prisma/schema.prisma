@@ -63,8 +63,10 @@ model Chat {
   updatedAt DateTime @updatedAt
   userId    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  path      String
   messages Message[]
+
+  @@unique([id, userId])
 }
 
 model Message {

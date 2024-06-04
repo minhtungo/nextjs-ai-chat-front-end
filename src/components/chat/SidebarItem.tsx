@@ -18,6 +18,9 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
   const pathname = usePathname();
 
   const isActive = pathname === chat.path;
+
+  console.log("pathname", pathname);
+  console.log("chat.path", chat.path);
   const [newChatId, setNewChatId] = useLocalStorage("newChatId", null);
   const shouldAnimate = index === 0 && isActive && newChatId;
 
@@ -43,8 +46,8 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
         ease: "easeIn",
       }}
     >
-      <div className="absolute left-2 top-1 flex size-6 items-center justify-center">
-        <MessageCircle className="mr-2 mt-1 text-zinc-500" />
+      <div className="absolute left-2 top-2.5 flex size-5 items-center justify-center">
+        <MessageCircle className=" mr-1 text-zinc-500" />
       </div>
       <Link
         href={`/dashboard/chat/${chat.id}`}

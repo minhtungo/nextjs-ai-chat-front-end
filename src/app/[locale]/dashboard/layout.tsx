@@ -1,14 +1,17 @@
 import { auth } from "@/auth";
-import Logo from "@/components/Logo";
 import NewMessageButton from "@/components/NewMessageButton";
+import Sidebar from "@/components/Sidebar";
 import ThemeToggle from "@/components/ThemeToggle";
 import ChatHistory from "@/components/chat/ChatHistory";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import DSideMenu from "@/components/dashboard/DSideMenu";
 import FeedbackDropdown from "@/components/dashboard/FeedbackDropdown";
+import Header from "@/components/dashboard/Header";
+import SidebarToggle from "@/components/dashboard/SidebarToggle";
 import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";
+import { SidebarProvider } from "@/hooks/use-sidebar";
 import { SessionProvider } from "next-auth/react";
 export default async function DashBoardLayout({
   children,
@@ -27,36 +30,28 @@ export default async function DashBoardLayout({
   }
   return (
     <SessionProvider session={session}>
-      <div className="grid min-h-screen w-full overflow-hidden md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <div className="hidden border-r bg-muted/40 md:block">
-          <div className="flex h-full max-h-screen flex-col gap-2 pb-2">
-            <div className="flex h-14 items-center border-b px-4">
-              <Logo />
-              <NewMessageButton className="ml-auto" />
+      <SidebarProvider>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <main className="relative flex h-[calc(100vh-56px)] w-full flex-1 overflow-auto">
+            <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-muted/40 duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[250px] xl:w-[300px]">
+              <div className="flex h-full max-h-screen flex-col gap-2 py-3">
+                <ScrollArea className="h-full flex-1">
+                  <ChatHistory />
+                  <DSideMenu />
+                </ScrollArea>
+                <div className="w-full px-2 lg:px-3">
+                  <UserMenu className="w-full" />
+                </div>
+              </div>
+            </Sidebar>
+            <div className="group relative flex h-[calc(100vh-56px)] w-full flex-1 flex-col gap-4 overflow-hidden pl-0 duration-300 ease-in-out animate-in peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
+              {children}
             </div>
-            <ScrollArea className="h-full flex-1">
-              <ChatHistory />
-              <DSideMenu />
-            </ScrollArea>
-            <div className="w-full px-2 lg:px-3">
-              <UserMenu className="w-full" />
-            </div>
-          </div>
-        </div>
-        <div className="flex h-full w-full flex-1 flex-col">
-          <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:px-6">
-            <DMobileMenu />
-            <div className="ml-auto flex items-center gap-x-2">
-              <FeedbackDropdown />
-              <ThemeToggle />
-            </div>
-          </header>
-          <main className="relative flex h-full max-h-[calc(100vh-56px)] w-full flex-1 flex-col gap-4 overflow-hidden lg:max-h-[calc(100vh-60px)]">
-            {children}
           </main>
         </div>
-      </div>
-      <Toaster closeButton />
+        <Toaster closeButton />
+      </SidebarProvider>
     </SessionProvider>
   );
 }

@@ -4,6 +4,7 @@ import { Chat } from "@/types/chat";
 import { FC } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarItem from "./SidebarItem";
+import SidebarActions from "./SidebarActions";
 
 interface SidebarItemsProps {
   chats?: Chat[];
@@ -11,7 +12,6 @@ interface SidebarItemsProps {
 
 const SidebarItems: FC<SidebarItemsProps> = ({ chats }) => {
   if (!chats?.length) return null;
-  console.log("chatt", chats);
   return (
     <AnimatePresence>
       {chats.map(
@@ -25,7 +25,7 @@ const SidebarItems: FC<SidebarItemsProps> = ({ chats }) => {
               }}
             >
               <SidebarItem index={index} chat={chat}>
-                <div></div>
+                <SidebarActions chat={chat} />
               </SidebarItem>
             </motion.div>
           ),

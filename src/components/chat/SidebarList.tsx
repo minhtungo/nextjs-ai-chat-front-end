@@ -13,8 +13,6 @@ const loadChats = cache(async (userId?: string) => {
 const SidebarList: FC<SidebarListProps> = async ({ userId }) => {
   const chats = await loadChats(userId!);
 
-  console.log("asd", chats);
-
   return (
     <>
       {chats.length > 0 && (

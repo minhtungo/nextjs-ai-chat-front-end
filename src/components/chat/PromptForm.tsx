@@ -63,13 +63,13 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
       }}
       className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
     >
-      <div className="flex w-full items-center gap-1.5 p-1.5 lg:gap-3.5">
+      <div className="flex w-full items-center gap-1.5 p-1 lg:gap-3.5">
         <div className="flex items-center gap-1.5">
           <TooltipProvider delayDuration={100}>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <Paperclip className="size-4" />
+                  <Paperclip className="size-3.5" />
                   <span className="sr-only">Attach file</span>
                 </Button>
               </TooltipTrigger>

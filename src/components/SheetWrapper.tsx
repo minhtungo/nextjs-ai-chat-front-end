@@ -25,7 +25,7 @@ const SheetWrapper: FC<SheetWrapperProps> = ({
 }) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn("sm:hidden", className)}>
+      <SheetTrigger className={cn("", className)}>
         <Menu />
       </SheetTrigger>
       <SheetContent className="h-full w-full" side={side}>

@@ -18,12 +18,14 @@ export interface ChatProps extends React.ComponentProps<"div"> {
   user?: ExtendedUser;
 }
 
-const Chat: FC<ChatProps> = ({ id, className, user, initialMessages }) => {
+const Chat: FC<ChatProps> = ({ id, user }) => {
   const router = useRouter();
   const path = usePathname();
   const [input, setInput] = useState("");
   const [messages] = useUIState();
   const [aiState] = useAIState();
+
+  const [_, setNewChatId] = useLocalStorage("newChatId", id);
 
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
@@ -32,8 +34,6 @@ const Chat: FC<ChatProps> = ({ id, className, user, initialMessages }) => {
       chatBoxRef.current.scrollIntoView(false);
     }
   }, [messages]);
-
-  const [_, setNewChatId] = useLocalStorage("newChatId", id);
 
   useEffect(() => {
     if (user) {
@@ -64,14 +64,14 @@ const Chat: FC<ChatProps> = ({ id, className, user, initialMessages }) => {
           className="flex h-full w-full flex-1 flex-col gap-y-5"
           ref={chatBoxRef}
         >
-          {messages.length > 0 && <ChatList messages={messages} user={user} />}
+          {messages.length > 0 && <ChatList messages={messages} />}
         </div>
         <div className="h-px w-full" ref={visibilityRef} />
-        <ButtonScrollToBottom
-          isAtBottom={isAtBottom}
-          scrollToBottom={scrollToBottom}
-        />
       </Container>
+      <ButtonScrollToBottom
+        isAtBottom={isAtBottom}
+        scrollToBottom={scrollToBottom}
+      />
       <ChatPanel input={input} setInput={setInput} />
     </>
   );
