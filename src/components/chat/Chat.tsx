@@ -2,18 +2,16 @@
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
-import { Message } from "@/types/chat";
 import { ExtendedUser } from "@/types/next-auth";
 import { useAIState, useUIState } from "ai/rsc";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useRef, useState } from "react";
 import ButtonScrollToBottom from "../ButtonScrollToBottom";
 import Container from "../dashboard/Container";
-import ChatPanel from "./ChatPanel";
 import ChatList from "./ChatList";
+import ChatPanel from "./ChatPanel";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
-  initialMessages?: Message[];
   id?: string;
   user?: ExtendedUser;
 }

@@ -74,6 +74,7 @@ export async function getChats(userId?: string | null) {
       include: {
         messages: true,
       },
+      orderBy: { updatedAt: "desc" },
     });
 
     return chats;

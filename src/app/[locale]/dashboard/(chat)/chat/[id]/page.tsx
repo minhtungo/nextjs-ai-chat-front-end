@@ -2,6 +2,7 @@ import { getChat } from "@/actions/chat";
 import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";
+import { Message } from "@/types/chat";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 
@@ -43,9 +44,13 @@ const ChatPage = async ({ params }: ChatPageProps) => {
     notFound();
   }
 
+  console.log(chat.messages);
+
   return (
-    <AI initialAIState={{ chatId: chat.id, messages: chat.messages }}>
-      <Chat id={chat.id} user={user} initialMessages={chat.messages} />
+    <AI
+      initialAIState={{ chatId: chat.id, messages: chat.messages as Message[] }}
+    >
+      <Chat id={chat.id} user={user} />
     </AI>
   );
 };

@@ -6,10 +6,11 @@ interface ChatListProps {
 }
 
 const ChatList: FC<ChatListProps> = ({ messages }) => {
-  console.log("messages chatlist", messages);
   if (!messages.length) {
     return null;
   }
+
+  console.log("display", messages[1].display);
 
   return (
     <>

@@ -13,7 +13,7 @@ export const getUIStateFromAIState = (aiState: Chat) => {
         message.role === "user" ? (
           <UserMessage>{message.content as string}</UserMessage>
         ) : (
-          <BotMessage>{message.content as string}</BotMessage>
+          <BotMessage content={message.content} />
         ),
     }));
 };
