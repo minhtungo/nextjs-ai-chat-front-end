@@ -19,7 +19,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
       <MaxWidthWrapper>
         <div className="flex flex-col justify-center gap-y-3 text-center text-sm sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} Lumi
+            © {new Date().getFullYear()} Lumi.
           </p>
           <ul className="flex items-center justify-center gap-5 sm:justify-end">
             {SOCIAL_LINKS.map(({ title, href, icon }) => (

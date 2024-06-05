@@ -1,12 +1,11 @@
+import Discord from "@/components/icons/Discord";
 import Momo from "@/components/icons/Momo";
 import {
   BotMessageSquare,
   CreditCard,
-  DiscIcon,
-  Facebook,
-  FacebookIcon,
   Home,
   MessageSquareMore,
+  Facebook,
 } from "lucide-react";
 
 export const NAV_LINKS = [
@@ -70,13 +69,15 @@ export const SOCIAL_LINKS = [
   {
     title: "Facebook",
     href: "#",
-    icon: <FacebookIcon className="h-4 w-4" />,
+    icon: (
+      <Facebook className="size-5 text-muted-foreground hover:text-accent-foreground" />
+    ),
   },
-  {
-    title: "Discord",
-    href: "#",
-    icon: <DiscIcon className="h-4 w-4" />,
-  },
+  // {
+  //   title: "Discord",
+  //   href: "#",
+  //   icon: <Discord className="size-5 text-muted-foreground" />,
+  // },
 ];
 
 export const EXPIRY_PERIOD = 1800 * 1000;
