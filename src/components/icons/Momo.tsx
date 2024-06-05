@@ -14,6 +14,7 @@ const Momo: FC<IconProps> = ({ className, ...props }) => {
       viewBox="0 0 61 61"
       className={cn(className)}
       xmlSpace="preserve"
+      {...props}
     >
       <circle className="st0" cx="-544" cy="30.5" r="168" fill="#A50064" />
       <g>

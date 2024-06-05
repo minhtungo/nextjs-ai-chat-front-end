@@ -13,6 +13,8 @@ import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
+import VNFlag from "./icons/VNFlag";
+import ENFlag from "./icons/ENFlag";
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -45,13 +47,17 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
       disabled={isPending}
       onValueChange={onSelectChange}
     >
-      <SelectTrigger className={cn("h-9 w-[62.5px]", className)}>
+      <SelectTrigger className={cn("h-9 w-fit px-2", className)}>
         <SelectValue placeholder={t("label")} />
       </SelectTrigger>
       <SelectContent className="min-w-0">
         {locales.map((cur) => (
           <SelectItem key={cur} value={cur}>
-            {t("locale", { locale: cur })}
+            {t("locale", { locale: cur }) === "VI" ? (
+              <VNFlag className="size-5" />
+            ) : (
+              <ENFlag className="size-5" />
+            )}
           </SelectItem>
         ))}
       </SelectContent>
