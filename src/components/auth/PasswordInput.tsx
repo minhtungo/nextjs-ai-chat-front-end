@@ -14,7 +14,7 @@ const PasswordInput = (props: InputProps) => {
       <button
         type="button"
         onClick={() => setShowPassword(!showPassword)}
-        className="absolute right-0 top-1/2 -translate-y-1/2 px-3 text-muted-foreground outline-none transition-all duration-150 focus:text-muted-foreground focus:outline-none"
+        className="absolute right-0 top-1/2 mr-3 -translate-y-1/2 text-muted-foreground outline-none transition-all duration-150 focus:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         arial-label="Show password"
       >
         {showPassword ? (
