@@ -223,6 +223,12 @@
       },
       "SignIn": {
         "title": "Sign in"
+      },
+      "SignOut": {
+        "title": "Sign out"
+      },
+      "Dashboard": {
+        "title": "Dashboard"
       }
     },
     "Month": {

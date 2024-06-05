@@ -210,4 +210,4 @@ export const MONTH_NAMES = [
   },
 ];
 
-export const PROTECTED_BASED_URL = "/dashboard";
+export const PROTECTED_BASE_URL = "/dashboard";

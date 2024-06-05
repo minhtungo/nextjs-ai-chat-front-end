@@ -14,6 +14,7 @@ const MobileMenu: FC<MobileMenuProps> = ({}) => {
 
   return (
     <SheetWrapper
+      triggerClassName="md:hidden"
       content={
         <>
           <nav className="h-full flex-1">

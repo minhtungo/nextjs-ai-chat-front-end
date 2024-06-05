@@ -1,0 +1,59 @@
+import { getCurrentUser } from "@/lib/auth";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { signInHref, signUpHref } from "@/routes";
+import { getTranslations } from "next-intl/server";
+import Link from "next/link";
+import { FC } from "react";
+import SignOutButton from "./SignOutButton";
+import { buttonVariants } from "./ui/button";
+import LanguageSwitcher from "./LanguageSwitcher";
+
+interface NavButtonsProps {}
+
+const NavButtons: FC<NavButtonsProps> = async () => {
+  const t = await getTranslations("common.Navbar");
+  const user = await getCurrentUser();
+
+  return (
+    <div className="hidden items-center space-x-3 md:flex">
+      {user ? (
+        <>
+          <SignOutButton title={t("SignOut.title")} />
+
+          <Link
+            href={PROTECTED_BASE_URL}
+            className={buttonVariants({
+              size: "sm",
+            })}
+          >
+            {t("Dashboard.title")}
+          </Link>
+        </>
+      ) : (
+        <>
+          <Link
+            href={signUpHref}
+            className={buttonVariants({
+              variant: "ghost",
+              size: "sm",
+            })}
+          >
+            {t("SignUp.title")}
+          </Link>
+
+          <Link
+            href={signInHref}
+            className={buttonVariants({
+              size: "sm",
+            })}
+          >
+            {t("SignIn.title")}
+          </Link>
+          <LanguageSwitcher className="hidden md:flex" />
+        </>
+      )}
+    </div>
+  );
+};
+
+export default NavButtons;

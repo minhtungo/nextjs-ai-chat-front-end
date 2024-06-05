@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FC } from "react";
 import Typography from "../ui/typography";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
 
 interface HeroProps {}
 
@@ -29,7 +30,7 @@ const Hero: FC<HeroProps> = () => {
           size: "lg",
           className: "mt-5",
         })}
-        href="/dashboard/chat"
+        href={PROTECTED_BASE_URL}
       >
         {t("cta")}
       </Link>

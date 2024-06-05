@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Select,
   SelectContent,
@@ -43,7 +45,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
       disabled={isPending}
       onValueChange={onSelectChange}
     >
-      <SelectTrigger className={cn("w-[65px]", className)}>
+      <SelectTrigger className={cn("h-9 w-[62.5px]", className)}>
         <SelectValue placeholder={t("label")} />
       </SelectTrigger>
       <SelectContent className="min-w-0">

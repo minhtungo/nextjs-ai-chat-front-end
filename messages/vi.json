@@ -223,6 +223,12 @@
       },
       "SignIn": {
         "title": "Đăng nhập"
+      },
+      "SignOut": {
+        "title": "Đăng xuất"
+      },
+      "Dashboard": {
+        "title": "Dashboard"
       }
     },
     "Month": {

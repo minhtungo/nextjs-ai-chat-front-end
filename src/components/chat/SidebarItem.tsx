@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { buttonVariants } from "../ui/button";
-import { PROTECTED_BASED_URL } from "@/lib/constant";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
 
 interface SidebarItemProps {
   index: number;
@@ -18,7 +18,7 @@ interface SidebarItemProps {
 const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
   const pathname = usePathname();
 
-  const isActive = pathname.split(PROTECTED_BASED_URL)[1] === chat.path;
+  const isActive = pathname.split(PROTECTED_BASE_URL)[1] === chat.path;
 
   const [newChatId, setNewChatId] = useLocalStorage("newChatId", null);
   const shouldAnimate = index === 0 && isActive && newChatId;

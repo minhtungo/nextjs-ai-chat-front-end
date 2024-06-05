@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import NavButtons from "@/components/NavButtons";
 import Navbar from "@/components/Navbar";
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
@@ -18,7 +19,7 @@ export default function GuestLayout({
   unstable_setRequestLocale(locale);
   return (
     <>
-      <Navbar />
+      <Navbar navButtons={<NavButtons />} />
       <MaxWidthWrapper>{children}</MaxWidthWrapper>
       <Footer />
     </>
