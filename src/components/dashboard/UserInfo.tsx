@@ -29,9 +29,12 @@ import SubmitButton from "../SubmitButton";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { UserSettings } from "@prisma/client";
 
 interface UserInfoProps {
-  user: ExtendedUser;
+  user: ExtendedUser & {
+    settings: UserSettings;
+  };
 }
 
 const UserInfo: FC<UserInfoProps> = ({ user }) => {
@@ -42,7 +45,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
-      language: user?.settings?.language || undefined,
+      language: user.settings.preferredLang || undefined,
     },
   });
 
@@ -70,7 +73,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
           <CardContent className="w-full space-y-4" noBorder>
             <div className="space-y-2">
               <Label>Email</Label>
-              <Input placeholder="Email" value={user.email} disabled />
+              <Input placeholder="Email" value={user.email!} disabled />
             </div>
             <FormField
               control={form.control}

@@ -11,6 +11,7 @@ import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { sendChangePasswordEmail } from "@/lib/mail";
+import { Languages } from "@prisma/client";
 
 export const updateUserProfile = async (
   values: z.infer<typeof updateUserProfileSchema>,
@@ -27,10 +28,17 @@ export const updateUserProfile = async (
     return { error: "Unauthorized" };
   }
 
+  const { name, language } = values;
+
   await db.user.update({
     where: { id: dbUser.id },
     data: {
-      ...values,
+      name,
+      settings: {
+        update: {
+          preferredLang: language as Languages | undefined,
+        },
+      },
     },
   });
 

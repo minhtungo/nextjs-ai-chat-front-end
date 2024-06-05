@@ -5,17 +5,15 @@ import { UserSettings } from "@prisma/client";
 import UserInfo from "./UserInfo";
 
 interface UserProfileProps {
-  user: ExtendedUser & UserSettings;
+  user: ExtendedUser & {
+    settings: UserSettings;
+  };
 }
 
 const UserProfile: FC<UserProfileProps> = ({ user }) => {
   if (!user) return <p>Unauthorized</p>;
 
-  return (
-    <>
-      <UserInfo user={user} />
-    </>
-  );
+  return <UserInfo user={user} />;
 };
 
 export default UserProfile;
