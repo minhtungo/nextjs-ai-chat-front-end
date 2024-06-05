@@ -28,7 +28,7 @@ const CardWrapper: FC<cardWrapperProps> = ({
 }) => {
   return (
     <Card className="mx-auto w-full max-w-md">
-      <CardHeader>
+      <CardHeader className="pt-0">
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>

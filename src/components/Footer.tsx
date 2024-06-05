@@ -2,12 +2,20 @@ import { FC } from "react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { SOCIAL_LINKS } from "@/lib/constant";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-interface FooterProps {}
+interface FooterProps {
+  className?: string;
+}
 
-const Footer: FC<FooterProps> = () => {
+const Footer: FC<FooterProps> = ({ className }) => {
   return (
-    <footer className="mt-16 border-t border-border py-4 sm:mt-20 sm:py-6">
+    <footer
+      className={cn(
+        "mt-16 border-t border-border py-4 sm:mt-20 sm:py-6",
+        className,
+      )}
+    >
       <MaxWidthWrapper>
         <div className="flex flex-col justify-center gap-y-3 text-center text-sm sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p className="text-muted-foreground">

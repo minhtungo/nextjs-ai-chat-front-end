@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import NavButtons from "@/components/NavButtons";
 import Navbar from "@/components/Navbar";
 
 import { locales } from "@/lib/config";
@@ -19,11 +20,11 @@ export default function AuthLayout({
 
   return (
     <>
-      <Navbar />
+      <Navbar navButtons={<NavButtons />} />
       <main className="flex min-h-[calc(100vh-56px)] w-full items-center justify-center px-4 sm:px-6">
         {children}
       </main>
-      <Footer />
+      <Footer className="!mt-0" />
     </>
   );
 }

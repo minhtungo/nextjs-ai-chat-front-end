@@ -12,7 +12,7 @@ import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./ThemeToggle";
 
 interface navbarProps {
-  navButtons: React.ReactNode;
+  navButtons?: React.ReactNode;
 }
 
 const Navbar: FC<navbarProps> = ({ navButtons }) => {
@@ -66,7 +66,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
               </ul>
             </nav>
             <div className="ml-auto flex items-center space-x-3">
-              <Suspense>{navButtons}</Suspense>
+              {navButtons && <Suspense>{navButtons}</Suspense>}
               <ThemeToggle />
               <MobileMenu />
             </div>
