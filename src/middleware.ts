@@ -18,6 +18,7 @@ const publicPages = publicRoutes.concat(authRoutes);
 const intlMiddleware = createIntlMiddleware({
   locales,
   defaultLocale: "vi",
+  localePrefix: "never",
 });
 
 const authMiddleware = auth((req) => {
