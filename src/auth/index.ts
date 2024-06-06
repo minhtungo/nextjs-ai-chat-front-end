@@ -5,7 +5,7 @@ import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type UserRole } from "@prisma/client";
+import { Languages, type UserRole } from "@prisma/client";
 import { getAccountByUserId } from "@/data/account";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -66,9 +66,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.name = existingUser.name;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      token.preferredLang =
+        existingUser.settings?.preferredLang?.toLowerCase() || "vi";
       return token;
     },
     async session({ token, session }) {
+      console.log(token);
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -77,6 +80,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
       if (token.isTwoFactorEnabled && session.user) {
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      }
+
+      if (token.preferredLang && session.user) {
+        session.user.preferredLang = token.preferredLang as Languages;
       }
 
       if (session.user) {

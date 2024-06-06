@@ -23,6 +23,8 @@ interface UserMenuProps {
 const UserMenu: FC<UserMenuProps> = ({ className }) => {
   const user = useCurrentUser();
 
+  console.log(user);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={cn(className)} asChild>

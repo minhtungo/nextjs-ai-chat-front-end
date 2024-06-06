@@ -1,10 +1,11 @@
-import { type UserRole } from "@prisma/client";
+import { UserSettings, type UserRole } from "@prisma/client";
 import { User, type DefaultSession } from "next-auth";
 
 export type ExtendedUser = DefaultSession["user"] & {
   role: UserRole;
   isTwoFactorEnabled: boolean;
   isOauth: boolean;
+  preferredLang: $Enums.Languages;
 };
 
 declare module "next-auth" {

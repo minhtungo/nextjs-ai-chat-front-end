@@ -59,11 +59,14 @@ const authMiddleware = auth((req) => {
 
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = new RegExp(
-    `^(/(${locales.join("|")})?)?(${publicPages
+    `^(/(${locales.join("|")})?)?(${publicRoutes
       .flatMap((p) => (p === "/" ? ["/", ""] : [p]))
       .join("|")})/?$`,
     "i",
   );
+
+  // const allCookies = req.cookies.get("preferredLang")?.value;
+  // console.log(allCookies);
 
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 

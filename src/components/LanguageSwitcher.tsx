@@ -1,5 +1,6 @@
 "use client";
 
+import { updatePreferredLang } from "@/actions/utils";
 import {
   Select,
   SelectContent,
@@ -13,8 +14,8 @@ import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
-import VNFlag from "./icons/VNFlag";
 import ENFlag from "./icons/ENFlag";
+import VNFlag from "./icons/VNFlag";
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -31,6 +32,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
 
   const onSelectChange = (nextLocale: string) => {
     startTransition(() => {
+      updatePreferredLang(nextLocale);
       router.replace(
         // @ts-expect-error -- TypeScript will validate that only known `params`
         // are used in combination with a given `pathname`. Since the two will

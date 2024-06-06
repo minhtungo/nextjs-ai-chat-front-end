@@ -45,7 +45,7 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
-      language: user.settings.preferredLang || undefined,
+      language: user?.settings?.preferredLang || undefined,
     },
   });
 
