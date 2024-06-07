@@ -59,7 +59,7 @@ const authMiddleware = auth((req) => {
 
 export default function middleware(req: NextRequest) {
   const publicPathnameRegex = new RegExp(
-    `^(/(${locales.join("|")})?)?(${publicRoutes
+    `^(/(${locales.join("|")})?)?(${publicPages
       .flatMap((p) => (p === "/" ? ["/", ""] : [p]))
       .join("|")})/?$`,
     "i",

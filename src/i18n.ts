@@ -8,12 +8,12 @@ import { getCurrentUser } from "./lib/auth";
 export default getRequestConfig(async ({ locale }) => {
   let mainLocale = locale;
   // Validate that the incoming `locale` parameter is valid
-  if (!locales.includes(locale as any)) notFound();
+  if (!locales.includes(mainLocale as any)) notFound();
 
   const user = await getCurrentUser();
 
   if (user && user.preferredLang) {
-    mainLocale = user.preferredLang || locale;
+    mainLocale = user.preferredLang.toLowerCase() || locale;
   }
 
   return {
