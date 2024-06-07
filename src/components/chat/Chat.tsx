@@ -10,6 +10,7 @@ import ButtonScrollToBottom from "../ButtonScrollToBottom";
 import Container from "../dashboard/Container";
 import ChatList from "./ChatList";
 import ChatPanel from "./ChatPanel";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;
@@ -36,7 +37,7 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
   useEffect(() => {
     if (user) {
       if (!path.includes("chat") && messages.length === 1) {
-        window.history.replaceState({}, "", `/dashboard/chat/${id}`);
+        router.replace(`${PROTECTED_BASE_URL}/chat/${id}`);
       }
     }
   }, [id, path, user, messages]);

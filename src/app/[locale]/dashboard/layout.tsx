@@ -14,7 +14,6 @@ export default async function DashBoardLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  console.log(session);
   if (session && session.user) {
     session.user = {
       name: session.user.name,

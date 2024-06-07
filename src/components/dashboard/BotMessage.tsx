@@ -24,8 +24,6 @@ interface BotMessageProps {
 const BotMessage: FC<BotMessageProps> = ({ content }) => {
   const text = useStreamableText(content);
 
-  console.log("textss", content);
-
   return (
     <div className="space-y-1.5">
       <Card className="bg-primary-muted w-fit p-3 sm:p-4">

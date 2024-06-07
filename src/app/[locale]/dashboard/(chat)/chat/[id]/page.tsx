@@ -44,8 +44,6 @@ const ChatPage = async ({ params }: ChatPageProps) => {
     notFound();
   }
 
-  console.log(chat.messages);
-
   return (
     <AI
       initialAIState={{ chatId: chat.id, messages: chat.messages as Message[] }}

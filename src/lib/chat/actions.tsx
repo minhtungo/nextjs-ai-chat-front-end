@@ -37,7 +37,7 @@ export const submitUserMessage = async (content: string) => {
   let textNode: undefined | React.ReactNode;
 
   const result = await streamUI({
-    model: openai("gpt-4o"),
+    model: openai("gpt-3.5-turbo"),
     initial: <Spinner />,
     messages: [
       ...aiState.get().messages.map((message: any) => ({

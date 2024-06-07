@@ -10,8 +10,6 @@ const ChatList: FC<ChatListProps> = ({ messages }) => {
     return null;
   }
 
-  console.log("display", messages[1].display);
-
   return (
     <>
       {messages.map((message, index) => (
