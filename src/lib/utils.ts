@@ -43,3 +43,13 @@ export const formatNumber = (value: number) =>
     style: "currency",
     currency: "VND",
   }).format(value);
+
+export const encodeImage = async (file?: File) => {
+  if (!file) return;
+
+  const encoded = await file
+    .arrayBuffer()
+    .then((buffer) => Buffer.from(buffer).toString("base64"));
+
+  return encoded;
+};

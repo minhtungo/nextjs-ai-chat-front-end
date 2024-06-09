@@ -27,7 +27,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
 
   return (
     <motion.div
-      className="relative h-8"
+      className={cn("group relative h-8")}
       variants={{
         initial: {
           height: 0,
@@ -45,17 +45,17 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
         ease: "easeIn",
       }}
     >
-      <div className="absolute left-2 top-2.5 flex size-5 items-center justify-center">
-        <MessageCircle className=" mr-1 text-zinc-500" />
-      </div>
       <Link
         href={`/dashboard/chat/${chat.id}`}
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "group w-full px-8 transition-colors hover:bg-zinc-200/40 dark:hover:bg-zinc-300/10",
+          "w-full px-8 transition-colors group-hover:bg-zinc-200/40 dark:group-hover:bg-zinc-300/10",
           isActive && "bg-zinc-200 pr-16 font-semibold dark:bg-zinc-800",
         )}
       >
+        <div className="absolute left-2 top-2.5 flex size-5 items-center justify-center">
+          <MessageCircle className=" mr-1 text-zinc-500" />
+        </div>
         <div
           className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all"
           title={chat.title}
@@ -98,7 +98,14 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
           </span>
         </div>
       </Link>
-      {isActive && <div className="absolute right-2 top-1.5">{children}</div>}
+      <div
+        className={cn(
+          "absolute right-2 top-1.5 hidden",
+          isActive ? "block" : "group-hover:block",
+        )}
+      >
+        {children}
+      </div>
     </motion.div>
   );
 };

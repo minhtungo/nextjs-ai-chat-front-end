@@ -16,7 +16,10 @@ import {
 } from "ai/rsc";
 import { getUIStateFromAIState } from ".";
 
-export const submitUserMessage = async (content: string) => {
+export const submitUserMessage = async (
+  content: string,
+  encodedImage?: string,
+) => {
   "use server";
 
   const aiState = getMutableAIState<typeof AI>();
@@ -37,19 +40,26 @@ export const submitUserMessage = async (content: string) => {
   let textNode: undefined | React.ReactNode;
 
   const result = await streamUI({
-    model: openai("gpt-3.5-turbo"),
+    model: openai("gpt-4-turbo"),
     initial: <Spinner />,
     messages: [
-      ...aiState.get().messages.map((message: any) => ({
+      ...aiState.get().messages.map((message) => ({
         role: message.role,
-        content: message.content,
-        name: message.name,
+        content: [
+          {
+            type: "text",
+            text: message.content,
+          },
+          ...(encodedImage ? [{ type: "image", image: encodedImage }] : []),
+        ],
+        name: message.id,
       })),
     ],
     text: ({ content, done, delta }) => {
       if (!textStream) {
         textStream = createStreamableValue("");
         textNode = <BotMessage content={textStream.value} />;
+        console.log(textStream.value);
       }
 
       if (done) {

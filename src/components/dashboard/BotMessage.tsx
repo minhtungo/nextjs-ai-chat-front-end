@@ -16,6 +16,7 @@ import { Card } from "../ui/card";
 import { StreamableValue } from "ai/rsc";
 import { useStreamableText } from "@/hooks/use-streamable-text";
 import { MemoizedReactMarkdown } from "../markdown";
+import Image from "next/image";
 
 interface BotMessageProps {
   content: string | StreamableValue<string>;

@@ -24,6 +24,7 @@ import { Trash } from "lucide-react";
 import Spinner from "../Spinner";
 import { toast } from "sonner";
 import { removeChat } from "@/actions/chat";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
 
 interface SidebarActionsProps {
   chat: Chat;
@@ -81,7 +82,7 @@ const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
 
                   setDeleteDialogOpen(false);
                   router.refresh();
-                  router.push("/");
+                  router.push(PROTECTED_BASE_URL);
                   toast.success("Chat deleted");
                 });
               }}

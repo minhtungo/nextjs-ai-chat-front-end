@@ -13,7 +13,7 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-const publicPages = publicRoutes.concat(authRoutes);
+const publicPages = publicRoutes;
 
 const intlMiddleware = createIntlMiddleware({
   locales,
@@ -32,15 +32,15 @@ const authMiddleware = auth((req) => {
   if (isApiAuthRoute) {
     return;
   }
+
   if (isAuthRoute) {
     if (isLoggedIn) {
+      console.log("isLoggedIn");
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
-    return;
+    return intlMiddleware(req);
   }
-  // if (isPublicRoute && isLoggedIn) {
-  //   return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-  // }
+
   if (!isLoggedIn && !isPublicRoute) {
     let redirectURL = nextUrl.pathname;
     if (nextUrl.search) {
@@ -64,9 +64,6 @@ export default function middleware(req: NextRequest) {
       .join("|")})/?$`,
     "i",
   );
-
-  // const allCookies = req.cookies.get("preferredLang")?.value;
-  // console.log(allCookies);
 
   const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 

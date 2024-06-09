@@ -2,6 +2,7 @@ import { getChat } from "@/actions/chat";
 import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";
+import { PROTECTED_BASE_URL } from "@/lib/constant";
 import { Message } from "@/types/chat";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
@@ -37,7 +38,7 @@ const ChatPage = async ({ params }: ChatPageProps) => {
   const chat = await getChat(params.id, user.id!);
 
   if (!chat) {
-    redirect("/");
+    redirect(PROTECTED_BASE_URL);
   }
 
   if (chat?.userId !== user?.id) {
