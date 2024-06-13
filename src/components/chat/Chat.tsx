@@ -24,6 +24,8 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
   const [messages] = useUIState();
   const [aiState] = useAIState();
 
+  console.log(aiState);
+
   const [_, setNewChatId] = useLocalStorage("newChatId", id);
 
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
@@ -37,7 +39,7 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
   useEffect(() => {
     if (user) {
       if (!path.includes("chat") && messages.length === 1) {
-        router.replace(`${PROTECTED_BASE_URL}/chat/${id}`);
+        window.history.replaceState({}, "", `${PROTECTED_BASE_URL}/chat/${id}`);
       }
     }
   }, [id, path, user, messages]);

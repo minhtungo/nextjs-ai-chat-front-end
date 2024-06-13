@@ -46,7 +46,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
       }}
     >
       <Link
-        href={`/dashboard/chat/${chat.id}`}
+        href={`${PROTECTED_BASE_URL}/chat/${chat.id}`}
         className={cn(
           buttonVariants({ variant: "ghost" }),
           "w-full px-8 transition-colors group-hover:bg-zinc-200/40 dark:group-hover:bg-zinc-300/10",

@@ -5,7 +5,7 @@ import { nanoid } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Lumi Chatbot",
+  title: "Chat",
 };
 
 const IndexPage = async () => {

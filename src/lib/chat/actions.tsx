@@ -1,9 +1,9 @@
 import "server-only";
 
 import { saveChat } from "@/actions/chat";
-import { auth } from "@/auth";
 import Spinner from "@/components/Spinner";
 import BotMessage from "@/components/dashboard/BotMessage";
+import UserMessage from "@/components/dashboard/UserMessage";
 import { nanoid } from "@/lib/utils";
 import { Chat, Message } from "@/types/chat";
 import { openai } from "@ai-sdk/openai";
@@ -14,11 +14,26 @@ import {
   getMutableAIState,
   streamUI,
 } from "ai/rsc";
-import { getUIStateFromAIState } from ".";
+import { getCurrentUser } from "../auth";
+import { DataContent } from "ai";
+
+export const getUIStateFromAIState = (aiState: Chat) => {
+  return aiState.messages
+    .filter((message) => message.role !== "system")
+    .map((message, index) => ({
+      id: `${aiState.chatId}-${index}`,
+      display:
+        message.role === "user" ? (
+          <UserMessage>{message.content as string}</UserMessage>
+        ) : (
+          <BotMessage content={message.content} />
+        ),
+    }));
+};
 
 export const submitUserMessage = async (
   content: string,
-  encodedImage?: string,
+  encodedImage?: DataContent | URL,
 ) => {
   "use server";
 
@@ -31,7 +46,15 @@ export const submitUserMessage = async (
       {
         id: nanoid(),
         role: "user",
-        content,
+        content: [
+          {
+            type: "text",
+            text: content,
+          },
+          ...(encodedImage
+            ? [{ type: "image" as any, image: encodedImage }]
+            : []),
+        ],
       },
     ],
   });
@@ -50,37 +73,38 @@ export const submitUserMessage = async (
             type: "text",
             text: message.content,
           },
-          ...(encodedImage ? [{ type: "image", image: encodedImage }] : []),
+          ...(encodedImage
+            ? [{ type: "image" as any, image: encodedImage }]
+            : []),
         ],
         name: message.id,
       })),
     ],
-    text: ({ content, done, delta }) => {
-      if (!textStream) {
-        textStream = createStreamableValue("");
-        textNode = <BotMessage content={textStream.value} />;
-        console.log(textStream.value);
-      }
+    // text: ({ content, done, delta }) => {
+    //   if (!textStream) {
+    //     textStream = createStreamableValue("");
+    //     textNode = <BotMessage content={textStream.value} />;
+    //   }
 
-      if (done) {
-        textStream.done();
-        aiState.done({
-          ...aiState.get(),
-          messages: [
-            ...aiState.get().messages,
-            {
-              id: nanoid(),
-              role: "assistant",
-              content,
-            },
-          ],
-        });
-      } else {
-        textStream.update(delta);
-      }
+    //   if (done) {
+    //     textStream.done();
+    //     aiState.done({
+    //       ...aiState.get(),
+    //       messages: [
+    //         ...aiState.get().messages,
+    //         {
+    //           id: nanoid(),
+    //           role: "assistant",
+    //           content,
+    //         },
+    //       ],
+    //     });
+    //   } else {
+    //     textStream.update(delta);
+    //   }
 
-      return textNode;
-    },
+    //   return textNode;
+    // },
   });
   return {
     id: nanoid(),
@@ -97,9 +121,9 @@ export const AI = createAI<AIState, UIState>({
   onGetUIState: async () => {
     "use server";
 
-    const session = await auth();
+    const user = await getCurrentUser();
 
-    if (session && session.user) {
+    if (user) {
       const aiState = getAIState();
 
       if (aiState) {
@@ -113,13 +137,13 @@ export const AI = createAI<AIState, UIState>({
   onSetAIState: async ({ state }) => {
     "use server";
 
-    const session = await auth();
+    const user = await getCurrentUser();
 
-    if (session && session.user) {
+    if (user) {
       const { chatId, messages } = state;
 
       const createdAt = new Date();
-      const userId = session.user.id as string;
+      const userId = user.id as string;
       const path = `/chat/${chatId}`;
 
       const firstMessageContent = messages[0].content as string;
