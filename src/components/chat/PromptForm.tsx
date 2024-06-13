@@ -40,8 +40,6 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
     }
   }, []);
 
-  console.log("hi");
-
   return (
     <form
       ref={formRef}
