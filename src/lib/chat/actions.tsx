@@ -16,6 +16,7 @@ import {
 } from "ai/rsc";
 import { getCurrentUser } from "../auth";
 import { DataContent } from "ai";
+import { sanitizeHtml } from "sanitize-html";
 
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages
@@ -49,7 +50,7 @@ export const submitUserMessage = async (
         content: [
           {
             type: "text",
-            text: content,
+            text: sanitizeHtml(content),
           },
           ...(encodedImage
             ? [{ type: "image" as any, image: encodedImage }]
