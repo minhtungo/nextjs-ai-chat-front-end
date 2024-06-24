@@ -23,7 +23,7 @@ import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
 import Spinner from "../Spinner";
 import { toast } from "sonner";
-import { removeChat } from "@/actions/chat";
+import { removeChatAction } from "@/actions/chat";
 import { PROTECTED_BASE_URL } from "@/lib/constant";
 
 interface SidebarActionsProps {
@@ -73,10 +73,12 @@ const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
                 event.preventDefault();
                 // @ts-ignore
                 startRemoveTransition(async () => {
-                  const result = await removeChat(chat.id);
+                  const [_, error] = await removeChatAction({
+                    chatID: chat.id,
+                  });
 
-                  if (result && "error" in result) {
-                    toast.error(result.error);
+                  if (error) {
+                    toast.error(error.message);
                     return;
                   }
 

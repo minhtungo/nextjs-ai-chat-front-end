@@ -1,6 +1,6 @@
 import "server-only";
 
-import { saveChat } from "@/actions/chat";
+import { saveChatAction } from "@/actions/chat";
 import Spinner from "@/components/Spinner";
 import BotMessage from "@/components/dashboard/BotMessage";
 import UserMessage from "@/components/dashboard/UserMessage";
@@ -16,7 +16,6 @@ import {
 } from "ai/rsc";
 import { getCurrentUser } from "../auth";
 import { DataContent } from "ai";
-import { sanitizeHtml } from "sanitize-html";
 
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages
@@ -47,15 +46,7 @@ export const submitUserMessage = async (
       {
         id: nanoid(),
         role: "user",
-        content: [
-          {
-            type: "text",
-            text: sanitizeHtml(content),
-          },
-          ...(encodedImage
-            ? [{ type: "image" as any, image: encodedImage }]
-            : []),
-        ],
+        content,
       },
     ],
   });
@@ -81,31 +72,31 @@ export const submitUserMessage = async (
         name: message.id,
       })),
     ],
-    // text: ({ content, done, delta }) => {
-    //   if (!textStream) {
-    //     textStream = createStreamableValue("");
-    //     textNode = <BotMessage content={textStream.value} />;
-    //   }
+    text: ({ content, done, delta }) => {
+      if (!textStream) {
+        textStream = createStreamableValue("");
+        textNode = <BotMessage content={textStream.value} />;
+      }
 
-    //   if (done) {
-    //     textStream.done();
-    //     aiState.done({
-    //       ...aiState.get(),
-    //       messages: [
-    //         ...aiState.get().messages,
-    //         {
-    //           id: nanoid(),
-    //           role: "assistant",
-    //           content,
-    //         },
-    //       ],
-    //     });
-    //   } else {
-    //     textStream.update(delta);
-    //   }
+      if (done) {
+        textStream.done();
+        aiState.done({
+          ...aiState.get(),
+          messages: [
+            ...aiState.get().messages,
+            {
+              id: nanoid(),
+              role: "assistant",
+              content,
+            },
+          ],
+        });
+      } else {
+        textStream.update(delta);
+      }
 
-    //   return textNode;
-    // },
+      return textNode;
+    },
   });
   return {
     id: nanoid(),
@@ -159,7 +150,7 @@ export const AI = createAI<AIState, UIState>({
         path,
       };
 
-      await saveChat(chat);
+      await saveChatAction({ chat });
     } else {
       return;
     }
