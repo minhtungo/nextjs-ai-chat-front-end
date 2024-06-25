@@ -1,13 +1,6 @@
 "use client";
 
-import { FC, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { removeChatAction } from "@/actions/chat";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,13 +11,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Chat } from "@/types/chat";
-import { Button } from "../ui/button";
-import { Trash } from "lucide-react";
-import Spinner from "../Spinner";
-import { toast } from "sonner";
-import { removeChatAction } from "@/actions/chat";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { Chat } from "@/types/chat";
+import { Trash } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { FC, useState } from "react";
+import { toast } from "sonner";
+import { useServerAction } from "zsa-react";
+import Spinner from "../Spinner";
+import { Button } from "../ui/button";
 
 interface SidebarActionsProps {
   chat: Chat;
@@ -33,7 +34,8 @@ interface SidebarActionsProps {
 const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
   const router = useRouter();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [isRemovePending, startRemoveTransition] = useTransition();
+  const { isPending: isRemovePending, execute } =
+    useServerAction(removeChatAction);
 
   return (
     <>
@@ -69,24 +71,23 @@ const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
             </AlertDialogCancel>
             <AlertDialogAction
               disabled={isRemovePending}
-              onClick={(event) => {
-                event.preventDefault();
-                // @ts-ignore
-                startRemoveTransition(async () => {
-                  const [_, error] = await removeChatAction({
-                    chatID: chat.id,
-                  });
+              onClick={async (e) => {
+                e.preventDefault();
 
-                  if (error) {
-                    toast.error(error.message);
-                    return;
-                  }
-
-                  setDeleteDialogOpen(false);
-                  router.refresh();
-                  router.push(PROTECTED_BASE_URL);
-                  toast.success("Chat deleted");
+                const [_, error] = await execute({
+                  chatID: chat.id,
                 });
+
+                if (error) {
+                  toast.error(error.message);
+                  return;
+                }
+
+                setDeleteDialogOpen(false);
+
+                router.push(PROTECTED_BASE_URL);
+                router.refresh();
+                toast.success("Chat deleted");
               }}
             >
               {isRemovePending && <Spinner className="mr-2" />}

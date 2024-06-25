@@ -9,11 +9,14 @@ interface SidebarListProps {
 
 const loadChats = cache(async () => {
   const [data] = await getChatsAction();
+
   return data;
 });
 
 const SidebarList: FC<SidebarListProps> = async ({ userId }) => {
   const chats = await loadChats();
+
+  console.log("-----sidebarlist", chats);
 
   return (
     <>

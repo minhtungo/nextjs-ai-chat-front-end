@@ -36,11 +36,11 @@ const ChatPage = async ({ params }: ChatPageProps) => {
     chatID: params.id,
   });
 
-  if (!chat) {
-    redirect(PROTECTED_BASE_URL);
-  }
+  // if (!chat) {
+  //   redirect(PROTECTED_BASE_URL);
+  // }
 
-  if (chat?.userId !== user?.id) {
+  if (!chat || chat?.userId !== user?.id) {
     notFound();
   }
 

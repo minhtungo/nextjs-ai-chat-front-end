@@ -35,7 +35,6 @@ const authMiddleware = auth((req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      console.log("isLoggedIn");
       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
     }
     return intlMiddleware(req);

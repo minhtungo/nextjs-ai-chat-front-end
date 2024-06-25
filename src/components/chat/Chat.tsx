@@ -24,8 +24,6 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
   const [messages] = useUIState();
   const [aiState] = useAIState();
 
-  console.log(aiState);
-
   const [_, setNewChatId] = useLocalStorage("newChatId", id);
 
   const chatBoxRef = useRef<HTMLDivElement | null>(null);

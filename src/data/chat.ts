@@ -1,7 +1,7 @@
 import { db } from "@/lib/db";
 import { Chat, Message } from "@/types/chat";
 
-export const removeChat = async (userId: string, chatID: string) => {
+export const removeChat = async (chatID: string, userId: string) => {
   await db.chat.delete({
     where: {
       id_userId: {

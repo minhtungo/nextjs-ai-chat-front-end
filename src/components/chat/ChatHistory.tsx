@@ -14,6 +14,8 @@ interface ChatHistoryProps {
 const ChatHistory: FC<ChatHistoryProps> = async ({ className }) => {
   const user = await getCurrentUser();
 
+  console.log("-----rendering chat history");
+
   if (!user) return null;
 
   return (
