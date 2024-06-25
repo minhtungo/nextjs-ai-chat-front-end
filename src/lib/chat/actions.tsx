@@ -137,19 +137,16 @@ export const AI = createAI<AIState, UIState>({
 
       const createdAt = new Date();
       const userId = user.id as string;
-      const path = `/chat/${chatId}`;
 
       const firstMessageContent = messages[0].content as string;
       const title = firstMessageContent.substring(0, 100);
 
-      console.log(chatId);
       const chat: Chat = {
         id: chatId,
         title,
         userId,
         createdAt,
         messages,
-        path,
       };
 
       await saveChatUseCase(chat, user?.id!);

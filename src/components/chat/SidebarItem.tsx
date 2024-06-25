@@ -18,7 +18,7 @@ interface SidebarItemProps {
 const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
   const pathname = usePathname();
 
-  const isActive = pathname.split(PROTECTED_BASE_URL)[1] === chat.path;
+  const isActive = pathname === `${PROTECTED_BASE_URL}/chat/${chat.id}`;
 
   const [newChatId, setNewChatId] = useLocalStorage("newChatId", null);
   const shouldAnimate = index === 0 && isActive && newChatId;

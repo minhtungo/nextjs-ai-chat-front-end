@@ -8,8 +8,8 @@ export function cn(...inputs: ClassValue[]) {
 
 export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  7,
-); // 7-character random string
+  15,
+); // 15-character random string
 
 export const formatDate = (date: Date) => {
   const months = [

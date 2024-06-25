@@ -5,7 +5,7 @@ import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { ExtendedUser } from "@/types/next-auth";
 import { useAIState, useUIState } from "ai/rsc";
 import { usePathname, useRouter } from "next/navigation";
-import { FC, useEffect, useRef, useState } from "react";
+import { ElementRef, FC, useEffect, useRef, useState } from "react";
 import ButtonScrollToBottom from "../ButtonScrollToBottom";
 import Container from "../dashboard/Container";
 import ChatList from "./ChatList";
@@ -23,15 +23,20 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
   const [input, setInput] = useState("");
   const [messages] = useUIState();
   const [aiState] = useAIState();
+  const scrollRef = useRef<ElementRef<"div">>(null);
 
   const [_, setNewChatId] = useLocalStorage("newChatId", id);
 
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
+  // useEffect(() => {
+  //   if (chatBoxRef.current) {
+  //     chatBoxRef.current.scrollIntoView(false);
+  //   }
+  // }, [messages]);
+
   useEffect(() => {
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollIntoView(false);
-    }
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
@@ -53,7 +58,11 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
     setNewChatId(id);
   }, [id]);
 
-  const { messagesRef, scrollRef, visibilityRef, isAtBottom, scrollToBottom } =
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const { messagesRef, visibilityRef, isAtBottom, scrollToBottom } =
     useScrollAnchor();
 
   return (
@@ -67,6 +76,7 @@ const Chat: FC<ChatProps> = ({ id, user }) => {
         </div>
         <div className="h-px w-full" ref={visibilityRef} />
       </Container>
+      <div ref={scrollRef}></div>
       <ButtonScrollToBottom
         isAtBottom={isAtBottom}
         scrollToBottom={scrollToBottom}

@@ -18,7 +18,6 @@ export const saveChatAction = authedProcedure
         title: z.string(),
         createdAt: z.date(),
         userId: z.string(),
-        path: z.string(),
         messages: z.any(),
       }),
     }),
