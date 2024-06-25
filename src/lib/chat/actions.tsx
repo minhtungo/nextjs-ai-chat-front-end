@@ -16,6 +16,7 @@ import {
 } from "ai/rsc";
 import { getCurrentUser } from "../auth";
 import { DataContent } from "ai";
+import { saveChatUseCase } from "@/use-cases/chat";
 
 export const getUIStateFromAIState = (aiState: Chat) => {
   return aiState.messages
@@ -141,6 +142,7 @@ export const AI = createAI<AIState, UIState>({
       const firstMessageContent = messages[0].content as string;
       const title = firstMessageContent.substring(0, 100);
 
+      console.log(chatId);
       const chat: Chat = {
         id: chatId,
         title,
@@ -150,7 +152,7 @@ export const AI = createAI<AIState, UIState>({
         path,
       };
 
-      await saveChatAction({ chat });
+      await saveChatUseCase(chat, user?.id!);
     } else {
       return;
     }

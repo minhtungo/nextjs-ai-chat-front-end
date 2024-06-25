@@ -4,6 +4,7 @@ import { getChatById, getChats, removeChat, saveChat } from "@/data/chat";
 import { Chat } from "@/types/chat";
 
 export const saveChatUseCase = async (chat: Chat, userID: string) => {
+  console.log("saving chat");
   await saveChat(chat, userID);
 };
 

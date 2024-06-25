@@ -57,7 +57,7 @@ model UserSettings {
 }
 
 model Chat {
-  id        String   @id
+  id        String   @id 
   title String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
