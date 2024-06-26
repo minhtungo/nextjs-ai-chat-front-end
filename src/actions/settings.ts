@@ -1,114 +1,35 @@
 "use server";
 
-import { z } from "zod";
+import { authedProcedure } from "@/lib/safe-actions";
+import {
+  changeUserPasswordUseCase,
+  toggleTwoFactorUseCase,
+  updateUserProfileUseCase,
+} from "@/use-cases/user";
 import {
   changeUserPasswordSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "./../lib/definitions";
-import { getCurrentUser } from "@/lib/auth";
-import { getUserById } from "@/data/user";
-import { db } from "@/lib/db";
-import { comparePassword, saltAndHashPassword } from "@/lib/security";
-import { sendChangePasswordEmail } from "@/lib/mail";
-import { Languages } from "@prisma/client";
 
-export const updateUserProfile = async (
-  values: z.infer<typeof updateUserProfileSchema>,
-) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    return { error: "Unauthorized" };
-  }
-
-  const dbUser = await getUserById(user.id);
-
-  if (!dbUser) {
-    return { error: "Unauthorized" };
-  }
-
-  const { name, language } = values;
-
-  await db.user.update({
-    where: { id: dbUser.id },
-    data: {
-      name,
-      settings: {
-        update: {
-          preferredLang: language as Languages | undefined,
-        },
-      },
-    },
+export const updateUserProfileAction = authedProcedure
+  .input(updateUserProfileSchema)
+  .handler(async ({ input, ctx: { user } }) => {
+    await updateUserProfileUseCase(user.id!, input);
   });
 
-  return { success: "Settings Updated" };
-};
-
-export const toggleTwoFactor = async (
-  values: z.infer<typeof twoFactorToggleSchema>,
-) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    return { error: "Unauthorized" };
-  }
-
-  const dbUser = await getUserById(user.id);
-
-  if (!dbUser) {
-    return { error: "Unauthorized" };
-  }
-
-  await db.user.update({
-    where: { id: dbUser.id },
-    data: {
-      ...values,
-    },
+export const toggleTwoFactorAction = authedProcedure
+  .input(twoFactorToggleSchema)
+  .handler(async ({ input, ctx: { user } }) => {
+    await toggleTwoFactorUseCase(user.id!, input);
   });
 
-  return { success: "Updated" };
-};
-
-export const changeUserPassword = async (
-  values: z.infer<typeof changeUserPasswordSchema>,
-) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    return { error: "Unauthorized" };
-  }
-
-  const dbUser = await getUserById(user.id);
-
-  if (!dbUser) {
-    return { error: "Unauthorized" };
-  }
-
-  if (user.isOauth) {
-    return { error: "Unauthorized" };
-  }
-
-  const { password, newPassword } = values;
-
-  if (dbUser.password) {
-    const passwordMatch = await comparePassword(password, dbUser.password);
-
-    if (!passwordMatch) {
-      return { error: "Mật khẩu cũ không đúng" };
+export const changeUserPasswordAction = authedProcedure
+  .input(changeUserPasswordSchema)
+  .handler(async ({ input, ctx: { user } }) => {
+    if (user.isOauth) {
+      throw new Error("User is not authenticated");
     }
 
-    const hashedPassword = await saltAndHashPassword(newPassword);
-
-    await db.user.update({
-      where: { id: dbUser.id },
-      data: {
-        password: hashedPassword,
-      },
-    });
-
-    sendChangePasswordEmail(dbUser.email, dbUser?.name!);
-
-    return { success: "Đổi mật khẩu thành công" };
-  }
-};
+    await changeUserPasswordUseCase(user.id!, input);
+  });

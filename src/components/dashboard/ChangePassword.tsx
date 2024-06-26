@@ -1,6 +1,6 @@
 "use client";
 
-import { changeUserPassword } from "@/actions/settings";
+import { changeUserPasswordAction } from "@/actions/settings";
 import {
   Form,
   FormControl,
@@ -12,7 +12,7 @@ import {
 import { changeUserPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { FC, useTransition } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -20,11 +20,12 @@ import SubmitButton from "../SubmitButton";
 import PasswordInput from "../auth/PasswordInput";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Typography from "../ui/typography";
+import { useServerAction } from "zsa-react";
 
 interface ChangePasswordProps {}
 
 const ChangePassword: FC<ChangePasswordProps> = () => {
-  const [isPending, startTransition] = useTransition();
+  const { isPending, execute } = useServerAction(changeUserPasswordAction);
   const { update } = useSession();
 
   const form = useForm<z.infer<typeof changeUserPasswordSchema>>({
@@ -36,21 +37,16 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof changeUserPasswordSchema>) => {
-    startTransition(() => {
-      changeUserPassword(values)
-        .then((data) => {
-          if (data?.error) {
-            toast.error(data.error);
-          } else if (data?.success) {
-            update();
-            toast.success(data.success);
-          }
-        })
-        .catch(() => {
-          toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-        });
-    });
+  const onSubmit = async (values: z.infer<typeof changeUserPasswordSchema>) => {
+    const [_, err] = await execute(values);
+
+    if (err) {
+      toast.error(err.message);
+      return;
+    }
+    update();
+    form.reset();
+    toast.success("Thay đổi mật khẩu thành công");
   };
 
   return (

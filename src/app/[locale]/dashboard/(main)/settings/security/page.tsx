@@ -17,10 +17,10 @@ const SecurityPage = async () => {
 
   return (
     <>
-      {user.isOauth && (
+      {!user.isOauth && (
         <TwoFactorToggle isTwoFactorEnabled={user?.isTwoFactorEnabled} />
       )}
-      {user.isOauth && (
+      {!user.isOauth && (
         <>
           <Separator className="my-6" />
           <ChangePassword />

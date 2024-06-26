@@ -1,4 +1,4 @@
-import { object, string, optional, boolean } from "zod";
+import { object, string, optional, boolean, z } from "zod";
 import { passwordRegex } from "./regex";
 
 export const signInSchema = object({
@@ -50,7 +50,7 @@ export const resetPasswordSchema = object({
 
 export const updateUserProfileSchema = object({
   name: string().min(1, "auth.error.name"),
-  language: string().min(1),
+  language: z.enum(["vi", "en"]).default("vi"),
 });
 
 export const twoFactorToggleSchema = object({

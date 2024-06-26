@@ -2,7 +2,6 @@
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
-import { ExtendedUser } from "@/types/next-auth";
 import { useAIState, useUIState } from "ai/rsc";
 import { usePathname, useRouter } from "next/navigation";
 import { ElementRef, FC, useEffect, useRef, useState } from "react";
@@ -11,10 +10,11 @@ import Container from "../dashboard/Container";
 import ChatList from "./ChatList";
 import ChatPanel from "./ChatPanel";
 import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { User } from "next-auth";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;
-  user?: ExtendedUser;
+  user?: User;
 }
 
 const Chat: FC<ChatProps> = ({ id, user }) => {

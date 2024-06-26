@@ -1,13 +1,10 @@
-import { ExtendedUser } from "@/types/next-auth";
 import { FC } from "react";
 
-import { UserSettings } from "@prisma/client";
+import { User } from "next-auth";
 import UserInfo from "./UserInfo";
 
 interface UserProfileProps {
-  user: ExtendedUser & {
-    settings: UserSettings;
-  };
+  user?: User;
 }
 
 const UserProfile: FC<UserProfileProps> = ({ user }) => {

@@ -9,6 +9,8 @@ import FormError from "./FormError";
 import FormSuccess from "./FormSuccess";
 import { signInHref } from "@/routes";
 import { useTranslations } from "next-intl";
+import { Button } from "../ui/button";
+import BackButton from "./BackButton";
 
 interface VerificationFormProps {}
 
@@ -42,16 +44,20 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   }, [onSubmit]);
 
   return (
-    <CardWrapper
-      headerLabel={t("Verification.title")}
-      backButtonHref={signInHref}
-      backButtonLabel={t("Verification.cta")}
-    >
+    <CardWrapper headerLabel={t("Verification.title")}>
       {!errorMessage && !successMessage && <Spinner />}
       {/* @ts-ignore*/}
       {errorMessage && <FormError message={t(errorMessage)} />}
       {/* @ts-ignore*/}
       {successMessage && <FormSuccess message={t(successMessage)} />}
+      {(errorMessage || successMessage) && (
+        <BackButton
+          variant="outline"
+          href=""
+          label="Sign in"
+          className="mt-4"
+        />
+      )}
     </CardWrapper>
   );
 };

@@ -1,13 +1,7 @@
 "use client";
 
-import { toggleTwoFactor, updateUserProfile } from "@/actions/settings";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { toggleTwoFactorAction } from "@/actions/settings";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -25,14 +19,15 @@ import { toast } from "sonner";
 import { z } from "zod";
 import SubmitButton from "../SubmitButton";
 import { Switch } from "../ui/switch";
+import { useServerAction } from "zsa-react";
 
 interface TwoFactorToggleProps {
   isTwoFactorEnabled: boolean;
 }
 
 const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
-  const [isPending, startTransition] = useTransition();
   const { update } = useSession();
+  const { isPending, execute } = useServerAction(toggleTwoFactorAction);
 
   const form = useForm<z.infer<typeof twoFactorToggleSchema>>({
     resolver: zodResolver(twoFactorToggleSchema),
@@ -41,21 +36,15 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof twoFactorToggleSchema>) => {
-    startTransition(() => {
-      toggleTwoFactor(values)
-        .then((data) => {
-          if (data?.error) {
-            toast.error(data.error);
-          } else if (data?.success) {
-            update();
-            toast.success(data.success);
-          }
-        })
-        .catch(() => {
-          toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-        });
-    });
+  const onSubmit = async (values: z.infer<typeof twoFactorToggleSchema>) => {
+    const [_, err] = await execute(values);
+
+    if (err) {
+      toast.error(err.message);
+      return;
+    }
+    update();
+    toast.success("Cập nhật thành công");
   };
 
   return (

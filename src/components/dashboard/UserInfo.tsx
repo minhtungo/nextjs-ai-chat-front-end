@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUserProfile } from "@/actions/settings";
+import { updateUserProfileAction } from "@/actions/settings";
 import {
   Form,
   FormControl,
@@ -18,52 +18,44 @@ import {
 } from "@/components/ui/select";
 import { LANGUAGES } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
-import { ExtendedUser } from "@/types/next-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { User } from "next-auth";
 import { useSession } from "next-auth/react";
-import { FC, useTransition } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useServerAction } from "zsa-react";
 import SubmitButton from "../SubmitButton";
 import { Card, CardContent, CardFooter } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { UserSettings } from "@prisma/client";
 
 interface UserInfoProps {
-  user: ExtendedUser & {
-    settings: UserSettings;
-  };
+  user: User;
 }
 
 const UserInfo: FC<UserInfoProps> = ({ user }) => {
-  const [isPending, startTransition] = useTransition();
+  const { isPending, execute } = useServerAction(updateUserProfileAction);
   const { update } = useSession();
 
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
-      language: user?.settings?.preferredLang || undefined,
+      language: user?.preferredLang || undefined,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof updateUserProfileSchema>) => {
-    startTransition(() => {
-      updateUserProfile(values)
-        .then((data) => {
-          if (data?.error) {
-            toast.error(data.error);
-          } else if (data?.success) {
-            update();
-            toast.success(data.success);
-          }
-        })
-        .catch(() => {
-          toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
-        });
-    });
+  const onSubmit = async (values: z.infer<typeof updateUserProfileSchema>) => {
+    const [_, err] = await execute(values);
+
+    if (err) {
+      toast.error(err.message);
+      return;
+    }
+    update();
+    toast.success("Cập nhật thành công");
   };
 
   return (

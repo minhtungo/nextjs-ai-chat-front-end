@@ -40,7 +40,7 @@ export const DASHBOARD_MOBILE_LINKS = [
 export const SETTINGS_LINKS = [
   {
     title: "Profile",
-    href: "/dashboard/settings",
+    href: "/dashboard/settings/profile",
   },
   {
     title: "Billing",
@@ -139,11 +139,11 @@ export const PRICING_PLANS = [
 export const LANGUAGES = [
   {
     title: "Tiếng việt",
-    locale: "VI",
+    locale: "vi",
   },
   {
     title: "English",
-    locale: "EN",
+    locale: "en",
   },
 ];
 
