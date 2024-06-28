@@ -2,9 +2,6 @@
 
 import { FC } from "react";
 
-import { Redo, ThumbsDown, ThumbsUp } from "lucide-react";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -12,11 +9,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useStreamableText } from "@/hooks/use-streamable-text";
+import { Redo, ThumbsDown, ThumbsUp } from "lucide-react";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import { MemoizedReactMarkdown } from "../markdown";
 import { Card } from "../ui/card";
 import { StreamableValue } from "ai/rsc";
-import { useStreamableText } from "@/hooks/use-streamable-text";
-import { MemoizedReactMarkdown } from "../markdown";
-import Image from "next/image";
 
 interface BotMessageProps {
   content: string | StreamableValue<string>;

@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { Chat } from "@/types/chat";
+import { Message } from "ai";
 import { cache } from "react";
 
 export const removeChat = async (chatID: string, userId: string) => {
@@ -10,18 +12,24 @@ export const removeChat = async (chatID: string, userId: string) => {
   });
 };
 
-export const saveChat = cache(async (chat: any) => {
+export const saveChat = cache(async (chat: Chat) => {
   const latestMessage = chat.messages[chat.messages.length - 1];
+  let content;
+  let image;
+
+  if (typeof latestMessage.content === "object") {
+    latestMessage.content.map((message) => {
+      if (message.type === "text") {
+        content = message.text.substring(0, 100);
+      } else if (message.type === "image") {
+        image = message.image;
+      }
+    });
+  } else {
+    content = latestMessage.content;
+  }
 
   try {
-    const isExistingChat = await db.chat.findFirst({
-      where: {
-        id: chat.id,
-      },
-    });
-    console.log(chat.id);
-    console.log(isExistingChat);
-
     await db.chat.upsert({
       where: {
         id: chat.id,
@@ -31,7 +39,8 @@ export const saveChat = cache(async (chat: any) => {
         messages: {
           create: {
             id: latestMessage.id,
-            content: latestMessage.content as string,
+            content: content!,
+            image: image || undefined,
             role: latestMessage.role,
             userId: chat.userId,
           },
@@ -44,7 +53,8 @@ export const saveChat = cache(async (chat: any) => {
         messages: {
           create: {
             id: latestMessage.id,
-            content: latestMessage.content as string,
+            content: content!,
+            image: image || undefined,
             role: latestMessage.role,
             userId: chat.userId,
           },
@@ -59,7 +69,7 @@ export const saveChat = cache(async (chat: any) => {
 
 export const getChatById = async (chatID: string, userId: string) => {
   const chat = await db.chat.findFirst({
-    where: { chatID },
+    where: { id: chatID },
     include: {
       messages: true,
     },

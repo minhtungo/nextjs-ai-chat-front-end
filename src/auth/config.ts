@@ -18,13 +18,13 @@ const providers: Provider[] = [
       if (validatedFields.success) {
         const { email, password } = validatedFields.data;
         const user = await getUserByEmail(email);
-        if (!user || !user.password) return null;
+        if (!user || !user.password) return;
         const passwordsMatch = await comparePassword(password, user.password);
 
         if (passwordsMatch) return user;
       }
 
-      return null;
+      return;
     },
   }),
   Google,

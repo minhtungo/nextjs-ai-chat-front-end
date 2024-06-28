@@ -8,8 +8,6 @@ export const saveChatUseCase = async (chat: Chat, userID: string) => {
     throw new Error("Unauthorized");
   }
 
-  console.log(chat);
-
   await saveChat(chat);
 };
 

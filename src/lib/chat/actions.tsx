@@ -1,12 +1,13 @@
 import "server-only";
 
-import { saveChatAction } from "@/actions/chat";
 import Spinner from "@/components/Spinner";
 import BotMessage from "@/components/dashboard/BotMessage";
 import UserMessage from "@/components/dashboard/UserMessage";
 import { nanoid } from "@/lib/utils";
 import { Chat, Message } from "@/types/chat";
+import { saveChatUseCase } from "@/use-cases/chat";
 import { openai } from "@ai-sdk/openai";
+import { UserContent } from "ai";
 import {
   createAI,
   createStreamableValue,
@@ -15,17 +16,20 @@ import {
   streamUI,
 } from "ai/rsc";
 import { getCurrentUser } from "../auth";
-import { DataContent } from "ai";
-import { saveChatUseCase } from "@/use-cases/chat";
+import { put } from "@vercel/blob";
+import { auth } from "@/auth";
 
-export const getUIStateFromAIState = (aiState: Chat) => {
+export const getUIStateFromAIState = async (aiState: Chat) => {
+  const a = await auth();
   return aiState.messages
     .filter((message) => message.role !== "system")
     .map((message, index) => ({
       id: `${aiState.chatId}-${index}`,
       display:
         message.role === "user" ? (
-          <UserMessage>{message.content as string}</UserMessage>
+          <UserMessage content={message.content}>
+            {message.content as string}
+          </UserMessage>
         ) : (
           <BotMessage content={message.content} />
         ),
@@ -34,11 +38,19 @@ export const getUIStateFromAIState = (aiState: Chat) => {
 
 export const submitUserMessage = async (
   content: string,
-  encodedImage?: DataContent | URL,
+  encodedImage?: string,
 ) => {
   "use server";
 
   const aiState = getMutableAIState<typeof AI>();
+
+  let blob = null;
+
+  if (encodedImage) {
+    blob = await put("images", encodedImage, {
+      access: "public",
+    });
+  }
 
   aiState.update({
     ...aiState.get(),
@@ -47,7 +59,13 @@ export const submitUserMessage = async (
       {
         id: nanoid(),
         role: "user",
-        content,
+        content: [
+          {
+            type: "text",
+            text: content,
+          },
+          ...(blob ? [{ type: "image" as any, image: blob.url }] : []),
+        ],
       },
     ],
   });
@@ -66,14 +84,14 @@ export const submitUserMessage = async (
             type: "text",
             text: message.content,
           },
-          ...(encodedImage
-            ? [{ type: "image" as any, image: encodedImage }]
-            : []),
+          ...(blob ? [{ type: "image" as any, image: blob.url }] : []),
         ],
         name: message.id,
       })),
     ],
     text: ({ content, done, delta }) => {
+      console.log("------", textStream);
+      console.log("------content", content);
       if (!textStream) {
         textStream = createStreamableValue("");
         textNode = <BotMessage content={textStream.value} />;
@@ -138,8 +156,19 @@ export const AI = createAI<AIState, UIState>({
       const createdAt = new Date();
       const userId = user.id as string;
 
-      const firstMessageContent = messages[0].content as string;
-      const title = firstMessageContent.substring(0, 100);
+      let firstMessageContent;
+
+      if (typeof messages[0].content === "object") {
+        messages[0].content.map((message) => {
+          if (message.type === "text") {
+            firstMessageContent = message.text.substring(0, 100);
+          }
+        });
+      } else {
+        firstMessageContent = messages[0].content;
+      }
+
+      const title = firstMessageContent!.substring(0, 100);
 
       const chat: Chat = {
         id: chatId,

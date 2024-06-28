@@ -8,7 +8,6 @@ interface AboutUsProps {}
 
 const AboutUs: FC<AboutUsProps> = () => {
   const t = useTranslations("public.About");
-
   return (
     <>
       <PageTitleWrapper title={t("title")} description={t("subtitle")} />

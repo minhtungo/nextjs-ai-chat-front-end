@@ -65,6 +65,7 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
             display: <UserMessage>{content}</UserMessage>,
           },
         ]);
+
         const encodedImage = await encodeImage(file);
 
         // Submit and get response message

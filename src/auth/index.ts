@@ -68,6 +68,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       token.preferredLang =
         existingUser.settings?.preferredLang?.toLowerCase() || "vi";
+      console.log("----------------token", token);
       return token;
     },
     async session({ token, session }) {
@@ -89,7 +90,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.name = token.name;
         session.user.isOauth = token.isOauth as boolean;
       }
-
+      console.log("------------------session", session);
       return session;
     },
   },
