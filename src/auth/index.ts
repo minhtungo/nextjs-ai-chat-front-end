@@ -1,12 +1,11 @@
-import authConfig from "./config";
-import NextAuth from "next-auth";
 import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
 import { getUserById } from "@/data/user";
 import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { Languages, type UserRole } from "@prisma/client";
-import { getAccountByUserId } from "@/data/account";
+import NextAuth from "next-auth";
+import authConfig from "./config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -15,6 +14,25 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: signInHref,
     error: authErrorHref,
   },
+  secret: process.env.AUTH_SECRET,
+  // jwt: {
+  //   encode: async ({ secret, token }) => {
+  //     if (!secret) {
+  //       return "";
+  //     }
+  //     return jwt.sign({ ...token, userId: token?.sub }, secret as jwt.Secret, {
+  //       algorithm: "HS256",
+  //     });
+  //   },
+  //   decode: async ({ secret, token }) => {
+  //     if (!secret) {
+  //       return null;
+  //     }
+  //     return jwt.verify(token!, secret as jwt.Secret, {
+  //       algorithms: ["HS256"],
+  //     }) as jwt.JwtPayload;
+  //   },
+  // },
   events: {
     async linkAccount({ user }) {
       await db.user.update({
@@ -60,15 +78,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(existingUser.id);
-
-      token.isOauth = !!existingAccount;
+      token.isOauth = existingUser.accounts?.length > 0;
       token.name = existingUser.name;
       token.role = existingUser.role;
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       token.preferredLang =
         existingUser.settings?.preferredLang?.toLowerCase() || "vi";
-      console.log("----------------token", token);
       return token;
     },
     async session({ token, session }) {
@@ -89,8 +104,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (session.user) {
         session.user.name = token.name;
         session.user.isOauth = token.isOauth as boolean;
+        session.user.iat = token.iat;
+        session.user.exp = token.exp;
       }
-      console.log("------------------session", session);
       return session;
     },
   },

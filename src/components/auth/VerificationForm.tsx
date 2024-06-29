@@ -53,7 +53,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
       {(errorMessage || successMessage) && (
         <BackButton
           variant="outline"
-          href=""
+          href={signInHref}
           label="Sign in"
           className="mt-4"
         />

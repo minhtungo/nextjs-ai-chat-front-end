@@ -90,8 +90,6 @@ export const submitUserMessage = async (
       })),
     ],
     text: ({ content, done, delta }) => {
-      console.log("------", textStream);
-      console.log("------content", content);
       if (!textStream) {
         textStream = createStreamableValue("");
         textNode = <BotMessage content={textStream.value} />;

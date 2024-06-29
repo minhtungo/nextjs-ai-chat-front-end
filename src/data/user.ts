@@ -12,6 +12,7 @@ export const getUserByEmail = async (email: string) => {
   try {
     return await db.user.findUnique({
       where: { email },
+      include: { settings: true },
     });
   } catch (error) {
     return null;
@@ -22,7 +23,14 @@ export const getUserById = async (id: string | undefined) => {
   try {
     return await db.user.findUnique({
       where: { id },
-      include: { settings: true },
+      include: {
+        settings: true,
+        accounts: {
+          select: {
+            type: true,
+          },
+        },
+      },
     });
   } catch (error) {
     return null;

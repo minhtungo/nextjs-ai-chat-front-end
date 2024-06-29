@@ -23,7 +23,6 @@ const providers: Provider[] = [
 
         if (passwordsMatch) return user;
       }
-
       return;
     },
   }),

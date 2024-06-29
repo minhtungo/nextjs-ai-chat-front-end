@@ -57,6 +57,7 @@ const SignInForm = () => {
         .then((data) => {
           if (data?.error) {
             form.reset();
+            form.setFocus("email");
             setErrorMessage(data.error);
           }
           // else if (data?.success) {
