@@ -48,7 +48,11 @@ export const signInWithCredentials = async (
 
   const { email, password, code } = validatedFields.data;
 
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await getUserByEmail(email, {
+    omit: {
+      password: false,
+    },
+  });
 
   if (
     !existingUser ||

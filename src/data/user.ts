@@ -8,35 +8,6 @@ import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { Languages, User } from "@prisma/client";
 import { z } from "zod";
 
-export const getUserByEmail = async (email: string) => {
-  try {
-    return await db.user.findUnique({
-      where: { email },
-      include: { settings: true },
-    });
-  } catch (error) {
-    return null;
-  }
-};
-
-export const getUserById = async (id: string | undefined) => {
-  try {
-    return await db.user.findUnique({
-      where: { id },
-      include: {
-        settings: true,
-        accounts: {
-          select: {
-            type: true,
-          },
-        },
-      },
-    });
-  } catch (error) {
-    return null;
-  }
-};
-
 export const createUser = async (user: User) => {
   return await db.user.create({
     data: user,
@@ -74,11 +45,49 @@ export const toggleTwoFactor = async (
   });
 };
 
-export const getUserAndSettingsById = async (id: string | undefined) => {
+interface getUserOptions {
+  include?: {
+    settings?: boolean;
+    accounts?: {
+      select: {
+        type: boolean;
+      };
+    };
+  };
+  omit?: {
+    password?: boolean;
+  };
+}
+
+export const getUserByEmail = async (
+  email: string,
+  options?: getUserOptions,
+) => {
+  try {
+    return await db.user.findUnique({
+      where: { email },
+      omit: {
+        ...options?.omit,
+      },
+      include: {
+        ...options?.include,
+      },
+    });
+  } catch (error) {
+    return null;
+  }
+};
+
+export const getUserById = async (id: string, options?: getUserOptions) => {
   try {
     return await db.user.findUnique({
       where: { id },
-      include: { settings: true },
+      omit: {
+        ...options?.omit,
+      },
+      include: {
+        ...options?.include,
+      },
     });
   } catch (error) {
     return null;
