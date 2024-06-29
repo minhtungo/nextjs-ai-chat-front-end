@@ -1,6 +1,6 @@
 "use client";
 
-import { NAV_LINKS } from "@/lib/constant";
+import { NAV_LINKS } from "@/routes";
 import { cn } from "@/lib/utils";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";

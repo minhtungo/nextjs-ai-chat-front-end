@@ -1,6 +1,5 @@
 import { SheetClose, SheetFooter } from "@/components/ui/sheet";
-import { NAV_LINKS } from "@/lib/constant";
-import { signInHref, signUpHref } from "@/routes";
+import { NAV_LINKS, signInHref, signUpHref } from "@/routes";
 import Link from "next/link";
 import { FC } from "react";
 import SheetWrapper from "./SheetWrapper";

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
 import { buttonVariants } from "../ui/button";
-import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { PROTECTED_BASE_URL } from "@/routes";
 
 interface SidebarItemProps {
   index: number;
@@ -54,7 +54,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
         )}
       >
         <div className="absolute left-2 top-2.5 flex size-5 items-center justify-center">
-          <MessageCircle className=" mr-1 text-zinc-500" />
+          <MessageCircle className="mr-1 text-zinc-500" />
         </div>
         <div
           className="relative max-h-5 flex-1 select-none overflow-hidden text-ellipsis break-all"

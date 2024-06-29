@@ -17,7 +17,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { PROTECTED_BASE_URL } from "@/routes";
 import { Chat } from "@/types/chat";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";

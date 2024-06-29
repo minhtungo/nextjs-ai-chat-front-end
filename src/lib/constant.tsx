@@ -1,84 +1,5 @@
-import Discord from "@/components/icons/Discord";
 import Momo from "@/components/icons/Momo";
-import {
-  BotMessageSquare,
-  CreditCard,
-  Home,
-  MessageSquareMore,
-  Facebook,
-} from "lucide-react";
-
-export const NAV_LINKS = [
-  {
-    title: "About.title",
-    href: "/about",
-  },
-  {
-    title: "Pricing.title",
-    href: "/pricing",
-  },
-];
-
-export const DASHBOARD_MOBILE_LINKS = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: <Home className="h-5 w-5" />,
-  },
-  {
-    title: "Hỏi Lumi",
-    href: "/dashboard/chat",
-    icon: <BotMessageSquare className="h-5 w-5" />,
-  },
-  {
-    title: "Feedback",
-    href: "/dashboard/feedback",
-    icon: <MessageSquareMore className="h-5 w-5" />,
-  },
-];
-
-export const SETTINGS_LINKS = [
-  {
-    title: "Profile",
-    href: "/dashboard/settings/profile",
-  },
-  {
-    title: "Billing",
-    href: "/dashboard/settings/billing",
-  },
-  {
-    title: "Security",
-    href: "/dashboard/settings/security",
-  },
-];
-
-export const DASHBOARD_LINKS = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: <Home className="h-5 w-5" />,
-  },
-  {
-    title: "Hỏi Lumi",
-    href: "/dashboard/chat",
-    icon: <BotMessageSquare className="h-5 w-5" />,
-  },
-];
-
-export const SOCIAL_LINKS = [
-  {
-    title: "Facebook",
-    href: "#",
-    icon: (
-      <Facebook className="size-5 text-muted-foreground hover:text-accent-foreground" />
-    ),
-  },
-  // {
-  //   title: "Discord",
-  //   href: "#",
-  //   icon: <Discord className="size-5 text-muted-foreground" />,
-  // },
-];
+import { CreditCard } from "lucide-react";
 
 export const EXPIRY_PERIOD = 1800 * 1000;
 
@@ -210,5 +131,3 @@ export const MONTH_NAMES = [
     value: 12,
   },
 ];
-
-export const PROTECTED_BASE_URL = "/dashboard";

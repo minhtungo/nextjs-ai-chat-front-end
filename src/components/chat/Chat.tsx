@@ -9,8 +9,8 @@ import ButtonScrollToBottom from "../ButtonScrollToBottom";
 import Container from "../dashboard/Container";
 import ChatList from "./ChatList";
 import ChatPanel from "./ChatPanel";
-import { PROTECTED_BASE_URL } from "@/lib/constant";
 import { User } from "next-auth";
+import { PROTECTED_BASE_URL } from "@/routes";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;

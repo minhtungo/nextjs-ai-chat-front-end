@@ -1,6 +1,5 @@
 import { getCurrentUser } from "@/lib/auth";
-import { PROTECTED_BASE_URL } from "@/lib/constant";
-import { signInHref, signUpHref } from "@/routes";
+import { PROTECTED_BASE_URL, signInHref, signUpHref } from "@/routes";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { FC } from "react";

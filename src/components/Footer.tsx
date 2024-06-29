@@ -1,6 +1,6 @@
 import { FC } from "react";
 import MaxWidthWrapper from "./MaxWidthWrapper";
-import { SOCIAL_LINKS } from "@/lib/constant";
+import { SOCIAL_LINKS } from "@/routes";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 

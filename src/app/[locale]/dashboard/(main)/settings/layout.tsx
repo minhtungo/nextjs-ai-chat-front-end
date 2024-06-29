@@ -1,4 +1,5 @@
 import SettingsNav from "@/components/dashboard/SettingNav";
+import { Suspense } from "react";
 
 export default async function SettingsLayout({
   children,
@@ -7,7 +8,9 @@ export default async function SettingsLayout({
 }>) {
   return (
     <>
-      <SettingsNav />
+      <Suspense>
+        <SettingsNav />
+      </Suspense>
       <div className="flex-1 lg:max-w-3xl">{children}</div>
     </>
   );

@@ -39,8 +39,6 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
   const { isPending, execute } = useServerAction(updateUserProfileAction);
   const { update } = useSession();
 
-  console.log("user-----", user);
-
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {

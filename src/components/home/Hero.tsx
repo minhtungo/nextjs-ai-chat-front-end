@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FC } from "react";
 import Typography from "../ui/typography";
-import { PROTECTED_BASE_URL } from "@/lib/constant";
+import { PROTECTED_BASE_URL } from "@/routes";
 
 interface HeroProps {}
 
