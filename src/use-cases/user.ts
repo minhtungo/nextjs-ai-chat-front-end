@@ -21,10 +21,9 @@ export const updateUserProfileUseCase = async (
 
   if (!dbUser) {
     await signOut();
-    throw new Error("User not found");
   }
 
-  await updateUserSettings(dbUser.id, values);
+  await updateUserSettings(dbUser?.id!, values);
 };
 
 export const toggleTwoFactorUseCase = async (

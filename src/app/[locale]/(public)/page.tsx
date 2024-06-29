@@ -20,7 +20,6 @@ export default function Home({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-
   return (
     <main>
       <Hero />
