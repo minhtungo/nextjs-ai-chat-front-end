@@ -16,6 +16,7 @@ interface cardWrapperProps {
   backButtonHref?: string;
   description?: string;
   className?: string;
+  noBorder?: boolean;
 }
 
 const CardWrapper: FC<cardWrapperProps> = ({
@@ -25,14 +26,15 @@ const CardWrapper: FC<cardWrapperProps> = ({
   backButtonLabel,
   description,
   className,
+  noBorder,
 }) => {
   return (
-    <Card className="mx-auto w-full max-w-md">
-      <CardHeader className="pt-0">
+    <Card className="mx-auto w-full max-w-md" noBorder={noBorder}>
+      <CardHeader className="pt-0" noBorder={noBorder}>
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent className={cn(className)}>
+      <CardContent className={cn(className)} noBorder={noBorder}>
         {children}
         {backButtonHref && backButtonLabel && (
           <BackButton

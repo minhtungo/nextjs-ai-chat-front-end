@@ -58,7 +58,7 @@ const SignUpForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel={t("SignUp.title")}>
+    <CardWrapper headerLabel={t("SignUp.title")} noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField

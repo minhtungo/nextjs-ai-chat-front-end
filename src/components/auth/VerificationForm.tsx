@@ -11,6 +11,8 @@ import { signInHref } from "@/routes";
 import { useTranslations } from "next-intl";
 import { Button } from "../ui/button";
 import BackButton from "./BackButton";
+import { CardDescription } from "../ui/card";
+import Typography from "../ui/typography";
 
 interface VerificationFormProps {}
 
@@ -44,12 +46,27 @@ const VerificationForm: FC<VerificationFormProps> = () => {
   }, [onSubmit]);
 
   return (
-    <CardWrapper headerLabel={t("Verification.title")}>
-      {!errorMessage && !successMessage && <Spinner />}
+    <CardWrapper headerLabel={t("Verification.title")} noBorder>
+      {!errorMessage && !successMessage && (
+        <>
+          <Typography className="mb-2 text-muted-foreground">
+            We are verifying your email. Please wait.
+          </Typography>
+          <Spinner />
+        </>
+      )}
       {/* @ts-ignore*/}
       {errorMessage && <FormError message={t(errorMessage)} />}
       {/* @ts-ignore*/}
-      {successMessage && <FormSuccess message={t(successMessage)} />}
+      {successMessage && (
+        <>
+          <Typography className="text-muted-foreground-2 mt-2">
+            Your email has been successfully verified. You can now sign in to
+            your account.
+          </Typography>
+          <FormSuccess message={t(successMessage)} />
+        </>
+      )}
       {(errorMessage || successMessage) && (
         <BackButton
           variant="outline"

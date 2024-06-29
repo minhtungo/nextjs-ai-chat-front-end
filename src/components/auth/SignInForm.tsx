@@ -73,7 +73,7 @@ const SignInForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel={t("SignIn.title")}>
+    <CardWrapper headerLabel={t("SignIn.title")} noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!showTwoFactor ? (

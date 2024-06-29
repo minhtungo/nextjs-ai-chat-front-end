@@ -53,6 +53,7 @@ const ForgotPasswordForm = () => {
       headerLabel="Quên mật khẩu"
       backButtonHref={signInHref}
       backButtonLabel="Quay lại đăng nhập"
+      noBorder
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
