@@ -10,7 +10,9 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({ className }) => {
   return (
-    <footer className={cn("border-t border-border py-4", className)}>
+    <footer
+      className={cn("mt-12 border-t border-border py-4 sm:mt-16", className)}
+    >
       <MaxWidthWrapper>
         <div className="flex flex-col justify-center gap-y-3 text-center text-sm sm:flex-row sm:items-center sm:justify-between sm:text-left">
           <p className="text-muted-foreground">

@@ -20,7 +20,9 @@ export default function GuestLayout({
   return (
     <>
       <Navbar navButtons={<NavButtons />} />
-      <MaxWidthWrapper>{children}</MaxWidthWrapper>
+      <MaxWidthWrapper className="min-h-[calc(100vh-180px)] w-full">
+        {children}
+      </MaxWidthWrapper>
       <Footer />
     </>
   );

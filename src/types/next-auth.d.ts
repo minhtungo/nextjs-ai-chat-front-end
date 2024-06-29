@@ -7,8 +7,8 @@ declare module "next-auth" {
     isTwoFactorEnabled: boolean;
     isOauth: boolean;
     preferredLang: $Enums.Languages;
-    iat: number | undefined;
-    exp: number | undefined;
+    iat?: number | undefined;
+    exp?: number | undefined;
   }
 
   interface Session {
