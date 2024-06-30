@@ -19,12 +19,12 @@ import { useTranslations } from "next-intl";
 import { Suspense, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import CardWrapper from "../CardWrapper";
-import SubmitButton from "../SubmitButton";
-import FormError from "./FormError";
-import FormSuccess from "./FormSuccess";
-import GoogleAuthButton from "./GoogleAuthButton";
-import PasswordInput from "./PasswordInput";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
+import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
+import PasswordInput from "@/components/auth/PasswordInput";
 
 const SignUpForm = () => {
   const [errorMessage, setErrorMessage] = useState("");

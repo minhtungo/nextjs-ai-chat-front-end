@@ -15,10 +15,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import FormError from "./FormError";
-import FormSuccess from "./FormSuccess";
-import CardWrapper from "../CardWrapper";
-import SubmitButton from "../SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
 import { forgotPassword } from "@/actions/auth";
 
 const ForgotPasswordForm = () => {

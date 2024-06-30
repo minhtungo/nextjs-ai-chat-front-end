@@ -1,5 +1,4 @@
-import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
-import { Metadata } from "next";
+import ResetPasswordForm from "./ResetPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 

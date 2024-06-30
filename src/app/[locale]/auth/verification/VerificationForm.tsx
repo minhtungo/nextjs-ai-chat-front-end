@@ -1,18 +1,16 @@
 "use client";
 
-import { FC, useCallback, useEffect, useState } from "react";
-import CardWrapper from "../CardWrapper";
-import { useSearchParams } from "next/navigation";
-import Spinner from "../Spinner";
 import { verifyNewUserEmail } from "@/actions/auth";
-import FormError from "./FormError";
-import FormSuccess from "./FormSuccess";
 import { signInHref } from "@/routes";
 import { useTranslations } from "next-intl";
-import { Button } from "../ui/button";
-import BackButton from "./BackButton";
-import { CardDescription } from "../ui/card";
-import Typography from "../ui/typography";
+import { useSearchParams } from "next/navigation";
+import { FC, useCallback, useEffect, useState } from "react";
+import CardWrapper from "@/components/CardWrapper";
+import Spinner from "@/components/Spinner";
+import Typography from "@/components/ui/typography";
+import BackButton from "@/components/auth/BackButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
 
 interface VerificationFormProps {}
 
@@ -64,6 +62,7 @@ const VerificationForm: FC<VerificationFormProps> = () => {
             Your email has been successfully verified. You can now sign in to
             your account.
           </Typography>
+          {/* @ts-ignore*/}
           <FormSuccess message={t(successMessage)} />
         </>
       )}

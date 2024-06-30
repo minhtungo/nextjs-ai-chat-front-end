@@ -17,14 +17,14 @@ import { useSearchParams } from "next/navigation";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import SubmitButton from "../SubmitButton";
-import FormError from "./FormError";
-import CardWrapper from "../CardWrapper";
-import GoogleAuthButton from "./GoogleAuthButton";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import CardWrapper from "@/components/CardWrapper";
+import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 import { forgotPasswordHref, signUpHref } from "@/routes";
 import { useTranslations } from "next-intl";
-import FormSuccess from "./FormSuccess";
-import PasswordInput from "./PasswordInput";
+import FormSuccess from "@/components/auth/FormSuccess";
+import PasswordInput from "@/components/auth/PasswordInput";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();

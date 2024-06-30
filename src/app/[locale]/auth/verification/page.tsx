@@ -1,4 +1,4 @@
-import VerificationForm from "@/components/auth/VerificationForm";
+import VerificationForm from "./VerificationForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 
