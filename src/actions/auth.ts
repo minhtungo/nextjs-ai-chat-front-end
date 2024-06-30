@@ -52,6 +52,9 @@ export const signInWithCredentials = async (
     omit: {
       password: false,
     },
+    include: {
+      settings: true,
+    },
   });
 
   if (
@@ -63,7 +66,7 @@ export const signInWithCredentials = async (
     return { error: "error.invalidCredentials" };
   }
 
-  if (existingUser.isTwoFactorEnabled && existingUser.email) {
+  if (existingUser.settings?.isTwoFactorEnabled && existingUser.email) {
     if (code) {
       const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
 

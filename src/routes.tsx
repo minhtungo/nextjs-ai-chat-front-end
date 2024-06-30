@@ -43,15 +43,15 @@ export const NAV_LINKS = [
 export const SETTINGS_LINKS = [
   {
     title: "Profile",
-    href: `/${PROTECTED_BASE_URL}/settings/profile`,
+    href: `${PROTECTED_BASE_URL}/settings`,
   },
   {
     title: "Billing",
-    href: `/${PROTECTED_BASE_URL}/settings/billing`,
+    href: `${PROTECTED_BASE_URL}/settings/billing`,
   },
   {
     title: "Security",
-    href: `/${PROTECTED_BASE_URL}/settings/security`,
+    href: `${PROTECTED_BASE_URL}/settings/security`,
   },
 ];
 

@@ -50,11 +50,15 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     async signIn({ user, account }) {
       if (account?.provider !== "credentials") return true;
 
-      const existingUser = await getUserById(user.id!);
+      const existingUser = await getUserById(user.id!, {
+        include: {
+          settings: true,
+        },
+      });
 
       if (!existingUser || !existingUser?.emailVerified) return false;
 
-      if (existingUser.isTwoFactorEnabled) {
+      if (existingUser.settings?.isTwoFactorEnabled) {
         const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(
           existingUser.id,
         );
@@ -74,8 +78,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     async jwt({ token }) {
       if (!token.sub) return token;
+
       const existingUser = await getUserById(token.sub, {
         include: {
+          settings: true,
           accounts: {
             select: {
               type: true,
@@ -89,7 +95,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.isOauth = existingUser.accounts?.length > 0;
       token.name = existingUser.name;
       token.role = existingUser.role;
-      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
+      token.isTwoFactorEnabled = existingUser.settings?.isTwoFactorEnabled;
       token.preferredLang =
         existingUser.settings?.preferredLang?.toLowerCase() || "vi";
       return token;

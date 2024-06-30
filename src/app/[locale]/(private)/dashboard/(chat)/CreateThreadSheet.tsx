@@ -38,7 +38,7 @@ interface ThreadContentProps {
 const ThreadContent = ({ input, setInput, message }: ThreadContentProps) => {
   return (
     <div className="flex h-full flex-1 flex-col justify-between">
-      <Card className="ml-auto w-fit bg-secondary p-3 sm:px-4 sm:py-3">
+      <Card className="ml-auto w-fit bg-secondary p-3 text-sm sm:px-4 sm:py-3">
         {message}
       </Card>
       <div className="absolute bottom-3 left-0 w-full px-4">

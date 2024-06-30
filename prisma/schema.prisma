@@ -36,12 +36,10 @@ model User {
   plan       Plan    @default(free)
   dateOfBirth DateTime?
 
-  isTwoFactorEnabled    Boolean                @default(false)
-  twoFactorConfirmation TwoFactorConfirmation?
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  twoFactorConfirmation TwoFactorConfirmation?
   accounts      Account[]
   settings      UserSettings?
   subscription Subscription?
@@ -53,6 +51,8 @@ model UserSettings {
   id            String    @id @default(cuid())
   userId        String    
   preferredLang Languages @default(VI)
+  isTwoFactorEnabled    Boolean             @default(false)
+
   user          User      @relation(fields: [userId], references: [id])
 
   @@unique([userId])
