@@ -47,7 +47,7 @@ export default function Home({
                       srcLight="/images/hero.png"
                       srcDark="/images/hero-dark.png"
                       width={1916}
-                      height={864}
+                      height={922}
                       fetchPriority="high"
                       alt="Product Preview"
                       className="relative rounded-xl shadow-2xl lg:rounded-2xl"

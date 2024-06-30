@@ -7,6 +7,7 @@ import { FC } from "react";
 import PageTitleWrapper from "./PageTitleWrapper";
 import { buttonVariants } from "./ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
+import Typography from "./ui/typography";
 
 interface PricingProps {}
 
@@ -27,14 +28,17 @@ const Pricing: FC<PricingProps> = () => {
               <p className="text-lg font-semibold">{t(plan.title)}</p>
 
               <p className="flex items-center gap-1.5">
-                <span className="text-2xl font-semibold">{plan.price}</span>
+                <span className="text-2xl font-semibold">${plan.price}</span>
                 <span className="text-sm font-semibold text-muted-foreground">
                   / {t(plan.duration)}
                 </span>
               </p>
+              <Typography className="text-sm text-muted-foreground">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              </Typography>
             </CardHeader>
-            <CardContent showBorderOnMobile>
-              <ul className="flex flex-col gap-y-2 text-sm">
+            <CardContent className="border-t" showBorderOnMobile>
+              <ul className="mt-4 flex flex-col gap-y-2 text-sm">
                 {plan.features.map((feature) => (
                   <li
                     key={`${t(feature.title)}-feature`}

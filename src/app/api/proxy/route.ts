@@ -20,7 +20,6 @@ export const GET = auth(async (req, { params }) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        role: user.role,
       },
       token: {
         iat: user.iat,

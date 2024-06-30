@@ -12,7 +12,9 @@ import { ScrollArea } from "./ui/scroll-area";
 
 interface SheetWrapperProps {
   className?: string;
+  trigger?: React.ReactNode;
   triggerClassName?: string;
+  wrapperClassName?: string;
   footerClassName?: string;
   title?: string;
   content: React.ReactNode;
@@ -22,23 +24,28 @@ interface SheetWrapperProps {
 
 const SheetWrapper: FC<SheetWrapperProps> = ({
   className,
+  triggerClassName,
+  wrapperClassName,
+  footerClassName,
   content,
   footer,
-  footerClassName,
   title,
-  triggerClassName,
   side,
+  trigger,
 }) => {
   return (
     <Sheet>
       <SheetTrigger className={cn(triggerClassName)}>
-        <Menu />
+        {trigger || <Menu />}
       </SheetTrigger>
-      <SheetContent className="h-full w-full" side={side}>
+      <SheetContent
+        className={cn("h-full w-full", wrapperClassName)}
+        side={side}
+      >
         <div className="relative flex h-screen w-full flex-1 flex-col">
           <ScrollArea className="flex h-full w-full flex-1 flex-col py-4 lg:py-6">
             {title && (
-              <SheetHeader>
+              <SheetHeader className="px-4 sm:px-6">
                 <SheetTitle>{title}</SheetTitle>
               </SheetHeader>
             )}

@@ -127,7 +127,7 @@ const SignInForm = () => {
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>2FA code</FormLabel>
+                    <FormLabel>Code</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="123456" {...field} />
                     </FormControl>

@@ -19,14 +19,15 @@ import { nanoid } from "nanoid";
 import UserMessage from "../dashboard/UserMessage";
 import { Input } from "../ui/input";
 import Image from "next/image";
-import { encodeImage } from "@/lib/utils";
+import { cn, encodeImage } from "@/lib/utils";
 
 interface PromptFormProps {
   input: string;
   setInput: (value: string) => void;
+  className?: string;
 }
 
-const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
+const PromptForm: FC<PromptFormProps> = ({ input, setInput, className }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
   const { formRef, onKeyDown } = useEnterSubmit();
@@ -72,7 +73,10 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput }) => {
         const responseMessage = await submitUserMessage(content, encodedImage);
         setMessages((currentMessages) => [...currentMessages, responseMessage]);
       }}
-      className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
+      className={cn(
+        "relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring",
+        className,
+      )}
     >
       <div className="flex w-full items-end gap-1.5 p-1 lg:gap-3.5">
         <div className="flex items-end gap-1.5">
