@@ -13,7 +13,7 @@ const SettingsNav = () => {
     <div role="tablist" className="relative mb-4 flex items-center gap-2">
       {SETTINGS_LINKS.map(({ href, title }) => (
         <Link
-          href={`/${href}`}
+          href={href}
           className={cn(
             buttonVariants({
               variant: "ghost",
