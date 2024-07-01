@@ -32,7 +32,7 @@ export const GET = auth(async (req, { params }) => {
     },
   );
 
-  const response = await fetch(`${process.env.EXTERNAL_BACKEND_BASE_URL}/api`, {
+  const response = await fetch(`${process.env.BACKEND_BASE_URL}/api`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -91,7 +91,7 @@ export const GET = auth(async (req, { params }) => {
 //     }
 //   }
 
-//   const response = await fetch(`${process.env.EXTERNAL_BACKEND_BASE_URL}/api`, {
+//   const response = await fetch(`${process.env.BACKEND_BASE_URL}/api`, {
 //     method: "GET",
 //     headers: {
 //       "Content-Type": "application/json",
