@@ -6,6 +6,7 @@ import {
 } from "@/lib/definitions";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { Languages, User } from "@prisma/client";
+import { cache } from "react";
 import { z } from "zod";
 
 //Query
@@ -80,16 +81,16 @@ export const updateNewGoogleUser = async (id: string) => {
   });
 };
 
-export const updateUserSettings = async (
+export const updateUserProfile = async (
   userID: string,
   values: z.infer<typeof updateUserProfileSchema>,
 ) => {
-  const { name, language } = values;
+  const { language, ...rest } = values;
 
   await db.user.update({
     where: { id: userID },
     data: {
-      name,
+      ...rest,
       settings: {
         update: {
           preferredLang: language.toUpperCase() as Languages,

@@ -3,7 +3,7 @@ import {
   changeUserPassword,
   getUserById,
   toggleTwoFactor,
-  updateUserSettings,
+  updateUserProfile,
 } from "@/data/user";
 import {
   changeUserPasswordSchema,
@@ -11,6 +11,8 @@ import {
   updateUserProfileSchema,
 } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
+import { PROTECTED_BASE_URL } from "@/routes";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const updateUserProfileUseCase = async (
@@ -18,12 +20,14 @@ export const updateUserProfileUseCase = async (
   values: z.infer<typeof updateUserProfileSchema>,
 ) => {
   const dbUser = await getUserById(userID);
-
+  console.log(values.image);
   if (!dbUser) {
     await signOut();
   }
 
-  await updateUserSettings(dbUser?.id!, values);
+  await updateUserProfile(dbUser?.id!, values);
+
+  revalidatePath(`/${PROTECTED_BASE_URL}/settings`);
 };
 
 export const toggleTwoFactorUseCase = async (

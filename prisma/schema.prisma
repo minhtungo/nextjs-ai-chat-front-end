@@ -37,6 +37,7 @@ model User {
   dateOfBirth DateTime?
   gradeLevel    String?
   learningGoals String?
+  subjects      String[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -47,7 +48,6 @@ model User {
   subscription Subscription?
   chats Chat[]
   messsages     Message[]
-  subjects      Subject[]
   feedbacks     Feedback[]
 }
 
@@ -113,12 +113,6 @@ model Account {
   @@id([provider, providerAccountId])
 }
 
-model Subject {
-  id       String  @id @default(cuid())
-  name     String
-  userId   String
-  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
 
 model Feedback {
   id        String    @id @default(cuid())

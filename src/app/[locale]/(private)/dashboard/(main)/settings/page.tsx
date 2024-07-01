@@ -1,21 +1,24 @@
-import UpdateUserInfoForm from "./UpdateUserInfoForm";
 import { getCurrentUser } from "@/lib/auth";
-import { signInHref } from "@/routes";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import UserProfileForm from "./components/UserProfileForm.server";
 
 export const metadata: Metadata = {
   title: "Settings",
 };
 
 const SettingsPage = async () => {
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-  if (!user) {
-    redirect(signInHref);
+  if (!currentUser) {
+    throw new Error("Unauthorized");
   }
 
-  return <UpdateUserInfoForm user={user} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UserProfileForm currentUser={currentUser} />
+    </Suspense>
+  );
 };
 
 export default SettingsPage;

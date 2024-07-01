@@ -13,13 +13,13 @@ import {
 import { twoFactorToggleSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import { FC, useTransition } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useServerAction } from "zsa-react";
 import SubmitButton from "../SubmitButton";
 import { Switch } from "../ui/switch";
-import { useServerAction } from "zsa-react";
 
 interface TwoFactorToggleProps {
   isTwoFactorEnabled: boolean;

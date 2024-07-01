@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { customAlphabet } from "nanoid";
+import { SUBJECTS } from "./constant";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -53,3 +54,8 @@ export const encodeImage = async (file?: File) => {
 
   return encoded;
 };
+
+export function getSubjectLabelFromValue(value: string): string {
+  const subject = SUBJECTS.find((subject) => subject.value === value);
+  return subject ? subject.label : value; // Fallback to value if label not found
+}

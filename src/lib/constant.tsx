@@ -57,6 +57,44 @@ export const PRICING_PLANS = [
   },
 ];
 
+export const SUBJECTS = [
+  {
+    label: "Subject.Math",
+    value: "math",
+  },
+  {
+    label: "Subject.English",
+    value: "english",
+  },
+  {
+    label: "Subject.History",
+    value: "history",
+  },
+  {
+    label: "Subject.Science",
+    value: "science",
+  },
+  {
+    label: "Subject.Art",
+    value: "art",
+  },
+];
+
+export const GRADE_LEVELS = [
+  {
+    label: "GradeLevel.Elementary",
+    value: "elementary",
+  },
+  {
+    label: "GradeLevel.Middle",
+    value: "middle",
+  },
+  {
+    label: "GradeLevel.High",
+    value: "high",
+  },
+];
+
 export const LANGUAGES = [
   {
     title: "Tiếng việt",
