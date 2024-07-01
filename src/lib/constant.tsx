@@ -68,6 +68,29 @@ export const LANGUAGES = [
   },
 ];
 
+export const FAQs = [
+  {
+    title: "Question 1",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
+  },
+  {
+    title: "Question 2",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
+  },
+  {
+    title: "Question 3",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
+  },
+  {
+    title: "Question 4",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
+  },
+];
+
 export const PAYMENT_METHODS = [
   {
     title: "Card",

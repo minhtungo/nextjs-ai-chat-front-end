@@ -56,8 +56,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
                     key={`${title}-desktop-menu-link`}
                     className={cn(
                       "text-sm font-medium text-muted-foreground hover:text-primary",
-                      pathname.split(`/${locale}`)[1] === href &&
-                        "text-primary",
+                      pathname === href && "text-primary",
                     )}
                   >
                     <Link href={href}>{t(title)}</Link>

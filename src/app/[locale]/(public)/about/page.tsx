@@ -1,5 +1,9 @@
-import AboutUs from "@/components/AboutUs";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import Typography from "@/components/ui/typography";
+import parse from "html-react-parser";
+import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import sanitizeHtml from "sanitize-html";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,5 +23,13 @@ export default function AboutPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-  return <AboutUs />;
+  const t = useTranslations("public.About");
+  return (
+    <>
+      <PageTitleWrapper title={t("title")} description={t("subtitle")} />
+      <Typography variant="div">
+        {parse(sanitizeHtml(t.markup("content")))}
+      </Typography>
+    </>
+  );
 }

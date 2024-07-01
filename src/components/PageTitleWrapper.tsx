@@ -16,7 +16,7 @@ const PageTitleWrapper: FC<PageTitleWrapperProps> = ({
         {title}
       </Typography>
       {description && (
-        <Typography variant="h4" tag="p" className="mt-4 text-muted-foreground">
+        <Typography variant="h5" tag="p" className="mt-4 text-muted-foreground">
           {description}
         </Typography>
       )}
