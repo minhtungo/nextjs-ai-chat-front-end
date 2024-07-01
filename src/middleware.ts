@@ -40,7 +40,8 @@ const authMiddleware = auth((req) => {
     return intlMiddleware(req);
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  if (!isLoggedIn && !isPublicRoute && !isAuthRoute) {
+    console.log("Not logged in");
     let redirectURL = nextUrl.pathname;
     if (nextUrl.search) {
       redirectURL += nextUrl.search;
@@ -50,6 +51,7 @@ const authMiddleware = auth((req) => {
       new URL(`${signInHref}?redirect=${encodedRedirectURL}`, nextUrl),
     );
   }
+
   if (isLoggedIn) {
     return intlMiddleware(req);
   }

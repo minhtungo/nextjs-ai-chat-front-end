@@ -1,4 +1,4 @@
-import UserProfile from "@/components/dashboard/UserProfile";
+import UpdateUserInfoForm from "./UpdateUserInfoForm";
 import { getCurrentUser } from "@/lib/auth";
 import { signInHref } from "@/routes";
 import { Metadata } from "next";
@@ -15,7 +15,7 @@ const SettingsPage = async () => {
     redirect(signInHref);
   }
 
-  return <UserProfile user={user} />;
+  return <UpdateUserInfoForm user={user} />;
 };
 
 export default SettingsPage;

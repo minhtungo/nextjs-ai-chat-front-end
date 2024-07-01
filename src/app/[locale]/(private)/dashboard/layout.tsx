@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import Sidebar from "@/components/Sidebar";
 import ChatHistory from "@/components/chat/ChatHistory";
-import Header from "@/components/dashboard/Header";
+import Header from "./components/Header";
 import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";

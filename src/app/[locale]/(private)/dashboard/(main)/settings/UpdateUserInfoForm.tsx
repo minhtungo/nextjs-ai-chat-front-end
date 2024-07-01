@@ -26,16 +26,16 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import SubmitButton from "../SubmitButton";
-import { Card, CardContent, CardFooter } from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
+import SubmitButton from "@/components/SubmitButton";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-interface UserInfoProps {
+interface UpdateUserInfoFormProps {
   user: User;
 }
 
-const UserInfo: FC<UserInfoProps> = ({ user }) => {
+const UpdateUserInfoForm: FC<UpdateUserInfoFormProps> = ({ user }) => {
   const { isPending, execute } = useServerAction(updateUserProfileAction);
   const { update } = useSession();
 
@@ -125,4 +125,4 @@ const UserInfo: FC<UserInfoProps> = ({ user }) => {
   );
 };
 
-export default UserInfo;
+export default UpdateUserInfoForm;

@@ -35,6 +35,8 @@ model User {
   role          UserRole  @default(USER)
   plan       Plan    @default(free)
   dateOfBirth DateTime?
+  gradeLevel    String?
+  learningGoals String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -45,6 +47,8 @@ model User {
   subscription Subscription?
   chats Chat[]
   messsages     Message[]
+  subjects      Subject[]
+  feedbacks     Feedback[]
 }
 
 model UserSettings {
@@ -78,13 +82,14 @@ model Message {
   content        String
   image          String?
   role           String
-  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   chatId String
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId         String
 
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
+  
+  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Account {
@@ -106,6 +111,23 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
+}
+
+model Subject {
+  id       String  @id @default(cuid())
+  name     String
+  userId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Feedback {
+  id        String    @id @default(cuid())
+  subject   String
+  content   String
+  createdAt DateTime  @default(now())
+  userId    String
+  
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 enum Plan {
