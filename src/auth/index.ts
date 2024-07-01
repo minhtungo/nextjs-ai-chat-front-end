@@ -1,5 +1,8 @@
-import { getTwoFactorConfirmationByUserId } from "@/data/two-factor-confirmation";
-import { getUserById } from "@/data/user";
+import {
+  deleteTwoFactorConfirmation,
+  getTwoFactorConfirmationByUserId,
+} from "@/data/token";
+import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
@@ -35,15 +38,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   // },
   events: {
     async linkAccount({ user }) {
-      await db.user.update({
-        where: { id: user.id },
-        data: {
-          emailVerified: new Date(),
-          settings: {
-            create: {},
-          },
-        },
-      });
+      await updateNewGoogleUser(user.id!);
     },
   },
   callbacks: {
@@ -67,11 +62,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           return false;
         }
 
-        await db.twoFactorConfirmation.delete({
-          where: {
-            id: twoFactorConfirmation.id,
-          },
-        });
+        await deleteTwoFactorConfirmation(twoFactorConfirmation.id);
       }
 
       return true;

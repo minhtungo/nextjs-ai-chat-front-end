@@ -1,6 +1,12 @@
 "use client";
 
-import { signInWithCredentials } from "@/actions/auth";
+import { signInWithCredentialsAction } from "@/actions/auth";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
+import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
+import PasswordInput from "@/components/auth/PasswordInput";
 import {
   Form,
   FormControl,
@@ -11,20 +17,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signInSchema } from "@/lib/definitions";
+import { forgotPasswordHref, signUpHref } from "@/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import SubmitButton from "@/components/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import CardWrapper from "@/components/CardWrapper";
-import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
-import { forgotPasswordHref, signUpHref } from "@/routes";
-import { useTranslations } from "next-intl";
-import FormSuccess from "@/components/auth/FormSuccess";
-import PasswordInput from "@/components/auth/PasswordInput";
+import { useServerAction } from "zsa-react";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -36,10 +36,9 @@ const SignInForm = () => {
       ? "error.OAuthAccountNotLinked"
       : "";
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isPending, startTransition] = useTransition();
-  const [showTwoFactor, setShowTwoFactor] = useState(false);
-  // const [successMessage, setSuccessMessage] = useState("");
+  const { isPending, execute, data, error } = useServerAction(
+    signInWithCredentialsAction,
+  );
 
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
@@ -49,34 +48,20 @@ const SignInForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signInSchema>) => {
-    setErrorMessage("");
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
+    const [_, error] = await execute({ values, redirectURL });
 
-    startTransition(() => {
-      signInWithCredentials(values, redirectURL)
-        .then((data) => {
-          if (data?.error) {
-            form.reset();
-            form.setFocus("email");
-            setErrorMessage(data.error);
-          }
-          // else if (data?.success) {
-          //   setSuccessMessage(data?.success);
-          // }
-
-          if (data?.twoFactor) {
-            setShowTwoFactor(true);
-          }
-        })
-        .catch(() => setErrorMessage("error.generalError"));
-    });
+    if (error) {
+      form.reset();
+      form.setFocus("email");
+    }
   };
 
   return (
     <CardWrapper headerLabel={t("SignIn.title")} noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          {!showTwoFactor ? (
+          {!data ? (
             <>
               <FormField
                 control={form.control}
@@ -139,13 +124,15 @@ const SignInForm = () => {
             </>
           )}
           {/* @ts-ignore*/}
-          {(errorMessage || urlError) && (
-            <FormError message={t(errorMessage || urlError)} />
+          {(error || urlError) && (
+            <FormError message={t(error.message || urlError)} />
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
           <SubmitButton
             className="w-full"
-            label={showTwoFactor ? t("SignIn.confirm") : t("SignIn.cta")}
+            label={
+              data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")
+            }
             isLoading={isPending}
           />
         </form>
@@ -160,7 +147,7 @@ const SignInForm = () => {
           </span>
         </div>
       </div>
-      {!showTwoFactor && (
+      {!data && (
         <>
           <GoogleAuthButton />
           <div className="mt-4 text-center text-sm">

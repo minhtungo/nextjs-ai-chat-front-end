@@ -1,6 +1,11 @@
 "use client";
 
-import { setNewPassword } from "@/actions/auth";
+import { setNewPasswordAction } from "@/actions/auth";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
+import PasswordInput from "@/components/auth/PasswordInput";
 import {
   Form,
   FormControl,
@@ -9,19 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { resetPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import CardWrapper from "@/components/CardWrapper";
-import SubmitButton from "@/components/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
-import PasswordInput from "@/components/auth/PasswordInput";
+import { useServerAction } from "zsa-react";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -29,9 +28,8 @@ const ResetPasswordForm = () => {
 
   const t = useTranslations("auth");
 
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const { data, error, execute, isPending } =
+    useServerAction(setNewPasswordAction);
 
   const form = useForm<z.infer<typeof resetPasswordSchema>>({
     resolver: zodResolver(resetPasswordSchema),
@@ -41,18 +39,10 @@ const ResetPasswordForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof resetPasswordSchema>) => {
-    setErrorMessage("");
+  const onSubmit = async (values: z.infer<typeof resetPasswordSchema>) => {
+    if (!token) return;
 
-    startTransition(() => {
-      setNewPassword(values, token).then((data) => {
-        if (data?.error) {
-          setErrorMessage(data.error);
-        } else if (data?.success) {
-          setSuccessMessage(data.success);
-        }
-      });
-    });
+    await execute({ values, token });
   };
 
   return (
@@ -97,14 +87,16 @@ const ResetPasswordForm = () => {
               </FormItem>
             )}
           />
-          {/* @ts-ignore*/}
-          {errorMessage && <FormError message={t(errorMessage)} />}
-          {/* @ts-ignore*/}
-          {successMessage && <FormSuccess message={t(successMessage)} />}
+          {error && <FormError message={t(error.message as any)} />}
+          {!token && <FormError message={t("error.tokenMissing")} />}
+          {data && data.message && (
+            <FormSuccess message={t(data.message as any)} />
+          )}
           <SubmitButton
             className="w-full"
             label={t("ResetPassword.cta")}
             isLoading={isPending}
+            disabled={!token}
           />
         </form>
       </Form>

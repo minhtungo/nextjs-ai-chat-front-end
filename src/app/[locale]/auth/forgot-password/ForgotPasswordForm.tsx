@@ -1,5 +1,10 @@
 "use client";
 
+import { forgotPasswordAction } from "@/actions/auth";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
 import {
   Form,
   FormControl,
@@ -12,19 +17,13 @@ import { Input } from "@/components/ui/input";
 import { forgotPasswordSchema } from "@/lib/definitions";
 import { signInHref } from "@/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
-import CardWrapper from "@/components/CardWrapper";
-import SubmitButton from "@/components/SubmitButton";
-import { forgotPassword } from "@/actions/auth";
+import { useServerAction } from "zsa-react";
 
 const ForgotPasswordForm = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const { data, error, execute, isPending } =
+    useServerAction(forgotPasswordAction);
 
   const form = useForm<z.infer<typeof forgotPasswordSchema>>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -33,19 +32,8 @@ const ForgotPasswordForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof forgotPasswordSchema>) => {
-    setErrorMessage("");
-    setSuccessMessage("");
-
-    startTransition(() => {
-      forgotPassword(values).then((data) => {
-        if (data?.error) {
-          setErrorMessage(data.error);
-        } else if (data?.success) {
-          setSuccessMessage(data.success);
-        }
-      });
-    });
+  const onSubmit = async (values: z.infer<typeof forgotPasswordSchema>) => {
+    await execute(values);
   };
 
   return (
@@ -71,8 +59,8 @@ const ForgotPasswordForm = () => {
             )}
           />
 
-          {errorMessage && <FormError message={errorMessage} />}
-          {successMessage && <FormSuccess message={successMessage} />}
+          {error && <FormError message={error.message} />}
+          {data && data.message && <FormSuccess message={data.message} />}
           <SubmitButton
             className="w-full"
             label="Lấy lại mật khẩu"

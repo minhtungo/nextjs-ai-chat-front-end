@@ -1,9 +1,11 @@
 import crypto from "crypto";
-import { getVerificationTokenByEmail } from "@/data/verification-token";
+import { getVerificationTokenByEmail } from "@/data/token";
 import { v4 as uuid } from "uuid";
 import { db } from "./db";
-import { getPasswordResetTokenByEmail } from "@/data/password-reset-token";
-import { getTwoFactorTokenByEmail } from "@/data/two-factor-token";
+import {
+  getPasswordResetTokenByEmail,
+  getTwoFactorTokenByEmail,
+} from "@/data/token";
 import { EXPIRY_PERIOD } from "./constant";
 
 export const generateVerificationToken = async (email: string) => {

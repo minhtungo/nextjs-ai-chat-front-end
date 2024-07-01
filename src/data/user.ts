@@ -8,57 +8,7 @@ import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { Languages, User } from "@prisma/client";
 import { z } from "zod";
 
-export const createUser = async (user: User) => {
-  return await db.user.create({
-    data: user,
-  });
-};
-
-export const updateUserSettings = async (
-  userID: string,
-  values: z.infer<typeof updateUserProfileSchema>,
-) => {
-  const { name, language } = values;
-
-  await db.user.update({
-    where: { id: userID },
-    data: {
-      name,
-      settings: {
-        update: {
-          preferredLang: language.toUpperCase() as Languages,
-        },
-      },
-    },
-  });
-};
-
-export const toggleTwoFactor = async (
-  userID: string,
-  values: z.infer<typeof twoFactorToggleSchema>,
-) => {
-  await db.user.update({
-    where: { id: userID },
-    data: {
-      ...values,
-    },
-  });
-};
-
-interface getUserOptions {
-  include?: {
-    settings?: boolean;
-    accounts?: {
-      select: {
-        type: boolean;
-      };
-    };
-  };
-  omit?: {
-    password?: boolean;
-  };
-}
-
+//Query
 export const getUserByEmail = async (
   email: string,
   options?: getUserOptions,
@@ -94,6 +44,94 @@ export const getUserById = async (id: string, options?: getUserOptions) => {
   }
 };
 
+type CreateUserProps = Omit<
+  User,
+  | "id"
+  | "createdAt"
+  | "updatedAt"
+  | "role"
+  | "plan"
+  | "emailVerified"
+  | "image"
+  | "dateOfBirth"
+>;
+
+// Mutation
+export const createUser = async (user: CreateUserProps) => {
+  return await db.user.create({
+    data: {
+      ...user,
+      settings: {
+        create: {},
+      },
+    },
+  });
+};
+
+export const updateNewGoogleUser = async (id: string) => {
+  await db.user.update({
+    where: { id },
+    data: {
+      emailVerified: new Date(),
+      settings: {
+        create: {},
+      },
+    },
+  });
+};
+
+export const updateUserSettings = async (
+  userID: string,
+  values: z.infer<typeof updateUserProfileSchema>,
+) => {
+  const { name, language } = values;
+
+  await db.user.update({
+    where: { id: userID },
+    data: {
+      name,
+      settings: {
+        update: {
+          preferredLang: language.toUpperCase() as Languages,
+        },
+      },
+    },
+  });
+};
+
+export const updateUserEmailVerification = async (id: string) => {
+  await db.user.update({
+    where: { id },
+    data: { emailVerified: new Date() },
+  });
+};
+
+export const toggleTwoFactor = async (
+  userID: string,
+  values: z.infer<typeof twoFactorToggleSchema>,
+) => {
+  await db.user.update({
+    where: { id: userID },
+    data: {
+      ...values,
+    },
+  });
+};
+
+interface getUserOptions {
+  include?: {
+    settings?: boolean;
+    accounts?: {
+      select: {
+        type: boolean;
+      };
+    };
+  };
+  omit?: {
+    password?: boolean;
+  };
+}
+
 export const changeUserPassword = async (
   userID: string,
   userPassword: string,
@@ -114,5 +152,21 @@ export const changeUserPassword = async (
     data: {
       password: hashedPassword,
     },
+  });
+};
+
+//use when resetting password
+export const setNewUserPassword = async ({
+  id,
+  password,
+}: {
+  id: string;
+  password: string;
+}) => {
+  const hashedPassword = await saltAndHashPassword(password);
+
+  await db.user.update({
+    where: { id },
+    data: { password: hashedPassword },
   });
 };

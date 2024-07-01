@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { signUpWithCredentials } from "@/actions/auth";
+import { signUpWithCredentialsAction } from "@/actions/auth";
 import {
   Form,
   FormControl,
@@ -25,11 +25,12 @@ import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 import PasswordInput from "@/components/auth/PasswordInput";
+import { useServerAction } from "zsa-react";
 
 const SignUpForm = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const { data, error, isPending, execute } = useServerAction(
+    signUpWithCredentialsAction,
+  );
 
   const t = useTranslations("auth");
 
@@ -43,18 +44,8 @@ const SignUpForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof signUpSchema>) => {
-    setErrorMessage("");
-
-    startTransition(() => {
-      signUpWithCredentials(values).then((data) => {
-        if (data?.error) {
-          setErrorMessage(data.error);
-        } else if (data?.success) {
-          setSuccessMessage(data.success);
-        }
-      });
-    });
+  const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
+    await execute(values);
   };
 
   return (
@@ -129,9 +120,9 @@ const SignUpForm = () => {
             )}
           />
           {/* @ts-ignore*/}
-          {errorMessage && <FormError message={t(errorMessage)} />}
+          {error && <FormError message={t(error.message)} />}
           {/* @ts-ignore*/}
-          {successMessage && <FormSuccess message={t(successMessage)} />}
+          {data && data.message && <FormSuccess message={t(data.message)} />}
           <SubmitButton
             className="w-full"
             label={t("SignUp.cta")}
