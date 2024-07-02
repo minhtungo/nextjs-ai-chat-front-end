@@ -2,12 +2,15 @@
 
 import { removeChat } from "@/data/chat";
 import { authedProcedure } from "@/lib/safe-actions";
+import { PROTECTED_BASE_URL } from "@/routes";
 import { Chat } from "@/types/chat";
 import {
   getChatByIDUseCase,
   getChatsUseCase,
+  removeAllChatsUseCase,
   saveChatUseCase,
 } from "@/use-cases/chat";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const saveChatAction = authedProcedure
@@ -67,3 +70,15 @@ export const removeChatAction = authedProcedure
 
     return chatID;
   });
+
+export const removeAllChatsAction = authedProcedure.handler(
+  async ({ ctx: { user } }) => {
+    await removeAllChatsUseCase(user.id!);
+
+    revalidatePath(`/${PROTECTED_BASE_URL}/settings`);
+
+    return {
+      message: "success",
+    };
+  },
+);

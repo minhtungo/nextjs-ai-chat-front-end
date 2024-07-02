@@ -1,12 +1,19 @@
 import { db } from "@/lib/db";
 import { Chat } from "@/types/chat";
-import { Message } from "ai";
 import { cache } from "react";
 
 export const removeChat = async (chatID: string, userId: string) => {
   await db.chat.delete({
     where: {
       id: chatID,
+      userId,
+    },
+  });
+};
+
+export const removeAllChats = async (userId: string) => {
+  await db.chat.deleteMany({
+    where: {
       userId,
     },
   });

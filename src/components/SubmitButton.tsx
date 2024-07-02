@@ -9,17 +9,19 @@ interface SubmitButtonProps extends ButtonProps {
   className?: string;
   label: string;
   isLoading?: boolean;
+  type?: "submit" | "button";
 }
 
 const SubmitButton: FC<SubmitButtonProps> = ({
   className,
   label,
   isLoading,
+  type = "submit",
   ...props
 }) => {
   return (
     <Button
-      type="submit"
+      type={type}
       disabled={isLoading}
       className={cn("flex items-center gap-x-2", className)}
       {...props}

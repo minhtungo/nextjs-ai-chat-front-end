@@ -22,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { Badge } from "@/components/ui/badge";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import Typography from "@/components/ui/typography";
 import { GRADE_LEVELS, LANGUAGES, SUBJECTS } from "@/lib/constant";
@@ -29,15 +30,13 @@ import { updateUserProfileSchema } from "@/lib/definitions";
 import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { put } from "@vercel/blob";
+import { Pen } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import { Pen } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 interface UserProfileFormProps {
   user: UserProfileProps;
@@ -126,17 +125,17 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               </label>
               <span className="sr-only">Attach Image</span>
             </div>
-
+            <div className="space-y-3">
+              <Label className="block">Current Plan</Label>
+              <Badge className="capitalize" variant="success">
+                {user.plan}
+              </Badge>
+            </div>
             <div className="space-y-2">
               <Label>Email</Label>
               <Input placeholder="Email" value={user.email!} disabled />
             </div>
-            <div className="space-y-3">
-              <Label className="block">Current Plan</Label>
-              <Badge className="inline-block" variant="success">
-                {user.plan}
-              </Badge>
-            </div>
+
             <FormField
               control={form.control}
               name="name"
