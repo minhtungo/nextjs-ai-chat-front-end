@@ -28,11 +28,14 @@ const SecurityPage = async () => {
           <ChangePassword />
         </>
       ) : (
-        <div className="flex items-center gap-x-1.5">
-          <Google className="size-5" />
-          <Typography className="text-muted-foreground">
-            Logged in with Google
+        <div>
+          <Typography variant="h5" tag="h3">
+            Connected accounts
           </Typography>
+          <div className="mt-3 flex items-center gap-x-2">
+            <Google className="size-5" />
+            <Typography className="text-muted-foreground">Google</Typography>
+          </div>
         </div>
       )}
     </>

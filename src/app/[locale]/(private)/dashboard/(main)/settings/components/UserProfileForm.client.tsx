@@ -36,6 +36,8 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { Pen } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface UserProfileFormProps {
   user: UserProfileProps;
@@ -107,7 +109,10 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                 }}
               />
               <label htmlFor="attach-profile-image" className="cursor-pointer">
-                <Avatar className="relative size-16 sm:size-20">
+                <Avatar className="size-16 sm:size-20">
+                  <div className="absolute inset-0 z-10 hidden h-full w-full items-center justify-center bg-background/50 hover:flex">
+                    <Pen className="size-4 text-zinc-800 dark:text-zinc-100" />
+                  </div>
                   <AvatarImage
                     src={
                       (file && URL.createObjectURL(file)) || user?.image || ""
@@ -121,25 +126,16 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               </label>
               <span className="sr-only">Attach Image</span>
             </div>
-            <div className="space-y-2">
-              <Label>Subjects</Label>
-              <MultipleSelector
-                defaultOptions={SUBJECTS}
-                value={subjects}
-                onChange={setSubjects}
-                placeholder="Select subjects"
-                hidePlaceholderWhenSelected
-                hideClearAllButton
-                emptyIndicator={
-                  <Typography className="text-muted-foreground">
-                    no results found.
-                  </Typography>
-                }
-              />
-            </div>
+
             <div className="space-y-2">
               <Label>Email</Label>
               <Input placeholder="Email" value={user.email!} disabled />
+            </div>
+            <div className="space-y-3">
+              <Label className="block">Current Plan</Label>
+              <Badge className="inline-block" variant="success">
+                {user.plan}
+              </Badge>
             </div>
             <FormField
               control={form.control}
@@ -184,6 +180,22 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                 </FormItem>
               )}
             />
+            <div className="space-y-2">
+              <Label>Subjects</Label>
+              <MultipleSelector
+                defaultOptions={SUBJECTS}
+                value={subjects}
+                onChange={setSubjects}
+                placeholder="Select subjects"
+                hidePlaceholderWhenSelected
+                hideClearAllButton
+                emptyIndicator={
+                  <Typography className="text-muted-foreground">
+                    no results found.
+                  </Typography>
+                }
+              />
+            </div>
             <FormField
               control={form.control}
               name="language"
