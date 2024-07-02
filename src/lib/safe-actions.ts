@@ -1,5 +1,6 @@
 import { createServerActionProcedure } from "zsa";
 import { getCurrentUser } from "./auth";
+import { getUserRole } from "@/data/user";
 
 export const authedProcedure = createServerActionProcedure().handler(
   async () => {
@@ -16,15 +17,23 @@ export const authedProcedure = createServerActionProcedure().handler(
   },
 );
 
-export const authedAction = authedProcedure.createServerAction();
-
 const isAdminProcedure = createServerActionProcedure(authedProcedure).handler(
-  async ({ ctx }) => {
+  async ({ ctx: { user } }) => {
+    const role = await getUserRole(user.id!);
+
+    if (!role || role.role !== "ADMIN") {
+      throw new Error("User is not an admin");
+    }
+
     return {
       user: {
-        id: ctx.user.id,
-        email: ctx.user.email,
+        id: user.id,
+        email: user.email,
+        role,
       },
     };
   },
 );
+
+export const authedAction = authedProcedure.createServerAction();
+export const isAdminAction = isAdminProcedure.createServerAction();

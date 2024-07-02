@@ -45,6 +45,19 @@ export const getUserById = async (id: string, options?: getUserOptions) => {
   }
 };
 
+export const getUserRole = async (id: string) => {
+  try {
+    return await db.user.findUnique({
+      where: { id },
+      select: {
+        role: true,
+      },
+    });
+  } catch (error) {
+    return null;
+  }
+};
+
 type CreateUserProps = Omit<
   User,
   | "id"

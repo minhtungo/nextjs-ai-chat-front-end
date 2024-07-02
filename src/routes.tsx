@@ -59,6 +59,17 @@ export const SETTINGS_LINKS = [
   },
 ];
 
+export const ADMIN_DASHBOARD_LINKS = [
+  {
+    title: "Email",
+    href: `${PROTECTED_BASE_URL}/admin/email`,
+  },
+  {
+    title: "Billing",
+    href: `${PROTECTED_BASE_URL}/admin/billing`,
+  },
+];
+
 export const SOCIAL_LINKS = [
   {
     title: "Facebook",
