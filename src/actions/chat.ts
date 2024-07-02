@@ -1,7 +1,7 @@
 "use server";
 
 import { removeChat } from "@/data/chat";
-import { authedProcedure } from "@/lib/safe-actions";
+import { authedAction } from "@/lib/safe-actions";
 import { PROTECTED_BASE_URL } from "@/routes";
 import { Chat } from "@/types/chat";
 import {
@@ -13,7 +13,7 @@ import {
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
-export const saveChatAction = authedProcedure
+export const saveChatAction = authedAction
   .input(
     z.object({
       chat: z.object({
@@ -33,7 +33,7 @@ export const saveChatAction = authedProcedure
     }
   });
 
-export const getChatAction = authedProcedure
+export const getChatAction = authedAction
   .input(
     z.object({
       chatID: z.string(),
@@ -48,7 +48,7 @@ export const getChatAction = authedProcedure
     }
   });
 
-export const getChatsAction = authedProcedure.handler(
+export const getChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
     try {
       const chats = await getChatsUseCase(user?.id!);
@@ -59,7 +59,7 @@ export const getChatsAction = authedProcedure.handler(
   },
 );
 
-export const removeChatAction = authedProcedure
+export const removeChatAction = authedAction
   .input(z.object({ chatID: z.string() }))
   .handler(async ({ input: { chatID }, ctx: { user } }) => {
     try {
@@ -71,11 +71,11 @@ export const removeChatAction = authedProcedure
     return chatID;
   });
 
-export const removeAllChatsAction = authedProcedure.handler(
+export const removeAllChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
     await removeAllChatsUseCase(user.id!);
 
-    revalidatePath(`/${PROTECTED_BASE_URL}/settings`);
+    revalidatePath(`${PROTECTED_BASE_URL}/settings`);
 
     return {
       message: "success",

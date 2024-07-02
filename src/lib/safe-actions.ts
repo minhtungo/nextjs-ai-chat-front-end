@@ -1,8 +1,8 @@
 import { createServerActionProcedure } from "zsa";
 import { getCurrentUser } from "./auth";
 
-export const authedProcedure = createServerActionProcedure()
-  .handler(async () => {
+export const authedProcedure = createServerActionProcedure().handler(
+  async () => {
     try {
       const user = await getCurrentUser();
 
@@ -13,5 +13,18 @@ export const authedProcedure = createServerActionProcedure()
     } catch {
       throw new Error("User not authenticated");
     }
-  })
-  .createServerAction();
+  },
+);
+
+export const authedAction = authedProcedure.createServerAction();
+
+const isAdminProcedure = createServerActionProcedure(authedProcedure).handler(
+  async ({ ctx }) => {
+    return {
+      user: {
+        id: ctx.user.id,
+        email: ctx.user.email,
+      },
+    };
+  },
+);

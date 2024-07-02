@@ -1,6 +1,6 @@
 "use server";
 
-import { authedProcedure } from "@/lib/safe-actions";
+import { authedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
   toggleTwoFactorUseCase,
@@ -12,19 +12,19 @@ import {
   updateUserProfileSchema,
 } from "./../lib/definitions";
 
-export const updateUserProfileAction = authedProcedure
+export const updateUserProfileAction = authedAction
   .input(updateUserProfileSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserProfileUseCase(user.id!, input);
   });
 
-export const toggleTwoFactorAction = authedProcedure
+export const toggleTwoFactorAction = authedAction
   .input(twoFactorToggleSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await toggleTwoFactorUseCase(user.id!, input);
   });
 
-export const changeUserPasswordAction = authedProcedure
+export const changeUserPasswordAction = authedAction
   .input(changeUserPasswordSchema)
   .handler(async ({ input, ctx: { user } }) => {
     if (user.isOauth) {
