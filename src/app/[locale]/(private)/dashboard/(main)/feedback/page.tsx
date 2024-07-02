@@ -1,5 +1,5 @@
 import CardWrapper from "@/components/CardWrapper";
-import Feedback from "@/components/dashboard/Feedback";
+import FeedbackForm from "@/components/dashboard/FeedbackForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ const ProfilePage = async () => {
       headerLabel="Report an issue"
       description="What area are you having problems with?"
     >
-      <Feedback />
+      <FeedbackForm />
     </CardWrapper>
   );
 };

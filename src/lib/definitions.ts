@@ -80,3 +80,8 @@ export const changeUserPasswordSchema = object({
     message: "auth.error.confirmPasswordInvalid",
     path: ["confirmNewPassword"],
   });
+
+export const feedbackFormSchema = object({
+  subject: string().min(1, "error.subject"),
+  content: string().min(1, "error.content"),
+});

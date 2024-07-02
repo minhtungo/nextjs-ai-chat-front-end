@@ -206,6 +206,19 @@
       "twoFactorEmailSent": "2FA code was sent to your email. Please check your email"
     }
   },
+  "form": {
+    "Feedback": {
+      "subject": "Subject",
+      "content": "Content",
+      "submitLabel": "Submit",
+      "error": {
+        "subject": "Subject is required",
+        "content": "Content is required",
+        "submit": "Something went wrong! Please try again"
+      },
+      "success": "Thank you for your feedback!"
+    }
+  },
   "LocaleSwitcher": {
     "label": "Change Language",
     "locale": "{locale, select, vi {VI} en {EN} other {Unknown}}"

@@ -1,6 +1,8 @@
 import Momo from "@/components/icons/Momo";
 import { CreditCard } from "lucide-react";
 
+export const ADMIN_EMAIL = "onboarding@resend.dev";
+
 export const EXPIRY_PERIOD = 1800 * 1000;
 
 export const PRICING_PLANS = [

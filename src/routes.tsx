@@ -53,36 +53,9 @@ export const SETTINGS_LINKS = [
     title: "Security",
     href: `${PROTECTED_BASE_URL}/settings/security`,
   },
-];
-
-export const DASHBOARD_LINKS = [
   {
-    title: "Dashboard",
-    href: `/${PROTECTED_BASE_URL}`,
-    icon: <Home className="h-5 w-5" />,
-  },
-  {
-    title: "Hỏi Lumi",
-    href: `/${PROTECTED_BASE_URL}/chat`,
-    icon: <BotMessageSquare className="h-5 w-5" />,
-  },
-];
-
-export const DASHBOARD_MOBILE_LINKS = [
-  {
-    title: "Dashboard",
-    href: `/${PROTECTED_BASE_URL}`,
-    icon: <Home className="h-5 w-5" />,
-  },
-  {
-    title: "Hỏi Lumi",
-    href: `/${PROTECTED_BASE_URL}/chat`,
-    icon: <BotMessageSquare className="h-5 w-5" />,
-  },
-  {
-    title: "Feedback",
-    href: `/${PROTECTED_BASE_URL}/feedback`,
-    icon: <MessageSquareMore className="h-5 w-5" />,
+    title: "Support",
+    href: `${PROTECTED_BASE_URL}/settings/support`,
   },
 ];
 

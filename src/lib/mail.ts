@@ -2,19 +2,19 @@ import { EmailNotiChangePassword } from "@/components/email/EmailNotiChangePassw
 import { EmailResetPassword } from "@/components/email/EmailResetPassword";
 import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
 import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
+import EmailUserFeedback from "@/components/email/EmailUserFeedback";
 import { emailVerificationHref, resetPasswordHref } from "@/routes";
 import { Resend } from "resend";
+import { ADMIN_EMAIL } from "./constant";
 import { formatDate } from "./utils";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-
-const fromEmail = "onboarding@resend.dev";
 
 export const sendVerificationEmail = async (email: string, token: string) => {
   const emailConfirmationLink = `${process.env.NEXT_PUBLIC_BASE_URL}${emailVerificationHref}?token=${token}`;
 
   await resend.emails.send({
-    from: fromEmail,
+    from: ADMIN_EMAIL,
     to: [email],
     subject: "Confirmation Email",
     react: EmailSignUpConfirmation({ confirmationLink: emailConfirmationLink }),
@@ -26,7 +26,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${resetPasswordHref}?token=${token}`;
 
   await resend.emails.send({
-    from: fromEmail,
+    from: ADMIN_EMAIL,
     to: [email],
     subject: "Reset Password Email",
     react: EmailResetPassword({ resetPasswordLink: resetPasswordLink }),
@@ -36,7 +36,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
 
 export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
   await resend.emails.send({
-    from: fromEmail,
+    from: ADMIN_EMAIL,
     to: [email],
     subject: "Two Factor Code Email",
     react: EmailTwoFactor({ token }),
@@ -47,10 +47,30 @@ export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
 export const sendChangePasswordEmail = async (email: string, name: string) => {
   const currentTime = formatDate(new Date());
   await resend.emails.send({
-    from: fromEmail,
+    from: ADMIN_EMAIL,
     to: [email],
     subject: "Password Change",
     react: EmailNotiChangePassword({ name, currentTime }),
+    text: "Two Factor Code Email",
+  });
+};
+
+export const sendUserFeedbackEmail = async ({
+  userEmail,
+  userName,
+  subject,
+  content,
+}: {
+  userEmail: string;
+  userName: string;
+  subject: string;
+  content: string;
+}) => {
+  await resend.emails.send({
+    from: ADMIN_EMAIL,
+    to: ADMIN_EMAIL,
+    subject,
+    react: EmailUserFeedback({ userEmail, userName, subject, content }),
     text: "Two Factor Code Email",
   });
 };
