@@ -5,7 +5,7 @@ import { FC } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { sendUserFeedbackAction } from "@/actions/user";
+import { sendUserMailAction } from "@/actions/mail";
 import {
   Form,
   FormControl,
@@ -27,9 +27,8 @@ import FormSuccess from "../auth/FormSuccess";
 interface FeedbackFormProps {}
 
 const FeedbackForm: FC<FeedbackFormProps> = () => {
-  const { isPending, execute, data, error } = useServerAction(
-    sendUserFeedbackAction,
-  );
+  const { isPending, execute, data, error } =
+    useServerAction(sendUserMailAction);
 
   const t = useTranslations("form.Feedback");
 

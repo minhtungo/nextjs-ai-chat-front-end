@@ -1,8 +1,8 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import * as React from "react";
 import { ReactQueryClientProvider } from "./ReactQueryClientProvider";
 import { ThemeProvider } from "./ThemeProvider";
+import JoTaiProvider from "./JotaiProvider";
 
 export default async function Providers({
   children,
@@ -19,7 +19,9 @@ export default async function Providers({
         enableSystem
         disableTransitionOnChange
       >
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+        <ReactQueryClientProvider>
+          <JoTaiProvider>{children}</JoTaiProvider>
+        </ReactQueryClientProvider>
       </ThemeProvider>
     </NextIntlClientProvider>
   );

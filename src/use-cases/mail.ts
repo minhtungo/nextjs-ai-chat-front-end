@@ -1,11 +1,11 @@
-import { createUserFeedback } from "@/data/feedback";
+import { createUserMail } from "@/data/mail";
 import { feedbackFormSchema } from "@/lib/definitions";
 import { sendUserFeedbackEmail } from "@/lib/mail";
 import { User } from "next-auth";
 import { z } from "zod";
 import { ZSAError } from "zsa";
 
-export const sendUserFeedbackUseCase = async ({
+export const sendUserMailUseCase = async ({
   user,
   values,
 }: {
@@ -15,8 +15,10 @@ export const sendUserFeedbackUseCase = async ({
   const { subject, content } = values;
 
   try {
-    await createUserFeedback({
+    await createUserMail({
       userId: user.id!,
+      name: user.name!,
+      email: user.email!,
       subject,
       content,
     });

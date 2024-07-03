@@ -1,24 +1,30 @@
 import { db } from "@/lib/db";
 
-export const createUserFeedback = async ({
+export const createUserMail = async ({
   userId,
+  name,
+  email,
   subject,
   content,
 }: {
   userId: string;
+  name: string;
+  email: string;
   subject: string;
   content: string;
 }) => {
-  return await db.feedback.create({
+  return await db.mail.create({
     data: {
       userId,
+      name,
+      email,
       subject,
       content,
     },
   });
 };
 
-export const getUserFeedbacks = async ({ userId }: { userId: string }) => {
+export const getUserMails = async ({ userId }: { userId: string }) => {
   const existingUser = await db.user.findUnique({
     where: { id: userId },
     select: {
@@ -34,5 +40,5 @@ export const getUserFeedbacks = async ({ userId }: { userId: string }) => {
     throw new Error("User is not an admin");
   }
 
-  return await db.feedback.findMany({});
+  return await db.mail.findMany({});
 };

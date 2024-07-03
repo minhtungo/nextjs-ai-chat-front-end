@@ -1,8 +1,10 @@
 import {
   BotMessageSquare,
+  CreditCard,
   Facebook,
   Home,
   MessageSquareMore,
+  UserRound,
 } from "lucide-react";
 
 export const publicRoutes = ["/", "/pricing", "/about"];
@@ -61,12 +63,30 @@ export const SETTINGS_LINKS = [
 
 export const ADMIN_DASHBOARD_LINKS = [
   {
-    title: "Email",
-    href: `${PROTECTED_BASE_URL}/admin/email`,
+    title: "Overview",
+    href: `${PROTECTED_BASE_URL}/admin`,
+  },
+  {
+    title: "Mail",
+    href: `${PROTECTED_BASE_URL}/admin/mail`,
+  },
+];
+
+export const USER_DASHBOARD_LINKS = [
+  {
+    title: "Profile",
+    href: `${PROTECTED_BASE_URL}/settings`,
+    icon: <UserRound className="size-4" />,
   },
   {
     title: "Billing",
-    href: `${PROTECTED_BASE_URL}/admin/billing`,
+    href: `${PROTECTED_BASE_URL}/settings/billing`,
+    icon: <CreditCard className="size-4" />,
+  },
+  {
+    title: "Support",
+    href: `${PROTECTED_BASE_URL}/settings/support`,
+    icon: <MessageSquareMore className="size-4" />,
   },
 ];
 

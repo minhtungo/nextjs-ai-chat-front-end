@@ -898,6 +898,20 @@
     "@radix-ui/react-use-previous" "1.1.0"
     "@radix-ui/react-use-size" "1.1.0"
 
+"@radix-ui/react-tabs@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-tabs/-/react-tabs-1.1.0.tgz#0a6db1caed56776a1176aae68532060e301cc1c0"
+  integrity sha512-bZgOKB/LtZIij75FSuPzyEti/XBhJH52ExgtdVqjCIh+Nx/FW+LhnbXtbCzIi34ccyMsyOja8T0thCzoHFXNKA==
+  dependencies:
+    "@radix-ui/primitive" "1.1.0"
+    "@radix-ui/react-context" "1.1.0"
+    "@radix-ui/react-direction" "1.1.0"
+    "@radix-ui/react-id" "1.1.0"
+    "@radix-ui/react-presence" "1.1.0"
+    "@radix-ui/react-primitive" "2.0.0"
+    "@radix-ui/react-roving-focus" "1.1.0"
+    "@radix-ui/react-use-controllable-state" "1.1.0"
+
 "@radix-ui/react-tooltip@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-tooltip/-/react-tooltip-1.1.2.tgz#c42db2ffd7dcc6ff3d65407c8cb70490288f518d"
@@ -1195,6 +1209,13 @@
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/@types/cookie/-/cookie-0.6.0.tgz#eac397f28bf1d6ae0ae081363eca2f425bedf0d5"
   integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
+
+"@types/date-fns@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@types/date-fns/-/date-fns-2.6.0.tgz#b062ca46562002909be0c63a6467ed173136acc1"
+  integrity sha512-9DSw2ZRzV0Tmpa6PHHJbMcZn79HHus+BBBohcOaDzkK/G3zMjDUDYjJIWBFLbkh+1+/IOS0A59BpQfdr37hASg==
+  dependencies:
+    date-fns "*"
 
 "@types/debug@^4.0.0":
   version "4.1.12"
@@ -1950,7 +1971,7 @@ data-view-byte-offset@^1.0.0:
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
 
-date-fns@^3.6.0:
+date-fns@*, date-fns@^3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-3.6.0.tgz#f20ca4fe94f8b754951b24240676e8618c0206bf"
   integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
@@ -3241,6 +3262,11 @@ jose@^5.6.2:
   version "5.6.2"
   resolved "https://registry.yarnpkg.com/jose/-/jose-5.6.2.tgz#b03628593d3a3c6486b37f4788faa6cc235cec79"
   integrity sha512-F1t1/WZJ4JdmCE/XoMYw1dPOW5g8JF0xGm6Ox2fwaCAPlCzt+4Bh0EWP59iQuZNHHauDkCdjx+kCZSh5z/PGow==
+
+jotai@^2.8.4:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.8.4.tgz#ea82b013d640016100e360d19d565862816c96d0"
+  integrity sha512-f6jwjhBJcDtpeauT2xH01gnqadKEySwwt1qNBLvAXcnojkmb76EdqRt05Ym8IamfHGAQz2qMKAwftnyjeSoHAA==
 
 js-beautify@^1.14.11:
   version "1.15.1"
@@ -4611,6 +4637,11 @@ react-remove-scroll@2.5.7:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
+react-resizable-panels@^2.0.20:
+  version "2.0.20"
+  resolved "https://registry.yarnpkg.com/react-resizable-panels/-/react-resizable-panels-2.0.20.tgz#fbf7e2153117d70ee507faf95a69343bc1f8d44f"
+  integrity sha512-aMbK3VF8U+VBICG+rwhE0Rr/eFZaRzmNq3akBRL1TrayIpLXz7Rbok0//kYeWj6SQRsjcQ3f4eRplJicM+oL6w==
+
 react-style-singleton@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-style-singleton/-/react-style-singleton-2.2.1.tgz#f99e420492b2d8f34d38308ff660b60d0b1205b4"
@@ -5646,6 +5677,13 @@ zod@^3.23.5, zod@^3.23.8:
   version "3.23.8"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.23.8.tgz#e37b957b5d52079769fb8097099b592f0ef4067d"
   integrity sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==
+
+zsa-react-query@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/zsa-react-query/-/zsa-react-query-0.2.0.tgz#9e67b68813552cb2261d76d8de7ee2f12b1f6614"
+  integrity sha512-e9yc6oSINWYoqjbBsTrOGVmQsWVhXQ1GaAtymYokJWTa7QDg4S1iGgBRDZYRVXYouSvAKh92CPVwUqSH2FXxag==
+  dependencies:
+    zsa "*"
 
 zsa-react@^0.2.1:
   version "0.2.1"

@@ -2,13 +2,13 @@
 
 import { feedbackFormSchema } from "@/lib/definitions";
 import { authedAction } from "@/lib/safe-actions";
-import { sendUserFeedbackUseCase } from "@/use-cases/feedback";
+import { sendUserMailUseCase } from "@/use-cases/mail";
 import { sanitize } from "isomorphic-dompurify";
 
-export const sendUserFeedbackAction = authedAction
+export const sendUserMailAction = authedAction
   .input(feedbackFormSchema)
   .handler(async ({ input: { subject, content }, ctx: { user } }) => {
-    await sendUserFeedbackUseCase({
+    await sendUserMailUseCase({
       user,
       values: {
         subject: sanitize(subject),

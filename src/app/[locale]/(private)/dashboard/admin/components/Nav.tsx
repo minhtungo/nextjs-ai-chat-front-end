@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const AdminDashboardNav = () => {
+const Nav = () => {
   const pathname = usePathname();
 
   return (
@@ -31,4 +31,4 @@ const AdminDashboardNav = () => {
   );
 };
 
-export default AdminDashboardNav;
+export default Nav;

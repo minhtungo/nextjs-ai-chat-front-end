@@ -12,7 +12,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { cn } from "@/lib/utils";
-import { CreditCard, LogOut, Settings, UserRound } from "lucide-react";
+import { USER_DASHBOARD_LINKS } from "@/routes";
+import {
+  CreditCard,
+  LogOut,
+  Settings,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { FC } from "react";
@@ -22,7 +29,6 @@ interface UserMenuProps {
 
 const UserMenu: FC<UserMenuProps> = ({ className }) => {
   const user = useCurrentUser();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className={cn(className)} asChild>
@@ -46,21 +52,25 @@ const UserMenu: FC<UserMenuProps> = ({ className }) => {
           <div className="text-[13px] text-muted-foreground">{user?.email}</div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings/profile" className="gap-x-1.5">
-            <UserRound className="h-4 w-4" /> Profile
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings/billing" className="gap-x-1.5">
-            <CreditCard className="h-4 w-4" /> Billing
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/dashboard/settings" className="gap-x-1.5">
-            <Settings className="h-4 w-4" /> Cài đặt
-          </Link>
-        </DropdownMenuItem>
+        {USER_DASHBOARD_LINKS.map(({ title, href, icon }) => (
+          <DropdownMenuItem asChild key={`${title}-user-dashboard-item`}>
+            <Link href={href} className="gap-x-1.5">
+              {icon}
+              {title}
+            </Link>
+          </DropdownMenuItem>
+        ))}
+
+        {user?.role === "ADMIN" && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard/admin" className="gap-x-1.5">
+                <ShieldCheck className="h-4 w-4" /> Admin
+              </Link>
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () =>
