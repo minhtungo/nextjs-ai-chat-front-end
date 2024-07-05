@@ -1,13 +1,11 @@
 import {
-  BotMessageSquare,
   CreditCard,
   Facebook,
-  Home,
   MessageSquareMore,
   UserRound,
 } from "lucide-react";
 
-export const publicRoutes = ["/", "/pricing", "/about"];
+export const publicRoutes = ["/", "/pricing", "/about", "/test"];
 
 export const apiAuthPrefix = "/api";
 

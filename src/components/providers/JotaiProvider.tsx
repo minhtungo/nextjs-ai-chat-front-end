@@ -2,7 +2,7 @@
 
 import { Provider } from "jotai";
 
-export default async function JoTaiProvider({
+export default function JoTaiProvider({
   children,
 }: {
   children: React.ReactNode;

@@ -10,6 +10,7 @@ import {
   publicRoutes,
   signInHref,
 } from "./routes";
+import { Big_Shoulders_Inline_Display } from "next/font/google";
 
 const { auth } = NextAuth(authConfig);
 
