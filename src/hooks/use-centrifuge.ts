@@ -1,3 +1,4 @@
+import { Message } from "@/types/chat";
 import {
   getConnectionToken,
   getPublishMessageToken,
@@ -20,10 +21,10 @@ import {
 } from "centrifuge";
 import { useEffect, useRef, useState } from "react";
 
-interface useWebsocketProps {
+interface useCentrifugeProps {
   channel: string;
   userId: string;
-  onPublication?: (message: PublicationContext) => void;
+  onPublication?: (message: Message) => void;
   onState?: (state: SubscriptionStateContext) => void;
   onError?: (error: ErrorContext) => void;
   onSubscribed?: (message: SubscribedContext) => void;
@@ -37,7 +38,7 @@ interface useWebsocketProps {
  * @description hook to handle websocket subscription based on channel. Assumes that the channel being subscribed to is a protected channel
  * @link https://centrifugal.dev
  */
-const useWebsocket = ({
+export const useCentrifuge = ({
   channel,
   userId,
   onPublication,
@@ -48,7 +49,7 @@ const useWebsocket = ({
   onSubscribing,
   onJoin,
   onLeave,
-}: useWebsocketProps) => {
+}: useCentrifugeProps) => {
   const [connectionError, setConnectionError] = useState<ErrorContext | null>(
     null,
   );
@@ -73,7 +74,7 @@ const useWebsocket = ({
   let centrifuge: Centrifuge | null = null;
   let sub: Subscription | null = null;
 
-  const subRef = useRef<Subscription>(null);
+  let subRef = useRef<Subscription>(null);
 
   useEffect(() => {
     if (!channel || !userId) return;
@@ -185,24 +186,20 @@ const useWebsocket = ({
         centrifuge.disconnect();
         // centrifuge.removeAllListeners();
       }
-      //   if (sub) {
-      //     sub.unsubscribe();
-      //     sub.removeAllListeners();
-      //   }
+      if (sub) {
+        sub.unsubscribe();
+        // sub.removeAllListeners();
+      }
     };
   }, [channel]);
 
   const publishMessage = async (message: string) => {
     const token = await getPublishMessageToken(channel, message);
 
-    console.log("centrifugo in publish message", sub);
-
     if (subRef.current) {
-      const result = await subRef.current.publish({
+      await subRef.current.publish({
         token,
       });
-
-      console.log("result", result);
     } else {
       console.error("Centrifugo instance is not initialized");
     }
@@ -218,5 +215,3 @@ const useWebsocket = ({
     publishMessage,
   };
 };
-
-export default useWebsocket;

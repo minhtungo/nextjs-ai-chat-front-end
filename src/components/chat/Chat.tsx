@@ -18,11 +18,9 @@ export interface ChatProps extends React.ComponentProps<"div"> {
 }
 
 const Chat: FC<ChatProps> = ({ id, user }) => {
-  const router = useRouter();
   const path = usePathname();
   const [input, setInput] = useState("");
   const [messages] = useUIState();
-  const [aiState] = useAIState();
   const scrollRef = useRef<ElementRef<"div">>(null);
 
   const [_, setNewChatId] = useLocalStorage("newChatId", id);

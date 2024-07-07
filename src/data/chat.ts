@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Chat } from "@/types/chat";
+import { Chat } from "@/types/vercel-chat";
 import { cache } from "react";
 
 export const removeChat = async (chatID: string, userId: string) => {

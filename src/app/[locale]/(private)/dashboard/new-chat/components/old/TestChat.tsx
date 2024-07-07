@@ -1,9 +1,10 @@
 "use client";
 
-import useWebsocket from "@/hooks/use-centrifuge";
+import useCentrifuge from "@/hooks/use-centrifuge";
 import { SubscriptionState, SubscriptionStateContext } from "centrifuge";
 import { User } from "next-auth";
 import { FC, useState } from "react";
+import { useChat } from "ai/react";
 
 interface TestProps {
   user: User;
@@ -14,6 +15,10 @@ const Test: FC<TestProps> = ({ user, chatId }) => {
   const [realTimeStatus, setRealTimeStatus] = useState("");
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
+
+  const { messages, input, handleInputChange, handleSubmit } = useChat({
+    api,
+  });
 
   const onState = (ctx: SubscriptionStateContext) => {
     if (ctx.newState === SubscriptionState.Subscribed) {
@@ -29,7 +34,7 @@ const Test: FC<TestProps> = ({ user, chatId }) => {
 
   const channel = `chat`;
 
-  const { publication, publishMessage } = useWebsocket({
+  const { publication, publishMessage } = useCentrifuge({
     channel,
     userId: user?.id!,
     onState,

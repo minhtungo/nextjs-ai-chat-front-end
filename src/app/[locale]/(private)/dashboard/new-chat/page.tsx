@@ -1,19 +1,17 @@
-import NewChat from "./NewChat";
 import { getCurrentUser } from "@/lib/auth";
 import { nanoid } from "@/lib/utils";
+import NewChat from "./components/NewChat";
 
-const NewChatPage = async () => {
+const ChatPage = async () => {
   const user = await getCurrentUser();
+
   const chatId = nanoid();
-  console.log("===============", chatId);
 
   if (!user) {
     throw new Error("Unauthorized");
   }
 
-  console.log("user", user.id);
-
-  return <NewChat user={user} chatId={chatId} />;
+  return <NewChat user={user} id={chatId} />;
 };
 
-export default NewChatPage;
+export default ChatPage;

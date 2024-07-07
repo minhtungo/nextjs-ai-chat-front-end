@@ -2,7 +2,7 @@ import { getChatAction } from "@/actions/chat";
 import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";
-import { Message } from "@/types/chat";
+import { Message } from "@/types/vercel-chat";
 import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 

@@ -46,7 +46,7 @@ export const formatNumber = (value: number) =>
   }).format(value);
 
 export const encodeImage = async (file?: File) => {
-  if (!file) return;
+  if (!file) return null;
 
   const encoded = await file
     .arrayBuffer()
