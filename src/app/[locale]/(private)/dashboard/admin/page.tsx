@@ -1,5 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
-import { FC } from "react";
+import { FC, Suspense } from "react";
+import Overview from "./components/Overview";
 
 interface AdminPageProps {}
 
@@ -10,7 +11,11 @@ const AdminPage: FC<AdminPageProps> = async () => {
     throw new Error("Unauthorized");
   }
 
-  return <div></div>;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Overview />
+    </Suspense>
+  );
 };
 
 export default AdminPage;
