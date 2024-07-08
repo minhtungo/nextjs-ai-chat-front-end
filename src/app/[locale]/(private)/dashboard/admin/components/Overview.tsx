@@ -1,9 +1,8 @@
+import { getSubjectLabelFromValue } from "@/lib/utils";
 import { countSubjectsUseCase } from "@/use-cases/admin/user";
-import { User } from "next-auth";
 import { FC } from "react";
 import SubjectsChart from "./SubjectsChart";
 import UserOverview from "./UserOverview";
-import { getSubjectLabelFromValue } from "@/lib/utils";
 
 interface OverviewProps {}
 

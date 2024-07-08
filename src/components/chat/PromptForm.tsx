@@ -20,6 +20,7 @@ import UserMessage from "../dashboard/UserMessage";
 import { Input } from "../ui/input";
 import Image from "next/image";
 import { cn, encodeImage } from "@/lib/utils";
+import ImageUpload from "./ImageUpload";
 
 interface PromptFormProps {
   input: string;
@@ -81,7 +82,9 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput, className }) => {
       <div className="flex w-full items-end gap-1.5 p-1 lg:gap-3.5">
         <div className="flex items-end gap-1.5">
           <TooltipProvider delayDuration={100}>
-            <Tooltip>
+            <ImageUpload />
+
+            {/* <Tooltip>
               <TooltipTrigger asChild>
                 <Button
                   variant="ghost"
@@ -110,7 +113,7 @@ const PromptForm: FC<PromptFormProps> = ({ input, setInput, className }) => {
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="top">Attach File</TooltipContent>
-            </Tooltip>
+            </Tooltip> */}
           </TooltipProvider>
         </div>
         <Label htmlFor="message" className="sr-only">

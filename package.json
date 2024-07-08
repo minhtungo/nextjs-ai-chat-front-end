@@ -55,6 +55,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.1",
+    "react-image-crop": "^11.0.5",
     "react-markdown": "^9.0.1",
     "react-resizable-panels": "^2.0.20",
     "react-textarea-autosize": "^8.5.3",

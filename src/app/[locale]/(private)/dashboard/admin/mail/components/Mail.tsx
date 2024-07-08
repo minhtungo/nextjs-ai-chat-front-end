@@ -1,6 +1,6 @@
 "use client";
 
-import { Archive, Inbox, Search, Trash2 } from "lucide-react";
+import { Search } from "lucide-react";
 import * as React from "react";
 
 import { Input } from "@/components/ui/input";
@@ -12,12 +12,10 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
+import { type Mail } from "@prisma/client";
 import { useGetMail } from "../use-mail";
 import { MailDisplay } from "./MailDisplay";
 import { MailList } from "./MailList";
-import { Nav } from "./Nav";
-import { type Mail } from "@prisma/client";
 
 interface MailProps {
   mails: Mail[];
@@ -32,7 +30,6 @@ export function Mail({
   navCollapsedSize,
   defaultCollapsed,
 }: MailProps) {
-  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   const mail = useGetMail();
 
   return (
@@ -46,7 +43,7 @@ export function Mail({
         }}
         className="h-full max-h-[800px] items-stretch"
       >
-        <ResizablePanel
+        {/* <ResizablePanel
           defaultSize={defaultLayout[0]}
           collapsedSize={navCollapsedSize}
           collapsible={true}
@@ -87,12 +84,12 @@ export function Mail({
             ]}
           />
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle withHandle /> */}
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <Tabs defaultValue="all">
             <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Inbox</h1>
-              <TabsList className="ml-auto">
+              {/* <h1 className="text-xl font-bold">Inbox</h1> */}
+              <TabsList className="mr-auto">
                 <TabsTrigger
                   value="all"
                   className="text-zinc-600 dark:text-zinc-200"
