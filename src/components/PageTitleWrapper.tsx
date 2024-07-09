@@ -1,22 +1,34 @@
 import { FC } from "react";
 import Typography from "./ui/typography";
+import { cn } from "@/lib/utils";
 
 interface PageTitleWrapperProps {
   title: string;
   description?: string;
+  className?: string;
 }
 
 const PageTitleWrapper: FC<PageTitleWrapperProps> = ({
   title,
   description,
+  className,
 }) => {
   return (
-    <div className="mb-12 mt-12 flex flex-col items-center justify-center text-center sm:mt-16">
+    <div
+      className={cn(
+        "mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center text-center sm:mb-14",
+        className,
+      )}
+    >
       <Typography variant="h2" tag="h1">
         {title}
       </Typography>
       {description && (
-        <Typography variant="h5" tag="p" className="mt-4 text-muted-foreground">
+        <Typography
+          variant="h5"
+          tag="p"
+          className="mt-4 font-normal text-muted-foreground"
+        >
           {description}
         </Typography>
       )}

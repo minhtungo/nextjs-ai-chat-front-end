@@ -30,6 +30,8 @@ const NavButtons: FC<NavButtonsProps> = async () => {
         </>
       ) : (
         <>
+          {/* <LanguageSwitcher className="hidden md:flex" /> */}
+
           <Link
             href={signUpHref}
             className={buttonVariants({
@@ -48,7 +50,6 @@ const NavButtons: FC<NavButtonsProps> = async () => {
           >
             {t("SignIn.title")}
           </Link>
-          <LanguageSwitcher className="hidden md:flex" />
         </>
       )}
     </div>

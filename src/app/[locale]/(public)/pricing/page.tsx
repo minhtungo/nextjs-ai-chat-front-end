@@ -1,6 +1,6 @@
-import { PRICING_PLANS } from "@/lib/constant";
+import { PRICING_PLANS, PricingPlan } from "@/lib/constant";
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
+import { Check, CheckCircle, CircleCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Link from "next/link";
@@ -39,62 +39,64 @@ export default function PricingPage({
 
   return (
     <>
-      <PageTitleWrapper title={t("title")} description={t("subtitle")} />
-      <div className="flex flex-col flex-wrap items-stretch justify-start gap-6 lg:flex-row">
-        {PRICING_PLANS.map((plan) => (
-          <Card
-            key={`${plan.title}-plan`}
-            className="flex-1"
-            showBorderOnMobile
-          >
-            <CardHeader showBorderOnMobile>
-              <p className="text-lg font-semibold">{t(plan.title as any)}</p>
-
-              <p className="flex items-center gap-1.5">
-                <span className="text-2xl font-semibold">${plan.price}</span>
-                <span className="text-sm font-semibold text-muted-foreground">
-                  / {t(plan.duration as any)}
-                </span>
-              </p>
-              <Typography className="text-sm text-muted-foreground">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              </Typography>
-            </CardHeader>
-            <CardContent className="border-t" showBorderOnMobile>
-              <ul className="mt-4 flex flex-col gap-y-2 text-sm">
-                {plan.features.map((feature) => (
-                  <li
-                    key={`${t(feature.title as any)}-feature`}
-                    className="flex items-center gap-x-2"
-                  >
-                    <Check className="h-4 w-4" />
-                    {t(feature.title as any)}
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-            <CardFooter showBorderOnMobile>
-              <Link
-                className={cn(
-                  buttonVariants({
-                    variant: "default",
-                  }),
-                  "w-full",
-                )}
-                href="/auth/sign-in"
-              >
-                {t(plan.cta as any)}
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
       <Section>
-        <Typography variant="h3" tag="h2" className="mb-3">
-          Câu hỏi thường gặp
-        </Typography>
-        <FAQ />
+        <PageTitleWrapper title={t("title")} description={t("subtitle")} />
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {PRICING_PLANS.map(
+            ({
+              title,
+              price,
+              cta,
+              duration,
+              features,
+              isFeatured,
+            }: PricingPlan) => (
+              <Card key={`${title}-plan`} className="flex-1" showBorderOnMobile>
+                <CardHeader className="gap-y-2" showBorderOnMobile>
+                  <p className="text-lg font-semibold">{t(title as any)}</p>
+
+                  <p className="flex items-center gap-1.5">
+                    <span className="text-3xl font-semibold">${price}</span>
+                    <span className="text-sm font-semibold text-muted-foreground">
+                      / {t(duration as any)}
+                    </span>
+                  </p>
+                  <Typography className="text-sm text-muted-foreground">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  </Typography>
+                </CardHeader>
+                <CardContent showBorderOnMobile>
+                  <ul className="flex flex-col gap-y-2 text-sm">
+                    {features.map((feature) => (
+                      <li
+                        key={`${t(feature.title as any)}-feature`}
+                        className="flex items-center gap-x-2.5"
+                      >
+                        <CircleCheck className="h-4 w-4" />
+                        {t(feature.title as any)}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter showBorderOnMobile>
+                  <Link
+                    className={cn(
+                      buttonVariants({
+                        variant: isFeatured ? "default" : "outline",
+                      }),
+                      "w-full",
+                    )}
+                    href="/auth/sign-in"
+                  >
+                    {t(cta as any)}
+                  </Link>
+                </CardFooter>
+              </Card>
+            ),
+          )}
+        </div>
       </Section>
+      <FAQ />
     </>
   );
 }

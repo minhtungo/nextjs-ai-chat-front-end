@@ -1,11 +1,12 @@
 import {
   CreditCard,
   Facebook,
+  Instagram,
   MessageSquareMore,
   UserRound,
 } from "lucide-react";
 
-export const publicRoutes = ["/", "/pricing", "/about", "/test"];
+export const publicRoutes = ["/", "/pricing", "/about", "/test", "/contact-us"];
 
 export const apiAuthPrefix = "/api";
 
@@ -37,6 +38,25 @@ export const NAV_LINKS = [
   {
     title: "Pricing.title",
     href: "/pricing",
+  },
+  {
+    title: "ContactUs.title",
+    href: "/contact-us",
+  },
+];
+
+export const FOOTER_LINKS = [
+  {
+    title: "About.title",
+    href: "/about",
+  },
+  {
+    title: "Pricing.title",
+    href: "/pricing",
+  },
+  {
+    title: "ContactUs.title",
+    href: "/contact-us",
   },
 ];
 
@@ -94,6 +114,13 @@ export const SOCIAL_LINKS = [
     href: "#",
     icon: (
       <Facebook className="size-5 text-muted-foreground hover:text-accent-foreground" />
+    ),
+  },
+  {
+    title: "Instagram",
+    href: "#",
+    icon: (
+      <Instagram className="size-5 text-muted-foreground hover:text-accent-foreground" />
     ),
   },
 ];

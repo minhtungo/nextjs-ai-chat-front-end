@@ -8,6 +8,9 @@
       "title": "Pricing",
       "description": ""
     },
+    "ContactUs": {
+      "title": "Liên hệ"
+    },
     "About": {
       "title": "Về Lumi",
       "description": ""
@@ -217,6 +220,21 @@
         "submit": "Có lỗi xảy ra! Vui lòng thử lại"
       },
       "success": "Cảm ơn bạn đã gửi phản hồi!"
+    },
+    "ContactUs": {
+      "name": "Tên",
+      "email": "Email",
+      "phoneNumber": "Số điện thoại",
+      "message": "Tin nhắn",
+      "submitLabel": "Gửi",
+      "error": {
+        "name": "Tên là bắt buộc",
+        "email": "Email là bắt buộc",
+        "phoneNumber": "Số điện thoại là bắt buộc",
+        "message": "Tin nhắn là bắt buộc",
+        "submit": "Có lỗi xảy ra! Vui lòng thử lại"
+      },
+      "success": "Cảm ơn bạn đã liên hệ với chúng tôi! Chúng tôi sẽ trả lời bạn sớm nhất."
     }
   },
   "LocaleSwitcher": {

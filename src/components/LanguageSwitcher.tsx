@@ -16,6 +16,7 @@ import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
 import ENFlag from "./icons/ENFlag";
 import VNFlag from "./icons/VNFlag";
+import { Earth, Globe } from "lucide-react";
 
 interface LanguageSwitcherProps {
   className?: string;
@@ -44,26 +45,38 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
   };
 
   return (
-    <Select
-      defaultValue={locale}
-      disabled={isPending}
-      onValueChange={onSelectChange}
-    >
-      <SelectTrigger className={cn("h-9 w-fit px-2", className)}>
-        <SelectValue placeholder={t("label")} />
-      </SelectTrigger>
-      <SelectContent className="min-w-0">
-        {locales.map((cur) => (
-          <SelectItem key={cur} value={cur}>
-            {t("locale", { locale: cur }) === "VI" ? (
-              <VNFlag className="size-5" />
-            ) : (
-              <ENFlag className="size-5" />
-            )}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="flex items-center gap-x-3">
+      <Globe className="size-5 text-muted-foreground" />
+      <Select
+        defaultValue={locale}
+        disabled={isPending}
+        onValueChange={onSelectChange}
+      >
+        <SelectTrigger
+          className={cn("h-9 w-fit px-2 text-muted-foreground", className)}
+        >
+          <SelectValue placeholder={t("label")} />
+        </SelectTrigger>
+        <SelectContent className="min-w-0">
+          {locales.map((cur) => (
+            <SelectItem key={cur} value={cur} className="font-normal">
+              {t("locale", { locale: cur }) === "VI" ? "Tiếng Việt" : "English"}
+              {/* {t("locale", { locale: cur }) === "VI" ? (
+                <div className="flex items-center gap-x-2">
+                  <span>VI</span>
+                  <VNFlag className="size-5" />
+                </div>
+              ) : (
+                <div className="flex items-center gap-x-2">
+                  <span>EN</span>
+                  <ENFlag className="size-5" />
+                </div>
+              )} */}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 

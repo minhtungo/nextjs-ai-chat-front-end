@@ -19,7 +19,6 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
   const [scrolling, setScrolling] = useState(false);
 
   const pathname = usePathname();
-  const locale = useLocale();
 
   const t = useTranslations("common.Navbar");
 
@@ -65,8 +64,8 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
               </ul>
             </nav>
             <div className="ml-auto flex items-center space-x-3">
-              {navButtons && <Suspense>{navButtons}</Suspense>}
               <ThemeToggle />
+              {navButtons && <Suspense>{navButtons}</Suspense>}
               <MobileMenu />
             </div>
           </div>

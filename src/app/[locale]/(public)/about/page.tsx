@@ -4,6 +4,7 @@ import parse from "html-react-parser";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { sanitize } from "isomorphic-dompurify";
+import Section from "@/components/Section";
 
 export async function generateMetadata({
   params: { locale },
@@ -25,11 +26,11 @@ export default function AboutPage({
   unstable_setRequestLocale(locale);
   const t = useTranslations("public.About");
   return (
-    <>
+    <Section>
       <PageTitleWrapper title={t("title")} description={t("subtitle")} />
       <Typography variant="div">
         {parse(sanitize(t.markup("content")))}
       </Typography>
-    </>
+    </Section>
   );
 }

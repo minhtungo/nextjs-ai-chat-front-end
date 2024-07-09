@@ -1,5 +1,32 @@
 import Momo from "@/components/icons/Momo";
-import { CreditCard } from "lucide-react";
+import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
+
+export const FEATURES = [
+  {
+    title: "Interactive AI Tutoring",
+    description:
+      "Experience personalized learning with our AI-powered tutoring system that adapts to your pace and style.",
+    icon: <Bot className="size-5" />,
+  },
+  {
+    title: "Dynamic Exercise Generator",
+    description:
+      "Benefit from an infinite pool of exercises generated dynamically to match your learning progress.",
+    icon: <RefreshCcw className="size-5" />,
+  },
+  {
+    title: "Real-Time Study Groups",
+    description:
+      "Join live study sessions with peers, share resources, and solve problems together in real-time.",
+    icon: <Group className="size-5" />,
+  },
+  {
+    title: "Progress Tracking",
+    description:
+      "Track your learning journey with detailed analytics on your progress and performance metrics.",
+    icon: <BarChart className="size-5" />,
+  },
+];
 
 export const ADMIN_EMAIL = "onboarding@resend.dev";
 
@@ -27,6 +54,7 @@ export const PRICING_PLANS = [
     title: "plan.pro.title",
     cta: "plan.pro.cta",
     price: 10,
+    isFeatured: true,
     duration: "plan.free.duration",
     features: [
       {
@@ -40,24 +68,9 @@ export const PRICING_PLANS = [
       },
     ],
   },
-  {
-    title: "plan.premium.title",
-    cta: "plan.premium.cta",
-    price: 100,
-    duration: "plan.free.duration",
-    features: [
-      {
-        title: "plan.premium.features.1.title",
-      },
-      {
-        title: "plan.premium.features.2.title",
-      },
-      {
-        title: "plan.premium.features.3.title",
-      },
-    ],
-  },
 ];
+
+export type PricingPlan = (typeof PRICING_PLANS)[number];
 
 export const SUBJECTS = [
   {

@@ -9,7 +9,7 @@
       "description": ""
     },
     "About": {
-      "title": "About Lumi",
+      "title": "About",
       "description": ""
     },
     "SignIn": {
@@ -41,7 +41,7 @@
       "cta": "Ask Lumi"
     },
     "About": {
-      "title": "About Lumi",
+      "title": "About",
       "subtitle": "Our mission",
       "content": "<p>At Lumi, our mission is to empower students to achieve their academic goals with the help of cutting-edge AI technology. We believe that personalized, high-impact tutoring can make a significant difference in a student's learning journey.</p><p>Our platform offers an AI-powered chatbot that assists students with their exercises and study queries. Whether you need help understanding a complex concept, solving a tricky problem, or preparing for an exam, our chatbot is here to guide you every step of the way. Available both on our web app and as a Discord bot, our service ensures that you can access support whenever and wherever you need it.</p><p>We invite you to join our platform and experience the difference that personalized, AI-driven tutoring can make in your education. Let’s learn and grow together!</p>"
     },
@@ -217,6 +217,21 @@
         "submit": "Something went wrong! Please try again"
       },
       "success": "Thank you for your feedback!"
+    },
+    "ContactUs": {
+      "name": "Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "message": "Message",
+      "submitLabel": "Submit",
+      "error": {
+        "name": "Name is required",
+        "email": "Email is required",
+        "phoneNumber": "Phone Number is required",
+        "message": "Message is required",
+        "submit": "Something went wrong! Please try again"
+      },
+      "success": "Thank you for getting in touch with us! We will get back to you soon."
     }
   },
   "LocaleSwitcher": {
@@ -226,10 +241,13 @@
   "common": {
     "Navbar": {
       "About": {
-        "title": "About Lumi"
+        "title": "About"
       },
       "Pricing": {
         "title": "Pricing"
+      },
+      "ContactUs": {
+        "title": "Contact Us"
       },
       "SignUp": {
         "title": "Sign up"
