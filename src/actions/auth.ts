@@ -24,6 +24,12 @@ export const signInWithGoogle = async (redirectURL: string | null) => {
   });
 };
 
+export const signInWithFacebook = async (redirectURL: string | null) => {
+  await signIn("facebook", {
+    redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
+  });
+};
+
 export const signInWithCredentialsAction = createServerAction()
   .input(
     z.object({

@@ -3,6 +3,12 @@
 import Link from "next/link";
 
 import { signUpWithCredentialsAction } from "@/actions/auth";
+import CardWrapper from "@/components/CardWrapper";
+import SubmitButton from "@/components/SubmitButton";
+import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/components/auth/FormSuccess";
+import GoogleLogin from "@/components/auth/GoogleLogin";
+import PasswordInput from "@/components/auth/PasswordInput";
 import {
   Form,
   FormControl,
@@ -16,16 +22,11 @@ import { signUpSchema } from "@/lib/definitions";
 import { signInHref } from "@/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { Suspense, useState, useTransition } from "react";
+import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import CardWrapper from "@/components/CardWrapper";
-import SubmitButton from "@/components/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
-import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
-import PasswordInput from "@/components/auth/PasswordInput";
 import { useServerAction } from "zsa-react";
+import FacebookLogin from "@/components/auth/FacebookLogin";
 
 const SignUpForm = () => {
   const { data, error, isPending, execute } = useServerAction(
@@ -141,9 +142,12 @@ const SignUpForm = () => {
         </div>
       </div>
       <Suspense>
-        <GoogleAuthButton className="mt-3" />
+        <div className="grid grid-cols-2 gap-3">
+          <GoogleLogin />
+          <FacebookLogin />
+        </div>
       </Suspense>
-      <div className="mt-4 text-center text-sm">
+      <div className="mt-6 text-center text-sm">
         {t("SignUp.action.title")}{" "}
         <Link href={signInHref} className="underline">
           {t("SignUp.action.link")}

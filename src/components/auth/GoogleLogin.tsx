@@ -8,11 +8,11 @@ import Google from "../icons/Google";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-interface GoogleAuthButtonProps {
+interface GoogleLoginProps {
   className?: string;
 }
 
-const GoogleAuthButton: FC<GoogleAuthButtonProps> = ({ className }) => {
+const GoogleLogin: FC<GoogleLoginProps> = ({ className }) => {
   const t = useTranslations("auth.OAuth");
 
   const searchParams = useSearchParams();
@@ -23,9 +23,9 @@ const GoogleAuthButton: FC<GoogleAuthButtonProps> = ({ className }) => {
       className={cn("flex w-full items-center gap-2", className)}
       onClick={async () => await signInWithGoogle(redirectURL)}
     >
-      <Google className="h-4 w-4" /> {t("title")}
+      <Google className="size-4 sm:size-5" /> <span>Google</span>
     </Button>
   );
 };
 
-export default GoogleAuthButton;
+export default GoogleLogin;

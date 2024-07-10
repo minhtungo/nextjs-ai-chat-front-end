@@ -1,10 +1,7 @@
-import {
-  CreditCard,
-  Facebook,
-  Instagram,
-  MessageSquareMore,
-  UserRound,
-} from "lucide-react";
+import Facebook from "@/components/icons/Facebook";
+import { CreditCard, MessageSquareMore, UserRound } from "lucide-react";
+import Instagram from "./components/icons/Instagram";
+import Discord from "./components/icons/Discord";
 
 export const publicRoutes = ["/", "/pricing", "/about", "/test", "/contact-us"];
 
@@ -121,6 +118,13 @@ export const SOCIAL_LINKS = [
     href: "#",
     icon: (
       <Instagram className="size-5 text-muted-foreground hover:text-accent-foreground" />
+    ),
+  },
+  {
+    title: "Discord",
+    href: "#",
+    icon: (
+      <Discord className="size-5 text-muted-foreground hover:text-accent-foreground" />
     ),
   },
 ];

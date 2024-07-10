@@ -167,7 +167,7 @@
     },
     "OAuth": {
       "title": "Continue with Google",
-      "alternative": "or"
+      "alternative": "or continue with"
     },
     "error": {
       "email": "Email required",

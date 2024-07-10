@@ -3,9 +3,10 @@
 import { signInWithCredentialsAction } from "@/actions/auth";
 import CardWrapper from "@/components/CardWrapper";
 import SubmitButton from "@/components/SubmitButton";
+import FacebookLogin from "@/components/auth/FacebookLogin";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
-import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
+import GoogleLogin from "@/components/auth/GoogleLogin";
 import PasswordInput from "@/components/auth/PasswordInput";
 import {
   Form,
@@ -22,6 +23,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
@@ -149,8 +151,13 @@ const SignInForm = () => {
       </div>
       {!data && (
         <>
-          <GoogleAuthButton />
-          <div className="mt-4 text-center text-sm">
+          <Suspense>
+            <div className="grid grid-cols-2 gap-3">
+              <GoogleLogin />
+              <FacebookLogin />
+            </div>
+          </Suspense>
+          <div className="mt-6 text-center text-sm">
             {t("SignIn.action.title")}{" "}
             <Link href={signUpHref} className="underline">
               {t("SignIn.action.link")}
