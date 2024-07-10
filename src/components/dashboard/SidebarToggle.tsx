@@ -13,7 +13,7 @@ const SidebarToggle: FC<SidebarToggleProps> = () => {
     <Button
       variant="ghost"
       size="icon"
-      className="-ml-3 hidden lg:flex"
+      className="hidden lg:flex"
       onClick={() => {
         toggleSidebar();
       }}

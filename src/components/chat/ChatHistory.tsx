@@ -1,11 +1,11 @@
-import { FC, Suspense } from "react";
-import { buttonVariants } from "../ui/button";
+import CreateChat from "@/app/[locale]/(private)/dashboard/new-chat/components/CreateChat";
+import { getCurrentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
-import Link from "next/link";
+import { FC, Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import SidebarList from "./SidebarList";
-import { getCurrentUser } from "@/lib/auth";
+import Logo from "../Logo";
+import SidebarToggle from "../dashboard/SidebarToggle";
 
 interface ChatHistoryProps {
   className?: string;
@@ -17,9 +17,8 @@ const ChatHistory: FC<ChatHistoryProps> = async ({ className }) => {
   if (!user) return null;
 
   return (
-    <div className={cn("flex h-full flex-col", className)}>
-      <div className="mb-2">
-        <Link
+    <div className={cn("flex h-full flex-col gap-y-2", className)}>
+      {/* <Link
           href="/dashboard"
           className={cn(
             buttonVariants({ variant: "outline" }),
@@ -28,8 +27,12 @@ const ChatHistory: FC<ChatHistoryProps> = async ({ className }) => {
         >
           <Plus className="size-4 -translate-x-2 stroke-2" />
           New Chat
-        </Link>
+        </Link> */}
+      <div className="mb-2 flex items-center justify-between">
+        <Logo />
+        <div className="flex items-center gap-x-2"></div>
       </div>
+      <CreateChat />
       <Suspense
         fallback={
           <div className="flex flex-1 flex-col space-y-1.5 overflow-auto">
