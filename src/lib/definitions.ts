@@ -51,9 +51,14 @@ export const resetPasswordSchema = object({
 export const updateUserProfileSchema = object({
   name: string().min(1, "auth.error.name"),
   image: string().optional(),
-  gradeLevel: string().optional(),
+  academicLevel: string().optional(),
   subjects: z.array(z.string()).optional(),
   language: z.enum(["vi", "en"]).default("vi"),
+});
+
+export const onboardingFormSchema = object({
+  academicLevel: string().optional(),
+  subjects: z.array(z.string()).optional(),
 });
 
 export const twoFactorToggleSchema = object({

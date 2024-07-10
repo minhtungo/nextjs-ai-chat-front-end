@@ -8,6 +8,7 @@ import {
 } from "@/use-cases/user";
 import {
   changeUserPasswordSchema,
+  onboardingFormSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "./../lib/definitions";
@@ -16,6 +17,12 @@ export const updateUserProfileAction = authedAction
   .input(updateUserProfileSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserProfileUseCase(user.id!, input);
+  });
+
+export const onboardingFormAction = authedAction
+  .input(onboardingFormSchema)
+  .handler(async ({ input, ctx: { user } }) => {
+    // await onboardingFormUseCase(user.id!, input);
   });
 
 export const toggleTwoFactorAction = authedAction

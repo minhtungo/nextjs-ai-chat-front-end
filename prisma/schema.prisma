@@ -35,7 +35,7 @@ model User {
   role          UserRole  @default(USER)
   plan       Plan    @default(free)
   dateOfBirth DateTime?
-  gradeLevel    String?
+  academicLevel    String?
   learningGoals String?
   subjects      String[]
 

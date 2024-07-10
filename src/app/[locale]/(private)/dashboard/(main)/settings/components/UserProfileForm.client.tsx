@@ -25,7 +25,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import Typography from "@/components/ui/typography";
-import { GRADE_LEVELS, LANGUAGES, SUBJECTS } from "@/lib/constant";
+import { ACADEMIC_LEVELS, LANGUAGES, SUBJECTS } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
@@ -63,7 +63,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
       name: user.name! || undefined,
       language: user.settings?.preferredLang.toLowerCase() as any,
       image: user.image || undefined,
-      gradeLevel: user.gradeLevel || undefined,
+      academicLevel: user.academicLevel || undefined,
     },
   });
 
@@ -151,7 +151,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
             />
             <FormField
               control={form.control}
-              name="gradeLevel"
+              name="academicLevel"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Grade Level</FormLabel>
@@ -165,12 +165,12 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {GRADE_LEVELS.map((grade) => (
+                      {ACADEMIC_LEVELS.map((level) => (
                         <SelectItem
-                          key={`user-grade-${grade.value}`}
-                          value={grade.value}
+                          key={`user-grade-${level.value}`}
+                          value={level.value}
                         >
-                          {grade.label}
+                          {level.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

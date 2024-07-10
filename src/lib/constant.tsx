@@ -95,18 +95,22 @@ export const SUBJECTS = [
   },
 ];
 
-export const GRADE_LEVELS = [
+export const ACADEMIC_LEVELS = [
   {
-    label: "GradeLevel.Elementary",
+    label: "AcademicLevel.Elementary",
     value: "elementary",
   },
   {
-    label: "GradeLevel.Middle",
+    label: "AcademicLevel.Middle",
     value: "middle",
   },
   {
-    label: "GradeLevel.High",
+    label: "AcademicLevel.High",
     value: "high",
+  },
+  {
+    label: "AcademicLevel.Uni",
+    value: "uni",
   },
 ];
 
