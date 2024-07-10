@@ -61,6 +61,24 @@ const SignInForm = () => {
 
   return (
     <CardWrapper headerLabel={t("SignIn.title")} noBorder>
+      {!data && (
+        <Suspense>
+          <div className="grid grid-cols-2 gap-3">
+            <GoogleLogin />
+            <FacebookLogin />
+          </div>
+        </Suspense>
+      )}
+      <div className="relative my-5">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">
+            {t("OAuth.alternative")}
+          </span>
+        </div>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!data ? (
@@ -139,32 +157,12 @@ const SignInForm = () => {
           />
         </form>
       </Form>
-      <div className="relative my-4">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            {t("OAuth.alternative")}
-          </span>
-        </div>
+      <div className="mt-6 text-center text-sm">
+        {t("SignIn.action.title")}{" "}
+        <Link href={signUpHref} className="underline">
+          {t("SignIn.action.link")}
+        </Link>
       </div>
-      {!data && (
-        <>
-          <Suspense>
-            <div className="grid grid-cols-2 gap-3">
-              <GoogleLogin />
-              <FacebookLogin />
-            </div>
-          </Suspense>
-          <div className="mt-6 text-center text-sm">
-            {t("SignIn.action.title")}{" "}
-            <Link href={signUpHref} className="underline">
-              {t("SignIn.action.link")}
-            </Link>
-          </div>
-        </>
-      )}
     </CardWrapper>
   );
 };
