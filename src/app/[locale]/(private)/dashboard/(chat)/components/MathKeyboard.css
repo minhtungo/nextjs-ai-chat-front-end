@@ -1,0 +1,22 @@
+math-field {
+  width: 100%;
+  padding: 8px;
+  border-top-right-radius: var(--radius);
+  border-top-left-radius: var(--radius);
+}
+
+/* math-field:focus-within {
+  outline-color: hsl(var(--ring)) !important;
+} */
+
+math-field:not(:defined) {
+  display: none;
+}
+
+math-field::part(virtual-keyboard-toggle) {
+  display: none;
+}
+
+.mathKeyboard math-field::part(menu-toggle) {
+  display: none !important;
+}

@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/tooltip";
 import { FC } from "react";
 import { Card } from "../ui/card";
-import CreateThreadSheet from "@/app/[locale]/(private)/dashboard/(chat)/CreateThreadSheet";
+import CreateThreadSheet from "@/app/[locale]/(private)/dashboard/old-chat/CreateThreadSheet";
 
 interface UserMessageProps {
   children: React.ReactNode;

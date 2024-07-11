@@ -1,16 +1,20 @@
 "use client";
 
-import { FC, FormEvent } from "react";
+import { FC, FormEvent, useEffect } from "react";
 
 import { useState } from "react";
 
-import { encodeImage, nanoid } from "@/lib/utils";
-import PromptForm from "../../components/PromptForm";
-import { User } from "next-auth";
-import { useSetChat } from "../../use-chat";
 import { useCentrifuge } from "@/hooks/use-centrifuge";
+import { encodeImage, nanoid } from "@/lib/utils";
 import { Message } from "@/types/chat";
-import { PublicationContext } from "centrifuge";
+import { User } from "next-auth";
+import {
+  useGetSubmitContent,
+  useSetMathEquation,
+  useSetMessage,
+} from "../../../use-message";
+import { useSetChat } from "../../../use-chat";
+import PromptForm from "../../../components/PromptForm";
 
 interface ChatPanelProps {
   user: User;
@@ -19,9 +23,19 @@ interface ChatPanelProps {
 
 const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [newMessage, setNewMessage] = useState("");
+
+  const setMathEquation = useSetMathEquation();
+  const setMessage = useSetMessage();
+  const submitContent = useGetSubmitContent();
 
   const setMessages = useSetChat();
+
+  useEffect(() => {
+    if (submitContent) {
+      setMessage("");
+      setMathEquation("");
+    }
+  }, []);
 
   const { publishMessage } = useCentrifuge({
     channel: chatId,
@@ -34,7 +48,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!newMessage || newMessage.trim() === "") {
+    if (!submitContent || submitContent.trim() === "") {
       return;
     }
 
@@ -50,16 +64,20 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       ...currentMessages,
       {
         id: nanoid(),
-        content: newMessage,
+        content: submitContent,
         image: encodedImage,
         role: "user",
         userId: user?.id!,
       },
     ]);
 
-    setNewMessage("");
+    alert(submitContent);
+
+    setMessage("");
+    setMathEquation("");
     setFile(undefined);
-    await publishMessage(newMessage);
+
+    await publishMessage(submitContent);
 
     // Submit and get response message
     // const responseMessage = await submitUserMessage(content, encodedImage);
@@ -68,13 +86,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
 
   return (
     <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
-      <PromptForm
-        onSubmit={onSubmit}
-        newMessage={newMessage}
-        setNewMessage={setNewMessage}
-        file={file}
-        setFile={setFile}
-      />
+      <PromptForm onSubmit={onSubmit} file={file} setFile={setFile} />
     </div>
   );
 };

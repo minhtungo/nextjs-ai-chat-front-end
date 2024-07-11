@@ -127,6 +127,14 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@cortex-js/compute-engine@0.24.1":
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/@cortex-js/compute-engine/-/compute-engine-0.24.1.tgz#f923e970b7e21dc686d46468b018bdc9ba289a9b"
+  integrity sha512-B9pLaZFC1vBrL64yR2LQWy2sj1E/+wtwIVokPuPqX8YWXwj9W2AMVyS9pSMN8gEdjpAC50nSmtL6110Rgi7dKA==
+  dependencies:
+    complex.js "^2.1.1"
+    decimal.js "^10.4.3"
+
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/@eslint-community/eslint-utils/-/eslint-utils-4.4.0.tgz#a23514e8fb9af1269d5f7788aa556798d61c6b59"
@@ -2013,6 +2021,11 @@ commander@^8.3.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
 
+complex.js@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/complex.js/-/complex.js-2.1.1.tgz#0675dac8e464ec431fb2ab7d30f41d889fb25c31"
+  integrity sha512-8njCHOTtFFLtegk6zQo0kkVX1rngygb/KQI6z1qZxlFI3scluC+LVTCFbrkWjBv4vvLlbQ9t88IPMC6k95VTTg==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -3774,6 +3787,13 @@ marked@7.0.4:
   version "7.0.4"
   resolved "https://registry.yarnpkg.com/marked/-/marked-7.0.4.tgz#e2558ee2d535b9df6a27c6e282dc603a18388a6d"
   integrity sha512-t8eP0dXRJMtMvBojtkcsA7n48BkauktUKzfkPSCq85ZMTJ0v76Rke4DYz01omYpPTUh4p/f7HePgRo3ebG8+QQ==
+
+mathlive@^0.100.0:
+  version "0.100.0"
+  resolved "https://registry.yarnpkg.com/mathlive/-/mathlive-0.100.0.tgz#d8596d0b4ab624bddb35e27d5b1c5193d88acdfc"
+  integrity sha512-gZJTw/7pzqsfpZBt5yr7lBeMErDvqnbe2U1LOsS9drrtH9oJuT/cH0LxgC/8Hid4M4/DQ0HQcW1TvjIX399MqQ==
+  dependencies:
+    "@cortex-js/compute-engine" "0.24.1"
 
 md-to-react-email@5.0.2:
   version "5.0.2"

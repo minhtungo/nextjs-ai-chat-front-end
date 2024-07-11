@@ -3,11 +3,16 @@
 import { FC, FormEvent } from "react";
 import PromptForm from "./PromptForm";
 
-import { useState } from "react";
 import { encodeImage, nanoid } from "@/lib/utils";
 import { PROTECTED_BASE_URL } from "@/routes";
-import { useSetChat } from "../use-chat";
 import { User } from "next-auth";
+import { useState } from "react";
+import { useSetChat } from "../use-chat";
+import {
+  useGetSubmitContent,
+  useSetMathEquation,
+  useSetMessage,
+} from "../use-message";
 
 interface NewChatPanelProps {
   user: User;
@@ -15,13 +20,17 @@ interface NewChatPanelProps {
 
 const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
-  const [newMessage, setNewMessage] = useState("");
+
+  const setMathEquation = useSetMathEquation();
+  const setMessage = useSetMessage();
+  const submitContent = useGetSubmitContent();
+
   const setMessages = useSetChat();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!newMessage || newMessage.trim() === "") {
+    if (!submitContent || submitContent.trim() === "") {
       return;
     }
 
@@ -39,13 +48,17 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
       ...currentMessages,
       {
         id: nanoid(),
-        content: newMessage,
+        content: submitContent,
         image: encodedImage,
         role: "user",
         userId: user?.id!,
       },
     ]);
-    setNewMessage("");
+
+    alert(submitContent);
+
+    setMessage("");
+    setMathEquation("");
     setFile(undefined);
 
     // Call API to create a new chat room
@@ -59,13 +72,7 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
 
   return (
     <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
-      <PromptForm
-        onSubmit={onSubmit}
-        newMessage={newMessage}
-        setNewMessage={setNewMessage}
-        file={file}
-        setFile={setFile}
-      />
+      <PromptForm onSubmit={onSubmit} file={file} setFile={setFile} />
     </div>
   );
 };

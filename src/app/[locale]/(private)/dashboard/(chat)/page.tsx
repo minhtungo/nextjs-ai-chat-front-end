@@ -1,22 +1,17 @@
-import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
-import { AI } from "@/lib/chat/actions";
 import { nanoid } from "@/lib/utils";
-import { Metadata } from "next";
+import NewChat from "./components/NewChat";
 
-export const metadata: Metadata = {
-  title: "Chat",
-};
-
-const IndexPage = async () => {
+const ChatPage = async () => {
   const user = await getCurrentUser();
-  const id = nanoid();
 
-  return (
-    <AI initialAIState={{ chatId: id, messages: [] }}>
-      <Chat id={id} user={user} />
-    </AI>
-  );
+  const chatId = nanoid();
+
+  if (!user) {
+    throw new Error("Unauthorized");
+  }
+
+  return <NewChat user={user} id={chatId} />;
 };
 
-export default IndexPage;
+export default ChatPage;

@@ -1,4 +1,4 @@
-import CreateChat from "@/app/[locale]/(private)/dashboard/new-chat/components/CreateChat";
+import CreateChat from "@/app/[locale]/(private)/dashboard/(chat)/components/CreateChat";
 import { getCurrentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { FC, Suspense } from "react";

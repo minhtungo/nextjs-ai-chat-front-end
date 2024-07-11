@@ -1,55 +1,32 @@
-import { getChatAction } from "@/actions/chat";
-import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
-import { AI } from "@/lib/chat/actions";
-import { Message } from "@/types/vercel-chat";
-import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
 
-export interface ChatPageProps {
+import { FC } from "react";
+import Chat from "./components/Chat";
+import { getChatAction } from "@/actions/chat";
+import { notFound } from "next/navigation";
+
+interface ChatPageProps {
   params: {
     id: string;
   };
 }
 
-export async function generateMetadata({
-  params,
-}: ChatPageProps): Promise<Metadata> {
-  const [chat] = await getChatAction({
-    chatID: params.id,
-  });
-
-  return {
-    title: chat?.title.toString().slice(0, 50) ?? "Chat",
-  };
-}
-
-const ChatPage = async ({ params }: ChatPageProps) => {
+const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect(`/auth/login?redirect=/chat/${params.id}`);
+    throw new Error("Unauthorized");
   }
 
   const [chat] = await getChatAction({
-    chatID: params.id,
+    chatID: id,
   });
-
-  // if (!chat) {
-  //   redirect(PROTECTED_BASE_URL);
-  // }
 
   if (!chat || chat?.userId !== user?.id) {
     notFound();
   }
 
-  return (
-    <AI
-      initialAIState={{ chatId: chat.id, messages: chat.messages as Message[] }}
-    >
-      <Chat id={chat.id} user={user} />
-    </AI>
-  );
+  return <Chat user={user} id={id} initialMessages={chat.messages} />;
 };
 
 export default ChatPage;
