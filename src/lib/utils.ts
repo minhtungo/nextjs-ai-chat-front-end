@@ -1,8 +1,8 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
 import { customAlphabet } from "nanoid";
-import { SUBJECTS } from "./constant";
 import { toast } from "sonner";
+import { twMerge } from "tailwind-merge";
+import { SUBJECTS } from "./constant";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -63,7 +63,7 @@ export function getSubjectLabelFromValue(value: string): string {
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
 
-export function validateFilesOnUpload(files: File[]) {
+export function validateFilesOnUpload(files: any[]) {
   if (files.length === 0) {
     return {
       error: "No files selected",
@@ -97,24 +97,55 @@ export function validateFilesOnUpload(files: File[]) {
   };
 }
 
-export function onUploadFiles(files: File[]) {
-  const { error } = validateFilesOnUpload(files);
-  const maxSize = 2 * 1024 * 1024;
+export function handleUploadedFiles(e: any) {
+  const fileArray = e.target.files
+    ? Array.from(e.target?.files)
+    : (Array.from(e.dataTransfer?.files) as File[]);
 
-  if (error) {
-    toast.error(error);
+  if (!fileArray || fileArray.length === 0) {
     return;
   }
 
-  const allowedFileTypes = ["image/*", ".pdf", ".doc"];
+  const { error } = validateFilesOnUpload(fileArray);
 
-  let validFiles = [] as File[];
+  if (error) {
+    toast.error(error);
+    return [];
+  }
 
-  files.forEach((file) => {
-    if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
-      validFiles.push(file);
-    }
-  });
-
-  return validFiles;
+  return fileArray;
 }
+
+export function handlePastedFiles(e: any) {
+  const items = Array.from(e.clipboardData.items || []);
+
+  if (items.length === 0) {
+    return null;
+  }
+
+  const lastItem = items[items.length - 1];
+
+  return lastItem.kind === "file" ? lastItem.getAsFile() : null;
+}
+
+// export function onUploadFiles(files: File[]) {
+//   const { error } = validateFilesOnUpload(files);
+//   const maxSize = 2 * 1024 * 1024;
+
+//   if (error) {
+//     toast.error(error);
+//     return;
+//   }
+
+//   const allowedFileTypes = ["image/*", ".pdf", ".doc"];
+
+//   let validFiles = [] as File[];
+
+//   files.forEach((file) => {
+//     if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
+//       validFiles.push(file);
+//     }
+//   });
+
+//   return validFiles;
+// }

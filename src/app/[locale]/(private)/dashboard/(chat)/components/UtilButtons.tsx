@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction, useRef } from "react";
 import { useFiles } from "../use-message";
-import { validateFilesOnUpload } from "@/lib/utils";
+import { handleUploadedFiles, validateFilesOnUpload } from "@/lib/utils";
 import { toast } from "sonner";
 
 interface UtilButtonsProps {
@@ -67,16 +67,11 @@ const UtilButtons: FC<UtilButtonsProps> = ({
         multiple
         id="attach-file"
         onChange={(e) => {
-          if (e.target.files?.length) {
-            const fileArray = Array.from(e.target?.files);
-            const { error } = validateFilesOnUpload(fileArray);
-            if (error) {
-              toast.error(error);
-              return;
-            }
-            setFiles((currentFiles) => [...currentFiles, ...fileArray]);
-            console.log(fileArray);
+          const fileArray = handleUploadedFiles(e) as File[];
+          if (!fileArray || fileArray.length === 0) {
+            return;
           }
+          setFiles((currentFiles) => [...currentFiles, ...fileArray]);
         }}
       />
     </>
