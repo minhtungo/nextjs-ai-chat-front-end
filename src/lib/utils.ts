@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { customAlphabet } from "nanoid";
 import { SUBJECTS } from "./constant";
+import { toast } from "sonner";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -58,4 +59,62 @@ export const encodeImage = async (file?: File) => {
 export function getSubjectLabelFromValue(value: string): string {
   const subject = SUBJECTS.find((subject) => subject.value === value);
   return subject ? subject.label : value; // Fallback to value if label not found
+}
+
+const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
+
+export function validateFilesOnUpload(files: File[]) {
+  if (files.length === 0) {
+    return {
+      error: "No files selected",
+    };
+  }
+
+  let totalSize = 0;
+
+  for (const file of files) {
+    totalSize += file.size;
+  }
+
+  if (totalSize > MAX_FILE_SIZE) {
+    return {
+      error: "File size exceeds the maximum allowed size",
+    };
+  }
+
+  // const allowedFileTypes = ["image/*", ".pdf", ".doc", ".docx"];
+
+  // files.forEach((file) => {
+  //   if (!allowedFileTypes.includes(file.type)) {
+  //     return {
+  //       error: "Invalid file type",
+  //     };
+  //   }
+  // });
+
+  return {
+    error: null,
+  };
+}
+
+export function onUploadFiles(files: File[]) {
+  const { error } = validateFilesOnUpload(files);
+  const maxSize = 2 * 1024 * 1024;
+
+  if (error) {
+    toast.error(error);
+    return;
+  }
+
+  const allowedFileTypes = ["image/*", ".pdf", ".doc"];
+
+  let validFiles = [] as File[];
+
+  files.forEach((file) => {
+    if (allowedFileTypes.includes(file.type) && file.size <= maxSize) {
+      validFiles.push(file);
+    }
+  });
+
+  return validFiles;
 }

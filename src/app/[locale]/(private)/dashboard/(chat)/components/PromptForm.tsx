@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ArrowDown,
-  ChevronDown,
-  CornerDownLeft,
-  Paperclip,
-  X,
-} from "lucide-react";
+import { ChevronDown, CornerDownLeft, X } from "lucide-react";
 import {
   Dispatch,
   FC,
@@ -24,10 +18,11 @@ import { Label } from "@/components/ui/label";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
-import UtilButtons from "./UtilButtons";
 import dynamic from "next/dynamic";
-import { useMessage } from "../use-message";
+import Image from "next/image";
+import { useFiles, useMessage } from "../use-message";
+import UtilButtons from "./UtilButtons";
+import { Card } from "@/components/ui/card";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,
@@ -36,27 +31,28 @@ const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 interface PromptFormProps {
   className?: string;
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  file: File | undefined;
-  setFile: Dispatch<SetStateAction<File | undefined>>;
 }
 
-const PromptForm: FC<PromptFormProps> = ({
-  className,
-  onSubmit,
-  file,
-  setFile,
-}) => {
+const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const { formRef, onKeyDown } = useEnterSubmit();
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const [message, setMessage] = useMessage();
+  const {
+    files: [files, setFiles],
+  } = useFiles();
+
+  const {
+    message: [message, setMessage],
+  } = useMessage();
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
+
+  console.log(files);
 
   return (
     <form className="relative" ref={formRef} onSubmit={onSubmit}>
@@ -70,7 +66,6 @@ const PromptForm: FC<PromptFormProps> = ({
           <div className="flex w-full items-end gap-1.5 p-1 lg:gap-3.5">
             <div className="flex items-end gap-1.5">
               <UtilButtons
-                setFile={setFile}
                 showMathKeyboard={showMathKeyboard}
                 setShowMathKeyboard={setShowMathKeyboard}
               />
@@ -80,24 +75,41 @@ const PromptForm: FC<PromptFormProps> = ({
             </Label>
 
             <div className="mr-1.5 flex min-h-8 w-full flex-1 flex-col items-start justify-center gap-y-3 py-2 lg:min-h-9">
-              {file && (
-                <div className="relative flex flex-nowrap gap-2 overflow-visible">
-                  <Image
-                    src={URL.createObjectURL(file)}
-                    alt="Image"
-                    width={56}
-                    height={56}
-                    className="rounded-sm"
-                  />
-                  <button
-                    className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary"
-                    onClick={() => {
-                      setFile(undefined);
-                    }}
-                  >
-                    <X className="h-3 w-3" />
-                    <span className="sr-only">Remove attached image</span>
-                  </button>
+              {files && files.length > 0 && (
+                <div className="relative mb-1.5 flex flex-nowrap gap-3 overflow-visible">
+                  {files.map((file, index) => (
+                    <div className="relative">
+                      {file.type.startsWith("image") ? (
+                        <Image
+                          src={URL.createObjectURL(file)}
+                          alt="Image"
+                          width={56}
+                          height={56}
+                          className="peer aspect-square h-14 w-14 rounded-sm object-cover"
+                        />
+                      ) : (
+                        <Card className="h-14 border-border bg-muted/40 p-2 pr-4 sm:p-2 sm:pr-6">
+                          <div className="text-sm font-semibold">
+                            {file.name}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Document
+                          </div>
+                        </Card>
+                      )}
+                      <button
+                        className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
+                        onClick={() => {
+                          setFiles((prevFiles) =>
+                            prevFiles.filter((_, idx) => idx !== index),
+                          );
+                        }}
+                      >
+                        <X className="h-3 w-3" />
+                        <span className="sr-only">Remove attached file</span>
+                      </button>
+                    </div>
+                  ))}
                 </div>
               )}
               <Textarea
@@ -122,7 +134,9 @@ const PromptForm: FC<PromptFormProps> = ({
               type="submit"
               size="icon"
               className="ml-auto gap-1.5"
-              disabled={!message || message.trim() === ""}
+              disabled={
+                !message && message.trim() === "" && files?.length === 0
+              }
             >
               <CornerDownLeft className="size-3.5" />
               <span className="sr-only">Send message</span>

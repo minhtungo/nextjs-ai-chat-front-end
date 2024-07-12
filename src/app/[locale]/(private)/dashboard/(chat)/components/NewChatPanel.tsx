@@ -6,12 +6,12 @@ import PromptForm from "./PromptForm";
 import { encodeImage, nanoid } from "@/lib/utils";
 import { PROTECTED_BASE_URL } from "@/routes";
 import { User } from "next-auth";
-import { useState } from "react";
 import { useSetChat } from "../use-chat";
 import {
+  useFiles,
   useGetSubmitContent,
-  useSetMathEquation,
-  useSetMessage,
+  useMathEquation,
+  useMessage,
 } from "../use-message";
 
 interface NewChatPanelProps {
@@ -19,11 +19,12 @@ interface NewChatPanelProps {
 }
 
 const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
-  const [file, setFile] = useState<File | undefined>(undefined);
-
-  const setMathEquation = useSetMathEquation();
-  const setMessage = useSetMessage();
+  const { setMathEquation } = useMathEquation();
+  const { setMessage } = useMessage();
   const submitContent = useGetSubmitContent();
+  const {
+    files: [files, setFiles],
+  } = useFiles();
 
   const setMessages = useSetChat();
 
@@ -42,14 +43,14 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
       e.target["message"]?.blur();
     }
 
-    const encodedImage = await encodeImage(file);
+    // const encodedImage = await encodeImage(files);
 
     setMessages((currentMessages) => [
       ...currentMessages,
       {
         id: nanoid(),
         content: submitContent,
-        image: encodedImage,
+        image: null,
         role: "user",
         userId: user?.id!,
       },
@@ -59,7 +60,7 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
 
     setMessage("");
     setMathEquation("");
-    setFile(undefined);
+    setFiles([]);
 
     // Call API to create a new chat room
     // const responseMessage = await submitUserMessage(content, encodedImage);
@@ -72,7 +73,7 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
 
   return (
     <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
-      <PromptForm onSubmit={onSubmit} file={file} setFile={setFile} />
+      <PromptForm onSubmit={onSubmit} />
     </div>
   );
 };

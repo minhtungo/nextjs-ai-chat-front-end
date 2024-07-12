@@ -1,35 +1,28 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Paperclip, Plus, Radical } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useRef } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
+import { Paperclip, Plus, Radical } from "lucide-react";
+import { Dispatch, FC, SetStateAction, useRef } from "react";
+import { useFiles } from "../use-message";
+import { validateFilesOnUpload } from "@/lib/utils";
+import { toast } from "sonner";
 
 interface UtilButtonsProps {
-  setFile: Dispatch<SetStateAction<File | undefined>>;
   showMathKeyboard: boolean;
   setShowMathKeyboard: Dispatch<SetStateAction<boolean>>;
 }
 
 const UtilButtons: FC<UtilButtonsProps> = ({
-  setFile,
   showMathKeyboard,
   setShowMathKeyboard,
 }) => {
-  const inputRef = useRef<HTMLInputElement>(null);
-  console.log("asd", inputRef.current?.files);
+  const { setFiles } = useFiles();
+
   return (
     <>
       <DropdownMenu>
@@ -69,14 +62,20 @@ const UtilButtons: FC<UtilButtonsProps> = ({
       </DropdownMenu>
       <Input
         type="file"
-        accept="image/*"
+        accept="image/*, .pdf, .doc, .docx"
         className="hidden"
-        ref={inputRef}
+        multiple
         id="attach-file"
         onChange={(e) => {
-          console.log("hello");
           if (e.target.files?.length) {
-            setFile(e.target?.files[0]);
+            const fileArray = Array.from(e.target?.files);
+            const { error } = validateFilesOnUpload(fileArray);
+            if (error) {
+              toast.error(error);
+              return;
+            }
+            setFiles((currentFiles) => [...currentFiles, ...fileArray]);
+            console.log(fileArray);
           }
         }}
       />

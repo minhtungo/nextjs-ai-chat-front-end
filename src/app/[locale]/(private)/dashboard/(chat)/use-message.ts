@@ -2,35 +2,37 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const messageAtom = atom<string>("");
 const mathEquationAtom = atom<string>("");
-
 const submitContentAtom = atom(
   (get) => get(mathEquationAtom) || get(messageAtom) || "",
 );
+const filesAtom = atom<File[]>([]);
 
-export function useMessage() {
-  return useAtom(messageAtom);
-}
+const useMessage = () => {
+  return {
+    message: useAtom(messageAtom),
+    setMessage: useSetAtom(messageAtom),
+    getMessage: useAtomValue(messageAtom),
+  };
+};
 
-export function useSetMessage() {
-  return useSetAtom(messageAtom);
-}
+const useMathEquation = () => {
+  return {
+    mathEquation: useAtom(mathEquationAtom),
+    setMathEquation: useSetAtom(mathEquationAtom),
+    getMathEquation: useAtomValue(mathEquationAtom),
+  };
+};
 
-export function useGetMessage() {
-  return useAtomValue(messageAtom);
-}
-
-export function useMathEquation() {
-  return useAtom(mathEquationAtom);
-}
-
-export function useSetMathEquation() {
-  return useSetAtom(mathEquationAtom);
-}
-
-export function useGetMathEquation() {
-  return useAtomValue(mathEquationAtom);
-}
-
-export function useGetSubmitContent() {
+const useGetSubmitContent = () => {
   return useAtomValue(submitContentAtom);
-}
+};
+
+const useFiles = () => {
+  return {
+    files: useAtom(filesAtom),
+    setFiles: useSetAtom(filesAtom),
+    getFiles: useAtomValue(filesAtom),
+  };
+};
+
+export { useMessage, useMathEquation, useGetSubmitContent, useFiles };

@@ -8,13 +8,14 @@ import { useCentrifuge } from "@/hooks/use-centrifuge";
 import { encodeImage, nanoid } from "@/lib/utils";
 import { Message } from "@/types/chat";
 import { User } from "next-auth";
-import {
-  useGetSubmitContent,
-  useSetMathEquation,
-  useSetMessage,
-} from "../../../use-message";
-import { useSetChat } from "../../../use-chat";
 import PromptForm from "../../../components/PromptForm";
+import { useSetChat } from "../../../use-chat";
+import {
+  useFiles,
+  useGetSubmitContent,
+  useMathEquation,
+  useMessage,
+} from "../../../use-message";
 
 interface ChatPanelProps {
   user: User;
@@ -24,8 +25,10 @@ interface ChatPanelProps {
 const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  const setMathEquation = useSetMathEquation();
-  const setMessage = useSetMessage();
+  const { setMathEquation } = useMathEquation();
+  const { setMessage } = useMessage();
+  const { setFiles } = useFiles();
+
   const submitContent = useGetSubmitContent();
 
   const setMessages = useSetChat();
@@ -34,6 +37,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     if (submitContent) {
       setMessage("");
       setMathEquation("");
+      setFiles([]);
     }
   }, []);
 
@@ -86,7 +90,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
 
   return (
     <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
-      <PromptForm onSubmit={onSubmit} file={file} setFile={setFile} />
+      <PromptForm onSubmit={onSubmit} />
     </div>
   );
 };

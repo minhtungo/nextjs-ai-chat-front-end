@@ -9,13 +9,14 @@ type CardProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, showBorderOnMobile, noBorder, ...props }, ref) => (
+  ({ className, showBorderOnMobile, noBorder, size, ...props }, ref) => (
     <div
       ref={ref}
       className={cn(
         "rounded-lg bg-card text-card-foreground",
         showBorderOnMobile ? "border shadow-sm" : "sm:border sm:shadow-sm",
         noBorder && "sm:border-none sm:shadow-none",
+        size === "sm" && "p-4 sm:p-4",
         className,
       )}
       {...props}

@@ -9,7 +9,9 @@ interface MathKeyboardProps {
 
 const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
   // const setMathEquation = useSetMathEquation();
-  const [mathEquation, setMathEquation] = useMathEquation();
+  const {
+    mathEquation: [mathEquation, setMathEquation],
+  } = useMathEquation();
 
   const containerRef = useRef(null);
 
