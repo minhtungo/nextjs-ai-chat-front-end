@@ -1,6 +1,6 @@
 import { MathfieldElement } from "mathlive";
 import { FC, RefObject, useEffect, useMemo, useRef } from "react";
-import { useMathEquation } from "../../../../../../store/message";
+import { useMathEquation } from "@/store/message";
 import "./MathKeyboard.css";
 
 interface MathKeyboardProps {

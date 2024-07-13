@@ -18,7 +18,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
         <ul className="flex flex-col gap-x-12 gap-y-4 text-left text-sm sm:flex-row sm:items-center sm:justify-center">
           {FOOTER_LINKS.map(({ title, href }) => (
             <li
-              key={`social-${title}`}
+              key={`footer-${title}`}
               className="text-muted-foreground hover:text-foreground"
             >
               <Link href={href}>{t(title)}</Link>

@@ -63,7 +63,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
           {shouldAnimate ? (
             chat.title.split("").map((character, index) => (
               <motion.span
-                key={index}
+                key={`${chat.id}-${character}-${index}`}
                 variants={{
                   initial: {
                     opacity: 0,

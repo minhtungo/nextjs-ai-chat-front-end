@@ -1,9 +1,5 @@
-import { PRICING_PLANS, PricingPlan } from "@/lib/constant";
-import { cn } from "@/lib/utils";
-import { Check, CheckCircle, CircleCheck } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import Link from "next/link";
+import PageTitleWrapper from "@/components/PageTitleWrapper";
+import Section from "@/components/Section";
 import { buttonVariants } from "@/components/ui/button";
 import {
   Card,
@@ -12,9 +8,13 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import Typography from "@/components/ui/typography";
-import PageTitleWrapper from "@/components/PageTitleWrapper";
+import { PRICING_PLANS, PricingPlan } from "@/lib/constant";
+import { cn } from "@/lib/utils";
+import { CircleCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import Link from "next/link";
 import FAQ from "./FAQ";
-import Section from "@/components/Section";
 
 export async function generateMetadata({
   params: { locale },
