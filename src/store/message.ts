@@ -7,32 +7,32 @@ const submitContentAtom = atom(
 );
 const filesAtom = atom<File[]>([]);
 
-const useMessage = () => {
+const messageStore = () => {
   return {
-    message: useAtom(messageAtom),
+    store: useAtom(messageAtom),
     setMessage: useSetAtom(messageAtom),
     getMessage: useAtomValue(messageAtom),
   };
 };
 
-const useMathEquation = () => {
+const mathEquationStore = () => {
   return {
-    mathEquation: useAtom(mathEquationAtom),
+    store: useAtom(mathEquationAtom),
     setMathEquation: useSetAtom(mathEquationAtom),
     getMathEquation: useAtomValue(mathEquationAtom),
   };
 };
 
-const useGetSubmitContent = () => {
+const submitContentStore = () => {
   return useAtomValue(submitContentAtom);
 };
 
-const useFiles = () => {
+const filesStore = () => {
   return {
-    files: useAtom(filesAtom),
+    store: useAtom(filesAtom),
     setFiles: useSetAtom(filesAtom),
     getFiles: useAtomValue(filesAtom),
   };
 };
 
-export { useMessage, useMathEquation, useGetSubmitContent, useFiles };
+export { messageStore, mathEquationStore, submitContentStore, filesStore };

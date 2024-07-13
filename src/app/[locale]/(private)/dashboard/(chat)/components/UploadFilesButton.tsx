@@ -1,13 +1,13 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Paperclip } from "lucide-react";
 import { FC } from "react";
-import { useFiles } from "../../../../../../store/message";
 import { Input } from "@/components/ui/input";
+import { filesStore } from "@/store/message";
 
 interface UploadFilesButtonProps {}
 
 const UploadFilesButton: FC<UploadFilesButtonProps> = () => {
-  const { setFiles } = useFiles();
+  const { setFiles } = filesStore();
 
   return (
     <>

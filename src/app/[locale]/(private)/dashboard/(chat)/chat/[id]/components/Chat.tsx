@@ -7,7 +7,7 @@ import { User } from "next-auth";
 import ChatPanel from "./ChatPanel";
 import ChatList from "./ChatList";
 import { Message } from "@/types/chat";
-import { useGetChat } from "../../../../../../../../store/chat";
+import { chatStore } from "@/store/chat";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;
@@ -19,7 +19,7 @@ const Chat: FC<ChatProps> = ({ id, user, initialMessages }) => {
   if (!user || !id) {
     return null;
   }
-  const messages = useGetChat();
+  const { getChat: messages } = chatStore();
   const scrollRef = useRef<ElementRef<"div">>(null);
 
   useEffect(() => {

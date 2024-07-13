@@ -6,11 +6,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { handleUploadedFiles } from "@/lib/utils";
+import { filesStore } from "@/store/message";
 import { Paperclip, Plus, Radical } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useRef } from "react";
-import { useFiles } from "../../../../../../store/message";
-import { handleUploadedFiles, validateFilesOnUpload } from "@/lib/utils";
-import { toast } from "sonner";
+import { Dispatch, FC, SetStateAction } from "react";
 
 interface UtilButtonsProps {
   showMathKeyboard: boolean;
@@ -21,7 +20,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
   showMathKeyboard,
   setShowMathKeyboard,
 }) => {
-  const { setFiles } = useFiles();
+  const { setFiles } = filesStore();
 
   return (
     <>

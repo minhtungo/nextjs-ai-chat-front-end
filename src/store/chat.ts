@@ -3,14 +3,12 @@ import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 const chatAtom = atom<Message[]>([]);
 
-export function useChat() {
-  return useAtom(chatAtom);
-}
+const chatStore = () => {
+  return {
+    store: useAtom(chatAtom),
+    getChat: useAtomValue(chatAtom),
+    setChat: useSetAtom(chatAtom),
+  };
+};
 
-export function useSetChat() {
-  return useSetAtom(chatAtom);
-}
-
-export function useGetChat() {
-  return useAtomValue(chatAtom);
-}
+export { chatStore };

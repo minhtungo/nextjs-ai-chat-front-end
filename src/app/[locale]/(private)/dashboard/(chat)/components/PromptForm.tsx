@@ -11,10 +11,10 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
 import { Card } from "@/components/ui/card";
 import { cn, handlePastedFiles, handleUploadedFiles } from "@/lib/utils";
-import { useFiles, useMessage } from "@/store/message";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import UtilButtons from "./UtilButtons";
+import { filesStore, messageStore } from "@/store/message";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,
@@ -31,12 +31,12 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
-    files: [files, setFiles],
-  } = useFiles();
+    store: [files, setFiles],
+  } = filesStore();
 
   const {
-    message: [message, setMessage],
-  } = useMessage();
+    store: [message, setMessage],
+  } = messageStore();
 
   useEffect(() => {
     if (inputRef.current) {

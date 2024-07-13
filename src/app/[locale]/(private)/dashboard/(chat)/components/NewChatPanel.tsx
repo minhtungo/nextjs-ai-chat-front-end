@@ -5,13 +5,14 @@ import PromptForm from "./PromptForm";
 
 import { nanoid } from "@/lib/utils";
 import { PROTECTED_BASE_URL } from "@/routes";
-import { useSetChat } from "@/store/chat";
 import { User } from "next-auth";
+
+import { chatStore } from "@/store/chat";
 import {
-  useFiles,
-  useGetSubmitContent,
-  useMathEquation,
-  useMessage,
+  filesStore,
+  mathEquationStore,
+  messageStore,
+  submitContentStore,
 } from "@/store/message";
 
 interface NewChatPanelProps {
@@ -19,14 +20,14 @@ interface NewChatPanelProps {
 }
 
 const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
-  const { setMathEquation } = useMathEquation();
-  const { setMessage } = useMessage();
-  const submitContent = useGetSubmitContent();
+  const { setMathEquation } = mathEquationStore();
+  const { setMessage } = messageStore();
+  const submitContent = submitContentStore();
   const {
-    files: [files, setFiles],
-  } = useFiles();
+    store: [files, setFiles],
+  } = filesStore();
 
-  const setMessages = useSetChat();
+  const { setChat } = chatStore();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,7 +46,7 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
 
     // const encodedImage = await encodeImage(files);
 
-    setMessages((currentMessages) => [
+    setChat((currentMessages) => [
       ...currentMessages,
       {
         id: nanoid(),

@@ -9,12 +9,13 @@ import { encodeImage, nanoid } from "@/lib/utils";
 import { Message } from "@/types/chat";
 import { User } from "next-auth";
 import PromptForm from "../../../components/PromptForm";
-import { useSetChat } from "@/store/chat";
+
+import { chatStore } from "@/store/chat";
 import {
-  useFiles,
-  useGetSubmitContent,
-  useMathEquation,
-  useMessage,
+  filesStore,
+  mathEquationStore,
+  messageStore,
+  submitContentStore,
 } from "@/store/message";
 
 interface ChatPanelProps {
@@ -25,13 +26,13 @@ interface ChatPanelProps {
 const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  const { setMathEquation } = useMathEquation();
-  const { setMessage } = useMessage();
-  const { setFiles } = useFiles();
+  const { setMathEquation } = mathEquationStore();
+  const { setMessage } = messageStore();
+  const { setFiles } = filesStore();
 
-  const submitContent = useGetSubmitContent();
+  const submitContent = submitContentStore();
 
-  const setMessages = useSetChat();
+  const { setChat } = chatStore();
 
   useEffect(() => {
     if (submitContent) {
@@ -45,7 +46,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     channel: chatId,
     userId: user.id!,
     onPublication: (message: Message) => {
-      setMessages((currentMessages) => [...currentMessages, message]);
+      setChat((currentMessages) => [...currentMessages, message]);
     },
   });
 
@@ -64,7 +65,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
 
     const encodedImage = await encodeImage(file);
 
-    setMessages((currentMessages) => [
+    setChat((currentMessages) => [
       ...currentMessages,
       {
         id: nanoid(),
