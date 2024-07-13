@@ -1,10 +1,10 @@
 import Sidebar from "@/components/Sidebar";
 import ChatHistory from "@/components/chat/ChatHistory";
-import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import Header from "./components/Header";
 import SidebarToggle from "@/components/dashboard/SidebarToggle";
+import UserMenu from "../components/UserMenu";
 
 export default async function DashBoardLayout({
   children,

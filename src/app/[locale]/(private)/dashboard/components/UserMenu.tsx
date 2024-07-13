@@ -15,6 +15,7 @@ import { USER_DASHBOARD_LINKS } from "@/routes";
 import { LogOut, ShieldCheck } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import ThemeSwitch from "./ThemeSwitch";
 
 const UserMenu = () => {
   const user = useCurrentUser();
@@ -46,7 +47,6 @@ const UserMenu = () => {
             </Link>
           </DropdownMenuItem>
         ))}
-
         {user?.role === "ADMIN" && (
           <>
             <DropdownMenuSeparator />
@@ -57,6 +57,10 @@ const UserMenu = () => {
             </DropdownMenuItem>
           </>
         )}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <ThemeSwitch />
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () =>

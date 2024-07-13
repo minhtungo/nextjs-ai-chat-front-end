@@ -1,7 +1,5 @@
-import ThemeToggle from "@/components/ThemeToggle";
 import DMobileMenu from "@/components/dashboard/DMobileMenu";
 import FeedbackDropdown from "@/components/dashboard/FeedbackDropdown";
-import SidebarToggle from "@/components/dashboard/SidebarToggle";
 import { FC } from "react";
 import HeaderTitle from "./HeaderTitle";
 
@@ -13,7 +11,6 @@ const Header: FC<HeaderProps> = () => {
       <HeaderTitle />
       <div className="ml-auto flex items-center justify-end gap-x-2">
         <FeedbackDropdown />
-        <ThemeToggle />
         <DMobileMenu />
       </div>
     </header>
