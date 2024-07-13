@@ -1,8 +1,8 @@
 import { FC } from "react";
 
 import Container from "@/components/dashboard/Container";
-import { Card, CardContent } from "@/components/ui/card";
-import { Pen } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
 import { User } from "next-auth";
 import NewChatPanel from "./NewChatPanel";
 
@@ -14,15 +14,16 @@ const NewChat: FC<ChatProps> = ({ user }) => {
   return (
     <>
       <Container className="max-w-5xl">
-        <div className="grid h-full w-full flex-1 grid-cols-4 gap-4">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <Card>
-              <CardContent>
-                <Pen className="size-4" />
-                <span className="text-muted-foreground">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                </span>
-              </CardContent>
+        <div className="space-y-2">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <Card
+              key={`chat-${i}`}
+              className="flex w-fit items-center gap-2 bg-muted/40 p-2.5 sm:p-2.5"
+            >
+              <span className="text-sm font-semibold text-muted-foreground">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              </span>
+              <ArrowRight className="size-4" />
             </Card>
           ))}
         </div>

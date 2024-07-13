@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Toaster } from "@/components/ui/sonner";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import { SessionProvider } from "next-auth/react";
+import "./dashboard.css";
 
 export default async function DashBoardLayout({
   children,
