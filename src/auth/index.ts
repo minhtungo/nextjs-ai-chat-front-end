@@ -86,6 +86,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.isOauth = existingUser.accounts?.length > 0;
       token.name = existingUser.name;
       token.role = existingUser.role;
+      token.isOnboarded = existingUser.isOnboarded;
       token.isTwoFactorEnabled = existingUser.settings?.isTwoFactorEnabled;
       token.preferredLang =
         existingUser.settings?.preferredLang?.toLowerCase() || "vi";
@@ -111,6 +112,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.isOauth = token.isOauth as boolean;
         session.user.iat = token.iat;
         session.user.exp = token.exp;
+        session.user.isOnboarded = token.isOnboarded as boolean;
       }
       return session;
     },

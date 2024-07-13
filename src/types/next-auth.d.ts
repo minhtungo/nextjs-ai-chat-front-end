@@ -6,6 +6,7 @@ declare module "next-auth" {
     role: UserRole;
     isTwoFactorEnabled: boolean;
     isOauth: boolean;
+    isOnboarded: boolean;
     preferredLang: $Enums.Languages;
     iat?: number | undefined;
     exp?: number | undefined;

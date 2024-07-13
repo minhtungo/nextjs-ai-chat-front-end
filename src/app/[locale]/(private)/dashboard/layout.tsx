@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import "./dashboard.css";
 import JoTaiProvider from "@/components/providers/JotaiProvider";
+import { redirect } from "next/navigation";
 
 export default async function DashBoardLayout({
   children,
@@ -11,14 +12,13 @@ export default async function DashBoardLayout({
 }>) {
   const session = await auth();
 
+  // if (!session?.user.isOnboarded) {
+  //   redirect("/onboarding");
+  // }
+
   if (session && session.user) {
     session.user = {
-      name: session.user.name,
-      email: session.user.email,
-      role: session.user.role,
-      isTwoFactorEnabled: session.user.isTwoFactorEnabled,
-      isOauth: session.user.isOauth,
-      preferredLang: session.user.preferredLang,
+      ...session.user,
     };
   }
   return (
