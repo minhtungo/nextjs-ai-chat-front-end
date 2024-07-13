@@ -72,6 +72,46 @@ export const PRICING_PLANS = [
 
 export type PricingPlan = (typeof PRICING_PLANS)[number];
 
+export const SUBJECTS_BY_LEVEL = [
+  {
+    level: "Elementary",
+    subjects: [
+      { label: "Subject.Mathematics", value: "mathematics" },
+      { label: "Subject.English", value: "english" },
+      {
+        label: "Subject.NaturalAndSocialSciences",
+        value: "natural-and-social-sciences",
+      },
+    ],
+  },
+  {
+    level: "Middle School",
+    subjects: [
+      { label: "Subject.Mathematics", value: "mathematics" },
+      { label: "Subject.English", value: "english" },
+      { label: "Subject.Biology", value: "biology" },
+      { label: "Subject.Geography", value: "geography" },
+      { label: "Subject.History", value: "history" },
+    ],
+  },
+  {
+    level: "High School",
+    subjects: [
+      { label: "Subject.VietnameseLiterature", value: "vietnamese-literature" },
+      { label: "Subject.Mathematics", value: "mathematics" },
+      { label: "Subject.English", value: "english" },
+      { label: "Subject.Physics", value: "physics" },
+      { label: "Subject.Chemistry", value: "chemistry" },
+      { label: "Subject.Biology", value: "biology" },
+      { label: "Subject.History", value: "history" },
+      { label: "Subject.Geography", value: "geography" },
+    ],
+  },
+];
+
+export type SubjectByLevel = (typeof SUBJECTS_BY_LEVEL)[number];
+export type TSubject = (typeof SUBJECTS)[number];
+
 export const SUBJECTS = [
   {
     label: "Subject.Math",

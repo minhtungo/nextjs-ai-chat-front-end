@@ -1,7 +1,7 @@
 import { Message } from "@/types/chat";
 import { FC } from "react";
-import UserMessage from "../../../components/UserMessage";
-import BotMessage from "../../../components/BotMessage";
+import UserMessage from "./UserMessage";
+import BotMessage from "./BotMessage";
 
 interface ChatListProps {
   messages: Message[];

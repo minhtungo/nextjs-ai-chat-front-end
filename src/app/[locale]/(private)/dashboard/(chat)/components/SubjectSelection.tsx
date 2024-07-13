@@ -18,6 +18,7 @@ const SubjectSelection: FC<SubjectSelectionProps> = () => {
       onValueChange={(value) =>
         setChat((prev) => ({ ...prev, subject: value }))
       }
+      className="grid grid-cols-2 gap-4"
     >
       {SUBJECTS.map((subject) => (
         <RadioGroupItem

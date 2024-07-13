@@ -2,14 +2,10 @@
 
 import { FC, FormEvent, useEffect } from "react";
 
-import { useState } from "react";
-
-import { useCentrifuge } from "@/hooks/use-centrifuge";
-import { encodeImage, nanoid } from "@/lib/utils";
-import { Message } from "@/types/chat";
-import { User } from "next-auth";
-import PromptForm from "../../../components/PromptForm";
+import { nanoid } from "@/lib/utils";
 import { put } from "@vercel/blob";
+import { User } from "next-auth";
+import PromptForm from "./PromptForm";
 
 import { chatStore } from "@/store/chat";
 import {

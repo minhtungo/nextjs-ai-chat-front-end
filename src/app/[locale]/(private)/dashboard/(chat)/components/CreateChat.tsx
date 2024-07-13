@@ -13,14 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import { chatStore } from "@/store/chat";
 import { Plus } from "lucide-react";
-import { FC } from "react";
+import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubjectSelection from "./SubjectSelection";
-import { toast } from "sonner";
 
-interface CreateChatProps {}
-
-const CreateChat: FC<CreateChatProps> = () => {
+const CreateChatButton = () => {
   const {
     getChat: { subject },
   } = chatStore();
@@ -69,4 +66,4 @@ const CreateChat: FC<CreateChatProps> = () => {
   );
 };
 
-export default CreateChat;
+export default CreateChatButton;

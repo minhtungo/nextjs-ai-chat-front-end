@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import Sidebar from "@/components/Sidebar";
 import ChatHistory from "@/components/chat/ChatHistory";
 import UserMenu from "@/components/dashboard/UserMenu";
@@ -11,18 +10,6 @@ export default async function DashBoardLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
-  if (session && session.user) {
-    session.user = {
-      name: session.user.name,
-      email: session.user.email,
-      role: session.user.role,
-      isTwoFactorEnabled: session.user.isTwoFactorEnabled,
-      isOauth: session.user.isOauth,
-      preferredLang: session.user.preferredLang,
-    };
-  }
   return (
     <SidebarProvider>
       <div className="relative flex min-h-screen">
