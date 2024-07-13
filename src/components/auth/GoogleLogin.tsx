@@ -3,27 +3,27 @@
 import { signInWithGoogle } from "@/actions/auth";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
-import { Button } from "../ui/button";
 import Google from "../icons/Google";
-import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { Button } from "../ui/button";
 
 interface GoogleLoginProps {
   className?: string;
+  label: string;
+  redirectURL: string | null;
 }
 
-const GoogleLogin: FC<GoogleLoginProps> = ({ className }) => {
-  const t = useTranslations("auth.OAuth");
-
-  const searchParams = useSearchParams();
-  const redirectURL = searchParams.get("redirect");
+const GoogleLogin: FC<GoogleLoginProps> = ({
+  className,
+  label,
+  redirectURL,
+}) => {
   return (
     <Button
       variant="outline"
-      className={cn("flex w-full items-center gap-2", className)}
+      className={cn("w-full", className)}
       onClick={async () => await signInWithGoogle(redirectURL)}
     >
-      <Google className="size-4 sm:size-5" /> <span>Google</span>
+      <Google className="size-4 sm:size-5" /> <span>{label}</span>
     </Button>
   );
 };

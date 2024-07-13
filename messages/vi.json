@@ -109,7 +109,9 @@
       "cta": "Đăng ký",
       "action": {
         "title": "Bạn đã có tài khoản?",
-        "link": "Đăng nhập"
+        "link": "Đăng nhập",
+        "signUpByEmail": "Đăng ký bằng email",
+        "goBack": "Quay lại"
       },
       "fields": {
         "name": {
@@ -170,7 +172,9 @@
     },
     "OAuth": {
       "title": "Tiếp tục với Google",
-      "alternative": "hoặc tiếp tục với"
+      "google": "Tiếp tục với Google",
+      "facebook": "Tiếp tục với Facebook",
+      "alternative": "hoặc"
     },
     "error": {
       "email": "Vui lòng nhập email",

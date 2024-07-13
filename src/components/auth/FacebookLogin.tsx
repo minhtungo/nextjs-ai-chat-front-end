@@ -1,29 +1,29 @@
 "use client";
 
-import { signInWithFacebook, signInWithGoogle } from "@/actions/auth";
+import { signInWithFacebook } from "@/actions/auth";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
 import { FC } from "react";
 import Facebook from "../icons/Facebook";
 import { Button } from "../ui/button";
 
 interface FacebookLoginProps {
   className?: string;
+  label: string;
+  redirectURL: string | null;
 }
 
-const FacebookLogin: FC<FacebookLoginProps> = ({ className }) => {
-  const t = useTranslations("auth.OAuth");
-
-  const searchParams = useSearchParams();
-  const redirectURL = searchParams.get("redirect");
+const FacebookLogin: FC<FacebookLoginProps> = ({
+  className,
+  label,
+  redirectURL,
+}) => {
   return (
     <Button
       variant="outline"
-      className={cn("flex w-full items-center gap-2", className)}
+      className={cn("w-full", className)}
       onClick={async () => await signInWithFacebook(redirectURL)}
     >
-      <Facebook className="size-4 sm:size-5" /> <span>Facebook</span>
+      <Facebook className="size-4 sm:size-5" /> <span>{label}</span>
     </Button>
   );
 };

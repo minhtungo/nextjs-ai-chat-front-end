@@ -3,10 +3,9 @@
 import { signInWithCredentialsAction } from "@/actions/auth";
 import CardWrapper from "@/components/CardWrapper";
 import SubmitButton from "@/components/SubmitButton";
-import FacebookLogin from "@/components/auth/FacebookLogin";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
-import GoogleLogin from "@/components/auth/GoogleLogin";
+import OAuthButtons from "@/components/auth/OAuthButtons";
 import PasswordInput from "@/components/auth/PasswordInput";
 import {
   Form,
@@ -61,28 +60,13 @@ const SignInForm = () => {
 
   return (
     <CardWrapper headerLabel={t("SignIn.title")} noBorder>
-      {!data && (
-        <Suspense>
-          <div className="grid grid-cols-2 gap-3">
-            <GoogleLogin />
-            <FacebookLogin />
-          </div>
-        </Suspense>
-      )}
-      <div className="relative my-5">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            {t("OAuth.alternative")}
-          </span>
-        </div>
-      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!data ? (
             <>
+              <Suspense>
+                <OAuthButtons />
+              </Suspense>
               <FormField
                 control={form.control}
                 name="email"
@@ -109,7 +93,7 @@ const SignInForm = () => {
                       <FormLabel>{t("SignIn.fields.password.label")}</FormLabel>
                       <Link
                         href={forgotPasswordHref}
-                        className="ml-auto inline-block text-xs hover:underline"
+                        className="ml-auto inline-block text-sm text-muted-foreground hover:underline"
                       >
                         {t("SignIn.fields.password.action")}
                       </Link>
@@ -148,13 +132,15 @@ const SignInForm = () => {
             <FormError message={t(error.message || urlError)} />
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
-          <SubmitButton
-            className="w-full"
-            label={
-              data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")
-            }
-            isPending={isPending}
-          />
+          <div className="pt-2">
+            <SubmitButton
+              className="w-full"
+              label={
+                data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")
+              }
+              isPending={isPending}
+            />
+          </div>
         </form>
       </Form>
       <div className="mt-6 text-center text-sm">

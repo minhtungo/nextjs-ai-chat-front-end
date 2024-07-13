@@ -106,7 +106,9 @@
       "cta": "Sign up",
       "action": {
         "title": "Already signed up?",
-        "link": "Login"
+        "link": "Login",
+        "signUpByEmail": "Sign up by email",
+        "goBack": "Back"
       },
       "fields": {
         "name": {
@@ -128,7 +130,7 @@
       }
     },
     "SignIn": {
-      "title": "Sign In",
+      "title": "Sign In to your account",
       "cta": "Sign In",
       "action": {
         "title": "Not a member?",
@@ -167,7 +169,9 @@
     },
     "OAuth": {
       "title": "Continue with Google",
-      "alternative": "or continue with"
+      "google": "Continue with Google",
+      "facebook": "Continue with Facebook",
+      "alternative": "or"
     },
     "error": {
       "email": "Email required",

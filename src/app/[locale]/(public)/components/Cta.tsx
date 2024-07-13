@@ -18,7 +18,7 @@ const CTA: FC<ctaProps> = () => {
             personalized, high-impact tutoring can make a significant difference
             in a student's learning journey.
           </Typography>
-          <Button className="mt-5 sm:mt-6" size="lg">
+          <Button className="mt-2" size="lg">
             Get Started
           </Button>
         </div>
