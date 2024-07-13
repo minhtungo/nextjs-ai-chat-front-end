@@ -9,13 +9,13 @@ import { encodeImage, nanoid } from "@/lib/utils";
 import { Message } from "@/types/chat";
 import { User } from "next-auth";
 import PromptForm from "../../../components/PromptForm";
-import { useSetChat } from "../../../use-chat";
+import { useSetChat } from "@/store/chat";
 import {
   useFiles,
   useGetSubmitContent,
   useMathEquation,
   useMessage,
-} from "../../../use-message";
+} from "@/store/message";
 
 interface ChatPanelProps {
   user: User;

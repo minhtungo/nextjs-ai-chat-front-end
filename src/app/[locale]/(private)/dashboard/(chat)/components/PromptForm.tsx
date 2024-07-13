@@ -11,11 +11,10 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
 import { Card } from "@/components/ui/card";
 import { cn, handlePastedFiles, handleUploadedFiles } from "@/lib/utils";
+import { useFiles, useMessage } from "@/store/message";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useFiles, useMessage } from "../use-message";
 import UtilButtons from "./UtilButtons";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,

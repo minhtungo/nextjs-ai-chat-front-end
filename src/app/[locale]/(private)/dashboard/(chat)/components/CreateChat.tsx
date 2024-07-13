@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,10 +12,12 @@ import {
 import { Plus } from "lucide-react";
 import { FC } from "react";
 import SubjectSelection from "./SubjectSelection";
+import { useRouter } from "next/navigation";
 
 interface CreateChatProps {}
 
 const CreateChat: FC<CreateChatProps> = () => {
+  const router = useRouter();
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,7 +37,12 @@ const CreateChat: FC<CreateChatProps> = () => {
           <SubjectSelection />
         </div>
         <DialogFooter>
-          <Button type="submit" className="w-full">
+          <Button
+            className="w-full"
+            onClick={() => {
+              router.push("/dashboard/chat/new");
+            }}
+          >
             Continue
           </Button>
         </DialogFooter>

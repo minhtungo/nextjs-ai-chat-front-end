@@ -8,7 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction, useRef } from "react";
-import { useFiles } from "../use-message";
+import { useFiles } from "../../../../../../store/message";
 import { handleUploadedFiles, validateFilesOnUpload } from "@/lib/utils";
 import { toast } from "sonner";
 

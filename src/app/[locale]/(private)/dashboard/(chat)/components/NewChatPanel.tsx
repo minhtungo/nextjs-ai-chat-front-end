@@ -3,16 +3,16 @@
 import { FC, FormEvent } from "react";
 import PromptForm from "./PromptForm";
 
-import { encodeImage, nanoid } from "@/lib/utils";
+import { nanoid } from "@/lib/utils";
 import { PROTECTED_BASE_URL } from "@/routes";
+import { useSetChat } from "@/store/chat";
 import { User } from "next-auth";
-import { useSetChat } from "../use-chat";
 import {
   useFiles,
   useGetSubmitContent,
   useMathEquation,
   useMessage,
-} from "../use-message";
+} from "@/store/message";
 
 interface NewChatPanelProps {
   user: User;

@@ -4,7 +4,7 @@ import { ComponentProps } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { useMail } from "../use-mail";
+import { useMail } from "@/store/mail";
 import { type Mail } from "@prisma/client";
 
 interface MailListProps {

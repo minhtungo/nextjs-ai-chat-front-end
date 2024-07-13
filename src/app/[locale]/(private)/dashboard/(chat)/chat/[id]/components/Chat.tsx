@@ -7,7 +7,7 @@ import { User } from "next-auth";
 import ChatPanel from "./ChatPanel";
 import ChatList from "./ChatList";
 import { Message } from "@/types/chat";
-import { useGetChat } from "../../../use-chat";
+import { useGetChat } from "../../../../../../../../store/chat";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;
