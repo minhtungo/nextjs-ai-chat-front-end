@@ -2,12 +2,12 @@
 
 import { ElementRef, FC, useEffect, useRef } from "react";
 
-import Container from "@/components/dashboard/Container";
 import { User } from "next-auth";
 import ChatPanel from "./ChatPanel";
 import ChatList from "./ChatList";
 import { Chat as ChatType } from "@/types/chat";
 import { chatStore } from "@/store/chat";
+import Container from "../../../../components/Container";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
@@ -36,7 +36,7 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
 
   return (
     <>
-      <Container className="max-w-5xl">
+      <Container>
         <div className="flex h-full w-full flex-1 flex-col gap-y-5">
           {messages && messages.length > 0 && <ChatList messages={messages} />}
         </div>

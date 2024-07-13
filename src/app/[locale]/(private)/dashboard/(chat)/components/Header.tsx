@@ -13,7 +13,6 @@ const Header: FC<HeaderProps> = () => {
       <HeaderTitle />
       <div className="ml-auto flex items-center justify-end gap-x-2">
         <FeedbackDropdown />
-        <SidebarToggle />
         <ThemeToggle />
         <DMobileMenu />
       </div>

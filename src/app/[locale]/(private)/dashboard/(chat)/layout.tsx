@@ -4,6 +4,7 @@ import UserMenu from "@/components/dashboard/UserMenu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import Header from "./components/Header";
+import SidebarToggle from "@/components/dashboard/SidebarToggle";
 
 export default async function DashBoardLayout({
   children,
@@ -14,13 +15,14 @@ export default async function DashBoardLayout({
     <SidebarProvider>
       <div className="relative flex min-h-screen">
         <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-card duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[250px] xl:w-[300px]">
-          <div className="flex h-full max-h-screen flex-col gap-2 py-3">
+          <div className="relative flex h-full max-h-screen flex-col gap-2 py-3">
             <ScrollArea className="h-full flex-1">
-              <ChatHistory className="px-2" />
+              <ChatHistory className="px-4" />
             </ScrollArea>
-            <div className="w-full px-2">
+            <div className="w-full px-4">
               <UserMenu />
             </div>
+            <SidebarToggle className="absolute -right-3 top-1/2 -translate-y-1/2" />
           </div>
         </Sidebar>
         <main className="relative flex h-screen w-full flex-1 flex-col overflow-auto pl-0 duration-300 ease-in-out animate-in peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">

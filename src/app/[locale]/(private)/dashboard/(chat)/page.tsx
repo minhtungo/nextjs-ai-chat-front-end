@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/lib/auth";
 
-import Container from "@/components/dashboard/Container";
 import Typography from "@/components/ui/typography";
 import NewChatCreation from "./components/NewChatCreation";
+import Container from "../components/Container";
 
 const ChatPage = async () => {
   const user = await getCurrentUser();
@@ -12,15 +12,12 @@ const ChatPage = async () => {
   }
 
   return (
-    <>
-      <Container className="max-w-5xl">
-        <Typography tag="h1" variant="h4">
-          Welcome to Lumi, {user.name}!
-        </Typography>
-        <NewChatCreation />
-      </Container>
-      {/* <NewChatPanel user={user!} /> */}
-    </>
+    <Container>
+      <Typography tag="h1" variant="h3">
+        Welcome to Lumi, {user.name}!
+      </Typography>
+      <NewChatCreation />
+    </Container>
   );
 };
 

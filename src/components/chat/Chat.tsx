@@ -2,15 +2,15 @@
 
 import { useLocalStorage } from "@/hooks/use-local-storage";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
-import { useAIState, useUIState } from "ai/rsc";
-import { usePathname, useRouter } from "next/navigation";
+import { PROTECTED_BASE_URL } from "@/routes";
+import { useUIState } from "ai/rsc";
+import { User } from "next-auth";
+import { usePathname } from "next/navigation";
 import { ElementRef, FC, useEffect, useRef, useState } from "react";
+import Container from "../../app/[locale]/(private)/dashboard/components/Container";
 import ButtonScrollToBottom from "../ButtonScrollToBottom";
-import Container from "../dashboard/Container";
 import ChatList from "./ChatList";
 import ChatPanel from "./ChatPanel";
-import { User } from "next-auth";
-import { PROTECTED_BASE_URL } from "@/routes";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   id?: string;

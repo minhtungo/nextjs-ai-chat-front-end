@@ -1,7 +1,7 @@
-import Container from "@/components/dashboard/Container";
 import Typography from "@/components/ui/typography";
 import { Suspense } from "react";
 import Nav from "./components/Nav";
+import Container from "../../components/Container";
 
 export default async function AdminDashBoardLayout({
   children,

@@ -1,7 +1,8 @@
 import SettingsNav from "@/components/dashboard/SettingNav";
 import { Suspense } from "react";
-import Container from "@/components/dashboard/Container";
+
 import Typography from "@/components/ui/typography";
+import Container from "../../components/Container";
 
 export default async function SettingsLayout({
   children,
