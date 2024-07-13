@@ -64,7 +64,7 @@ const ForgotPasswordForm = () => {
           <SubmitButton
             className="w-full"
             label="Lấy lại mật khẩu"
-            isLoading={isPending}
+            isPending={isPending}
           />
         </form>
       </Form>

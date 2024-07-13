@@ -153,7 +153,7 @@ const SignInForm = () => {
             label={
               data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")
             }
-            isLoading={isPending}
+            isPending={isPending}
           />
         </form>
       </Form>

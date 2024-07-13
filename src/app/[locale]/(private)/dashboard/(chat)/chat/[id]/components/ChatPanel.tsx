@@ -9,6 +9,7 @@ import { encodeImage, nanoid } from "@/lib/utils";
 import { Message } from "@/types/chat";
 import { User } from "next-auth";
 import PromptForm from "../../../components/PromptForm";
+import { put } from "@vercel/blob";
 
 import { chatStore } from "@/store/chat";
 import {
@@ -20,19 +21,18 @@ import {
 
 interface ChatPanelProps {
   user: User;
-  chatId: string;
 }
 
-const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
-  const [file, setFile] = useState<File | undefined>(undefined);
-
+const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
+  const {
+    store: [{ id, messages }, setChat],
+  } = chatStore();
   const { setMathEquation } = mathEquationStore();
   const { setMessage } = messageStore();
-  const { setFiles } = filesStore();
-
+  const {
+    store: [files, setFiles],
+  } = filesStore();
   const submitContent = submitContentStore();
-
-  const { setChat } = chatStore();
 
   useEffect(() => {
     if (submitContent) {
@@ -42,13 +42,16 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     }
   }, []);
 
-  const { publishMessage } = useCentrifuge({
-    channel: chatId,
-    userId: user.id!,
-    onPublication: (message: Message) => {
-      setChat((currentMessages) => [...currentMessages, message]);
-    },
-  });
+  // const { publishMessage } = useCentrifuge({
+  //   channel: id!,
+  //   userId: user.id!,
+  //   onPublication: (message: Message) => {
+  //     setChat((prev) => ({
+  //       ...prev,
+  //       messages: [...prev.messages, message],
+  //     }));
+  //   },
+  // });
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,26 +66,39 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       e.target["message"]?.blur();
     }
 
-    const encodedImage = await encodeImage(file);
+    let blob = null;
 
-    setChat((currentMessages) => [
-      ...currentMessages,
-      {
-        id: nanoid(),
-        content: submitContent,
-        image: encodedImage,
-        role: "user",
-        userId: user?.id!,
-      },
-    ]);
+    if (files && files.length > 0) {
+      blob = await put("images", URL.createObjectURL(files[0]), {
+        access: "public",
+        token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN!,
+      });
+    }
+
+    // const encodedImage = await encodeImage(file);
+
+    setChat((prev) => ({
+      ...prev,
+      messages: [
+        ...prev.messages,
+        {
+          id: nanoid(),
+          content: submitContent,
+          image: blob?.url || null,
+          role: "user",
+          userId: user?.id!,
+          chatId: id!,
+        },
+      ],
+    }));
 
     alert(submitContent);
 
     setMessage("");
     setMathEquation("");
-    setFile(undefined);
+    setFiles([]);
 
-    await publishMessage(submitContent);
+    // await publishMessage(submitContent);
 
     // Submit and get response message
     // const responseMessage = await submitUserMessage(content, encodedImage);

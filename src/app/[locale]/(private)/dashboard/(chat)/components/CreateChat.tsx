@@ -1,5 +1,7 @@
 "use client";
 
+import { createNewChatAction } from "@/actions/chat";
+import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,15 +11,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { chatStore } from "@/store/chat";
 import { Plus } from "lucide-react";
 import { FC } from "react";
+import { useServerAction } from "zsa-react";
 import SubjectSelection from "./SubjectSelection";
-import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface CreateChatProps {}
 
 const CreateChat: FC<CreateChatProps> = () => {
-  const router = useRouter();
+  const {
+    getChat: { subject },
+  } = chatStore();
+  const { isPending, execute } = useServerAction(createNewChatAction);
+
+  const createNewChat = async () => {
+    const [_, error] = await execute({
+      subject: subject || "",
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,14 +56,13 @@ const CreateChat: FC<CreateChatProps> = () => {
           <SubjectSelection />
         </div>
         <DialogFooter>
-          <Button
+          <SubmitButton
+            type="button"
             className="w-full"
-            onClick={() => {
-              router.push("/dashboard/chat/new");
-            }}
-          >
-            Continue
-          </Button>
+            onClick={createNewChat}
+            label="Continue"
+            isPending={isPending}
+          />
         </DialogFooter>
       </DialogContent>
     </Dialog>

@@ -101,7 +101,7 @@ const ChangePassword: FC<ChangePasswordProps> = () => {
           </CardContent>
           <CardFooter noBorder>
             <SubmitButton
-              isLoading={isPending}
+              isPending={isPending}
               size="sm"
               label="Đổi mật khẩu"
             />

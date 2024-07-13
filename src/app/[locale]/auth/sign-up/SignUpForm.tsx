@@ -143,7 +143,7 @@ const SignUpForm = () => {
           <SubmitButton
             className="w-full"
             label={t("SignUp.cta")}
-            isLoading={isPending}
+            isPending={isPending}
           />
         </form>
       </Form>

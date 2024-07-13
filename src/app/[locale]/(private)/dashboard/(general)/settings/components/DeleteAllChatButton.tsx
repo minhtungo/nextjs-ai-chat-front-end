@@ -1,6 +1,6 @@
 "use client";
 
-import { removeAllChatsAction } from "@/actions/chat";
+import { removeAllChatsAction } from "@/actions/old/chat";
 import SubmitButton from "@/components/SubmitButton";
 import {
   AlertDialog,
@@ -51,7 +51,7 @@ const DeleteAllChatButton = () => {
               onClick={handleDeletion}
               label="Confirm Deletion"
               type="button"
-              isLoading={isPending}
+              isPending={isPending}
             />
           </AlertDialogAction>
         </AlertDialogFooter>

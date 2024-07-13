@@ -38,6 +38,7 @@ model User {
   academicLevel    String?
   learningGoals String?
   subjects      String[]
+  isOnboarded   Boolean  @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -63,8 +64,9 @@ model UserSettings {
 }
 
 model Chat {
-  id        String   @id
-  title String
+  id        String   @id @default(cuid())
+  title String?
+  subject String?
 
   userId    String
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -82,7 +84,7 @@ model Message {
   content        String
   image          String?
   role           String
-  chatId String
+  chatId         String
   userId         String
 
   createdAt      DateTime      @default(now())

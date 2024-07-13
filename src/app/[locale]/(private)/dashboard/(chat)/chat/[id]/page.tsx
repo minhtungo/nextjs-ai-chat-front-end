@@ -1,9 +1,9 @@
 import { getCurrentUser } from "@/lib/auth";
 
+import { getChatByIDUseCase } from "@/use-cases/chat";
+import { notFound } from "next/navigation";
 import { FC } from "react";
 import Chat from "./components/Chat";
-import { getChatAction } from "@/actions/chat";
-import { notFound } from "next/navigation";
 
 interface ChatPageProps {
   params: {
@@ -18,15 +18,13 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     throw new Error("Unauthorized");
   }
 
-  const [chat] = await getChatAction({
-    chatID: id,
-  });
+  const chat = await getChatByIDUseCase(id, user.id!);
 
-  if (!chat || chat?.userId !== user?.id) {
+  if (!chat || chat.userId !== user.id) {
     notFound();
   }
 
-  return <Chat user={user} id={id} initialMessages={chat.messages} />;
+  return <Chat user={user} chat={chat} />;
 };
 
 export default ChatPage;

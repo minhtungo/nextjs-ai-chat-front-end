@@ -95,7 +95,7 @@ const ResetPasswordForm = () => {
           <SubmitButton
             className="w-full"
             label={t("ResetPassword.cta")}
-            isLoading={isPending}
+            isPending={isPending}
             disabled={!token}
           />
         </form>

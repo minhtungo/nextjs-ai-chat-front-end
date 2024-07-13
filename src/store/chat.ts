@@ -2,11 +2,13 @@ import { Message } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 type ChatConfig = {
-  subject: string;
-  messages?: Message[];
+  subject: string | null;
+  id: string | null;
+  messages: Message[] | [];
 };
 
 const chatAtom = atom<ChatConfig>({
+  id: "",
   subject: "",
   messages: [],
 });

@@ -77,7 +77,7 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
             />
           </CardContent>
           <CardFooter noBorder>
-            <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
+            <SubmitButton isPending={isPending} size="sm" label="Lưu" />
           </CardFooter>
         </form>
       </Form>

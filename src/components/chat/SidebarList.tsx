@@ -1,4 +1,4 @@
-import { getChatsAction } from "@/actions/chat";
+import { getChatsAction } from "@/actions/old/chat";
 import { FC, cache } from "react";
 import SidebarItems from "./SidebarItems";
 import { Chat } from "@/types/chat";

@@ -1,6 +1,6 @@
 "use client";
 
-import { removeChatAction } from "@/actions/chat";
+import { removeChatAction } from "@/actions/old/chat";
 import {
   AlertDialog,
   AlertDialogAction,

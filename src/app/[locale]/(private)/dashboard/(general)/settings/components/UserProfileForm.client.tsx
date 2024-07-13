@@ -227,7 +227,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
             />
           </CardContent>
           <CardFooter noBorder>
-            <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
+            <SubmitButton isPending={isPending} size="sm" label="Lưu" />
           </CardFooter>
         </form>
       </Form>

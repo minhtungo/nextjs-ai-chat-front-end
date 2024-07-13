@@ -1,4 +1,4 @@
-import { getChatAction } from "@/actions/chat";
+import { getChatAction } from "@/actions/old/chat";
 import Chat from "@/components/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 import { AI } from "@/lib/chat/actions";

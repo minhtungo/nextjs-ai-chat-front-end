@@ -80,7 +80,7 @@ const FeedbackForm: FC<FeedbackFormProps> = () => {
         <SubmitButton
           className="w-full"
           label={t("submitLabel")}
-          isLoading={isPending}
+          isPending={isPending}
         />
       </form>
     </Form>

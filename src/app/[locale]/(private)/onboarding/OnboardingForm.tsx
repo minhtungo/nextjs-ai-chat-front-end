@@ -120,7 +120,7 @@ const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
             </div>
           </CardContent>
           <CardFooter noBorder>
-            <SubmitButton isLoading={isPending} size="sm" label="Lưu" />
+            <SubmitButton isPending={isPending} size="sm" label="Lưu" />
           </CardFooter>
         </form>
       </Form>

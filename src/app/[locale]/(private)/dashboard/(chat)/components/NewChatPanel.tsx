@@ -27,7 +27,9 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
     store: [files, setFiles],
   } = filesStore();
 
-  const { setChat } = chatStore();
+  const {
+    store: [{ id }, setChat],
+  } = chatStore();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -54,6 +56,7 @@ const NewChatPanel: FC<NewChatPanelProps> = ({ user }) => {
         image: null,
         role: "user",
         userId: user?.id!,
+        chatId: id,
       },
     ]);
 
