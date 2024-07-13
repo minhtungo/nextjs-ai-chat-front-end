@@ -1,7 +1,15 @@
 import { Message } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
-const chatAtom = atom<Message[]>([]);
+type ChatConfig = {
+  subject: string;
+  messages?: Message[];
+};
+
+const chatAtom = atom<ChatConfig>({
+  subject: "",
+  messages: [],
+});
 
 const chatStore = () => {
   return {

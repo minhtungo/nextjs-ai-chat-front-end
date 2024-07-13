@@ -3,16 +3,24 @@
 import { FC, useState } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SUBJECTS } from "@/lib/constant";
+import { chatStore } from "@/store/chat";
 
 interface SubjectSelectionProps {}
 
 const SubjectSelection: FC<SubjectSelectionProps> = () => {
-  const [selectedSubject, setSelectedSubject] = useState<string>("");
+  const {
+    store: [{ subject }, setChat],
+  } = chatStore();
 
   return (
     <>
-      {selectedSubject}
-      <RadioGroup value={selectedSubject} onValueChange={setSelectedSubject}>
+      {subject}
+      <RadioGroup
+        value={subject}
+        onValueChange={(value) =>
+          setChat((prev) => ({ ...prev, subject: value }))
+        }
+      >
         {SUBJECTS.map((subject) => (
           <RadioGroupItem
             value={subject.value}
