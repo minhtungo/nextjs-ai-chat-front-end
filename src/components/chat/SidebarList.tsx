@@ -18,9 +18,13 @@ const SidebarList: FC<SidebarListProps> = async ({ userId }) => {
 
   return (
     <>
-      {chats && chats.length > 0 && (
+      {chats && chats.length > 0 ? (
         <div className="h-full flex-1 space-y-2.5">
           <SidebarItems chats={chats as Chat[]} />
+        </div>
+      ) : (
+        <div className="mt-2 text-sm text-muted-foreground">
+          You have no chats yet.
         </div>
       )}
     </>
