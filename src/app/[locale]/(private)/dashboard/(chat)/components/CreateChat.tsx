@@ -1,12 +1,10 @@
 "use client";
 
 import { createNewChatAction } from "@/actions/chat";
-import SubmitButton from "@/components/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -15,7 +13,7 @@ import { chatStore } from "@/store/chat";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
-import SubjectSelection from "./SubjectSelection";
+import NewChatCreation from "./NewChatCreation";
 
 const CreateChatButton = () => {
   const {
@@ -45,14 +43,15 @@ const CreateChatButton = () => {
           New Chat
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-3xl">
         <DialogHeader>
           <DialogTitle>Select a subject</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <SubjectSelection />
+          {/* <SubjectSelection /> */}
+          <NewChatCreation />
         </div>
-        <DialogFooter>
+        {/* <DialogFooter>
           <SubmitButton
             type="button"
             className="w-full"
@@ -60,7 +59,7 @@ const CreateChatButton = () => {
             label="Continue"
             isPending={isPending}
           />
-        </DialogFooter>
+        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );

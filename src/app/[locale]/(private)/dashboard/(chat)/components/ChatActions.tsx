@@ -1,6 +1,7 @@
 "use client";
 
 import { removeChatAction } from "@/actions/old/chat";
+import Spinner from "@/components/Spinner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,6 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -24,14 +26,12 @@ import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
-import Spinner from "../Spinner";
-import { Button } from "../ui/button";
 
-interface SidebarActionsProps {
+interface ChatActionsProps {
   chat: Chat;
 }
 
-const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
+const ChatActions: FC<ChatActionsProps> = ({ chat }) => {
   const router = useRouter();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { isPending: isRemovePending, execute } =
@@ -100,4 +100,4 @@ const SidebarActions: FC<SidebarActionsProps> = ({ chat }) => {
   );
 };
 
-export default SidebarActions;
+export default ChatActions;

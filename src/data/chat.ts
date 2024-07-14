@@ -22,3 +22,15 @@ export const getChatById = async (chatID: string, userId: string) => {
 
   return chat;
 };
+
+export const getChats = async (userId: string) => {
+  const chats = await db.chat.findMany({
+    where: { userId },
+    include: {
+      messages: true,
+    },
+    orderBy: { updatedAt: "desc" },
+  });
+
+  return chats;
+};

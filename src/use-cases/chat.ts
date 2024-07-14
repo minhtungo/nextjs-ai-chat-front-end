@@ -1,4 +1,4 @@
-import { createNewChat, getChatById } from "@/data/chat";
+import { createNewChat, getChatById, getChats } from "@/data/chat";
 import { Chat } from "@/types/chat";
 
 export const createNewChatUseCase = async (chat: Chat) => {
@@ -7,4 +7,8 @@ export const createNewChatUseCase = async (chat: Chat) => {
 
 export const getChatByIDUseCase = async (chatID: string, userID: string) => {
   return await getChatById(chatID, userID);
+};
+
+export const getChatsUseCase = async (userID: string) => {
+  return await getChats(userID);
 };

@@ -2,7 +2,7 @@ import { FC } from "react";
 
 import UserMenu from "@/app/[locale]/(private)/dashboard/components/UserMenu";
 import SheetWrapper from "@/components/SheetWrapper";
-import ChatHistory from "@/components/chat/ChatHistory";
+import ChatHistory from "../../(chat)/components/ChatHistory";
 
 interface DMobileMenuProps {}
 

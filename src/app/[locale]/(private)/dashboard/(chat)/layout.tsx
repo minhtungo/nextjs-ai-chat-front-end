@@ -1,9 +1,12 @@
 import Sidebar from "@/components/Sidebar";
-import ChatHistory from "@/components/chat/ChatHistory";
 import SidebarToggle from "@/components/dashboard/SidebarToggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import UserMenu from "../components/UserMenu";
 import Header from "./components/Header";
+import ChatHistory from "./components/ChatHistory";
+import Link from "next/link";
+import Logo from "@/components/Logo";
+import CreateChatButton from "./components/CreateChat";
 
 export default async function DashBoardLayout({
   children,
@@ -15,7 +18,17 @@ export default async function DashBoardLayout({
       <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-card duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[250px] xl:w-[300px]">
         <div className="relative flex h-full max-h-screen flex-col gap-2 py-3">
           <ScrollArea className="h-full flex-1">
-            <ChatHistory className="px-4" />
+            <div className="mb-3 px-4">
+              <div className="mb-3 flex items-center justify-between">
+                <Link href="/">
+                  <Logo />
+                </Link>
+              </div>
+              <CreateChatButton />
+            </div>
+            <div className="px-4">
+              <ChatHistory />
+            </div>
           </ScrollArea>
           <div className="w-full px-4">
             <UserMenu />

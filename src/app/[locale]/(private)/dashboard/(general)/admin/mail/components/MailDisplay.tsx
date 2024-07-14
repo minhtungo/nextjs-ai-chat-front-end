@@ -1,13 +1,4 @@
-import format from "date-fns/format";
-import {
-  Archive,
-  ArchiveX,
-  Forward,
-  MoreVertical,
-  Reply,
-  ReplyAll,
-  Trash2,
-} from "lucide-react";
+import { Archive, MoreVertical, Trash2 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -17,9 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Tooltip,
@@ -27,6 +16,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { type Mail } from "@prisma/client";
+import dayjs from "@/lib/dayjs";
 
 interface MailDisplayProps {
   mail: Mail | null;
@@ -97,7 +87,7 @@ export function MailDisplay({ mail }: MailDisplayProps) {
             </div>
             {mail.createdAt && (
               <div className="ml-auto text-xs text-muted-foreground">
-                {format(new Date(mail.createdAt), "PPp")}
+                {dayjs(new Date(mail.createdAt)).format("PPp")}
               </div>
             )}
           </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import SheetWrapper from "@/components/SheetWrapper";
-import PromptForm from "@/components/chat/PromptForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -51,7 +50,7 @@ const ThreadContent = ({ input, setInput, message }: ThreadContentProps) => {
         )}
       </Card>
       <div className="absolute bottom-3 left-0 w-full px-4">
-        <PromptForm input={input} setInput={setInput} />
+        {/* <PromptForm /> */}
       </div>
     </div>
   );

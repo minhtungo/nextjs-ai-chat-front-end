@@ -1,4 +1,3 @@
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { ComponentProps } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -6,6 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { useMail } from "@/store/mail";
 import { type Mail } from "@prisma/client";
+import dayjs from "@/lib/dayjs";
 
 interface MailListProps {
   items: Mail[];
@@ -46,9 +46,7 @@ export function MailList({ items }: MailListProps) {
                       : "text-muted-foreground",
                   )}
                 >
-                  {formatDistanceToNow(new Date(item.createdAt), {
-                    addSuffix: true,
-                  })}
+                  {dayjs(new Date(item.createdAt)).fromNow()}
                 </div>
               </div>
               <div className="text-xs font-medium">{item.subject}</div>
