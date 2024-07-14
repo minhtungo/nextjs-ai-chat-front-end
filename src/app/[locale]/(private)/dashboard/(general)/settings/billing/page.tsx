@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Billing",
 };
 
-const BillingPage = () => {
+const BillingPage = async () => {
   return (
     <>
       <Typography variant="h5" tag="h3" className="mb-4">

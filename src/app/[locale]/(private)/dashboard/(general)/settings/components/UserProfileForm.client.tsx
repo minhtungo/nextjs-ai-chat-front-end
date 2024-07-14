@@ -91,7 +91,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full" noBorder>
+    <Card className="w-full max-w-3xl" noBorder>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="w-full space-y-4" noBorder>
@@ -227,7 +227,11 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
             />
           </CardContent>
           <CardFooter noBorder>
-            <SubmitButton isPending={isPending} size="sm" label="Lưu" />
+            <SubmitButton
+              isPending={isPending}
+              size="sm"
+              label="Lưu thay đổi"
+            />
           </CardFooter>
         </form>
       </Form>

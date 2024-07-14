@@ -56,10 +56,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ index, chat, children }) => {
         <div className="absolute left-2 top-2.5 flex size-5 items-center justify-center">
           <MessageCircle className="mr-1 text-zinc-500" />
         </div>
-        <div
-          className="relative max-h-5 w-[110px] flex-1 select-none overflow-hidden text-ellipsis break-all"
-          title={chat.title}
-        >
+        <div className="relative max-h-5 w-[110px] flex-1 select-none overflow-hidden text-ellipsis break-all">
           {shouldAnimate ? (
             chat.title.split("").map((character, index) => (
               <motion.span

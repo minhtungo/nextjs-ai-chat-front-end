@@ -3,6 +3,7 @@ import { customAlphabet } from "nanoid";
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 import { SUBJECTS } from "./constant";
+import { DASHBOARD_LINKS } from "@/routes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -149,3 +150,22 @@ export function handlePastedFiles(e: any) {
 
 //   return validFiles;
 // }
+
+export const generateBreadcrumbs = (pathname: string) => {
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const breadcrumbs: { title: string; href: string }[] = [];
+
+  let currentPath = "";
+  pathSegments.forEach((segment) => {
+    currentPath += `/${segment}`;
+    const match = DASHBOARD_LINKS.find((link) => link.href === currentPath);
+    if (match) {
+      breadcrumbs.push({
+        title: match.title,
+        href: currentPath,
+      });
+    }
+  });
+
+  return breadcrumbs;
+};

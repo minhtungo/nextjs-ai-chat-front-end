@@ -1,9 +1,9 @@
 import { auth } from "@/auth";
+import JoTaiProvider from "@/components/providers/JotaiProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { SidebarProvider } from "@/hooks/use-sidebar";
 import { SessionProvider } from "next-auth/react";
 import "./dashboard.css";
-import JoTaiProvider from "@/components/providers/JotaiProvider";
-import { redirect } from "next/navigation";
 
 export default async function DashBoardLayout({
   children,
@@ -23,7 +23,9 @@ export default async function DashBoardLayout({
   }
   return (
     <SessionProvider session={session}>
-      <JoTaiProvider>{children}</JoTaiProvider>
+      <SidebarProvider>
+        <JoTaiProvider>{children}</JoTaiProvider>
+      </SidebarProvider>
       <Toaster closeButton />
     </SessionProvider>
   );

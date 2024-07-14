@@ -32,6 +32,9 @@ const SecurityPage = async () => {
           <Typography variant="h5" tag="h3">
             Connected accounts
           </Typography>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Below are the accounts linked to your profile
+          </p>
           <div className="mt-3 flex items-center gap-x-2">
             <Google className="size-5" />
             <Typography className="text-muted-foreground">Google</Typography>

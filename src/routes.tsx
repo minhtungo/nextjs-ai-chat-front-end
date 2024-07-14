@@ -1,5 +1,10 @@
 import Facebook from "@/components/icons/Facebook";
-import { CreditCard, MessageSquareMore, UserRound } from "lucide-react";
+import {
+  CreditCard,
+  MessageSquareMore,
+  ShieldCheck,
+  UserRound,
+} from "lucide-react";
 import Instagram from "./components/icons/Instagram";
 import Discord from "./components/icons/Discord";
 
@@ -57,33 +62,26 @@ export const FOOTER_LINKS = [
   },
 ];
 
-export const SETTINGS_LINKS = [
+export const DASHBOARD_LINKS = [
   {
     title: "Profile",
     href: `${PROTECTED_BASE_URL}/settings`,
+    icon: <UserRound className="size-[18px]" />,
   },
   {
     title: "Billing",
     href: `${PROTECTED_BASE_URL}/settings/billing`,
+    icon: <CreditCard className="size-[18px]" />,
   },
   {
     title: "Security",
     href: `${PROTECTED_BASE_URL}/settings/security`,
+    icon: <ShieldCheck className="size-[18px]" />,
   },
   {
     title: "Support",
     href: `${PROTECTED_BASE_URL}/settings/support`,
-  },
-];
-
-export const ADMIN_DASHBOARD_LINKS = [
-  {
-    title: "Overview",
-    href: `${PROTECTED_BASE_URL}/admin`,
-  },
-  {
-    title: "Mail",
-    href: `${PROTECTED_BASE_URL}/admin/mail`,
+    icon: <MessageSquareMore className="size-[18px]" />,
   },
 ];
 
@@ -102,6 +100,17 @@ export const USER_DASHBOARD_LINKS = [
     title: "Support",
     href: `${PROTECTED_BASE_URL}/settings/support`,
     icon: <MessageSquareMore className="size-4" />,
+  },
+];
+
+export const ADMIN_DASHBOARD_LINKS = [
+  {
+    title: "Overview",
+    href: `${PROTECTED_BASE_URL}/admin`,
+  },
+  {
+    title: "Mail",
+    href: `${PROTECTED_BASE_URL}/admin/mail`,
   },
 ];
 

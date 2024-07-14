@@ -1,7 +1,6 @@
-import { cn } from "@/lib/utils";
-import React, { FC } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import React, { FC } from "react";
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;

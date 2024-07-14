@@ -6,7 +6,7 @@ import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { Languages, type UserRole } from "@prisma/client";
+import { Languages, Plan, type UserRole } from "@prisma/client";
 import NextAuth from "next-auth";
 import authConfig from "./config";
 
@@ -88,6 +88,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       token.role = existingUser.role;
       token.isOnboarded = existingUser.isOnboarded;
       token.isTwoFactorEnabled = existingUser.settings?.isTwoFactorEnabled;
+      token.plan = existingUser.plan;
       token.preferredLang =
         existingUser.settings?.preferredLang?.toLowerCase() || "vi";
       return token;
@@ -113,6 +114,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.iat = token.iat;
         session.user.exp = token.exp;
         session.user.isOnboarded = token.isOnboarded as boolean;
+        session.user.plan = token.plan as Plan;
       }
       return session;
     },

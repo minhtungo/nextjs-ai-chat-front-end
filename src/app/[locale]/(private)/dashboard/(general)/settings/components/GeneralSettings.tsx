@@ -9,10 +9,7 @@ interface GeneralSettingsProps {
 const GeneralSettings: FC<GeneralSettingsProps> = ({ user }) => {
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <div>Delete all chats</div>
-        <DeleteAllChatButton />
-      </div>
+      <DeleteAllChatButton />
     </div>
   );
 };

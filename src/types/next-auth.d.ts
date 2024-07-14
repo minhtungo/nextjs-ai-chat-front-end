@@ -1,4 +1,4 @@
-import { UserSettings, type UserRole } from "@prisma/client";
+import { UserSettings, type UserRole, type Plan } from "@prisma/client";
 import { User, type DefaultSession } from "next-auth";
 
 declare module "next-auth" {
@@ -10,6 +10,7 @@ declare module "next-auth" {
     preferredLang: $Enums.Languages;
     iat?: number | undefined;
     exp?: number | undefined;
+    plan: Plan;
   }
 
   interface Session {
