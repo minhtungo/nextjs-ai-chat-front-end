@@ -13,7 +13,7 @@ const ChatPage = async () => {
 
   return (
     <Container>
-      <Typography tag="h1" variant="h3">
+      <Typography tag="h1" variant="h3" className="mb-6">
         Welcome to Lumi, {user.name}!
       </Typography>
       <NewChatCreation />

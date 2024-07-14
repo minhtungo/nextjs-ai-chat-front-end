@@ -2,19 +2,16 @@ import ContentBox from "@/components/ContentBox";
 import Section from "@/components/Section";
 import SectionTitleWrapper from "@/components/SectionTitleWrapper";
 import { FEATURES } from "@/lib/constant";
-import { FC } from "react";
 
-interface FeaturesProps {}
-
-const Features: FC<FeaturesProps> = () => {
+const Features = () => {
   return (
     <Section>
       <SectionTitleWrapper
         title="Everything you need for successful online learning"
         subtitle="Unified platform"
       />
-      <dl className="mx-auto mt-12 max-w-5xl">
-        <div className="grid gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-14">
+      <div className="mx-auto max-w-6xl">
+        <dl className="grid gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-14">
           {FEATURES.map((feature) => (
             <ContentBox
               key={feature.title}
@@ -23,8 +20,8 @@ const Features: FC<FeaturesProps> = () => {
               icon={feature.icon}
             />
           ))}
-        </div>
-      </dl>
+        </dl>
+      </div>
     </Section>
   );
 };

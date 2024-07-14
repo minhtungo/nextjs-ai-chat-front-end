@@ -1,11 +1,11 @@
+import Section from "@/components/Section";
+import ThemeImage from "@/components/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";
+import { signUpHref } from "@/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FC } from "react";
 import Typography from "../ui/typography";
-import { PROTECTED_BASE_URL } from "@/routes";
-import Section from "@/components/Section";
-import ThemeImage from "@/components/ThemeImage";
 
 interface HeroProps {}
 
@@ -24,16 +24,16 @@ const Hero: FC<HeroProps> = () => {
         <Typography variant="h1" className="max-w-4xl">
           {t("title")}
         </Typography>
-        <p className="mt-5 max-w-prose text-muted-foreground sm:text-lg">
+        <p className="mb-6 mt-5 max-w-prose text-muted-foreground sm:text-lg">
           {t("subtitle")}
         </p>
 
         <Link
           className={buttonVariants({
+            variant: "default",
             size: "lg",
-            className: "mt-5",
           })}
-          href={PROTECTED_BASE_URL}
+          href={signUpHref}
         >
           {t("cta")}
         </Link>
@@ -54,8 +54,8 @@ const Hero: FC<HeroProps> = () => {
           </div>
 
           <div>
-            <div className="mx-auto max-w-6xl">
-              <div className="mt-16 flow-root sm:mt-24">
+            <div className="mx-auto">
+              <div className="mt-12 flow-root sm:mt-20">
                 <div className="card-wrapper z-0 rounded-xl p-1 ring-1 ring-inset ring-border lg:rounded-2xl">
                   <div className="card-content z-10 h-full w-full bg-background shadow-2xl lg:rounded-2xl">
                     <ThemeImage

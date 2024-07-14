@@ -1,7 +1,9 @@
 import Section from "@/components/Section";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Typography from "@/components/ui/typography";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { FC } from "react";
 
 interface ctaProps {}
@@ -18,9 +20,15 @@ const CTA: FC<ctaProps> = () => {
             personalized, high-impact tutoring can make a significant difference
             in a student's learning journey.
           </Typography>
-          <Button className="mt-2" size="lg">
+          <Link
+            className={cn(
+              buttonVariants({ variant: "default", size: "lg" }),
+              "mt-2",
+            )}
+            href="/auth/sign-up"
+          >
             Get Started
-          </Button>
+          </Link>
         </div>
       </Card>
     </Section>

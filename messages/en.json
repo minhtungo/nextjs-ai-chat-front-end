@@ -38,7 +38,7 @@
       "noti": "Lumi is ready",
       "title": "Your AI copilot for goal-based learning",
       "subtitle": "Use advanced AI technology to provide personalized tutoring, helping you study effectively and achieve higher results.",
-      "cta": "Ask Lumi"
+      "cta": "Get Started"
     },
     "About": {
       "title": "About",
@@ -52,7 +52,7 @@
         "free": {
           "title": "Free",
           "duration": "month",
-          "cta": "Hỏi Lumi",
+          "cta": "Get Started",
           "features": {
             "1": {
               "title": "Chat with Lumi 1"
@@ -68,7 +68,7 @@
         "pro": {
           "title": "Pro",
           "duration": "month",
-          "cta": "Hỏi Lumi",
+          "cta": "Get Started",
           "features": {
             "1": {
               "title": "Chat with Lumi 1"

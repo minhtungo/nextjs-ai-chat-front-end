@@ -14,7 +14,12 @@ const SectionTitleWrapper: FC<SectionTitleWrapperProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("mx-auto max-w-2xl text-center", className)}>
+    <div
+      className={cn(
+        "mx-auto mb-12 text-left lg:mb-16 lg:max-w-2xl lg:text-center",
+        className,
+      )}
+    >
       <Typography className="text-base font-semibold text-accent-foreground">
         {subtitle}
       </Typography>

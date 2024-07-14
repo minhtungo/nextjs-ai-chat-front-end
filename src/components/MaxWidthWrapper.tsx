@@ -13,10 +13,7 @@ const MaxWidthWrapper = ({
   const Tag = tag ? tag : "div";
   return (
     <Tag
-      className={cn(
-        "mx-auto w-full max-w-screen-xl px-4 sm:px-6 md:px-20",
-        className,
-      )}
+      className={cn("mx-auto w-full max-w-screen-xl px-4 sm:px-6", className)}
     >
       {children}
     </Tag>

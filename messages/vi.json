@@ -41,7 +41,7 @@
       "noti": "Lumi đã sẵn sàng",
       "title": "Cộng sự AI của bạn cho việc học dựa trên mục tiêu",
       "subtitle": "Sử dụng công nghệ AI tiên tiến để cung cấp gia sư cá nhân hóa, giúp bạn học tập hiệu quả và đạt kết quả cao hơn.",
-      "cta": "Hỏi Lumi"
+      "cta": "Bắt đầu"
     },
     "About": {
       "title": "Về Lumi",
@@ -55,7 +55,7 @@
         "free": {
           "title": "Free",
           "duration": "month",
-          "cta": "Hỏi Lumi",
+          "cta": "Bắt đầu",
           "features": {
             "1": {
               "title": "Chat with Lumi 1"
@@ -71,7 +71,7 @@
         "pro": {
           "title": "Pro",
           "duration": "month",
-          "cta": "Hỏi Lumi",
+          "cta": "Bắt đầu",
           "features": {
             "1": {
               "title": "Chat with Lumi 1"
@@ -264,6 +264,9 @@
       },
       "Dashboard": {
         "title": "Dashboard"
+      },
+      "ContactUs": {
+        "title": "Liên hệ"
       }
     },
     "Month": {
