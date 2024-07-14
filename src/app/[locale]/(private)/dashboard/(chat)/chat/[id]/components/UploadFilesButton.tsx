@@ -26,7 +26,6 @@ const UploadFilesButton: FC<UploadFilesButtonProps> = () => {
         className="hidden"
         id="attach-file"
         onChange={(e) => {
-          console.log("hello---------");
           if (e.target.files?.length) {
             const fileArray = Array.from(e.target?.files);
             setFiles(fileArray);

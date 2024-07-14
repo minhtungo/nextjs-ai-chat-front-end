@@ -7,6 +7,7 @@ import { put } from "@vercel/blob";
 import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
+import { saveChatAction } from "@/actions/chat";
 import { chatStore } from "@/store/chat";
 import {
   filesStore,
@@ -21,21 +22,21 @@ interface ChatPanelProps {
 
 const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
   const {
-    store: [{ id, messages }, setChat],
+    store: [chat, setChat],
   } = chatStore();
   const { setMathEquation } = mathEquationStore();
   const { setMessage } = messageStore();
   const {
     store: [files, setFiles],
   } = filesStore();
+
   const submitContent = submitContentStore();
 
   useEffect(() => {
-    if (submitContent) {
-      setMessage("");
-      setMathEquation("");
-      setFiles([]);
-    }
+    console.log("--------------------------, running");
+    setMessage("");
+    setMathEquation("");
+    setFiles([]);
   }, []);
 
   // const { publishMessage } = useCentrifuge({
@@ -48,6 +49,25 @@ const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
   //     }));
   //   },
   // });
+
+  const handleUpload = async () => {
+    if (!files.length) return;
+
+    try {
+      const uploads = Array.from(files).map(async (file) => {
+        const blob = await put("images", file, {
+          access: "public",
+          token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN,
+        });
+        return blob;
+      });
+
+      return await Promise.all(uploads);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+    } finally {
+    }
+  };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,11 +85,14 @@ const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
     let blob = null;
 
     if (files && files.length > 0) {
-      blob = await put("images", URL.createObjectURL(files[0]), {
+      blob = await put("images", files[0], {
         access: "public",
         token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN!,
       });
     }
+
+    const blobs = await handleUpload();
+    const images = blobs ? blobs.map((blob) => blob.url) : [];
 
     // const encodedImage = await encodeImage(file);
 
@@ -80,19 +103,23 @@ const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
         {
           id: nanoid(),
           content: submitContent,
-          image: blob?.url || null,
+          images: images,
+          files: [],
           role: "user",
           userId: user?.id!,
-          chatId: id!,
+          chatId: chat.id!,
         },
       ],
     }));
 
-    alert(submitContent);
-
     setMessage("");
     setMathEquation("");
     setFiles([]);
+
+    await saveChatAction({
+      chat,
+      userId: user.id!,
+    });
 
     // await publishMessage(submitContent);
 

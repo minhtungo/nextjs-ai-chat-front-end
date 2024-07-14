@@ -20,7 +20,6 @@ export const updateUserProfileUseCase = async (
   values: z.infer<typeof updateUserProfileSchema>,
 ) => {
   const dbUser = await getUserById(userID);
-  console.log(values.image);
   if (!dbUser) {
     await signOut();
   }

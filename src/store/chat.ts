@@ -1,7 +1,7 @@
 import { Message } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
-type ChatConfig = {
+export type ChatConfig = {
   subject: string | null;
   id: string | null;
   messages: Message[] | [];

@@ -1,7 +1,8 @@
 export type Message = {
   id: string;
   content: string;
-  image: string | null;
+  images: string[];
+  files: string[];
   role: string;
   userId: string;
   chatId: string;

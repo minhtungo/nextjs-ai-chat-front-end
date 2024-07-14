@@ -9,12 +9,12 @@ import { Label } from "@/components/ui/label";
 
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
-import { Card } from "@/components/ui/card";
 import { cn, handlePastedFiles, handleUploadedFiles } from "@/lib/utils";
+import { filesStore, messageStore } from "@/store/message";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import DocPreview from "./DocPreview";
 import UtilButtons from "./UtilButtons";
-import { filesStore, messageStore } from "@/store/message";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,
@@ -91,14 +91,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                           className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
                         />
                       ) : (
-                        <Card className="h-14 w-full max-w-[450px] overflow-hidden border-border bg-muted/40 p-2 pr-4 sm:p-2 sm:pr-6">
-                          <div className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-                            {file.name}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            Document
-                          </div>
-                        </Card>
+                        <DocPreview name={file.name} />
                       )}
                       <button
                         className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"

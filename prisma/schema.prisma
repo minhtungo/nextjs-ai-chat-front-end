@@ -82,7 +82,8 @@ model Chat {
 model Message {
   id             String        @id
   content        String
-  image          String?
+  images          String[]
+  files          String[]
   role           String
   chatId         String
   userId         String

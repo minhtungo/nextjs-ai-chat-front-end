@@ -3,7 +3,7 @@
 import { removeChat } from "@/data/chat";
 import { authedAction } from "@/lib/safe-actions";
 import { PROTECTED_BASE_URL } from "@/routes";
-import { createNewChatUseCase } from "@/use-cases/chat";
+import { createNewChatUseCase, saveChatUseCase } from "@/use-cases/chat";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
@@ -28,6 +28,28 @@ export const createNewChatAction = authedAction
       throw new ZSAError("ERROR", error);
     }
     redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
+  });
+
+export const saveChatAction = authedAction
+  .input(
+    z.object({
+      chat: z.object({
+        id: z.string(),
+        subject: z.string(),
+        messages: z.any(),
+      }),
+      userId: z.string(),
+    }),
+  )
+  .handler(async ({ input: { chat, userId }, ctx: { user } }) => {
+    try {
+      await saveChatUseCase({
+        chat,
+        userId,
+      });
+    } catch (error) {
+      throw new Error("Error saving chat");
+    }
   });
 
 export const removeChatAction = authedAction
