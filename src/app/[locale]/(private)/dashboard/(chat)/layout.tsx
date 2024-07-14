@@ -7,6 +7,7 @@ import ChatHistory from "./components/ChatHistory";
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import CreateChatButton from "./components/CreateChat";
+import { PROTECTED_BASE_URL } from "@/routes";
 
 export default async function DashBoardLayout({
   children,
@@ -20,13 +21,13 @@ export default async function DashBoardLayout({
           <ScrollArea className="h-full flex-1">
             <div className="mb-3 px-4">
               <div className="mb-3 flex items-center justify-between">
-                <Link href="/">
+                <Link href={PROTECTED_BASE_URL}>
                   <Logo />
                 </Link>
               </div>
               <CreateChatButton />
             </div>
-            <div className="px-4">
+            <div className="overflow-hidden px-4">
               <ChatHistory />
             </div>
           </ScrollArea>

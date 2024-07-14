@@ -36,11 +36,11 @@ const SubjectsRadio: FC<SubjectsRadioProps> = ({
           value={subject.value}
           key={`new-chat-subject-${subject.value}`}
           className={cn(
-            "flex items-center gap-2 rounded-sm border border-input px-3 py-2 hover:border-primary/40 data-[state=checked]:border-primary",
+            "flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/20 px-4 py-2 hover:border-input hover:bg-accent/80 data-[state=checked]:border-primary data-[state=checked]:bg-accent",
             size === "lg" && "px-4 py-3",
           )}
         >
-          <div className="w-full overflow-hidden text-ellipsis text-left">
+          <div className="w-full overflow-hidden text-ellipsis text-left text-sm">
             {subject.label}
           </div>
           {isPending && selectedSubject === subject.value && <Spinner />}

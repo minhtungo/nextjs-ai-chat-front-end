@@ -1,5 +1,6 @@
 "use server";
 
+import { removeChat } from "@/data/chat";
 import { authedAction } from "@/lib/safe-actions";
 import { PROTECTED_BASE_URL } from "@/routes";
 import { createNewChatUseCase } from "@/use-cases/chat";
@@ -27,4 +28,16 @@ export const createNewChatAction = authedAction
       throw new ZSAError("ERROR", error);
     }
     redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
+  });
+
+export const removeChatAction = authedAction
+  .input(z.object({ chatID: z.string() }))
+  .handler(async ({ input: { chatID }, ctx: { user } }) => {
+    try {
+      await removeChat(chatID, user?.id!);
+    } catch (error) {
+      throw new Error("Error removing chat");
+    }
+
+    return chatID;
   });

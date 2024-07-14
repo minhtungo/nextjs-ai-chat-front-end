@@ -12,91 +12,118 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { PROTECTED_BASE_URL } from "@/routes";
 import { Chat } from "@/types/chat";
-import { Trash } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
+import { Ellipsis, Pencil, Trash } from "lucide-react";
+import { FC, MouseEventHandler, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
 interface ChatActionsProps {
   chat: Chat;
+  isActive: boolean;
+  setIsActive: (value: boolean) => void;
 }
 
-const ChatActions: FC<ChatActionsProps> = ({ chat }) => {
-  const router = useRouter();
+const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive, isActive }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { isPending: isRemovePending, execute } =
     useServerAction(removeChatAction);
 
+  const onDeleteChat = async (e: any) => {
+    e.preventDefault();
+    const [_, error] = await execute({
+      chatId: chat.id!,
+    });
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+  };
+
   return (
     <>
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="xs"
-              className="hover:bg-background"
-              disabled={isRemovePending}
-              onClick={() => setDeleteDialogOpen(true)}
-            >
-              <Trash className="size-4" />
-              <span className="sr-only">Delete</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>Delete chat</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This will permanently delete your chat message and remove your
-              data from our servers.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel disabled={isRemovePending}>
-              Cancel
-            </AlertDialogCancel>
-            <AlertDialogAction
-              disabled={isRemovePending}
-              onClick={async (e) => {
-                e.preventDefault();
-
-                const [_, error] = await execute({
-                  chatID: chat.id,
-                });
-
-                if (error) {
-                  toast.error(error.message);
-                  return;
-                }
-
-                setDeleteDialogOpen(false);
-
-                router.push(PROTECTED_BASE_URL);
-                router.refresh();
-                toast.success("Chat deleted");
-              }}
-            >
-              {isRemovePending && <Spinner className="mr-2" />}
-              Delete
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+      <DropdownMenu modal={false} onOpenChange={setIsActive}>
+        <TooltipProvider delayDuration={100}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <DropdownMenuTrigger>
+                <Ellipsis className="size-4" />
+              </DropdownMenuTrigger>
+            </TooltipTrigger>
+            <TooltipContent>Delete chat</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <DropdownMenuContent>
+          <DropdownMenuItem
+            disabled={isRemovePending}
+            onClick={() => setDeleteDialogOpen(true)}
+          >
+            <Trash className="size-4" />
+            <span>Delete</span>
+            <span className="sr-only">Delete</span>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Pencil className="size-4" />
+            <span>Rename</span>
+            <span className="sr-only">Rename</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DeleteChatDialog
+        deleteDialogOpen={deleteDialogOpen}
+        setDeleteDialogOpen={setDeleteDialogOpen}
+        isRemovePending={isRemovePending}
+        onDeleteChat={onDeleteChat}
+      />
     </>
+  );
+};
+
+const DeleteChatDialog = ({
+  deleteDialogOpen,
+  setDeleteDialogOpen,
+  isRemovePending,
+  onDeleteChat,
+}: {
+  deleteDialogOpen: boolean;
+  setDeleteDialogOpen: (value: boolean) => void;
+  isRemovePending: boolean;
+  onDeleteChat: (e: any) => Promise<void>;
+}) => {
+  return (
+    <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This will permanently delete your chat message and remove your data
+            from our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel disabled={isRemovePending}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction disabled={isRemovePending} onClick={onDeleteChat}>
+            {isRemovePending && <Spinner />}
+            Delete
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };
 

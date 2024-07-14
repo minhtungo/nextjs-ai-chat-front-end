@@ -1,6 +1,5 @@
 "use client";
 
-import { createNewChatAction } from "@/actions/chat";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,31 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { chatStore } from "@/store/chat";
 import { Plus } from "lucide-react";
-import { toast } from "sonner";
-import { useServerAction } from "zsa-react";
+import { useState } from "react";
 import NewChatCreation from "./NewChatCreation";
 
 const CreateChatButton = () => {
-  const {
-    getChat: { subject },
-  } = chatStore();
-  const { isPending, execute } = useServerAction(createNewChatAction);
-
-  const createNewChat = async () => {
-    const [_, error] = await execute({
-      subject: subject || "",
-    });
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-  };
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button
           variant="outline"
@@ -48,18 +30,8 @@ const CreateChatButton = () => {
           <DialogTitle>Select a subject</DialogTitle>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          {/* <SubjectSelection /> */}
-          <NewChatCreation />
+          <NewChatCreation toggleDialog={setIsOpen} />
         </div>
-        {/* <DialogFooter>
-          <SubmitButton
-            type="button"
-            className="w-full"
-            onClick={createNewChat}
-            label="Continue"
-            isPending={isPending}
-          />
-        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );

@@ -34,3 +34,20 @@ export const getChats = async (userId: string) => {
 
   return chats;
 };
+
+export const removeChat = async (chatId: string, userId: string) => {
+  await db.chat.delete({
+    where: {
+      id: chatId,
+      userId,
+    },
+  });
+};
+
+export const removeAllChats = async (userId: string) => {
+  await db.chat.deleteMany({
+    where: {
+      userId,
+    },
+  });
+};

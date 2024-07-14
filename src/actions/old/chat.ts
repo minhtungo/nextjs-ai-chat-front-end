@@ -11,6 +11,7 @@ import {
   saveChatUseCase,
 } from "@/use-cases/old/chat";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const saveChatAction = authedAction
@@ -60,15 +61,16 @@ export const getChatsAction = authedAction.handler(
 );
 
 export const removeChatAction = authedAction
-  .input(z.object({ chatID: z.string() }))
-  .handler(async ({ input: { chatID }, ctx: { user } }) => {
+  .input(z.object({ chatId: z.string() }))
+  .handler(async ({ input: { chatId }, ctx: { user } }) => {
     try {
-      await removeChat(chatID, user?.id!);
+      await removeChat(chatId, user?.id!);
     } catch (error) {
       throw new Error("Error removing chat");
     }
 
-    return chatID;
+    revalidatePath(`${PROTECTED_BASE_URL}`);
+    redirect(PROTECTED_BASE_URL);
   });
 
 export const removeAllChatsAction = authedAction.handler(

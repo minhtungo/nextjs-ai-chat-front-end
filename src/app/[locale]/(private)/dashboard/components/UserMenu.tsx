@@ -23,13 +23,13 @@ const UserMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" className="h-fit w-full justify-start gap-2">
-          <Avatar className="size-7">
+          <Avatar className="size-6">
             <AvatarImage src={user?.image || ""} alt={`${user?.name}-avatar`} />
             <AvatarFallback className="text-[13px]">
               {user?.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
             </AvatarFallback>
           </Avatar>
-          <span className="text-[15px] font-medium">{user?.name}</span>
+          <span className="text-sm font-medium">{user?.name}</span>
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>

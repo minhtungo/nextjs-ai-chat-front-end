@@ -3,13 +3,17 @@
 import { createNewChatAction } from "@/actions/chat";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubjectsRadio from "./SubjectsRadio";
 import { Input } from "@/components/ui/input";
 
-const NewChatCreation = () => {
+interface NewChatCreationProps {
+  toggleDialog?: (value: boolean) => void;
+}
+
+const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubject, setSelectedSubject] = useState<string | undefined>(
     undefined,
@@ -28,6 +32,10 @@ const NewChatCreation = () => {
       toast.error(error.message);
       return;
     }
+
+    if (toggleDialog) {
+      toggleDialog(false);
+    }
   };
 
   return (
@@ -42,7 +50,7 @@ const NewChatCreation = () => {
         </TabsList>
         <Input
           placeholder="Search subjects"
-          className="max-w-[400px] flex-1"
+          className="max-w-[350px] flex-1"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
