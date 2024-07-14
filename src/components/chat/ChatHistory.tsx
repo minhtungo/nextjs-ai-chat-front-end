@@ -6,6 +6,7 @@ import { Skeleton } from "../ui/skeleton";
 import SidebarList from "./SidebarList";
 import Logo from "../Logo";
 import SidebarToggle from "../dashboard/SidebarToggle";
+import Link from "next/link";
 
 interface ChatHistoryProps {
   className?: string;
@@ -19,8 +20,9 @@ const ChatHistory: FC<ChatHistoryProps> = async ({ className }) => {
   return (
     <div className={cn("flex h-full flex-col gap-y-2", className)}>
       <div className="mb-2 flex items-center justify-between">
-        <Logo />
-        <div className="flex items-center gap-x-2"></div>
+        <Link href="/">
+          <Logo />
+        </Link>
       </div>
       <CreateChat />
       <Suspense

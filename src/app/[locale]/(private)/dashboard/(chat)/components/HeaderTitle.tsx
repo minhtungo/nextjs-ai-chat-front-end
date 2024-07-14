@@ -8,7 +8,7 @@ const HeaderTitle = () => {
     getChat: { subject },
   } = chatStore();
   return (
-    <Typography tag="h1" variant="h4" className="capitalize">
+    <Typography tag="h1" variant="h5" className="capitalize">
       {subject && subject.length > 0 ? subject : "Dashboard"}
     </Typography>
   );
