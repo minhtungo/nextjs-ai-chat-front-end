@@ -44,8 +44,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
     }
   }, []);
 
-  console.log(files);
-
   return (
     <form className="relative" ref={formRef} onSubmit={onSubmit}>
       {!showMathKeyboard ? (

@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
-import ChatList from "./ChatList";
+import ChatListHistory from "./ChatListHistory";
 
 const ChatHistory = () => {
   return (
@@ -16,7 +16,7 @@ const ChatHistory = () => {
         </div>
       }
     >
-      <ChatList />
+      <ChatListHistory />
     </Suspense>
   );
 };

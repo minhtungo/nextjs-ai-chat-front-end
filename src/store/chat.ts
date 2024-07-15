@@ -5,12 +5,14 @@ export type ChatConfig = {
   subject: string | null;
   id: string | null;
   messages: Message[] | [];
+  isOverlayOpen: boolean;
 };
 
 export const chatInitialState: ChatConfig = {
   id: "",
   subject: "",
   messages: [],
+  isOverlayOpen: false,
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);

@@ -4,10 +4,11 @@ import { ElementRef, FC, useEffect, useRef } from "react";
 
 import { User } from "next-auth";
 import ChatPanel from "./ChatPanel";
-import ChatList from "./ChatList";
+import MessageHistory from "./MessageHistory";
 import { Chat as ChatType } from "@/types/chat";
 import { chatStore } from "@/store/chat";
 import Container from "../../../../components/Container";
+import ChatOverlayView from "./ChatOverlayView";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
@@ -37,12 +38,15 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
   return (
     <>
       <Container>
-        <div className="flex h-full w-full flex-1 flex-col gap-y-5">
-          {messages && messages.length > 0 && <ChatList messages={messages} />}
+        <div className="h-full w-full flex-1">
+          {messages && messages.length > 0 && (
+            <MessageHistory messages={messages} />
+          )}
         </div>
       </Container>
       <div ref={scrollRef} />
       <ChatPanel user={user} />
+      <ChatOverlayView user={user} />
     </>
   );
 };

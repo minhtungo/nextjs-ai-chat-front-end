@@ -24,6 +24,8 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     notFound();
   }
 
+  console.log(chat.messages);
+
   return <Chat user={user} chat={chat} />;
 };
 

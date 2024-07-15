@@ -20,7 +20,7 @@ const Trigger = () => {
       <Tooltip>
         <TooltipTrigger asChild>
           <Button variant="ghost" size="xs">
-            <MessageCircleReply className="h-3.5 w-3.5" />
+            <MessageCircleReply className="h-3.5 w-3.5 bg-blue-500" />
             <span className="sr-only">Create thread</span>
           </Button>
         </TooltipTrigger>

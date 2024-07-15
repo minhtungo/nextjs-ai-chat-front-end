@@ -1,10 +1,7 @@
 import { getChatsAction } from "@/actions/old/chat";
-import { FC, cache } from "react";
-import ChatActions from "./ChatActions";
-import ChatItem from "./ChatItem";
+import { cache } from "react";
 import { toast } from "sonner";
-
-interface ChatListProps {}
+import ChatItem from "./ChatItem";
 
 const loadChats = cache(async () => {
   const [data, error] = await getChatsAction();
@@ -15,7 +12,7 @@ const loadChats = cache(async () => {
   };
 });
 
-const ChatList: FC<ChatListProps> = async () => {
+const ChatListHistory = async () => {
   const { chats, error } = await loadChats();
 
   if (error) {
@@ -38,4 +35,4 @@ const ChatList: FC<ChatListProps> = async () => {
   );
 };
 
-export default ChatList;
+export default ChatListHistory;

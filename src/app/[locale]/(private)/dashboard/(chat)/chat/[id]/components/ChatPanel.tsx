@@ -2,7 +2,7 @@
 
 import { FC, FormEvent, useEffect } from "react";
 
-import { nanoid } from "@/lib/utils";
+import { cn, nanoid } from "@/lib/utils";
 import { put } from "@vercel/blob";
 import { User } from "next-auth";
 import PromptForm from "./PromptForm";
@@ -18,9 +18,10 @@ import {
 
 interface ChatPanelProps {
   user: User;
+  className?: string;
 }
 
-const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
+const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
@@ -128,7 +129,11 @@ const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
   };
 
   return (
-    <div className="mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6">
+    <div
+      className={cn(
+        className ? className : "mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6",
+      )}
+    >
       <PromptForm onSubmit={onSubmit} />
     </div>
   );
