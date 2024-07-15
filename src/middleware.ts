@@ -7,10 +7,10 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
+  onboardingHref,
   publicRoutes,
   signInHref,
 } from "./routes";
-import { Big_Shoulders_Inline_Display } from "next/font/google";
 
 const { auth } = NextAuth(authConfig);
 
@@ -25,10 +25,14 @@ const intlMiddleware = createIntlMiddleware({
 const authMiddleware = auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth?.user;
+  // const isOnboarded = !!req.auth?.user?.isOnboarded;
+
+  // console.log("isOnboarded", isOnboarded);
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  // const isOnboardingRoute = nextUrl.pathname.startsWith(onboardingHref);
 
   if (isApiAuthRoute) {
     return;
@@ -42,7 +46,6 @@ const authMiddleware = auth((req) => {
   }
 
   if (!isLoggedIn && !isPublicRoute && !isAuthRoute) {
-    console.log("Not logged in");
     let redirectURL = nextUrl.pathname;
     if (nextUrl.search) {
       redirectURL += nextUrl.search;
@@ -53,7 +56,17 @@ const authMiddleware = auth((req) => {
     );
   }
 
+  // if (isOnboardingRoute) {
+  //   if (isOnboarded) {
+  //     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  //   }
+  //   return intlMiddleware(req);
+  // }
+
   if (isLoggedIn) {
+    // if (!isOnboarded) {
+    //   return Response.redirect(new URL(onboardingHref, nextUrl));
+    // }
     return intlMiddleware(req);
   }
   return;

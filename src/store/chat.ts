@@ -7,11 +7,13 @@ export type ChatConfig = {
   messages: Message[] | [];
 };
 
-const chatAtom = atom<ChatConfig>({
+export const chatInitialState: ChatConfig = {
   id: "",
   subject: "",
   messages: [],
-});
+};
+
+const chatAtom = atom<ChatConfig>(chatInitialState);
 
 const chatStore = () => {
   return {

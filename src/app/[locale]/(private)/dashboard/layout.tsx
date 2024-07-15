@@ -3,6 +3,7 @@ import JoTaiProvider from "@/components/providers/JotaiProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import { SessionProvider } from "next-auth/react";
+import { redirect } from "next/navigation";
 import "./dashboard.css";
 
 export default async function DashBoardLayout({
@@ -12,9 +13,9 @@ export default async function DashBoardLayout({
 }>) {
   const session = await auth();
 
-  // if (!session?.user.isOnboarded) {
-  //   redirect("/onboarding");
-  // }
+  if (!session?.user.isOnboarded) {
+    redirect("/onboarding");
+  }
 
   if (session && session.user) {
     session.user = {

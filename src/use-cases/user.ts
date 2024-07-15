@@ -3,10 +3,12 @@ import {
   changeUserPassword,
   getUserById,
   toggleTwoFactor,
+  updateUserOnboarding,
   updateUserProfile,
 } from "@/data/user";
 import {
   changeUserPasswordSchema,
+  onboardingFormSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "@/lib/definitions";
@@ -27,6 +29,18 @@ export const updateUserProfileUseCase = async (
   await updateUserProfile(dbUser?.id!, values);
 
   revalidatePath(`/${PROTECTED_BASE_URL}/settings`);
+};
+
+export const onboardingFormUseCase = async (
+  userId: string,
+  values: z.infer<typeof onboardingFormSchema>,
+) => {
+  try {
+    await updateUserOnboarding({ userId, values });
+    return { success: true };
+  } catch (error) {
+    throw new Error("Error saving onboarding form");
+  }
 };
 
 export const toggleTwoFactorUseCase = async (

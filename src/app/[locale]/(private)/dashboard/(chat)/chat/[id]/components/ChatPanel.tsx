@@ -33,7 +33,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user }) => {
   const submitContent = submitContentStore();
 
   useEffect(() => {
-    console.log("--------------------------, running");
     setMessage("");
     setMathEquation("");
     setFiles([]);

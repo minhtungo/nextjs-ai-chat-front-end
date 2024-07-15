@@ -3,6 +3,7 @@
 import { authedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
+  onboardingFormUseCase,
   toggleTwoFactorUseCase,
   updateUserProfileUseCase,
 } from "@/use-cases/user";
@@ -22,7 +23,7 @@ export const updateUserProfileAction = authedAction
 export const onboardingFormAction = authedAction
   .input(onboardingFormSchema)
   .handler(async ({ input, ctx: { user } }) => {
-    // await onboardingFormUseCase(user.id!, input);
+    return await onboardingFormUseCase(user.id!, input);
   });
 
 export const toggleTwoFactorAction = authedAction

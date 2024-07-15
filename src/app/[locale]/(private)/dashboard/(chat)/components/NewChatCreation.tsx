@@ -3,11 +3,12 @@
 import { createNewChatAction } from "@/actions/chat";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubjectsRadio from "./SubjectsRadio";
 import { Input } from "@/components/ui/input";
+import { chatInitialState, chatStore } from "@/store/chat";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
@@ -20,6 +21,12 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
   );
 
   const { isPending, execute } = useServerAction(createNewChatAction);
+
+  const { setChat } = chatStore();
+
+  useEffect(() => {
+    setChat(chatInitialState);
+  }, []);
 
   const createNewChat = async (subject: string) => {
     setSelectedSubject(subject);

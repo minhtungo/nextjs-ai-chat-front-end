@@ -180,7 +180,6 @@ export const useCentrifuge = ({
     if (centrifuge.state === State.Disconnected) {
       centrifuge.connect();
     }
-
     return () => {
       if (centrifuge) {
         centrifuge.disconnect();

@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import {
   changeUserPasswordSchema,
+  onboardingFormSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "@/lib/definitions";
@@ -108,6 +109,22 @@ export const updateUserProfile = async (
           preferredLang: language.toUpperCase() as Languages,
         },
       },
+    },
+  });
+};
+
+export const updateUserOnboarding = async ({
+  userId,
+  values,
+}: {
+  userId: string;
+  values: z.infer<typeof onboardingFormSchema>;
+}) => {
+  await db.user.update({
+    where: { id: userId },
+    data: {
+      isOnboarded: true,
+      ...values,
     },
   });
 };

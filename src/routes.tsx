@@ -30,6 +30,8 @@ export const authRoutes = [
   resetPasswordHref,
 ];
 
+export const onboardingHref = "/onboarding";
+
 export const PROTECTED_BASE_URL = "/dashboard";
 
 export const NAV_LINKS = [
