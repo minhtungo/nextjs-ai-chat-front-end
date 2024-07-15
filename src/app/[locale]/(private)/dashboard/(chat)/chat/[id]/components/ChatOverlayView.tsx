@@ -18,6 +18,7 @@ interface ChatOverlayViewProps {
 
 const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const [lineWidth, setLineWidth] = useState(5);
 
   const {
     store: [{ isOverlayOpen, messages }, setChat],
@@ -54,7 +55,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
             </div>
             <div className="max-w-full">
               {isEditing ? (
-                <ImageMasker imageSrc={imageSrc} />
+                <ImageMasker imageSrc={imageSrc} lineWidth={lineWidth} />
               ) : (
                 <Image src={imageSrc} width={1024} height={1024} alt="Image" />
               )}

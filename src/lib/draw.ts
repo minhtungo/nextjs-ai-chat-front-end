@@ -2,6 +2,7 @@ import { Draw } from "./../types/draw.d";
 
 type DrawLineProps = Draw & {
   color: string;
+  lineWidth: number;
 };
 
 export const drawLine = ({
@@ -9,10 +10,10 @@ export const drawLine = ({
   currentPoint,
   ctx,
   color,
+  lineWidth = 5,
 }: DrawLineProps) => {
   const { x: currX, y: currY } = currentPoint;
   const lineColor = color;
-  const lineWidth = 5;
 
   let startPoint = prevPoint ?? currentPoint;
   ctx.beginPath();

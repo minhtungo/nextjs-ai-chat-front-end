@@ -4,7 +4,13 @@ import { useDraw } from "@/hooks/use-draw";
 import { drawLine } from "@/lib/draw";
 import { useEffect } from "react";
 
-const ImageMasker = ({ imageSrc }: { imageSrc: string }) => {
+const ImageMasker = ({
+  imageSrc,
+  lineWidth,
+}: {
+  imageSrc: string;
+  lineWidth: number;
+}) => {
   const { canvasRef, onMouseDown, clear } = useDraw(
     ({ prevPoint, currentPoint, ctx }) => {
       drawLine({
@@ -12,6 +18,7 @@ const ImageMasker = ({ imageSrc }: { imageSrc: string }) => {
         currentPoint,
         ctx,
         color: "#000",
+        lineWidth,
       });
     },
   );
