@@ -1,11 +1,10 @@
 import { Draw, Point } from "./../types/draw.d";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export const useDraw = (
   onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void,
 ) => {
   const [mouseDown, setMouseDown] = useState(false);
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prevPoint = useRef<null | Point>(null);
 
@@ -20,6 +19,23 @@ export const useDraw = (
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
+
+  const exportDrawingAsBlob = useCallback(
+    (callback: (blob: Blob | null) => void) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+
+      canvas.toBlob((blob) => {
+        callback(blob);
+      }, "image/png");
+    },
+    [],
+  );
+
+  const exportDrawingAsDataURL = useCallback(() => {
+    const canvas = canvasRef.current;
+    return canvas ? canvas.toDataURL("image/png") : null;
+  }, []);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -60,5 +76,11 @@ export const useDraw = (
     };
   }, [onDraw]);
 
-  return { canvasRef, onMouseDown, clear };
+  return {
+    canvasRef,
+    onMouseDown,
+    clear,
+    exportDrawingAsBlob,
+    exportDrawingAsDataURL,
+  };
 };

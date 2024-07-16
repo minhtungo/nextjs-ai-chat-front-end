@@ -25,11 +25,6 @@ const ImageMasker = ({
       }
     }
 
-    if (!canvas) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
     return () => {};
   }, [canvasRef]);
 

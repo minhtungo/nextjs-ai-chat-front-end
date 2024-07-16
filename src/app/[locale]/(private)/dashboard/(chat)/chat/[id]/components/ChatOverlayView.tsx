@@ -24,7 +24,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
 
   const imageRef = useRef(null);
 
-  const { clear, onMouseDown, canvasRef } = useDraw(
+  const { clear, onMouseDown, canvasRef, exportDrawingAsBlob } = useDraw(
     ({ prevPoint, currentPoint, ctx }) => {
       drawLine({
         prevPoint,

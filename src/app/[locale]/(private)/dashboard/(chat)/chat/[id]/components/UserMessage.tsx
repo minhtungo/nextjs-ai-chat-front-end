@@ -1,23 +1,11 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { FC } from "react";
 
 import { Card } from "@/components/ui/card";
-import { Message } from "@/types/chat";
-import Image from "next/image";
-import CreateThreadSheet from "./CreateThread";
-import DocPreview from "./DocPreview";
 import { chatStore } from "@/store/chat";
-import {
-  MessageSquare,
-  MessageSquareShare,
-  MessageSquareText,
-  Paintbrush,
-} from "lucide-react";
+import { Message } from "@/types/chat";
+import { MessageSquareShare } from "lucide-react";
+import Image from "next/image";
+import DocPreview from "./DocPreview";
 
 interface UserMessageProps {
   message: Message;

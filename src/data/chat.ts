@@ -17,7 +17,6 @@ export const createNewChat = async (chat: Chat) => {
 export const saveChat = cache(
   async ({ chat, userId }: { chat: ChatConfig; userId: string }) => {
     const latestMessage = chat.messages[chat.messages.length - 1];
-
     try {
       await db.chat.upsert({
         where: {
@@ -27,7 +26,6 @@ export const saveChat = cache(
         update: {
           messages: {
             create: {
-              id: latestMessage.id,
               content: latestMessage.content,
               images: latestMessage.images,
               files: latestMessage.files,
@@ -37,11 +35,9 @@ export const saveChat = cache(
           },
         },
         create: {
-          id: chat.id!,
           userId,
           messages: {
             create: {
-              id: latestMessage.id,
               content: latestMessage.content,
               images: latestMessage.images,
               files: latestMessage.files,

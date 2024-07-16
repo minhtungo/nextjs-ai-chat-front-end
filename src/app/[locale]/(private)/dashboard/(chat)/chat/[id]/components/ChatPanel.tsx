@@ -95,7 +95,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     const images = blobs ? blobs.map((blob) => blob.url) : [];
 
     // const encodedImage = await encodeImage(file);
-
     setChat((prev) => ({
       ...prev,
       messages: [
