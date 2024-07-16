@@ -1,16 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Paintbrush, X } from "lucide-react";
-import Image from "next/image";
-import { FC, useState } from "react";
-import ImageMasker from "./ImageMasker";
-import { chatStore } from "@/store/chat";
-import MessageHistory from "./MessageHistory";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import PromptForm from "./PromptForm";
+import { useDraw } from "@/hooks/use-draw";
+import { drawLine } from "@/lib/draw";
+import { chatStore } from "@/store/chat";
+import { Eraser, Paintbrush, X } from "lucide-react";
 import { User } from "next-auth";
+import Image from "next/image";
+import { FC, useRef, useState } from "react";
 import ChatPanel from "./ChatPanel";
+import ImageMasker from "./ImageMasker";
+import LineWidthSlider from "./LineWidthSlider";
+import MessageHistory from "./MessageHistory";
 
 interface ChatOverlayViewProps {
   user: User;
@@ -18,47 +20,99 @@ interface ChatOverlayViewProps {
 
 const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [lineWidth, setLineWidth] = useState(5);
+  const [lineWidth, setLineWidth] = useState(25);
+
+  const imageRef = useRef(null);
+
+  const { clear, onMouseDown, canvasRef } = useDraw(
+    ({ prevPoint, currentPoint, ctx }) => {
+      drawLine({
+        prevPoint,
+        currentPoint,
+        ctx,
+        color: "#000",
+        lineWidth,
+      });
+    },
+  );
 
   const {
-    store: [{ isOverlayOpen, messages }, setChat],
+    store: [
+      {
+        overlay: { isOpen, selectedImage },
+        messages,
+      },
+      setChat,
+    ],
   } = chatStore();
 
-  if (!isOverlayOpen) return null;
-
-  const imageSrc = "/images/intro-block-1.webp";
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 bg-accent">
       <div className="flex">
         <div className="flex-grow overflow-auto">
-          <div className="flex h-full w-full flex-col justify-between">
-            <div className="flex h-16 w-full items-center justify-end gap-x-2 px-4">
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-background/60"
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                <Paintbrush className="size-6" />
-              </Button>
-              <Button
-                size="icon"
-                variant="ghost"
-                className="hover:bg-background/60"
-                onClick={() =>
-                  setChat((prev) => ({ ...prev, isOverlayOpen: false }))
-                }
-              >
-                <X className="size-6" />
-              </Button>
-            </div>
-            <div className="max-w-full">
-              {isEditing ? (
-                <ImageMasker imageSrc={imageSrc} lineWidth={lineWidth} />
-              ) : (
-                <Image src={imageSrc} width={1024} height={1024} alt="Image" />
+          <div className="flex h-full w-full flex-col">
+            <div className="mb-6 flex w-full items-center gap-x-2 px-4 pt-2">
+              {isEditing && (
+                <div className="flex gap-x-4">
+                  <LineWidthSlider setLineWidth={setLineWidth} />
+                  <Button
+                    size="icon"
+                    variant="ghost"
+                    className="hover:bg-background/60"
+                    onClick={clear}
+                  >
+                    <Eraser className="size-6" />
+                  </Button>
+                </div>
               )}
+
+              <div className="ml-auto flex gap-2">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-background/60"
+                  onClick={() => setIsEditing(!isEditing)}
+                >
+                  <Paintbrush className="size-6" />
+                </Button>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-background/60"
+                  onClick={() => {
+                    setIsEditing(false);
+                    setChat((prev) => ({
+                      ...prev,
+                      overlay: { ...prev.overlay, isOpen: false },
+                    }));
+                  }}
+                >
+                  <X className="size-6" />
+                </Button>
+              </div>
+            </div>
+            <div className="relative mx-auto flex h-fit max-w-[50%]">
+              {isEditing && (
+                <div className="absolute inset-0">
+                  <div className="relative cursor-crosshair">
+                    <ImageMasker
+                      onMouseDown={onMouseDown}
+                      canvasRef={canvasRef}
+                      imageRef={imageRef}
+                    />
+                  </div>
+                </div>
+              )}
+              <Image
+                ref={imageRef}
+                src={selectedImage!}
+                width={1024}
+                height={1024}
+                className="h-auto w-full object-cover"
+                alt="Image"
+              />
             </div>
           </div>
         </div>

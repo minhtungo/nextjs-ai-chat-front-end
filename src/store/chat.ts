@@ -5,14 +5,20 @@ export type ChatConfig = {
   subject: string | null;
   id: string | null;
   messages: Message[] | [];
-  isOverlayOpen: boolean;
+  overlay: {
+    isOpen: boolean;
+    selectedImage: string | null;
+  };
 };
 
 export const chatInitialState: ChatConfig = {
   id: "",
   subject: "",
   messages: [],
-  isOverlayOpen: false,
+  overlay: {
+    isOpen: false,
+    selectedImage: null,
+  },
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);

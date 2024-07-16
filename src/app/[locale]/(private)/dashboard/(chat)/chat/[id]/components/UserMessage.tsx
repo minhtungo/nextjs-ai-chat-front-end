@@ -26,7 +26,12 @@ interface UserMessageProps {
 const UserMessage: FC<UserMessageProps> = ({ message }) => {
   const { content, images, files } = message;
   const {
-    store: [{ isOverlayOpen }, setChat],
+    store: [
+      {
+        overlay: { isOpen },
+      },
+      setChat,
+    ],
   } = chatStore();
 
   return (
@@ -36,13 +41,16 @@ const UserMessage: FC<UserMessageProps> = ({ message }) => {
           <div className="flex max-w-72 flex-row flex-wrap items-center justify-end gap-1">
             {images.map((image) => (
               <div
-                role={!isOverlayOpen ? "button" : "img"}
+                role={!isOpen ? "button" : "img"}
                 className="relative max-h-40 overflow-hidden rounded-lg"
                 onClick={() => {
-                  if (!isOverlayOpen) {
+                  if (!isOpen) {
                     setChat((prev) => ({
                       ...prev,
-                      isOverlayOpen: true,
+                      overlay: {
+                        isOpen: true,
+                        selectedImage: image,
+                      },
                     }));
                   }
                 }}
@@ -54,7 +62,7 @@ const UserMessage: FC<UserMessageProps> = ({ message }) => {
                   alt={`${message.userId}-image-message`}
                   className="max-h-40 w-full rounded-lg border-border"
                 />
-                {!isOverlayOpen && (
+                {!isOpen && (
                   <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-background/50 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
                     <MessageSquareShare className="size-6" />
                   </div>

@@ -9,11 +9,10 @@ export const drawLine = ({
   prevPoint,
   currentPoint,
   ctx,
-  color,
   lineWidth = 5,
 }: DrawLineProps) => {
   const { x: currX, y: currY } = currentPoint;
-  const lineColor = color;
+  const lineColor = "rgba(59, 130, 246 , 0.2)";
 
   let startPoint = prevPoint ?? currentPoint;
   ctx.beginPath();
@@ -25,6 +24,6 @@ export const drawLine = ({
 
   ctx.fillStyle = lineColor;
   ctx.beginPath();
-  ctx.arc(startPoint.x, startPoint.y, 2, 0, 2 * Math.PI);
+  ctx.arc(startPoint.x, startPoint.y, ctx.lineWidth / 2, 0, 2 * Math.PI);
   ctx.fill();
 };
