@@ -1,8 +1,9 @@
+import { IFile } from "@/store/message";
+
 export type Message = {
   id: string;
   content: string;
-  images: string[];
-  files: string[];
+  files: IFile[];
   role: string;
   userId: string;
   chatId: string;

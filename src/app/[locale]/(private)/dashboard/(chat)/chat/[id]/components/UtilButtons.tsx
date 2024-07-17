@@ -6,8 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { handleUploadedFiles } from "@/lib/utils";
-import { IFile, useMessageStore } from "@/store/message";
+import { useMessageStore } from "@/store/message";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 
@@ -20,7 +19,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
   showMathKeyboard,
   setShowMathKeyboard,
 }) => {
-  const { setFiles } = useMessageStore();
+  const { addFiles } = useMessageStore();
 
   return (
     <>
@@ -65,12 +64,11 @@ const UtilButtons: FC<UtilButtonsProps> = ({
         className="hidden"
         multiple
         id="attach-file"
-        onChange={(e) => {
-          const fileArray = handleUploadedFiles(e) as IFile[];
-          if (!fileArray || fileArray.length === 0) {
-            return;
+        onChange={async (e) => {
+          const files = e.target.files;
+          if (files) {
+            addFiles(Array.from(files));
           }
-          setFiles((currentFiles) => [...currentFiles, ...fileArray]);
         }}
       />
     </>

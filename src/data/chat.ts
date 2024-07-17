@@ -16,7 +16,7 @@ export const createNewChat = async (chat: Chat) => {
 
 export const saveChat = cache(
   async ({
-    message: { content, images, files, role },
+    message: { content, files, role },
     chatId,
     userId,
   }: {
@@ -34,8 +34,15 @@ export const saveChat = cache(
           messages: {
             create: {
               content,
-              images,
-              files,
+              files: {
+                createMany: {
+                  data: files.map(({ name, type, url }) => ({
+                    name: name!,
+                    type: type!,
+                    url: url!,
+                  })),
+                },
+              },
               role,
               userId,
             },
@@ -46,8 +53,15 @@ export const saveChat = cache(
           messages: {
             create: {
               content,
-              images,
-              files,
+              files: {
+                createMany: {
+                  data: files.map(({ name, type, url }) => ({
+                    name: name!,
+                    type: type!,
+                    url: url!,
+                  })),
+                },
+              },
               role,
               userId,
             },
@@ -65,7 +79,11 @@ export const getChatById = async (chatID: string, userId: string) => {
   const chat = await db.chat.findUnique({
     where: { id: chatID, userId },
     include: {
-      messages: true,
+      messages: {
+        include: {
+          files: true,
+        },
+      },
     },
   });
 

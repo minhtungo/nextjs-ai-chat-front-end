@@ -1,10 +1,15 @@
+import { uploadFile } from "@/lib/file";
+import { nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
+import { toast } from "sonner";
 
 export interface IFile {
+  id: string;
   name: string;
   url?: string;
+  preview?: string;
   type: "image" | "document";
-  file: File;
+  isUploading?: boolean;
 }
 
 interface IMessage {
@@ -13,11 +18,13 @@ interface IMessage {
   files: IFile[];
 }
 
-const messageAtom = atom<IMessage>({
+const initialMessageState: IMessage = {
   message: "",
   mathEquation: "",
   files: [],
-});
+};
+
+const messageAtom = atom<IMessage>(initialMessageState);
 
 // Helper hooks for interacting with the message state
 const useMessageStore = () => {
@@ -27,6 +34,8 @@ const useMessageStore = () => {
     setMessageStore((prev) => ({ ...prev, message }));
   const setMathEquation = (mathEquation: string) =>
     setMessageStore((prev) => ({ ...prev, mathEquation }));
+  const setIsUploading = (isUploading: boolean) =>
+    setMessageStore((prev) => ({ ...prev, isUploading }));
 
   const setFiles = (update: IFile[] | ((prevFiles: IFile[]) => IFile[])) =>
     setMessageStore((prev) => ({
@@ -34,18 +43,70 @@ const useMessageStore = () => {
       files: typeof update === "function" ? update(prev.files) : update,
     }));
 
-  const addFile = (newFile: IFile) =>
-    setFiles((prevFiles) => [...prevFiles, newFile]);
+  const addFiles = async (files: File[]) => {
+    if (!files || files.length === 0) {
+      return;
+    }
+    const newFiles: IFile[] = files.map((file) => {
+      return {
+        id: nanoid(),
+        name: file.name,
+        type: file.type.startsWith("image") ? "image" : "document",
+        url: URL.createObjectURL(file),
+        preview: file.type.startsWith("image")
+          ? URL.createObjectURL(file)
+          : undefined,
+        isUploading: true,
+      };
+    });
 
-  const clearMessageStore = () =>
-    setMessageStore({ message: "", mathEquation: "", files: [] });
+    setMessageStore((prev) => ({
+      ...prev,
+      files: [...prev.files, ...newFiles],
+    }));
+
+    await Promise.all(
+      files.map(async (file, index) => {
+        try {
+          const url = await uploadFile(file);
+          setMessageStore((prev) => ({
+            ...prev,
+            files: prev.files.map((f) =>
+              f.id === newFiles[index].id
+                ? { ...f, url, isUploading: false }
+                : f,
+            ),
+          }));
+        } catch (error) {
+          toast.error(`Upload failed for ${file.name}`);
+          // Mark file as not uploading in state on failure
+          setMessageStore((prev) => ({
+            ...prev,
+            files: prev.files.filter((f) => f.id !== newFiles[index].id),
+          }));
+        }
+      }),
+    );
+  };
+
+  const removeFile = (fileId: string) => {
+    setMessageStore((prev) => ({
+      ...prev,
+      files: prev.files.filter((file) => file.id !== fileId),
+    }));
+  };
+
+  const clearMessageStore = () => setMessageStore(initialMessageState);
 
   return {
     messageStore,
     setMessage,
     setMathEquation,
     setFiles,
+    setIsUploading,
     clearMessageStore,
+    addFiles,
+    removeFile,
   };
 };
 

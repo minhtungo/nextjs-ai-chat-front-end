@@ -3,7 +3,7 @@
 import { ElementRef, FC, useEffect, useRef } from "react";
 
 import { chatStore } from "@/store/chat";
-import { Chat as TChat, Message as TMessage } from "@prisma/client";
+import { File, Chat as TChat, Message as TMessage } from "@prisma/client";
 import { User } from "next-auth";
 import Container from "../../../../components/Container";
 import ChatOverlayView from "./ChatOverlayView";
@@ -13,7 +13,9 @@ import MessageHistory from "./MessageHistory";
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
   chat: TChat & {
-    messages: TMessage[];
+    messages: TMessage[] & {
+      files: File[];
+    };
   };
 }
 
@@ -27,9 +29,26 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
       ...prev,
       id: chat.id,
       subject: chat.subject,
-      messages: chat.messages,
+      messages: chat.messages.map(
+        ({ id, content, files, role, userId, chatId }) => {
+          return {
+            id,
+            content,
+            files: files.map(({ name, type, url }) => {
+              return {
+                name,
+                type,
+                url,
+              };
+            }),
+            role,
+            userId,
+            chatId,
+          };
+        },
+      ),
     }));
-  }, [chat]);
+  }, []);
 
   const scrollRef = useRef<ElementRef<"div">>(null);
 

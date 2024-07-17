@@ -3,7 +3,6 @@
 import { FC, FormEvent, useEffect } from "react";
 
 import { cn, nanoid } from "@/lib/utils";
-import { put } from "@vercel/blob";
 import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
@@ -41,25 +40,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
   //   },
   // });
 
-  const handleUpload = async () => {
-    if (!files.length) return;
-
-    try {
-      const uploads = Array.from(files).map(async ({ file }) => {
-        const blob = await put("images", file, {
-          access: "public",
-          token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN,
-        });
-        return blob;
-      });
-
-      return await Promise.all(uploads);
-    } catch (error) {
-      console.error("Error uploading files:", error);
-    } finally {
-    }
-  };
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -75,14 +55,10 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
       e.target["message"]?.blur();
     }
 
-    const blobs = await handleUpload();
-    const images = blobs ? blobs.map((blob) => blob.url) : [];
-
     const newMessage = {
       id: nanoid(),
       content: submitContent,
-      images: images,
-      files: [],
+      files,
       role: "user",
       userId: user?.id!,
       chatId: chat.id!,

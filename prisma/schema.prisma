@@ -82,8 +82,7 @@ model Chat {
 model Message {
   id             String        @id @default(cuid())
   content        String
-  images          String[]
-  files          String[]
+  files          File[]
   role           String
   chatId         String
   userId         String
@@ -93,6 +92,18 @@ model Message {
   
   chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
   user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model File {
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  type      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
 }
 
 model Account {

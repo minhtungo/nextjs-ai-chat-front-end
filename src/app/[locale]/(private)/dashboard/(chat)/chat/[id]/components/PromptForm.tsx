@@ -9,12 +9,13 @@ import { Label } from "@/components/ui/label";
 
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
-import { cn, handlePastedFiles, handleUploadedFiles } from "@/lib/utils";
+import Spinner from "@/components/Spinner";
+import { cn } from "@/lib/utils";
+import { useMessageStore } from "@/store/message";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import DocPreview from "./DocPreview";
 import UtilButtons from "./UtilButtons";
-import { IFile, useMessageStore } from "@/store/message";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,
@@ -33,7 +34,8 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const {
     messageStore: { files, message },
     setMessage,
-    setFiles,
+    addFiles,
+    removeFile,
   } = useMessageStore();
 
   useEffect(() => {
@@ -53,15 +55,13 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
           onDragOver={(e) => {
             e.preventDefault();
           }}
-          onDrop={(e) => {
-            e.preventDefault();
-            const fileArray = handleUploadedFiles(e) as IFile[];
-
-            if (!fileArray || fileArray.length === 0) {
-              return;
+          onDrop={async (e) => {
+            const files = e.dataTransfer?.files;
+            if (files) {
+              e.preventDefault();
+              const lastItem = Array.from(files)[files.length - 1];
+              addFiles([lastItem]);
             }
-
-            setFiles((prevFiles) => [...prevFiles, ...fileArray]);
           }}
         >
           <div className="flex w-full items-end gap-1.5 p-1 lg:gap-3.5">
@@ -78,42 +78,47 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             <div className="mr-1.5 flex min-h-8 w-full flex-1 flex-col items-start justify-center gap-y-3 overflow-hidden py-2 lg:min-h-9">
               {files && files.length > 0 && (
                 <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
-                  {files.map(({ file, name, type }, index) => (
-                    <div className="relative">
-                      {type.startsWith("image") ? (
-                        <Image
-                          src={URL.createObjectURL(file)}
-                          alt="Image"
-                          width={56}
-                          height={56}
-                          className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
-                        />
-                      ) : (
-                        <DocPreview name={name} />
-                      )}
-                      <button
-                        className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
-                        onClick={() => {
-                          setFiles((prevFiles) =>
-                            prevFiles.filter((_, idx) => idx !== index),
-                          );
-                        }}
-                      >
-                        <X className="h-3 w-3" />
-                        <span className="sr-only">Remove attached file</span>
-                      </button>
-                    </div>
-                  ))}
+                  {files.map(
+                    ({ preview, name, type, isUploading, id }, index) => (
+                      <div className="relative overflow-visible rounded-lg">
+                        {type === "image" ? (
+                          <Image
+                            src={preview!}
+                            alt="Image"
+                            width={60}
+                            height={60}
+                            className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
+                          />
+                        ) : (
+                          <DocPreview name={name} />
+                        )}
+                        <button
+                          className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
+                          onClick={() => {
+                            removeFile(id);
+                          }}
+                        >
+                          <X className="h-3 w-3" />
+                          <span className="sr-only">Remove attached file</span>
+                        </button>
+                        {isUploading && (
+                          <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-background/50 transition duration-300 ease-in-out">
+                            <Spinner className="size-3" />
+                          </div>
+                        )}
+                      </div>
+                    ),
+                  )}
                 </div>
               )}
               <Textarea
                 ref={inputRef}
                 tabIndex={0}
-                onPaste={(event) => {
-                  const file = handlePastedFiles(event) as IFile;
-                  if (file) {
-                    setFiles((currentFiles) => [...currentFiles, file]);
-                    event.preventDefault();
+                onPaste={async (e) => {
+                  const files = e.clipboardData?.files;
+                  if (files) {
+                    addFiles(Array.from(files));
+                    e.preventDefault();
                   }
                 }}
                 onKeyDown={onKeyDown}
