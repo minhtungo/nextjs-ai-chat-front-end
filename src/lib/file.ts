@@ -1,4 +1,4 @@
-import { put } from "@vercel/blob";
+import { upload } from "@vercel/blob/client";
 import { toast } from "sonner";
 
 const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
@@ -39,9 +39,9 @@ export function validateFilesOnUpload(files: any[]) {
 
 export const uploadFile = async (file: File): Promise<string> => {
   try {
-    const blob = await put(file.type, file, {
+    const blob = await upload(file.name, file, {
       access: "public",
-      token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN,
+      handleUploadUrl: "/api/storage/upload",
     });
     return blob.url;
   } catch (error) {

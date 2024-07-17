@@ -52,7 +52,6 @@ const useMessageStore = () => {
         id: nanoid(),
         name: file.name,
         type: file.type.startsWith("image") ? "image" : "document",
-        url: URL.createObjectURL(file),
         preview: file.type.startsWith("image")
           ? URL.createObjectURL(file)
           : undefined,
