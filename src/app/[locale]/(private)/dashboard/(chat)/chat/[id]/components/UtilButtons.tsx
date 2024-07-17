@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { handleUploadedFiles } from "@/lib/utils";
-import { filesStore } from "@/store/message";
+import { IFile, useMessageStore } from "@/store/message";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 
@@ -20,7 +20,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
   showMathKeyboard,
   setShowMathKeyboard,
 }) => {
-  const { setFiles } = filesStore();
+  const { setFiles } = useMessageStore();
 
   return (
     <>
@@ -66,7 +66,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
         multiple
         id="attach-file"
         onChange={(e) => {
-          const fileArray = handleUploadedFiles(e) as File[];
+          const fileArray = handleUploadedFiles(e) as IFile[];
           if (!fileArray || fileArray.length === 0) {
             return;
           }

@@ -1,4 +1,4 @@
-import { mathEquationStore } from "@/store/message";
+import { useMessageStore } from "@/store/message";
 import { MathfieldElement } from "mathlive";
 import { FC, RefObject, useEffect, useMemo, useRef } from "react";
 
@@ -7,10 +7,10 @@ interface MathKeyboardProps {
 }
 
 const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
-  // const setMathEquation = useSetMathEquation();
   const {
-    store: [mathEquation, setMathEquation],
-  } = mathEquationStore();
+    messageStore: { mathEquation },
+    setMathEquation,
+  } = useMessageStore();
 
   const containerRef = useRef(null);
 

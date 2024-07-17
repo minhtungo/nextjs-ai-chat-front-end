@@ -99,9 +99,11 @@ export function validateFilesOnUpload(files: any[]) {
 }
 
 export function handleUploadedFiles(e: any) {
-  const fileArray = e.target.files
-    ? Array.from(e.target?.files)
-    : (Array.from(e.dataTransfer?.files) as File[]);
+  const fileArray = (
+    e.target.files
+      ? Array.from(e.target?.files)
+      : Array.from(e.dataTransfer?.files)
+  ) as File[];
 
   if (!fileArray || fileArray.length === 0) {
     return;
@@ -114,11 +116,17 @@ export function handleUploadedFiles(e: any) {
     return [];
   }
 
-  return fileArray;
+  return fileArray.map((file) => {
+    return {
+      name: file.name,
+      type: file.type.startsWith("image") ? "image" : "document",
+      file,
+    };
+  });
 }
 
 export function handlePastedFiles(e: any) {
-  const items = Array.from(e.clipboardData.items || []);
+  const items = Array.from(e.clipboardData.items || []) as DataTransferItem[];
 
   if (items.length === 0) {
     return null;
@@ -126,7 +134,17 @@ export function handlePastedFiles(e: any) {
 
   const lastItem = items[items.length - 1];
 
-  return lastItem.kind === "file" ? lastItem.getAsFile() : null;
+  if (lastItem?.kind !== "file" || !lastItem?.getAsFile()) {
+    return null;
+  }
+
+  lastItem.kind;
+
+  return {
+    name: lastItem.getAsFile()?.name || "",
+    type: lastItem.getAsFile()?.type.match("^image/") ? "image" : "document",
+    file: lastItem.getAsFile(),
+  };
 }
 
 // export function onUploadFiles(files: File[]) {

@@ -2,12 +2,12 @@ import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Paperclip } from "lucide-react";
 import { FC } from "react";
 import { Input } from "@/components/ui/input";
-import { filesStore } from "@/store/message";
+import { useMessageStore } from "@/store/message";
 
 interface UploadFilesButtonProps {}
 
 const UploadFilesButton: FC<UploadFilesButtonProps> = () => {
-  const { setFiles } = filesStore();
+  const { setFiles } = useMessageStore();
 
   return (
     <>
@@ -28,7 +28,17 @@ const UploadFilesButton: FC<UploadFilesButtonProps> = () => {
         onChange={(e) => {
           if (e.target.files?.length) {
             const fileArray = Array.from(e.target?.files);
-            setFiles(fileArray);
+            if (fileArray.length > 0) {
+              setFiles(
+                fileArray.map((file) => {
+                  return {
+                    name: file.name,
+                    type: file.type.startsWith("image") ? "image" : "document",
+                    file,
+                  };
+                }),
+              );
+            }
           }
         }}
       />

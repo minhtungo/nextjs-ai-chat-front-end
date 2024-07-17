@@ -9,12 +9,7 @@ import PromptForm from "./PromptForm";
 
 import { saveChatAction } from "@/actions/chat";
 import { chatStore } from "@/store/chat";
-import {
-  filesStore,
-  mathEquationStore,
-  messageStore,
-  submitContentStore,
-} from "@/store/message";
+import { useMessageStore } from "@/store/message";
 
 interface ChatPanelProps {
   user: User;
@@ -25,18 +20,14 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
-  const { setMathEquation } = mathEquationStore();
-  const { setMessage } = messageStore();
-  const {
-    store: [files, setFiles],
-  } = filesStore();
 
-  const submitContent = submitContentStore();
+  const {
+    messageStore: { files, mathEquation, message },
+    clearMessageStore,
+  } = useMessageStore();
 
   useEffect(() => {
-    setMessage("");
-    setMathEquation("");
-    setFiles([]);
+    clearMessageStore();
   }, []);
 
   // const { publishMessage } = useCentrifuge({
@@ -54,7 +45,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     if (!files.length) return;
 
     try {
-      const uploads = Array.from(files).map(async (file) => {
+      const uploads = Array.from(files).map(async ({ file }) => {
         const blob = await put("images", file, {
           access: "public",
           token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN,
@@ -72,6 +63,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const submitContent = mathEquation || message;
+
     if (!submitContent || submitContent.trim() === "") {
       return;
     }
@@ -80,15 +73,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     if (window.innerWidth < 600) {
       // @ts-ignore
       e.target["message"]?.blur();
-    }
-
-    let blob = null;
-
-    if (files && files.length > 0) {
-      blob = await put("images", files[0], {
-        access: "public",
-        token: process.env.NEXT_PUBLIC_BLOB_READ_WRITE_TOKEN!,
-      });
     }
 
     const blobs = await handleUpload();
@@ -109,9 +93,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
       messages: [...prev.messages, newMessage],
     }));
 
-    setMessage("");
-    setMathEquation("");
-    setFiles([]);
+    clearMessageStore();
 
     await saveChatAction({
       message: newMessage,

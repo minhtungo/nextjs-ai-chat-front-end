@@ -10,11 +10,11 @@ import { Label } from "@/components/ui/label";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
 import { cn, handlePastedFiles, handleUploadedFiles } from "@/lib/utils";
-import { filesStore, messageStore } from "@/store/message";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import DocPreview from "./DocPreview";
 import UtilButtons from "./UtilButtons";
+import { IFile, useMessageStore } from "@/store/message";
 
 const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
   loading: () => <p>Loading...</p>,
@@ -31,12 +31,10 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
-    store: [files, setFiles],
-  } = filesStore();
-
-  const {
-    store: [message, setMessage],
-  } = messageStore();
+    messageStore: { files, message },
+    setMessage,
+    setFiles,
+  } = useMessageStore();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -57,11 +55,13 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
           }}
           onDrop={(e) => {
             e.preventDefault();
-            const fileArray = handleUploadedFiles(e) as File[];
+            const fileArray = handleUploadedFiles(e) as IFile[];
+
             if (!fileArray || fileArray.length === 0) {
               return;
             }
-            setFiles((currentFiles) => [...currentFiles, ...fileArray]);
+
+            setFiles((prevFiles) => [...prevFiles, ...fileArray]);
           }}
         >
           <div className="flex w-full items-end gap-1.5 p-1 lg:gap-3.5">
@@ -78,9 +78,9 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             <div className="mr-1.5 flex min-h-8 w-full flex-1 flex-col items-start justify-center gap-y-3 overflow-hidden py-2 lg:min-h-9">
               {files && files.length > 0 && (
                 <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
-                  {files.map((file, index) => (
+                  {files.map(({ file, name, type }, index) => (
                     <div className="relative">
-                      {file.type.startsWith("image") ? (
+                      {type.startsWith("image") ? (
                         <Image
                           src={URL.createObjectURL(file)}
                           alt="Image"
@@ -89,7 +89,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                           className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
                         />
                       ) : (
-                        <DocPreview name={file.name} />
+                        <DocPreview name={name} />
                       )}
                       <button
                         className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
@@ -110,7 +110,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 ref={inputRef}
                 tabIndex={0}
                 onPaste={(event) => {
-                  const file = handlePastedFiles(event);
+                  const file = handlePastedFiles(event) as IFile;
                   if (file) {
                     setFiles((currentFiles) => [...currentFiles, file]);
                     event.preventDefault();
