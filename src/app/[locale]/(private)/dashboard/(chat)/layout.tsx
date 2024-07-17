@@ -27,7 +27,7 @@ export default async function DashBoardLayout({
               </div>
               <CreateChatButton />
             </div>
-            <div className="overflow-hidden px-4">
+            <div className="mt-5 overflow-hidden px-4">
               <ChatHistory />
             </div>
           </ScrollArea>

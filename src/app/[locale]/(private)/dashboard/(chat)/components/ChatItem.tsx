@@ -10,11 +10,11 @@ import { usePathname } from "next/navigation";
 import { FC, useState } from "react";
 import ChatActions from "./ChatActions";
 
-interface SidebarItemProps {
+interface ChatItemProps {
   chat: Chat;
 }
 
-const ChatItem: FC<SidebarItemProps> = ({ chat }) => {
+const ChatItem: FC<ChatItemProps> = ({ chat }) => {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
 
@@ -31,18 +31,20 @@ const ChatItem: FC<SidebarItemProps> = ({ chat }) => {
         href={`${PROTECTED_BASE_URL}/chat/${chat.id}`}
         className={cn(
           buttonVariants({ variant: "ghost" }),
-          "flex items-center justify-start overflow-hidden p-2",
+          "flex items-center justify-start overflow-hidden p-2 pl-3 text-muted-foreground",
+          (isActive || isActiveChat) && "text-foreground",
         )}
       >
-        <MessageCircle className="size-4 text-muted-foreground" />
+        <MessageCircle className="size-4" />
         <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap">
           {chat.title ||
             chat.messages?.[0]?.content.substring(0, 20) ||
             chat.subject}
+
           <div
             className={cn(
               "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
-              (isActiveChat || isActive) && "w-9 from-accent/90",
+              isActiveChat && "w-9 from-accent/90",
             )}
           />
         </div>

@@ -1,7 +1,13 @@
 import { getChatsAction } from "@/actions/old/chat";
 import { cache } from "react";
 import { toast } from "sonner";
-import ChatItem from "./ChatItem";
+import ChatGroup from "./ChatGroup";
+import { Chat } from "@/types/chat";
+
+interface SubjectGroup {
+  subject: string;
+  chats: Chat[];
+}
 
 const loadChats = cache(async () => {
   const [data, error] = await getChatsAction();
@@ -20,18 +26,43 @@ const ChatListHistory = async () => {
     return null;
   }
 
+  if (!chats || chats.length === 0) {
+    return (
+      <div className="mt-2 text-sm text-muted-foreground">
+        You have no chats yet.
+      </div>
+    );
+  }
+
+  const chatGroups: SubjectGroup[] = chats.reduce<SubjectGroup[]>(
+    (acc, chat) => {
+      const subjectGroup = acc.find((group) => group.subject === chat.subject);
+      if (subjectGroup) {
+        subjectGroup.chats.push(chat);
+      } else {
+        acc.push({
+          subject: chat.subject!,
+          chats: [chat],
+        });
+      }
+      return acc;
+    },
+    [],
+  );
+  console.log("groupedChats", chatGroups[0].chats);
+
   return (
-    <>
-      {chats && chats.length > 0 ? (
-        <ol className="space-y-1.5">
-          {chats.map((chat) => chat && <ChatItem chat={chat} />)}
-        </ol>
-      ) : (
-        <div className="mt-2 text-sm text-muted-foreground">
-          You have no chats yet.
-        </div>
-      )}
-    </>
+    <div className="space-y-3">
+      {chatGroups.map(({ subject, chats }) => {
+        return (
+          <ChatGroup
+            key={`${subject}-chat-group`}
+            subject={subject}
+            chats={chats}
+          />
+        );
+      })}
+    </div>
   );
 };
 
