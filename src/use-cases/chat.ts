@@ -1,19 +1,20 @@
 import { createNewChat, getChatById, getChats, saveChat } from "@/data/chat";
-import { ChatConfig } from "@/store/chat";
-import { Chat } from "@/types/chat";
+import { Chat, NewMessage } from "@/types/chat";
 
 export const createNewChatUseCase = async (chat: Chat) => {
   return await createNewChat(chat);
 };
 
 export const saveChatUseCase = async ({
-  chat,
+  message,
+  chatId,
   userId,
 }: {
-  chat: ChatConfig;
+  message: NewMessage;
+  chatId: string;
   userId: string;
 }) => {
-  return await saveChat({ chat, userId });
+  return await saveChat({ message, chatId, userId });
 };
 
 export const getChatByIDUseCase = async (chatID: string, userID: string) => {

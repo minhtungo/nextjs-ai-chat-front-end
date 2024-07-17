@@ -33,19 +33,16 @@ export const createNewChatAction = authedAction
 export const saveChatAction = authedAction
   .input(
     z.object({
-      chat: z.object({
-        id: z.string(),
-        subject: z.string(),
-        messages: z.any(),
-      }),
-      userId: z.string(),
+      message: z.any(),
+      chatId: z.string(),
     }),
   )
-  .handler(async ({ input: { chat, userId }, ctx: { user } }) => {
+  .handler(async ({ input: { message, chatId }, ctx: { user } }) => {
     try {
       await saveChatUseCase({
-        chat,
-        userId,
+        message,
+        chatId,
+        userId: user.id!,
       });
     } catch (error) {
       throw new Error("Error saving chat");

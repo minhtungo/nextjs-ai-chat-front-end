@@ -8,6 +8,8 @@ export type Message = {
   chatId: string;
 };
 
+export type NewMessage = Omit<Message, "id" | "chatId">;
+
 export type Chat = {
   id?: string;
   title: string | null;

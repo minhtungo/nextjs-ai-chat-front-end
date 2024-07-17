@@ -2,17 +2,19 @@
 
 import { ElementRef, FC, useEffect, useRef } from "react";
 
-import { User } from "next-auth";
-import ChatPanel from "./ChatPanel";
-import MessageHistory from "./MessageHistory";
-import { Chat as ChatType } from "@/types/chat";
 import { chatStore } from "@/store/chat";
+import { Chat as TChat, Message as TMessage } from "@prisma/client";
+import { User } from "next-auth";
 import Container from "../../../../components/Container";
 import ChatOverlayView from "./ChatOverlayView";
+import ChatPanel from "./ChatPanel";
+import MessageHistory from "./MessageHistory";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
-  chat: ChatType;
+  chat: TChat & {
+    messages: TMessage[];
+  };
 }
 
 const Chat: FC<ChatProps> = ({ user, chat }) => {
@@ -23,7 +25,7 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
   useEffect(() => {
     setChat((prev) => ({
       ...prev,
-      id: chat.id!,
+      id: chat.id,
       subject: chat.subject,
       messages: chat.messages,
     }));

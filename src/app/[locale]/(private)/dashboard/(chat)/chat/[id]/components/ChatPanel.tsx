@@ -94,21 +94,19 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     const blobs = await handleUpload();
     const images = blobs ? blobs.map((blob) => blob.url) : [];
 
-    // const encodedImage = await encodeImage(file);
+    const newMessage = {
+      id: nanoid(),
+      content: submitContent,
+      images: images,
+      files: [],
+      role: "user",
+      userId: user?.id!,
+      chatId: chat.id!,
+    };
+
     setChat((prev) => ({
       ...prev,
-      messages: [
-        ...prev.messages,
-        {
-          id: nanoid(),
-          content: submitContent,
-          images: images,
-          files: [],
-          role: "user",
-          userId: user?.id!,
-          chatId: chat.id!,
-        },
-      ],
+      messages: [...prev.messages, newMessage],
     }));
 
     setMessage("");
@@ -116,8 +114,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     setFiles([]);
 
     await saveChatAction({
-      chat,
-      userId: user.id!,
+      message: newMessage,
+      chatId: chat.id!,
     });
 
     // await publishMessage(submitContent);

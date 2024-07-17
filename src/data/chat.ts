@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { ChatConfig } from "@/store/chat";
-import { Chat } from "@/types/chat";
+import { Chat, Message, NewMessage } from "@/types/chat";
 import { cache } from "react";
 
 export const createNewChat = async (chat: Chat) => {
@@ -15,22 +15,29 @@ export const createNewChat = async (chat: Chat) => {
 };
 
 export const saveChat = cache(
-  async ({ chat, userId }: { chat: ChatConfig; userId: string }) => {
-    const latestMessage = chat.messages[chat.messages.length - 1];
+  async ({
+    message: { content, images, files, role },
+    chatId,
+    userId,
+  }: {
+    message: NewMessage;
+    chatId: string;
+    userId: string;
+  }) => {
     try {
       await db.chat.upsert({
         where: {
-          id: chat.id!,
+          id: chatId,
           userId: userId,
         },
         update: {
           messages: {
             create: {
-              content: latestMessage.content,
-              images: latestMessage.images,
-              files: latestMessage.files,
-              role: latestMessage.role,
-              userId: userId,
+              content,
+              images,
+              files,
+              role,
+              userId,
             },
           },
         },
@@ -38,10 +45,10 @@ export const saveChat = cache(
           userId,
           messages: {
             create: {
-              content: latestMessage.content,
-              images: latestMessage.images,
-              files: latestMessage.files,
-              role: latestMessage.role,
+              content,
+              images,
+              files,
+              role,
               userId,
             },
           },
