@@ -13,9 +13,10 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { type Mail } from "@prisma/client";
-import { useGetMail } from "../../../../../../../store/mail";
+
 import { MailDisplay } from "./MailDisplay";
 import { MailList } from "./MailList";
+import { useGetMail } from "@/store/mail";
 
 interface MailProps {
   mails: Mail[];
