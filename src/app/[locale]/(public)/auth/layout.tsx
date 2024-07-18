@@ -1,7 +1,3 @@
-import Footer from "@/components/Footer";
-import NavButtons from "@/components/NavButtons";
-import Navbar from "@/components/Navbar";
-
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -19,12 +15,8 @@ export default function AuthLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <>
-      <Navbar navButtons={<NavButtons />} />
-      <main className="flex min-h-[calc(100vh-56px)] w-full items-center justify-center px-4 sm:px-6">
-        {children}
-      </main>
-      <Footer className="!mt-0" />
-    </>
+    <div className="flex h-full w-full items-center justify-center">
+      {children}
+    </div>
   );
 }

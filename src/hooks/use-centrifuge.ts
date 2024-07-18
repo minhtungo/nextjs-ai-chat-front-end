@@ -18,12 +18,14 @@ import {
   StateContext,
   State,
   Subscription,
+  ConnectedContext,
 } from "centrifuge";
 import { useEffect, useRef, useState } from "react";
 
 interface useCentrifugeProps {
   channel?: string;
   userId?: string;
+  onConnect?: (message: ConnectedContext) => void;
   onPublication?: (message: Message) => void;
   onState?: (state: SubscriptionStateContext) => void;
   onError?: (error: ErrorContext) => void;
@@ -41,6 +43,7 @@ interface useCentrifugeProps {
 export const useCentrifuge = ({
   channel,
   userId,
+  onConnect,
   onPublication,
   onState,
   onError,
@@ -84,6 +87,8 @@ export const useCentrifuge = ({
       debug: true,
     });
 
+    if (!channel) return;
+
     const getChannelSubscriptionToken = async () => {
       return getSubscriptionToken(channel);
     };
@@ -109,6 +114,9 @@ export const useCentrifuge = ({
     });
 
     centrifuge.on("connected", (ctx) => {
+      if (onConnect) {
+        onConnect(ctx);
+      }
       console.log(`connected ${ctx}`);
     });
 
@@ -193,6 +201,7 @@ export const useCentrifuge = ({
   }, [channel]);
 
   const publishMessage = async (message: string) => {
+    if (!channel) return;
     const token = await getPublishMessageToken(channel, message);
 
     if (subRef.current) {

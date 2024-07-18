@@ -37,7 +37,10 @@ const CardWrapper: FC<cardWrapperProps> = ({
         <CardTitle className="text-2xl">{headerLabel}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
-      <CardContent className={cn(className)} noBorder={noBorder}>
+      <CardContent
+        className={cn("pb-0 sm:pb-0", className)}
+        noBorder={noBorder}
+      >
         {children}
         {backButtonHref && backButtonLabel && (
           <BackButton

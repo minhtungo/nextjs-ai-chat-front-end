@@ -1,15 +1,15 @@
 "use client";
 
-import { NAV_LINKS } from "@/routes";
 import { cn } from "@/lib/utils";
-import { useLocale, useTranslations } from "next-intl";
+import { NAV_LINKS } from "@/routes";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, Suspense, useEffect, useState } from "react";
-import Logo from "./Logo";
-import MaxWidthWrapper from "./MaxWidthWrapper";
-import MobileMenu from "./MobileMenu";
-import ThemeToggle from "./ThemeToggle";
+import Logo from "../../Logo";
+import MaxWidthWrapper from "../../MaxWidthWrapper";
+import MobileMenu from "../../MobileMenu";
+import ThemeToggle from "../../ThemeToggle";
 
 interface navbarProps {
   navButtons?: React.ReactNode;

@@ -1,6 +1,5 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { ReactQueryClientProvider } from "./ReactQueryClientProvider";
 import { ThemeProvider } from "./ThemeProvider";
 
 export default async function Providers({
@@ -18,7 +17,7 @@ export default async function Providers({
         enableSystem
         disableTransitionOnChange
       >
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
+        {children}
       </ThemeProvider>
     </NextIntlClientProvider>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/hooks/use-sidebar";
+import { useSidebar } from "@/store/sidebar";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FC } from "react";

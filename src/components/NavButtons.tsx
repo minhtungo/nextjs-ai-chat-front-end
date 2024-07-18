@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FC } from "react";
 import SignOutButton from "./SignOutButton";
 import { buttonVariants } from "./ui/button";
-import LanguageSwitcher from "./LanguageSwitcher";
 
 interface NavButtonsProps {}
 
