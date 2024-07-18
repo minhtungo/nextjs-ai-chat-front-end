@@ -32,7 +32,7 @@ export const INTRO_BLOCKS = [
   {
     title: "Instant Answers with AI Tutor Chat",
     description:
-      "AI Tutor Chat provides instant answers to virtually any question and also explains how to find the answer yourself, allowing you to truly understand the material and do better on your next test. Customized to each subject, AI Tutor Chat can provide theory explanations, generate sample problems, create essay writing prompts, offer language learning practice, and more!",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
     imageSrc: "/images/intro-block-1.webp",
     width: 1792,
     height: 1024,
@@ -41,7 +41,7 @@ export const INTRO_BLOCKS = [
   {
     title: "Instant Answers with AI Tutor Chat",
     description:
-      "AI Tutor Chat provides instant answers to virtually any question and also explains how to find the answer yourself, allowing you to truly understand the material and do better on your next test. Customized to each subject, AI Tutor Chat can provide theory explanations, generate sample problems, create essay writing prompts, offer language learning practice, and more!",
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
     imageSrc: "/images/intro-block-1.webp",
     width: 1792,
     height: 1024,
