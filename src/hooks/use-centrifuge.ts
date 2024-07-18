@@ -22,8 +22,8 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 interface useCentrifugeProps {
-  channel: string;
-  userId: string;
+  channel?: string;
+  userId?: string;
   onPublication?: (message: Message) => void;
   onState?: (state: SubscriptionStateContext) => void;
   onError?: (error: ErrorContext) => void;
@@ -77,7 +77,7 @@ export const useCentrifuge = ({
   let subRef = useRef<Subscription>(null);
 
   useEffect(() => {
-    if (!channel || !userId) return;
+    // if (!channel || !userId) return;
 
     centrifuge = new Centrifuge(process.env.NEXT_PUBLIC_WS_ENDPOINT!, {
       getToken: getConnectionToken,

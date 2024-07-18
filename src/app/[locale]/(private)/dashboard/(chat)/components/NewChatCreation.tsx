@@ -1,14 +1,14 @@
 "use client";
 
 import { createNewChatAction } from "@/actions/chat";
+import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
+import { chatInitialState, chatStore } from "@/store/chat";
 import { FC, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubjectsRadio from "./SubjectsRadio";
-import { Input } from "@/components/ui/input";
-import { chatInitialState, chatStore } from "@/store/chat";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;

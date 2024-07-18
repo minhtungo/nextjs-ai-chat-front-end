@@ -49,7 +49,6 @@ const ChatListHistory = async () => {
     },
     [],
   );
-  console.log("groupedChats", chatGroups[0].chats);
 
   return (
     <div className="space-y-3">

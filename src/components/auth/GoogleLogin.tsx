@@ -19,6 +19,7 @@ const GoogleLogin: FC<GoogleLoginProps> = ({
 }) => {
   return (
     <Button
+      type="button"
       variant="outline"
       className={cn("w-full", className)}
       onClick={async () => await signInWithGoogle(redirectURL)}

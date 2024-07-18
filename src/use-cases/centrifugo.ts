@@ -2,7 +2,7 @@ import {
   getConnectionTokenAction,
   getPublishMessageTokenAction,
   getSubscriptionTokenAction,
-} from "@/actions/centrifugo";
+} from "@/actions/centrifuge";
 import { Centrifuge } from "centrifuge";
 
 export const getConnectionToken = async () => {
@@ -11,6 +11,8 @@ export const getConnectionToken = async () => {
   if (err) {
     throw new Centrifuge.UnauthorizedError("Unauthorized");
   }
+
+  // console.log("data=========", data);
 
   return data.token;
 };

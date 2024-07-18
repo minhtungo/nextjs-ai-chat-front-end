@@ -27,7 +27,13 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
           isOpen && "text-foreground",
         )}
       >
-        <span className={cn("text-sm font-medium capitalize")}>{subject}</span>
+        <span
+          className={cn(
+            "whitespace-nowrap text-left text-sm font-medium capitalize",
+          )}
+        >
+          {subject}
+        </span>
         <ChevronsUpDown className="size-4" />
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">

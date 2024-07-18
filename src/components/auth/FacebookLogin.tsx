@@ -19,6 +19,7 @@ const FacebookLogin: FC<FacebookLoginProps> = ({
 }) => {
   return (
     <Button
+      type="button"
       variant="outline"
       className={cn("w-full", className)}
       onClick={async () => await signInWithFacebook(redirectURL)}
