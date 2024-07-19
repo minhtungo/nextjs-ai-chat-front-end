@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/store/sidebar";
+import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 

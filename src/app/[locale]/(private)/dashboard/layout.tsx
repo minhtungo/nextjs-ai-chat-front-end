@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { cache } from "react";
 import "./dashboard.css";
 import { ReactQueryClientProvider } from "@/components/providers/ReactQueryClientProvider";
+import { SidebarProvider } from "@/hooks/use-sidebar";
 
 const getAuth = cache(async () => {
   return await auth();
@@ -29,9 +30,11 @@ export default async function DashBoardLayout({
   }
   return (
     <SessionProvider session={session}>
-      <JoTaiProvider>
-        <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
-      </JoTaiProvider>
+      <ReactQueryClientProvider>
+        <JoTaiProvider>
+          <SidebarProvider>{children}</SidebarProvider>
+        </JoTaiProvider>
+      </ReactQueryClientProvider>
       <Toaster closeButton />
     </SessionProvider>
   );

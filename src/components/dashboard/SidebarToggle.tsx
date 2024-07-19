@@ -1,6 +1,5 @@
 "use client";
 
-import { useSidebar } from "@/store/sidebar";
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FC } from "react";
@@ -10,6 +9,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 interface SidebarToggleProps {
   className?: string;
@@ -26,9 +26,7 @@ const SidebarToggle: FC<SidebarToggleProps> = ({ className }) => {
               "hidden rounded-full bg-accent p-1 lg:flex",
               className,
             )}
-            onClick={() => {
-              toggleSidebar();
-            }}
+            onClick={toggleSidebar}
           >
             {isSidebarOpen ? (
               <ChevronLeft className="size-4" />
