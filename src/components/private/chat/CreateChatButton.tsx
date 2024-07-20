@@ -29,9 +29,7 @@ const CreateChatButton = () => {
         <DialogHeader>
           <DialogTitle>Select a subject</DialogTitle>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <NewChatCreation toggleDialog={setIsOpen} />
-        </div>
+        <NewChatCreation toggleDialog={setIsOpen} />
       </DialogContent>
     </Dialog>
   );

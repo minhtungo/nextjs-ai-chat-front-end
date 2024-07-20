@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/lib/auth";
 
 import Typography from "@/components/ui/typography";
-import NewChatCreation from "../../../../../components/private/chat/NewChatCreation";
-import Container from "../../../../../components/private/common/Container";
+import NewChatCreation from "@/components/private/chat/NewChatCreation";
+import Container from "@/components/private/common/Container";
 
 const ChatPage = async () => {
   const user = await getCurrentUser();

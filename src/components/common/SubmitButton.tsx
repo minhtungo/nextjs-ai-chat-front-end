@@ -1,32 +1,34 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { FC } from "react";
+import React, { FC } from "react";
 import Spinner from "./Spinner";
 import { Button, ButtonProps } from "@/components/ui/button";
 
 interface SubmitButtonProps extends ButtonProps {
   className?: string;
-  label: string;
+  children: React.ReactNode;
   isPending?: boolean;
+  disabled?: boolean;
   type?: "submit" | "button";
 }
 
 const SubmitButton: FC<SubmitButtonProps> = ({
   className,
-  label,
+  children,
   isPending,
+  disabled,
   type = "submit",
   ...props
 }) => {
   return (
     <Button
       type={type}
-      disabled={isPending}
+      disabled={disabled || isPending}
       className={cn("flex items-center gap-x-2", className)}
       {...props}
     >
-      {label}
+      {children}
       {isPending && <Spinner />}
     </Button>
   );

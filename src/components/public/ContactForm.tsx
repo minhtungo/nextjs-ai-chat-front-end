@@ -105,11 +105,9 @@ const ContactUsForm = () => {
         {data && data.message && (
           <FormSuccess message={t(data.message as any)} />
         )}
-        <SubmitButton
-          className="mt-4 w-full"
-          label={t("submitLabel")}
-          isPending={isPending}
-        />
+        <SubmitButton className="mt-4 w-full" isPending={isPending}>
+          {t("submitLabel")}
+        </SubmitButton>
       </form>
     </Form>
   );

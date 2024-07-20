@@ -133,13 +133,9 @@ const SignInForm = () => {
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
           <div className="pt-2">
-            <SubmitButton
-              className="w-full"
-              label={
-                data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")
-              }
-              isPending={isPending}
-            />
+            <SubmitButton className="w-full" isPending={isPending}>
+              {data && data.twoFactor ? t("SignIn.confirm") : t("SignIn.cta")}
+            </SubmitButton>
           </div>
         </form>
       </Form>

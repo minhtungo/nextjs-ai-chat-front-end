@@ -16,7 +16,7 @@ const FeedbackDropdown = () => {
           size="sm"
           className="hidden gap-1 text-muted-foreground md:inline-flex"
         >
-          <MessageSquareMore className="h-4 w-4" /> Feedback
+          <MessageSquareMore className="size-4" /> Feedback
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-full min-w-[300px] space-y-4 p-4">

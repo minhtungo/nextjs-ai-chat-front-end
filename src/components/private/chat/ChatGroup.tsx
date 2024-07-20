@@ -6,7 +6,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { Chat } from "@/types/chat";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import { FC, useState } from "react";
 import ChatItem from "./ChatItem";
 import { cn } from "@/lib/utils";
@@ -34,7 +34,9 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
         >
           {subject}
         </span>
-        <ChevronsUpDown className="size-4" />
+        <div className={cn("transition-all", isOpen && "[&>svg]:rotate-180")}>
+          <ChevronDown className="size-4 shrink-0 transition-transform duration-150" />
+        </div>
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">
         <ol className="space-y-1.5">

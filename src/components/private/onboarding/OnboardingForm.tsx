@@ -134,8 +134,9 @@ const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
                   className="w-full"
                   isPending={isPending}
                   size="sm"
-                  label="Lưu"
-                />
+                >
+                  Lưu thay đổi
+                </SubmitButton>
               </CardFooter>
             </form>
           </Form>

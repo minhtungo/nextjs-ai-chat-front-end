@@ -1,8 +1,8 @@
 import { getCurrentUser } from "@/lib/auth";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Metadata } from "next";
-import GeneralSettings from "../../../../../../components/private/settings/GeneralSettings";
-import UserProfileForm from "../../../../../../components/private/settings/UserProfileForm.server";
+import GeneralSettings from "@/components/private/settings/GeneralSettings";
+import UserProfileForm from "@/components/private/settings/UserProfileForm.server";
 
 export const metadata: Metadata = {
   title: "Settings",

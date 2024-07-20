@@ -49,8 +49,8 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-accent transition duration-300 ease-in-out">
-      <div className="flex">
+    <div className="fixed inset-0 z-50 bg-accent transition">
+      <div className="flex duration-300 ease-in-out">
         <div className="flex-grow overflow-auto">
           <div className="flex h-full w-full flex-col">
             <div className="mb-6 flex w-full items-center gap-x-2 px-4 pt-2">

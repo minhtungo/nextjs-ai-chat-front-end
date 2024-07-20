@@ -4,7 +4,7 @@ import UserMenu from "@/components/private/dashboard/UserMenu";
 import Header from "@/components/private/chat/Header";
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import Link from "next/link";
-import CreateChatButton from "@/components/private/chat/CreateChat";
+import CreateChatButton from "@/components/private/chat/CreateChatButton";
 import { PROTECTED_BASE_URL } from "@/routes";
 import Logo from "@/components/common/Logo";
 import SidebarToggle from "@/components/private/dashboard/SidebarToggle";
@@ -27,7 +27,7 @@ export default async function DashBoardLayout({
             <CreateChatButton />
           </div>
           <ScrollArea className="h-full flex-1">
-            <div className="overflow-hidden px-4">
+            <div className="overflow-hidden px-4 py-2">
               <ChatHistory />
             </div>
           </ScrollArea>

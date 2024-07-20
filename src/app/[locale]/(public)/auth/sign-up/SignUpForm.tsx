@@ -144,11 +144,9 @@ const SignUpForm = () => {
             {/* @ts-ignore*/}
             {data && data.message && <FormSuccess message={t(data.message)} />}
             <div className="grid gap-3 pt-2">
-              <SubmitButton
-                className="w-full"
-                label={t("SignUp.cta")}
-                isPending={isPending}
-              />
+              <SubmitButton className="w-full" isPending={isPending}>
+                {t("SignUp.cta")}
+              </SubmitButton>
               <Button
                 className="w-full"
                 variant="outline"

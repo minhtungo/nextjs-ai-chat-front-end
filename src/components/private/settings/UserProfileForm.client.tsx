@@ -227,11 +227,9 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
             />
           </CardContent>
           <CardFooter noBorder>
-            <SubmitButton
-              isPending={isPending}
-              size="sm"
-              label="Lưu thay đổi"
-            />
+            <SubmitButton isPending={isPending} size="sm">
+              Lưu thay đổi
+            </SubmitButton>
           </CardFooter>
         </form>
       </Form>

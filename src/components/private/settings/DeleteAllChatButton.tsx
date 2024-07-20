@@ -49,10 +49,11 @@ const DeleteAllChatButton = () => {
             <SubmitButton
               variant="destructive"
               onClick={handleDeletion}
-              label="Confirm Deletion"
               type="button"
               isPending={isPending}
-            />
+            >
+              Confirm Deletion
+            </SubmitButton>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

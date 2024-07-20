@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ChatOverlayView from "../../../../../../components/private/chat-panel/ChatOverlayView";
+import ChatOverlayView from "@/components/private/chat-panel/ChatOverlayView";
 
 interface pageProps {}
 

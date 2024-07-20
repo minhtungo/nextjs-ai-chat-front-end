@@ -94,10 +94,11 @@ const ResetPasswordForm = () => {
           )}
           <SubmitButton
             className="w-full"
-            label={t("ResetPassword.cta")}
             isPending={isPending}
             disabled={!token}
-          />
+          >
+            {t("ResetPassword.cta")}
+          </SubmitButton>
         </form>
       </Form>
     </CardWrapper>
