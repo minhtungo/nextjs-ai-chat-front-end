@@ -12,14 +12,16 @@ import { signUpHref } from "@/lib/routes";
 import { CircleCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { Plan } from "@prisma/client";
 
-const PricingSection = () => {
+const Plans = ({ currentPlan }: { currentPlan: Plan }) => {
   const t = useTranslations("public.Pricing");
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {PRICING_PLANS.map(
         ({
           title,
+          value,
           price,
           cta,
           duration,
@@ -63,7 +65,7 @@ const PricingSection = () => {
                 )}
                 href={signUpHref}
               >
-                {t(cta as any)}
+                {currentPlan === value ? "Current Plan" : "Upgrade"}
               </Link>
             </CardFooter>
           </Card>
@@ -73,4 +75,4 @@ const PricingSection = () => {
   );
 };
 
-export default PricingSection;
+export default Plans;

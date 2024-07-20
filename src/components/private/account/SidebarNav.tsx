@@ -2,7 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { DASHBOARD_LINKS } from "@/routes";
+import { DASHBOARD_LINKS } from "@/lib/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";

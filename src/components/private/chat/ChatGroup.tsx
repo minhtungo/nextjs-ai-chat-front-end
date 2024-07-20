@@ -5,11 +5,12 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
-import { Chat } from "@/types/chat";
-import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
-import { FC, useState } from "react";
-import ChatItem from "./ChatItem";
 import { cn } from "@/lib/utils";
+import { Chat } from "@/types/chat";
+import { ChevronRight, Folder, FolderOpen } from "lucide-react";
+import { FC, useEffect, useState } from "react";
+import ChatItem from "./ChatItem";
+import { chatStore } from "@/store/chat";
 
 interface SidebarItemProps {
   chats: Chat[];
@@ -18,30 +19,45 @@ interface SidebarItemProps {
 
 const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const {
+    getChat: { subject: chatSubject },
+  } = chatStore();
+
+  useEffect(() => {
+    if (chatSubject === subject) {
+      setIsOpen(true);
+    }
+  }, [chatSubject]);
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
       <CollapsibleTrigger
         className={cn(
-          "flex w-full items-center justify-between space-x-3 border-b pb-2 text-muted-foreground",
+          "flex w-full items-center justify-between space-x-3 border-b pb-3 text-muted-foreground",
           isOpen && "text-foreground",
         )}
       >
-        <span
-          className={cn(
-            "whitespace-nowrap text-left text-sm font-medium capitalize",
+        <div className="flex items-center gap-x-1.5">
+          {isOpen ? (
+            <FolderOpen className="size-4" />
+          ) : (
+            <Folder className="size-4" />
           )}
-        >
-          {subject}
-        </span>
-        <div className={cn("transition-all", isOpen && "[&>svg]:rotate-180")}>
-          <ChevronDown className="size-4 shrink-0 transition-transform duration-150" />
+          <span
+            className={cn("whitespace-nowrap text-left text-sm capitalize")}
+          >
+            {subject}
+          </span>
+        </div>
+
+        <div className={cn("transition-all", isOpen && "[&>svg]:rotate-90")}>
+          <ChevronRight className="size-4 shrink-0 transition-transform duration-200" />
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">
         <ol className="space-y-1.5">
           {chats.map((chat) => (
-            <ChatItem chat={chat} />
+            <ChatItem chat={chat} setIsOpen={setIsOpen} />
           ))}
         </ol>
       </CollapsibleContent>

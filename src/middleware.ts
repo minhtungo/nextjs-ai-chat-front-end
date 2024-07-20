@@ -10,7 +10,7 @@ import {
   onboardingHref,
   publicRoutes,
   signInHref,
-} from "./routes";
+} from "./lib/routes";
 
 const { auth } = NextAuth(authConfig);
 

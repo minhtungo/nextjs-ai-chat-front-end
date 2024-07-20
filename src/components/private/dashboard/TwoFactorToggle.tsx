@@ -1,6 +1,6 @@
 "use client";
 
-import { toggleTwoFactorAction } from "@/actions/settings";
+import { toggleTwoFactorAction } from "@/actions/account";
 import SubmitButton from "@/components/common/SubmitButton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {

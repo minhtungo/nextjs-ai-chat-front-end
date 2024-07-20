@@ -28,9 +28,9 @@ const HeaderTitle: FC<HeaderTitleProps> = () => {
             <React.Fragment key={`${breadcrumb.title}-breadcrumb-item`}>
               {index === breadcrumbs.length - 1 ? (
                 <BreadcrumbItem>
-                  <BreadcrumbPage className="scroll-m-20 text-base font-medium sm:text-lg">
+                  <BreadcrumbPage className="scroll-m-20 text-base sm:text-lg">
                     {breadcrumb.title === "Profile"
-                      ? "Settings"
+                      ? "Account"
                       : breadcrumb.title}
                   </BreadcrumbPage>
                 </BreadcrumbItem>
@@ -40,10 +40,10 @@ const HeaderTitle: FC<HeaderTitleProps> = () => {
                     <BreadcrumbLink asChild>
                       <Link
                         href={breadcrumb.href}
-                        className="scroll-m-20 text-base font-medium sm:text-lg"
+                        className="scroll-m-20 text-base sm:text-lg"
                       >
                         {breadcrumb.title === "Profile"
-                          ? "Settings"
+                          ? "Account"
                           : breadcrumb.title}
                       </Link>
                     </BreadcrumbLink>

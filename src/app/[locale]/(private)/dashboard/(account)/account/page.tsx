@@ -1,14 +1,14 @@
 import { getCurrentUser } from "@/lib/auth";
 import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Metadata } from "next";
-import GeneralSettings from "@/components/private/settings/GeneralSettings";
-import UserProfileForm from "@/components/private/settings/UserProfileForm.server";
+import GeneralSettings from "@/components/private/account/GeneralSettings";
+import UserProfileForm from "@/components/private/account/UserProfileForm.server";
 
 export const metadata: Metadata = {
-  title: "Settings",
+  title: "Account",
 };
 
-const SettingsPage = async () => {
+const AccountPage = async () => {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -24,4 +24,4 @@ const SettingsPage = async () => {
   );
 };
 
-export default SettingsPage;
+export default AccountPage;

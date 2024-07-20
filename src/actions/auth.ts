@@ -7,7 +7,7 @@ import {
   signInSchema,
   signUpSchema,
 } from "@/lib/definitions";
-import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
+import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
 import {
   forgotPasswordUseCase,
   setNewPasswordUseCase,

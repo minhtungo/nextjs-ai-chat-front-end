@@ -2,23 +2,31 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { Chat } from "@/types/chat";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
   chat: Chat;
+  setIsOpen: (value: boolean) => void;
 }
 
-const ChatItem: FC<ChatItemProps> = ({ chat }) => {
+const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
 
   const isActiveChat = pathname === `${PROTECTED_BASE_URL}/chat/${chat.id}`;
+
+  useEffect(() => {
+    if (isActiveChat) {
+      console.log("isActiveChat", isActiveChat);
+      setIsOpen(true);
+    }
+  }, [isActiveChat]);
 
   return (
     <li

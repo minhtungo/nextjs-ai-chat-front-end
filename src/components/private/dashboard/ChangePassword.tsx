@@ -1,6 +1,6 @@
 "use client";
 
-import { changeUserPasswordAction } from "@/actions/settings";
+import { changeUserPasswordAction } from "@/actions/account";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import {
@@ -28,9 +28,7 @@ import { z } from "zod";
 
 import { useServerAction } from "zsa-react";
 
-interface ChangePasswordProps {}
-
-const ChangePassword: FC<ChangePasswordProps> = () => {
+const ChangePassword = () => {
   const { isPending, execute } = useServerAction(changeUserPasswordAction);
   const { update } = useSession();
 

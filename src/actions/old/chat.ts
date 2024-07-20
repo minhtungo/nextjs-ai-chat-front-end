@@ -2,7 +2,7 @@
 
 import { removeChat } from "@/data/chat";
 import { authedAction } from "@/lib/safe-actions";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { Chat } from "@/types/chat";
 import {
   getChatByIDUseCase,
@@ -77,7 +77,7 @@ export const removeAllChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
     await removeAllChatsUseCase(user.id!);
 
-    revalidatePath(`${PROTECTED_BASE_URL}/settings`);
+    revalidatePath(`${PROTECTED_BASE_URL}/account`);
 
     return {
       message: "success",

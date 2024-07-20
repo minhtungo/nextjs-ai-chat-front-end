@@ -2,7 +2,7 @@
 
 import { removeChat } from "@/data/chat";
 import { authedAction } from "@/lib/safe-actions";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { createNewChatUseCase, saveChatUseCase } from "@/use-cases/chat";
 import { redirect } from "next/navigation";
 import { z } from "zod";

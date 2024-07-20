@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signInSchema } from "@/lib/definitions";
-import { forgotPasswordHref, signUpHref } from "@/routes";
+import { forgotPasswordHref, signUpHref } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";

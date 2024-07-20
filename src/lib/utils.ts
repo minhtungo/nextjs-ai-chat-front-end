@@ -3,7 +3,7 @@ import { customAlphabet } from "nanoid";
 import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 import { SUBJECTS } from "./constant";
-import { DASHBOARD_LINKS } from "@/routes";
+import { DASHBOARD_LINKS } from "@/lib/routes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

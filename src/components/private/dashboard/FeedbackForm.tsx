@@ -1,11 +1,10 @@
 "use client";
 
-import { FC } from "react";
-
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { sendUserMailAction } from "@/actions/mail";
+import SubmitButton from "@/components/common/SubmitButton";
 import {
   Form,
   FormControl,
@@ -22,7 +21,6 @@ import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import FormError from "../../auth/FormError";
 import FormSuccess from "../../auth/FormSuccess";
-import SubmitButton from "@/components/common/SubmitButton";
 
 const FeedbackForm = () => {
   const { isPending, execute, data, error } =
@@ -75,7 +73,7 @@ const FeedbackForm = () => {
         {data && data.message && (
           <FormSuccess message={t(data.message as any)} />
         )}
-        <SubmitButton className="w-full" isPending={isPending}>
+        <SubmitButton className="w-full" isPending={isPending} size="sm">
           {t("submitLabel")}
         </SubmitButton>
       </form>

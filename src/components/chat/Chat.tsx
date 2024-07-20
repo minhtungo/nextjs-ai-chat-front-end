@@ -2,7 +2,7 @@
 
 // import { useLocalStorage } from "@/hooks/use-local-storage";
 // import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
-// import { PROTECTED_BASE_URL } from "@/routes";
+// import { PROTECTED_BASE_URL } from "@/lib/routes";
 // import { useUIState } from "ai/rsc";
 // import { User } from "next-auth";
 // import { usePathname } from "next/navigation";

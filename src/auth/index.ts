@@ -4,7 +4,7 @@ import {
 } from "@/data/token";
 import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { db } from "@/lib/db";
-import { authErrorHref, signInHref } from "@/routes";
+import { authErrorHref, signInHref } from "@/lib/routes";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { Languages, Plan, type UserRole } from "@prisma/client";
 import NextAuth from "next-auth";

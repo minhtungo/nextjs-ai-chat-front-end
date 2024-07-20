@@ -13,7 +13,7 @@ import {
   updateUserProfileSchema,
 } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -28,7 +28,7 @@ export const updateUserProfileUseCase = async (
 
   await updateUserProfile(dbUser?.id!, values);
 
-  revalidatePath(`/${PROTECTED_BASE_URL}/settings`);
+  revalidatePath(`/${PROTECTED_BASE_URL}/account`);
 };
 
 export const onboardingFormUseCase = async (

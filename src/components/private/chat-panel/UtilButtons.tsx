@@ -47,7 +47,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
               className="relative flex cursor-pointer select-none items-center gap-1.5 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
             >
               <Paperclip className="pointer-events-none size-3.5" />
-              <span>Attach file</span>
+              <span>Attach files</span>
             </label>
           </DropdownMenuItem>
           <DropdownMenuItem

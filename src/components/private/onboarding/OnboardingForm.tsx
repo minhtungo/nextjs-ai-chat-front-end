@@ -1,6 +1,6 @@
 "use client";
 
-import { onboardingFormAction } from "@/actions/settings";
+import { onboardingFormAction } from "@/actions/account";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Form,
@@ -25,7 +25,7 @@ import Typography from "@/components/ui/typography";
 import { ACADEMIC_LEVELS, SUBJECTS } from "@/lib/constant";
 import { onboardingFormSchema } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { User } from "next-auth";

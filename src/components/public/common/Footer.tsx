@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Container from "@/components/common/Container";
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/routes";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/routes";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";

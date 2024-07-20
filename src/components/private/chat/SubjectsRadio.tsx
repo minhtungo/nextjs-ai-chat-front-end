@@ -35,7 +35,7 @@ const SubjectsRadio: FC<SubjectsRadioProps> = ({
           value={subject.value}
           key={`new-chat-subject-${subject.value}`}
           className={cn(
-            "flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/20 px-4 py-2 hover:border-input hover:bg-accent/80 data-[state=checked]:border-primary data-[state=checked]:bg-accent",
+            "flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/20 px-4 py-2 hover:border-primary/60 data-[state=checked]:border-primary",
             size === "lg" && "px-4 py-3",
           )}
         >

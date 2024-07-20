@@ -1,6 +1,6 @@
 import Section from "@/components/public/home/Section";
 import { buttonVariants } from "@/components/ui/button";
-import { signUpHref } from "@/routes";
+import { signUpHref } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FC } from "react";

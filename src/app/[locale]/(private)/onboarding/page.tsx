@@ -1,6 +1,6 @@
 import OnboardingForm from "@/components/private/onboarding/OnboardingForm";
 import { getCurrentUser } from "@/lib/auth";
-import { PROTECTED_BASE_URL } from "@/routes";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { redirect } from "next/navigation";
 
 const OnboardingPage = async () => {

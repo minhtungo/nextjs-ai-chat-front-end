@@ -12,9 +12,9 @@ const FeedbackDropdown = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="ghost"
+          variant="outline"
           size="sm"
-          className="hidden gap-1 text-muted-foreground md:inline-flex"
+          className="hidden gap-1 md:inline-flex"
         >
           <MessageSquareMore className="size-4" /> Feedback
         </Button>

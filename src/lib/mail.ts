@@ -3,7 +3,7 @@ import { EmailResetPassword } from "@/components/email/EmailResetPassword";
 import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
 import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
 import EmailUserFeedback from "@/components/email/EmailUserFeedback";
-import { emailVerificationHref, resetPasswordHref } from "@/routes";
+import { emailVerificationHref, resetPasswordHref } from "@/lib/routes";
 import { Resend } from "resend";
 import { ADMIN_EMAIL } from "./constant";
 import { formatDate } from "./utils";

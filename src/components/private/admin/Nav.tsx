@@ -1,7 +1,7 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { ADMIN_DASHBOARD_LINKS } from "@/routes";
+import { ADMIN_DASHBOARD_LINKS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

@@ -15,6 +15,7 @@ export default async function Providers({
         attribute="class"
         defaultTheme="dark"
         enableSystem
+        disableTransitionOnChange
       >
         {children}
       </ThemeProvider>

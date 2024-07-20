@@ -11,31 +11,45 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { USER_DASHBOARD_LINKS } from "@/routes";
+import { USER_DASHBOARD_LINKS } from "@/lib/routes";
 import { LogOut, ShieldCheck } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
+import { Badge } from "@/components/ui/badge";
 
 const UserMenu = () => {
   const user = useCurrentUser();
+
+  if (!user) {
+    return null;
+  }
+
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" className="h-fit w-full justify-start gap-2">
-          <Avatar className="size-6">
-            <AvatarImage src={user?.image || ""} alt={`${user?.name}-avatar`} />
-            <AvatarFallback className="text-[13px]">
-              {user?.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
-            </AvatarFallback>
-          </Avatar>
-          <span className="text-sm font-medium">{user?.name}</span>
+        <Button
+          variant="outline"
+          className="flex h-fit w-full items-center justify-between"
+        >
+          <div className="flex items-center gap-x-1">
+            <Avatar className="size-6">
+              <AvatarImage src={user.image || ""} alt={`${user.name}-avatar`} />
+              <AvatarFallback className="text-[13px]">
+                {user.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
+              </AvatarFallback>
+            </Avatar>
+            <span className="text-sm font-medium">{user.name}</span>
+          </div>
+          <Badge variant="secondary" className="capitalize">
+            {user.plan}
+          </Badge>
           <span className="sr-only">Toggle user menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
-          <div>{user?.name}</div>
+          <div>{user.name}</div>
           <div className="text-sm text-muted-foreground">{user?.email}</div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -47,7 +61,7 @@ const UserMenu = () => {
             </Link>
           </DropdownMenuItem>
         ))}
-        {user?.role === "ADMIN" && (
+        {user.role === "ADMIN" && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>

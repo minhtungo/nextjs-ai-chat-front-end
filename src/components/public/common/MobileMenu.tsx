@@ -1,7 +1,7 @@
 import SheetWrapper from "@/components/common/SheetWrapper";
 import { buttonVariants } from "@/components/ui/button";
 import { SheetClose, SheetFooter } from "@/components/ui/sheet";
-import { NAV_LINKS, signInHref, signUpHref } from "@/routes";
+import { NAV_LINKS, signInHref, signUpHref } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 

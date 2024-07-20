@@ -5,8 +5,8 @@ import {
   ShieldCheck,
   UserRound,
 } from "lucide-react";
-import Instagram from "./components/icons/Instagram";
-import Discord from "./components/icons/Discord";
+import Instagram from "../components/icons/Instagram";
+import Discord from "../components/icons/Discord";
 
 export const publicRoutes = ["/", "/pricing", "/about", "/test", "/contact-us"];
 
@@ -66,41 +66,41 @@ export const FOOTER_LINKS = [
 
 export const DASHBOARD_LINKS = [
   {
-    title: "Profile",
-    href: `${PROTECTED_BASE_URL}/settings`,
+    title: "Account",
+    href: `${PROTECTED_BASE_URL}/account`,
     icon: <UserRound className="size-[18px]" />,
   },
   {
     title: "Billing",
-    href: `${PROTECTED_BASE_URL}/settings/billing`,
+    href: `${PROTECTED_BASE_URL}/account/billing`,
     icon: <CreditCard className="size-[18px]" />,
   },
   {
     title: "Security",
-    href: `${PROTECTED_BASE_URL}/settings/security`,
+    href: `${PROTECTED_BASE_URL}/account/security`,
     icon: <ShieldCheck className="size-[18px]" />,
   },
   {
     title: "Support",
-    href: `${PROTECTED_BASE_URL}/settings/support`,
+    href: `${PROTECTED_BASE_URL}/account/support`,
     icon: <MessageSquareMore className="size-[18px]" />,
   },
 ];
 
 export const USER_DASHBOARD_LINKS = [
   {
-    title: "Profile",
-    href: `${PROTECTED_BASE_URL}/settings`,
+    title: "Account",
+    href: `${PROTECTED_BASE_URL}/account`,
     icon: <UserRound className="size-4" />,
   },
   {
     title: "Billing",
-    href: `${PROTECTED_BASE_URL}/settings/billing`,
+    href: `${PROTECTED_BASE_URL}/account/billing`,
     icon: <CreditCard className="size-4" />,
   },
   {
     title: "Support",
-    href: `${PROTECTED_BASE_URL}/settings/support`,
+    href: `${PROTECTED_BASE_URL}/account/support`,
     icon: <MessageSquareMore className="size-4" />,
   },
 ];

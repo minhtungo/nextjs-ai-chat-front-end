@@ -58,6 +58,7 @@ export const EXPIRY_PERIOD = 1800 * 1000;
 export const PRICING_PLANS = [
   {
     title: "plan.free.title",
+    value: "free",
     cta: "plan.free.cta",
     price: 0,
     duration: "plan.free.duration",
@@ -75,6 +76,7 @@ export const PRICING_PLANS = [
   },
   {
     title: "plan.pro.title",
+    value: "pro",
     cta: "plan.pro.cta",
     price: 10,
     isFeatured: true,

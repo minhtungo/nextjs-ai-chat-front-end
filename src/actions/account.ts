@@ -12,7 +12,7 @@ import {
   onboardingFormSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
-} from "./../lib/definitions";
+} from "../lib/definitions";
 
 export const updateUserProfileAction = authedAction
   .input(updateUserProfileSchema)

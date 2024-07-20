@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubmitButton from "../../common/SubmitButton";
 import SubjectsRadio from "./SubjectsRadio";
+import { Button } from "@/components/ui/button";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
@@ -89,15 +90,21 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
           </TabsContent>
         ))}
       </Tabs>
-      <SubmitButton
-        type="button"
-        className="ml-auto mt-6"
-        disabled={!selectedSubject}
-        isPending={isPending}
-        onClick={createNewChat}
-      >
-        Create chat
-      </SubmitButton>
+      <div className="mt-6 flex flex-wrap justify-end gap-x-2">
+        {toggleDialog && (
+          <Button variant={"outline"} onClick={() => toggleDialog(false)}>
+            Cancel
+          </Button>
+        )}
+        <SubmitButton
+          type="button"
+          disabled={!selectedSubject}
+          isPending={isPending}
+          onClick={createNewChat}
+        >
+          Create chat
+        </SubmitButton>
+      </div>
     </>
   );
 };

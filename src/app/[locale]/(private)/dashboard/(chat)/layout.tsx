@@ -1,13 +1,12 @@
-import Sidebar from "@/components/private/common/Sidebar";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import UserMenu from "@/components/private/dashboard/UserMenu";
-import Header from "@/components/private/chat/Header";
-import ChatHistory from "@/components/private/chat/ChatHistory";
-import Link from "next/link";
-import CreateChatButton from "@/components/private/chat/CreateChatButton";
-import { PROTECTED_BASE_URL } from "@/routes";
 import Logo from "@/components/common/Logo";
-import SidebarToggle from "@/components/private/dashboard/SidebarToggle";
+import ChatHistory from "@/components/private/chat/ChatHistory";
+import CreateChatButton from "@/components/private/chat/CreateChatButton";
+import Header from "@/components/private/chat/Header";
+import Sidebar from "@/components/private/common/Sidebar";
+import UserMenu from "@/components/private/dashboard/UserMenu";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { PROTECTED_BASE_URL } from "@/lib/routes";
+import Link from "next/link";
 
 export default async function DashBoardLayout({
   children,
@@ -34,7 +33,7 @@ export default async function DashBoardLayout({
           <div className="w-full px-4">
             <UserMenu />
           </div>
-          <SidebarToggle className="absolute -right-3 top-1/2 -translate-y-1/2" />
+          {/* <SidebarToggle className="absolute -right-3 top-1/2 -translate-y-1/2" /> */}
         </div>
       </Sidebar>
       <main className="relative flex h-screen w-full flex-1 flex-col overflow-auto pl-0 duration-300 ease-in-out animate-in peer-[[data-state=open]]:lg:pl-[250px] peer-[[data-state=open]]:xl:pl-[300px]">
