@@ -16,12 +16,14 @@ interface IMessage {
   message: string;
   mathEquation: string;
   files: IFile[];
+  isPending: boolean;
 }
 
 const initialMessageState: IMessage = {
   message: "",
   mathEquation: "",
   files: [],
+  isPending: false,
 };
 
 const messageAtom = atom<IMessage>(initialMessageState);
@@ -36,6 +38,8 @@ const useMessageStore = () => {
     setMessageStore((prev) => ({ ...prev, mathEquation }));
   const setIsUploading = (isUploading: boolean) =>
     setMessageStore((prev) => ({ ...prev, isUploading }));
+  const setIsPending = (isPending: boolean) =>
+    setMessageStore((prev) => ({ ...prev, isPending }));
 
   const setFiles = (update: IFile[] | ((prevFiles: IFile[]) => IFile[])) =>
     setMessageStore((prev) => ({
@@ -67,6 +71,7 @@ const useMessageStore = () => {
     await Promise.all(
       files.map(async (file, index) => {
         try {
+          setIsPending(true);
           const url = await uploadFile(file);
           setMessageStore((prev) => ({
             ...prev,
@@ -83,6 +88,8 @@ const useMessageStore = () => {
             ...prev,
             files: prev.files.filter((f) => f.id !== newFiles[index].id),
           }));
+        } finally {
+          setIsPending(false);
         }
       }),
     );

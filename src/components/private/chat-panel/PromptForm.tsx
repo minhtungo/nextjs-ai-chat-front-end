@@ -32,7 +32,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
-    messageStore: { files, message },
+    messageStore: { files, message, isPending },
     setMessage,
     addFiles,
     removeFile,
@@ -57,7 +57,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
           }}
           onDrop={async (e) => {
             const files = e.dataTransfer?.files;
-            if (files) {
+            if (e.dataTransfer?.files) {
               e.preventDefault();
               const lastItem = Array.from(files)[files.length - 1];
               addFiles([lastItem]);
@@ -78,37 +78,35 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             <div className="mr-1.5 flex min-h-8 w-full flex-1 flex-col items-start justify-center gap-y-3 overflow-hidden py-2 lg:min-h-9">
               {files && files.length > 0 && (
                 <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
-                  {files.map(
-                    ({ preview, name, type, isUploading, id }, index) => (
-                      <div className="relative overflow-visible rounded-lg">
-                        {type === "image" ? (
-                          <Image
-                            src={preview!}
-                            alt="Image"
-                            width={60}
-                            height={60}
-                            className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
-                          />
-                        ) : (
-                          <DocPreview name={name} />
-                        )}
-                        <button
-                          className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
-                          onClick={() => {
-                            removeFile(id);
-                          }}
-                        >
-                          <X className="h-3 w-3" />
-                          <span className="sr-only">Remove attached file</span>
-                        </button>
-                        {isUploading && (
-                          <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-background/50 transition duration-300 ease-in-out">
-                            <Spinner className="size-3" />
-                          </div>
-                        )}
-                      </div>
-                    ),
-                  )}
+                  {files.map(({ preview, name, type, isUploading, id }) => (
+                    <div className="relative overflow-visible rounded-lg">
+                      {type === "image" ? (
+                        <Image
+                          src={preview!}
+                          alt="Image"
+                          width={60}
+                          height={60}
+                          className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
+                        />
+                      ) : (
+                        <DocPreview name={name} />
+                      )}
+                      <button
+                        className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
+                        onClick={() => {
+                          removeFile(id);
+                        }}
+                      >
+                        <X className="h-3 w-3" />
+                        <span className="sr-only">Remove attached file</span>
+                      </button>
+                      {isUploading && (
+                        <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-background/50 transition duration-300 ease-in-out">
+                          <Spinner className="size-3" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               )}
               <Textarea
@@ -140,9 +138,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
               type="submit"
               size="icon"
               className="ml-auto gap-1.5"
-              disabled={
-                !message && message.trim() === "" && files?.length === 0
-              }
+              disabled={message.trim() === "" || isPending}
             >
               <CornerDownLeft className="size-3.5" />
               <span className="sr-only">Send message</span>

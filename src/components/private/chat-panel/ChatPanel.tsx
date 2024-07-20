@@ -19,9 +19,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
-
   const {
-    messageStore: { files, mathEquation, message },
+    messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
 
@@ -42,6 +41,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (isPending) return;
 
     const submitContent = mathEquation || message;
 
