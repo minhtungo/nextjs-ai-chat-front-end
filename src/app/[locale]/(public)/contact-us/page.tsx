@@ -1,6 +1,6 @@
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import Section from "@/components/Section";
-import ContactUsForm from "./ContactForm";
+import Section from "@/components/public/home/Section";
+import ContactUsForm from "../../../../components/public/ContactForm";
+import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
 
 const ContactUsPage = async () => {
   return (

@@ -1,13 +1,13 @@
-import Hero from "@/components/home/Hero";
-import Section from "@/components/Section";
-import SectionTitleWrapper from "@/components/SectionTitleWrapper";
+import Hero from "@/components/public/home/Hero";
+import Section from "@/components/public/home/Section";
 import Typography from "@/components/ui/typography";
 import { INTRO_BLOCKS } from "@/lib/constant";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import Features from "./components/Features";
-import IntroBlock from "./components/IntroBlock";
-import FAQ from "./pricing/FAQ";
-import PricingSection from "./pricing/PricingSection";
+import Features from "@/components/public/home/Features";
+import IntroBlock from "@/components/public/home/IntroBlock";
+import FAQ from "@/components/public/common/FAQ";
+import PricingSection from "@/components/public/common/PricingSection";
+import SectionTitleWrapper from "@/components/public/common/SectionTitleWrapper";
 
 export async function generateMetadata({
   params: { locale },

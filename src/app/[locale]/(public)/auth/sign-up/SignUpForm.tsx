@@ -3,12 +3,11 @@
 import Link from "next/link";
 
 import { signUpWithCredentialsAction } from "@/actions/auth";
-import CardWrapper from "@/components/CardWrapper";
-import SubmitButton from "@/components/SubmitButton";
+import CardWrapper from "@/components/common/CardWrapper";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
 import OAuthButtons from "@/components/auth/OAuthButtons";
-import PasswordInput from "@/components/auth/PasswordInput";
+import PasswordInput from "@/components/common/PasswordInput";
 import {
   Form,
   FormControl,
@@ -28,6 +27,7 @@ import { useServerAction } from "zsa-react";
 import { Suspense, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Mail } from "lucide-react";
+import SubmitButton from "@/components/common/SubmitButton";
 
 const SignUpForm = () => {
   const { data, error, isPending, execute } = useServerAction(

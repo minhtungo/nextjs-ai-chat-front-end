@@ -1,5 +1,5 @@
-import BillingHistory from "@/components/dashboard/BillingHistory";
-import PaymentMethodDialog from "@/components/dashboard/PaymentMethodDialog";
+import BillingHistory from "@/components/private/dashboard/BillingHistory";
+import PaymentMethodDialog from "@/components/private/dashboard/PaymentMethodDialog";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { Metadata } from "next";

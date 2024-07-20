@@ -1,5 +1,5 @@
+import { Body, Html, Text } from "@react-email/components";
 import * as React from "react";
-import { Html, Link, Body, Text } from "@react-email/components";
 
 interface EmailNotiChangePasswordProps {
   name: string;

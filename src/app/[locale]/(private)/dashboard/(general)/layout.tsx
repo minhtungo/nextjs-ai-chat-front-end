@@ -1,11 +1,11 @@
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/private/common/Sidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Suspense } from "react";
-import Container from "../components/Container";
-import GoBackButton from "./components/GoBackButton";
-import Header from "./components/Header";
-import SidebarNav from "./components/SidebarNav";
-import UserInfo from "./components/UserInfo";
+import Container from "../../../../../components/private/common/Container";
+import GoBackButton from "../../../../../components/private/settings/GoBackButton";
+import Header from "../../../../../components/private/settings/Header";
+import SidebarNav from "../../../../../components/private/settings/SidebarNav";
+import UserInfo from "../../../../../components/private/settings/UserInfo";
 
 export default async function DashBoardLayout({
   children,

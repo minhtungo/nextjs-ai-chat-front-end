@@ -1,10 +1,10 @@
-import PageTitleWrapper from "@/components/PageTitleWrapper";
 import Typography from "@/components/ui/typography";
 import parse from "html-react-parser";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { sanitize } from "isomorphic-dompurify";
-import Section from "@/components/Section";
+import Section from "@/components/public/home/Section";
+import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
 
 export async function generateMetadata({
   params: { locale },

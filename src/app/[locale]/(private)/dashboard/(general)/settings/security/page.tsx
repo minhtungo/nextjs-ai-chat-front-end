@@ -1,6 +1,6 @@
-import ChangePassword from "@/components/dashboard/ChangePassword";
-import TwoFactorToggle from "@/components/dashboard/TwoFactorToggle";
 import Google from "@/components/icons/Google";
+import ChangePassword from "@/components/private/dashboard/ChangePassword";
+import TwoFactorToggle from "@/components/private/dashboard/TwoFactorToggle";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { getCurrentUser } from "@/lib/auth";

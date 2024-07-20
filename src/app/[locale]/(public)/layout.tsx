@@ -1,7 +1,7 @@
-import Footer from "@/components/Footer";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import NavButtons from "@/components/NavButtons";
+import Container from "@/components/common/Container";
+import Footer from "@/components/public/common/Footer";
 import Navbar from "@/components/public/common/Navbar";
+import NavButtons from "@/components/public/common/NavButtons";
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -23,7 +23,7 @@ export default function GuestLayout({
       <Suspense>
         <Navbar navButtons={<NavButtons />} />
       </Suspense>
-      <MaxWidthWrapper tag="main">{children}</MaxWidthWrapper>
+      <Container tag="main">{children}</Container>
       <Footer />
     </div>
   );

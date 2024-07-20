@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { getChatByIDUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
 import { FC } from "react";
-import Chat from "./components/Chat";
+import Chat from "../../../../../../../components/private/chat-panel/Chat";
 
 interface ChatPageProps {
   params: {

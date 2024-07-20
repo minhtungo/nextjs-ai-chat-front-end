@@ -1,10 +1,10 @@
-import PageTitleWrapper from "@/components/PageTitleWrapper";
-import Section from "@/components/Section";
+import Section from "@/components/public/home/Section";
 import Typography from "@/components/ui/typography";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import FAQ from "./FAQ";
-import PricingSection from "./PricingSection";
+import FAQ from "@/components/public/common/FAQ";
+import PricingSection from "@/components/public/common/PricingSection";
+import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
 
 export async function generateMetadata({
   params: { locale },

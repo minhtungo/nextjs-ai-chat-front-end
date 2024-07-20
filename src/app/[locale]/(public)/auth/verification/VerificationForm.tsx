@@ -1,11 +1,11 @@
 "use client";
 
 import { verifyNewUserEmailAction } from "@/actions/auth";
-import CardWrapper from "@/components/CardWrapper";
-import Spinner from "@/components/Spinner";
-import BackButton from "@/components/auth/BackButton";
+import CardWrapper from "@/components/common/CardWrapper";
+import Spinner from "@/components/common/Spinner";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
+import BackButton from "@/components/private/common/BackButton";
 import Typography from "@/components/ui/typography";
 import { signInHref } from "@/routes";
 import { useTranslations } from "next-intl";

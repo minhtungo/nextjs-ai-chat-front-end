@@ -1,5 +1,5 @@
-import CardWrapper from "@/components/CardWrapper";
-import FeedbackForm from "@/components/dashboard/FeedbackForm";
+import CardWrapper from "@/components/common/CardWrapper";
+import FeedbackForm from "@/components/private/dashboard/FeedbackForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

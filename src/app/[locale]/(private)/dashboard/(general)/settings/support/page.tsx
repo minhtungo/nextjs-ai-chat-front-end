@@ -1,4 +1,4 @@
-import FeedbackForm from "@/components/dashboard/FeedbackForm";
+import FeedbackForm from "@/components/private/dashboard/FeedbackForm";
 import { FC } from "react";
 
 interface FeedbackPageProps {}

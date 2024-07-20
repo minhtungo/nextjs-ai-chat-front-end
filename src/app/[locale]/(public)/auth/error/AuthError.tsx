@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CardWrapper from "@/components/CardWrapper";
+import CardWrapper from "@/components/common/CardWrapper";
 import { signInHref } from "@/routes";
 
 interface AuthErrorProps {

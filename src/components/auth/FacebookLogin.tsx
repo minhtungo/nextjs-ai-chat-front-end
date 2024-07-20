@@ -1,10 +1,10 @@
 "use client";
 
 import { signInWithFacebook } from "@/actions/auth";
+import Facebook from "@/components/icons/Facebook";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
-import Facebook from "../icons/Facebook";
-import { Button } from "../ui/button";
 
 interface FacebookLoginProps {
   className?: string;

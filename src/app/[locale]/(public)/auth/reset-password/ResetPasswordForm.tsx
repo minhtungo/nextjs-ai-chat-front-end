@@ -1,11 +1,11 @@
 "use client";
 
 import { setNewPasswordAction } from "@/actions/auth";
-import CardWrapper from "@/components/CardWrapper";
-import SubmitButton from "@/components/SubmitButton";
+import CardWrapper from "@/components/common/CardWrapper";
+import SubmitButton from "@/components/common/SubmitButton";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
-import PasswordInput from "@/components/auth/PasswordInput";
+import PasswordInput from "@/components/common/PasswordInput";
 import {
   Form,
   FormControl,

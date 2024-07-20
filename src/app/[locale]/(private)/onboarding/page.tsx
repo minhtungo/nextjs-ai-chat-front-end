@@ -1,12 +1,9 @@
+import OnboardingForm from "@/components/private/onboarding/OnboardingForm";
 import { getCurrentUser } from "@/lib/auth";
-import { FC } from "react";
-import OnboardingForm from "./OnboardingForm";
-import { redirect } from "next/navigation";
 import { PROTECTED_BASE_URL } from "@/routes";
+import { redirect } from "next/navigation";
 
-interface PageNamePageProps {}
-
-const OnboardingPage: FC<PageNamePageProps> = async () => {
+const OnboardingPage = async () => {
   const user = await getCurrentUser();
 
   if (!user) {
@@ -18,7 +15,7 @@ const OnboardingPage: FC<PageNamePageProps> = async () => {
   }
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
+    <div className="flex min-h-[100dvh] w-screen flex-col items-center justify-center">
       <div className="max-w-xl">
         <OnboardingForm user={user} />
       </div>

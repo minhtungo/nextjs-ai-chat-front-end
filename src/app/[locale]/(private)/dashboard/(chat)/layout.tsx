@@ -1,13 +1,13 @@
-import Sidebar from "@/components/Sidebar";
-import SidebarToggle from "@/components/dashboard/SidebarToggle";
+import Sidebar from "@/components/private/common/Sidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import UserMenu from "../components/UserMenu";
-import Header from "./components/Header";
-import ChatHistory from "./components/ChatHistory";
+import UserMenu from "@/components/private/dashboard/UserMenu";
+import Header from "@/components/private/chat/Header";
+import ChatHistory from "@/components/private/chat/ChatHistory";
 import Link from "next/link";
-import Logo from "@/components/Logo";
-import CreateChatButton from "./components/CreateChat";
+import CreateChatButton from "@/components/private/chat/CreateChat";
 import { PROTECTED_BASE_URL } from "@/routes";
+import Logo from "@/components/common/Logo";
+import SidebarToggle from "@/components/private/dashboard/SidebarToggle";
 
 export default async function DashBoardLayout({
   children,

@@ -6,10 +6,11 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, Suspense, useEffect, useState } from "react";
-import Logo from "../../Logo";
-import MaxWidthWrapper from "../../MaxWidthWrapper";
-import MobileMenu from "../../MobileMenu";
-import ThemeToggle from "../../ThemeToggle";
+import Logo from "../../common/Logo";
+import Container from "../../common/Container";
+import MobileMenu from "./MobileMenu";
+import ThemeToggle from "./ThemeToggle";
+import debounce from "lodash.debounce";
 
 interface navbarProps {
   navButtons?: React.ReactNode;
@@ -27,13 +28,13 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleScroll = () => {
+  const handleScroll = debounce(() => {
     if (window.scrollY > 20) {
       setScrolling(true);
     } else {
       setScrolling(false);
     }
-  };
+  }, 100);
   return (
     <header className="sticky inset-x-0 top-0 z-50">
       <nav
@@ -43,7 +44,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
             "border-b border-border/40 bg-background/80 shadow-sm backdrop-blur",
         )}
       >
-        <MaxWidthWrapper>
+        <Container>
           <div className="flex h-14 items-center">
             <Link href="/">
               <Logo />
@@ -69,7 +70,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
               <MobileMenu />
             </div>
           </div>
-        </MaxWidthWrapper>
+        </Container>
       </nav>
     </header>
   );
