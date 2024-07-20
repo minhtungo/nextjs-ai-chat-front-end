@@ -17,17 +17,17 @@ export default async function DashBoardLayout({
   return (
     <div className="relative flex min-h-screen">
       <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-card duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[250px] xl:w-[300px]">
-        <div className="relative flex h-full max-h-screen flex-col gap-2 py-3">
-          <ScrollArea className="h-full flex-1">
-            <div className="mb-3 px-4">
-              <div className="mb-3 flex items-center justify-between">
-                <Link href={PROTECTED_BASE_URL}>
-                  <Logo />
-                </Link>
-              </div>
-              <CreateChatButton />
+        <div className="relative grid min-h-[100dvh] grid-rows-[auto_1fr_auto] gap-2 py-3">
+          <div className="mb-3 px-4">
+            <div className="mb-3 flex items-center justify-between">
+              <Link href={PROTECTED_BASE_URL}>
+                <Logo />
+              </Link>
             </div>
-            <div className="mt-5 overflow-hidden px-4">
+            <CreateChatButton />
+          </div>
+          <ScrollArea className="h-full flex-1">
+            <div className="overflow-hidden px-4">
               <ChatHistory />
             </div>
           </ScrollArea>

@@ -5,19 +5,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MessageSquareMore } from "lucide-react";
-import { FC } from "react";
 import FeedbackForm from "./FeedbackForm";
 
-interface FeedbackDropdownProps {}
-
-const FeedbackDropdown: FC<FeedbackDropdownProps> = () => {
+const FeedbackDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
-          className="hidden gap-1 md:inline-flex"
+          className="hidden gap-1 text-muted-foreground md:inline-flex"
         >
           <MessageSquareMore className="h-4 w-4" /> Feedback
         </Button>
