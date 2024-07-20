@@ -29,7 +29,7 @@ const CardWrapper: FC<cardWrapperProps> = ({
   noBorder,
 }) => {
   return (
-    <Card className="mx-auto w-full max-w-md" noBorder={noBorder}>
+    <Card className="mx-auto w-full max-w-lg" noBorder={noBorder}>
       <CardHeader
         className="items-center justify-center pb-6 pt-0 sm:pb-6"
         noBorder={noBorder}

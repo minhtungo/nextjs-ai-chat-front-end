@@ -15,7 +15,7 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ hideAlternative }) => {
 
   return (
     <>
-      <div className="grid gap-3">
+      <div className="grid gap-3 sm:grid-cols-2">
         <GoogleLogin label={t("google")} redirectURL={redirectURL} />
         <FacebookLogin label={t("facebook")} redirectURL={redirectURL} />
       </div>
