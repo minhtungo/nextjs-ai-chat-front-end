@@ -68,6 +68,15 @@ const useMessageStore = () => {
       files: [...prev.files, ...newFiles],
     }));
 
+    // const formData = new FormData();
+
+    // for (const file of files) {
+    //   formData.append("file", file);
+    //   formData.append("name", file.name);
+    // }
+
+    // const [data, error] = await uploadFileAction(formData);
+
     await Promise.all(
       files.map(async (file, index) => {
         try {
@@ -117,42 +126,3 @@ const useMessageStore = () => {
 };
 
 export { useMessageStore };
-
-// import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
-
-// const messageAtom = atom<string>("");
-// const mathEquationAtom = atom<string>("");
-// const submitContentAtom = atom(
-//   (get) => get(mathEquationAtom) || get(messageAtom) || "",
-// );
-// const filesAtom = atom<File[]>([]);
-
-// const messageStore = () => {
-//   return {
-//     store: useAtom(messageAtom),
-//     setMessageStore: useSetAtom(messageAtom),
-//     getMessage: useAtomValue(messageAtom),
-//   };
-// };
-
-// const mathEquationStore = () => {
-//   return {
-//     store: useAtom(mathEquationAtom),
-//     setMathEquation: useSetAtom(mathEquationAtom),
-//     getMathEquation: useAtomValue(mathEquationAtom),
-//   };
-// };
-
-// const submitContentStore = () => {
-//   return useAtomValue(submitContentAtom);
-// };
-
-// const filesStore = () => {
-//   return {
-//     store: useAtom(filesAtom),
-//     setFiles: useSetAtom(filesAtom),
-//     getFiles: useAtomValue(filesAtom),
-//   };
-// };
-
-// export { messageStore, mathEquationStore, submitContentStore, filesStore };

@@ -1,6 +1,6 @@
 "use client";
 
-import { removeAllChatsAction } from "@/actions/old/chat";
+import { removeAllChatsAction } from "@/actions/chat";
 import SubmitButton from "@/components/common/SubmitButton";
 import {
   AlertDialog,

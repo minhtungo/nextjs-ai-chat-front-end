@@ -1,4 +1,4 @@
-import { getChatsAction } from "@/actions/old/chat";
+import { getChatsAction } from "@/actions/chat";
 import { cache } from "react";
 import { toast } from "sonner";
 import ChatGroup from "./ChatGroup";

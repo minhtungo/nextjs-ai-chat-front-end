@@ -23,7 +23,6 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
 
   useEffect(() => {
     if (isActiveChat) {
-      console.log("isActiveChat", isActiveChat);
       setIsOpen(true);
     }
   }, [isActiveChat]);

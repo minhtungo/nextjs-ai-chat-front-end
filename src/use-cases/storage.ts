@@ -1,16 +1,25 @@
-import { put } from "@vercel/blob";
-import { toast } from "sonner";
+import { fetchAuth } from "@/lib/fetch";
+import { ZSAError } from "zsa";
 
-export const uploadFileUseCase = async (file: File): Promise<string> => {
+export const uploadFileUseCase = async (file: File) => {
   try {
-    const blob = await put(file.type, file, {
-      access: "public",
-      token: process.env.BLOB_READ_WRITE_TOKEN,
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("name", "test2");
+    formData.append("type_upload", "users");
+
+    const data = await fetchAuth({
+      url: "/assets/v1/auth/upload",
+      method: "POST",
+      formData,
     });
-    return blob.url;
+
+    if (data.success) {
+      return data.data.data;
+    } else if (data.error) {
+      throw new ZSAError("ERROR", "Failed to upload file");
+    }
   } catch (error) {
-    console.error("Upload error:", error);
-    toast.error("Failed to upload file.");
-    return "";
+    throw new ZSAError("ERROR", "Failed to upload file");
   }
 };

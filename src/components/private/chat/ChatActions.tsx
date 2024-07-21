@@ -1,6 +1,6 @@
 "use client";
 
-import { removeChatAction } from "@/actions/old/chat";
+import { removeChatAction } from "@/actions/chat";
 import Spinner from "@/components/common/Spinner";
 import {
   AlertDialog,
@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Chat } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
-import { FC, MouseEventHandler, useState } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
