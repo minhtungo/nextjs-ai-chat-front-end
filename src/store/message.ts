@@ -3,6 +3,9 @@ import { nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
 import { toast } from "sonner";
 
+const MAX_FILE_SIZE_MB = 10;
+const MAX_FILE_COUNT = 10;
+
 export interface IFile {
   id: string;
   name: string;
@@ -10,6 +13,7 @@ export interface IFile {
   preview?: string;
   type: "image" | "document";
   isUploading?: boolean;
+  size: number;
 }
 
 interface IMessage {
@@ -32,6 +36,8 @@ const messageAtom = atom<IMessage>(initialMessageState);
 const useMessageStore = () => {
   const [messageStore, setMessageStore] = useAtom(messageAtom);
 
+  const { files: currentFiles } = messageStore;
+
   const setMessage = (message: string) =>
     setMessageStore((prev) => ({ ...prev, message }));
   const setMathEquation = (mathEquation: string) =>
@@ -51,21 +57,40 @@ const useMessageStore = () => {
     if (!files || files.length === 0) {
       return;
     }
-    const newFiles: IFile[] = files.map((file) => {
-      return {
-        id: nanoid(),
-        name: file.name,
-        type: file.type.startsWith("image") ? "image" : "document",
-        preview: file.type.startsWith("image")
-          ? URL.createObjectURL(file)
-          : undefined,
-        isUploading: true,
-      };
-    });
+
+    let totalFilesSize = currentFiles.reduce((acc, file) => acc + file.size, 0);
+
+    const totalFilesCount = currentFiles.length;
+
+    let validFiles = [] as IFile[];
+
+    for (let file of files) {
+      totalFilesSize += file.size;
+      if (
+        totalFilesCount + validFiles.length <= MAX_FILE_COUNT &&
+        totalFilesSize <= MAX_FILE_SIZE_MB * 1024 * 1024
+      ) {
+        validFiles.push({
+          id: nanoid(),
+          name: file.name,
+          type: file.type.startsWith("image") ? "image" : "document",
+          preview: file.type.startsWith("image")
+            ? URL.createObjectURL(file)
+            : undefined,
+          size: file.size,
+          isUploading: true,
+        });
+      } else {
+        toast.error(
+          `You can only upload ${MAX_FILE_COUNT} files and ${MAX_FILE_SIZE_MB}MB of files at a time.`,
+        );
+        return;
+      }
+    }
 
     setMessageStore((prev) => ({
       ...prev,
-      files: [...prev.files, ...newFiles],
+      files: [...prev.files, ...validFiles],
     }));
 
     // const formData = new FormData();
@@ -85,7 +110,7 @@ const useMessageStore = () => {
           setMessageStore((prev) => ({
             ...prev,
             files: prev.files.map((f) =>
-              f.id === newFiles[index].id
+              f.id === validFiles[index].id
                 ? { ...f, url, isUploading: false }
                 : f,
             ),
@@ -95,7 +120,7 @@ const useMessageStore = () => {
           // Mark file as not uploading in state on failure
           setMessageStore((prev) => ({
             ...prev,
-            files: prev.files.filter((f) => f.id !== newFiles[index].id),
+            files: prev.files.filter((f) => f.id !== validFiles[index].id),
           }));
         } finally {
           setIsPending(false);

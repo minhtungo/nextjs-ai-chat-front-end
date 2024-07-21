@@ -1,3 +1,5 @@
 {
-  "cSpell.words": ["authed", "CENTRIFUGO"]
+  "cSpell.words": ["authed", "CENTRIFUGO"],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

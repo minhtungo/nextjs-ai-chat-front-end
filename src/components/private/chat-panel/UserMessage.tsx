@@ -26,7 +26,7 @@ const UserMessage: FC<UserMessageProps> = ({ message }) => {
     <div className="space-y-2">
       <div className="mt-3 flex flex-col items-end gap-y-2">
         {files.length > 0 && (
-          <div className="flex max-w-72 flex-row flex-wrap items-center justify-end gap-1">
+          <div className="flex max-w-72 flex-row flex-wrap items-center justify-end gap-2">
             {files.map(
               ({ type, url }) =>
                 type === "image" && (
