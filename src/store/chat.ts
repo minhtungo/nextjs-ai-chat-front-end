@@ -2,8 +2,9 @@ import { Message } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 export type ChatConfig = {
-  subject: string | null;
   id: string | null;
+  title?: string;
+  subject: string | null;
   messages: Message[] | [];
   overlay: {
     isOpen: boolean;
@@ -14,6 +15,7 @@ export type ChatConfig = {
 export const chatInitialState: ChatConfig = {
   id: "",
   subject: "",
+  title: "",
   messages: [],
   overlay: {
     isOpen: false,

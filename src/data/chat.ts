@@ -19,10 +19,12 @@ export const saveChat = cache(
     message: { content, files, role },
     chatId,
     userId,
+    title,
   }: {
     message: NewMessage;
     chatId: string;
     userId: string;
+    title: string | null;
   }) => {
     try {
       await db.chat.upsert({
@@ -31,6 +33,7 @@ export const saveChat = cache(
           userId: userId,
         },
         update: {
+          ...(title && { title }),
           messages: {
             create: {
               content,
@@ -50,6 +53,7 @@ export const saveChat = cache(
         },
         create: {
           userId,
+          ...(title && { title }),
           messages: {
             create: {
               content,

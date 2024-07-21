@@ -43,7 +43,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
         )}
       >
         <MessageCircle className="size-4" />
-        <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap">
+        <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap capitalize">
           {chat.title ||
             chat.messages?.[0]?.content.substring(0, 20) ||
             chat.subject}

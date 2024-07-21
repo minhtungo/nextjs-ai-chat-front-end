@@ -68,6 +68,9 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     setChat((prev) => ({
       ...prev,
       messages: [...prev.messages, newMessage],
+      ...(prev.messages.length === 0 && {
+        title: newMessage.content.substring(0, 25),
+      }),
     }));
 
     clearMessageStore();
@@ -75,6 +78,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     await saveChatAction({
       message: newMessage,
       chatId: chat.id!,
+      title:
+        chat.messages.length === 0 ? newMessage.content.substring(0, 25) : null,
     });
 
     // await publishMessage(submitContent);

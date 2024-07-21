@@ -18,12 +18,14 @@ export const saveChatUseCase = async ({
   message,
   chatId,
   userId,
+  title,
 }: {
   message: NewMessage;
   chatId: string;
   userId: string;
+  title: string | null;
 }) => {
-  return await saveChat({ message, chatId, userId });
+  return await saveChat({ message, chatId, userId, title });
 };
 
 export const getChatByIDUseCase = async (chatID: string, userID: string) => {

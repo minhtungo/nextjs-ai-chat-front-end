@@ -29,6 +29,7 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
       ...prev,
       id: chat.id,
       subject: chat.subject,
+      ...(chat.title && { title: chat.title }),
       messages: chat.messages.map(
         ({ id, content, files, role, userId, chatId }) => {
           return {

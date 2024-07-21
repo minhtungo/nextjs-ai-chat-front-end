@@ -53,17 +53,23 @@ export const saveChatAction = authedAction
     z.object({
       message: z.any(),
       chatId: z.string(),
+      title: z.string().nullable(),
     }),
   )
-  .handler(async ({ input: { message, chatId }, ctx: { user } }) => {
+  .handler(async ({ input: { message, chatId, title }, ctx: { user } }) => {
     try {
       await saveChatUseCase({
         message,
         chatId,
+        title,
         userId: user.id!,
       });
     } catch (error) {
       throw new Error("Error saving chat");
+    }
+
+    if(title !== null) {
+      revalidatePath(`/${PROTECTED_BASE_URL}/chat/${chatId}`);
     }
   });
 
