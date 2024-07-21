@@ -57,7 +57,11 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
       <CollapsibleContent className="mt-2">
         <ol className="space-y-1.5">
           {chats.map((chat) => (
-            <ChatItem chat={chat} setIsOpen={setIsOpen} />
+            <ChatItem
+              key={`${chat.id}-chat-item`}
+              chat={chat}
+              setIsOpen={setIsOpen}
+            />
           ))}
         </ol>
       </CollapsibleContent>

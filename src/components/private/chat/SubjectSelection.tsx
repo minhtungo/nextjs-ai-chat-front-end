@@ -23,7 +23,7 @@ const SubjectSelection: FC<SubjectSelectionProps> = () => {
       {SUBJECTS.map((subject) => (
         <RadioGroupItem
           value={subject.value}
-          key={`new-chat-subject-${subject.value}`}
+          key={`new-chat-subject-${subject.value}-subject-selection`}
           className="rounded-sm border border-input px-4 py-3 hover:border-primary/40 data-[state=checked]:border-primary"
         >
           {subject.label}

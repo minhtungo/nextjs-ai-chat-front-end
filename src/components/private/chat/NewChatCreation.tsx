@@ -57,7 +57,7 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
         <div className="mb-4 flex w-full flex-wrap items-center justify-between gap-3">
           <TabsList>
             {SUBJECTS_BY_LEVEL.map(({ level }) => (
-              <TabsTrigger value={level} key={level}>
+              <TabsTrigger value={level} key={`${level}-tab`}>
                 {level}
               </TabsTrigger>
             ))}
@@ -71,7 +71,7 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
         </div>
 
         {SUBJECTS_BY_LEVEL.map(({ level, subjects }) => (
-          <TabsContent value={level} key={`${level}-tab`}>
+          <TabsContent value={level} key={`${level}-tab-content`}>
             <SubjectsRadio
               selectedSubject={selectedSubject}
               setSelectedSubject={setSelectedSubject}
