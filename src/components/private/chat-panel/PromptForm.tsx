@@ -114,9 +114,9 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 tabIndex={0}
                 onPaste={async (e) => {
                   const files = e.clipboardData?.files;
-                  if (files) {
-                    addFiles(Array.from(files));
+                  if (files && files.length > 0) {
                     e.preventDefault();
+                    addFiles(Array.from(files));
                   }
                 }}
                 onKeyDown={onKeyDown}
