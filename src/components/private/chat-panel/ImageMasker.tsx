@@ -5,15 +5,16 @@ import { RefObject, useEffect } from "react";
 const ImageMasker = ({
   onMouseDown,
   canvasRef,
-  imageRef,
+  image,
 }: {
   onMouseDown: () => void;
   canvasRef: RefObject<HTMLCanvasElement>;
-  imageRef: RefObject<HTMLImageElement>;
+  image: HTMLImageElement | null;
 }) => {
   useEffect(() => {
     const canvas = canvasRef.current;
-    const image = imageRef.current;
+
+    console.log("image", image);
 
     if (canvas && image) {
       canvas.width = image.offsetWidth;

@@ -1,7 +1,6 @@
 import { Draw } from "./../types/draw.d";
 
 type DrawLineProps = Draw & {
-  color: string;
   lineWidth: number;
 };
 

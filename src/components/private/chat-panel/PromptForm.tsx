@@ -17,9 +17,9 @@ import Image from "next/image";
 import DocPreview from "./DocPreview";
 import UtilButtons from "./UtilButtons";
 
-const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
-  loading: () => <p>Loading...</p>,
-});
+// const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
+//   loading: () => <p>Loading...</p>,
+// });
 
 interface PromptFormProps {
   className?: string;
@@ -154,9 +154,9 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             <ChevronDown className="size-3" />
           </button>
 
-          <div className="w-full" id="math-keyboard">
+          {/* <div className="w-full" id="math-keyboard">
             <MathKeyboard formRef={formRef} />
-          </div>
+          </div> */}
         </>
       )}
     </form>

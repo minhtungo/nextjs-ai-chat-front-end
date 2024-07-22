@@ -9,6 +9,7 @@ export type ChatConfig = {
   overlay: {
     isOpen: boolean;
     selectedImage: string | null;
+    selectedImageIndex: number | null;
   };
 };
 
@@ -20,6 +21,7 @@ export const chatInitialState: ChatConfig = {
   overlay: {
     isOpen: false,
     selectedImage: null,
+    selectedImageIndex: null,
   },
 };
 

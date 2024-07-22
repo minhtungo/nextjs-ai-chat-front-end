@@ -1,5 +1,6 @@
 "use client";
 
+import { FilePreviewCarousel } from "@/components/private/chat-panel/FilePreviewCarousel";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useDraw } from "@/hooks/use-draw";
@@ -7,8 +8,7 @@ import { drawLine } from "@/lib/draw";
 import { chatStore } from "@/store/chat";
 import { Eraser, Paintbrush, X } from "lucide-react";
 import { User } from "next-auth";
-import Image from "next/image";
-import { FC, useRef, useState } from "react";
+import { FC, useCallback, useMemo, useRef, useState } from "react";
 import ChatPanel from "./ChatPanel";
 import ImageMasker from "./ImageMasker";
 import LineWidthSlider from "./LineWidthSlider";
@@ -19,23 +19,6 @@ interface ChatOverlayViewProps {
 }
 
 const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [lineWidth, setLineWidth] = useState(25);
-
-  const imageRef = useRef(null);
-
-  const { clear, onMouseDown, canvasRef, exportDrawingAsBlob } = useDraw(
-    ({ prevPoint, currentPoint, ctx }) => {
-      drawLine({
-        prevPoint,
-        currentPoint,
-        ctx,
-        color: "#000",
-        lineWidth,
-      });
-    },
-  );
-
   const {
     store: [
       {
@@ -46,6 +29,51 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
     ],
   } = chatStore();
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [lineWidth, setLineWidth] = useState(25);
+
+  const imageRefs = useRef([]);
+  const [selectedIndex, setSelectedIndex] = useState<number | undefined>(
+    undefined,
+  );
+
+  const { clear, onMouseDown, canvasRef } = useDraw(
+    ({ prevPoint, currentPoint, ctx }) => {
+      drawLine({
+        prevPoint,
+        currentPoint,
+        ctx,
+        lineWidth,
+      });
+    },
+  );
+
+  // const filesUrls = useMemo(
+  //   () =>
+  //     messages.reduce((acc, message) => {
+  //       const urls = message.files.map((file) => file.url);
+  //       return acc.concat(urls);
+  //     }, []),
+  //   [messages],
+  // );
+
+  const fileUrls = useMemo(
+    () => messages.flatMap((message) => message.files.map((file) => file.url)),
+    [messages],
+  );
+
+  const handleCarouselChange = useCallback(
+    (index: number) => {
+      // Update the selected image index
+      // setChat((prev) => ({
+      //   ...prev,
+      //   overlay: { ...prev.overlay, selectedImageIndex: index },
+      // }));
+      setSelectedIndex(index);
+    },
+    [setChat],
+  );
+
   if (!isOpen) return null;
 
   return (
@@ -53,7 +81,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
       <div className="flex duration-300 ease-in-out">
         <div className="flex-grow overflow-auto">
           <div className="flex h-full w-full flex-col">
-            <div className="mb-6 flex w-full items-center gap-x-2 px-4 pt-2">
+            <div className="mb-3 flex w-full items-center gap-x-2 px-4 pt-2">
               {isEditing && (
                 <div className="flex gap-x-4">
                   <LineWidthSlider setLineWidth={setLineWidth} />
@@ -93,26 +121,32 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                 </Button>
               </div>
             </div>
-            <div className="relative mx-auto flex h-fit max-w-[50%]">
+            <div className="relative">
+              <FilePreviewCarousel
+                fileArray={fileUrls as string[]}
+                imageRefs={imageRefs}
+                handleCarouselChange={handleCarouselChange}
+              />
               {isEditing && (
-                <div className="absolute inset-0">
+                <div className="absolute inset-0 z-10">
                   <div className="relative cursor-crosshair">
                     <ImageMasker
                       onMouseDown={onMouseDown}
                       canvasRef={canvasRef}
-                      imageRef={imageRef}
+                      image={imageRefs.current[selectedIndex!]}
                     />
                   </div>
                 </div>
               )}
-              <Image
+
+              {/* <Image
                 ref={imageRef}
                 src={selectedImage!}
                 width={1024}
                 height={1024}
                 className="h-auto w-full object-cover"
                 alt="Image"
-              />
+              /> */}
             </div>
           </div>
         </div>
