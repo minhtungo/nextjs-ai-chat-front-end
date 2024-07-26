@@ -24,6 +24,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { chatStore } from "@/store/chat";
 import { Chat } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
@@ -37,6 +38,10 @@ interface ChatActionsProps {
 }
 
 const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive, isActive }) => {
+  const {
+    getChat: { isEditingTitle },
+    setChat,
+  } = chatStore();
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { isPending: isRemovePending, execute } =
     useServerAction(removeChatAction);
@@ -75,7 +80,11 @@ const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive, isActive }) => {
             <span>Delete</span>
             <span className="sr-only">Delete</span>
           </DropdownMenuItem>
-          <DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() =>
+              setChat((prev) => ({ ...prev, isEditingTitle: !isEditingTitle }))
+            }
+          >
             <Pencil className="size-4" />
             <span>Rename</span>
             <span className="sr-only">Rename</span>

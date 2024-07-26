@@ -11,6 +11,7 @@ export type ChatConfig = {
     selectedImage: string | null;
     selectedImageIndex: number | null;
   };
+  isEditingTitle?: boolean;
 };
 
 export const chatInitialState: ChatConfig = {
@@ -23,6 +24,7 @@ export const chatInitialState: ChatConfig = {
     selectedImage: null,
     selectedImageIndex: null,
   },
+  isEditingTitle: false,
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);

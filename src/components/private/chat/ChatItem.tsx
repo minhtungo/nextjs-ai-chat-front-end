@@ -9,6 +9,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import ChatActions from "./ChatActions";
+import { chatStore } from "@/store/chat";
 
 interface ChatItemProps {
   chat: Chat;
@@ -18,6 +19,9 @@ interface ChatItemProps {
 const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
+  const {
+    getChat: { title, subject },
+  } = chatStore();
 
   const isActiveChat = pathname === `${PROTECTED_BASE_URL}/chat/${chat.id}`;
 
@@ -62,6 +66,12 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
           (isActiveChat || isActive) && "flex",
         )}
       >
+        <input
+          type="text"
+          value={chat.title || title || chat.subject || "test"}
+          onChange={(e) => console.log(e.target.value)}
+          className="h-full w-full"
+        />
         <ChatActions
           chat={chat}
           isActive={isActive}
