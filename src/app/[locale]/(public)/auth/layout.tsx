@@ -15,7 +15,7 @@ export default function AuthLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <div className="flex h-full w-full items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center py-12">
       {children}
     </div>
   );

@@ -52,10 +52,10 @@ const SignInForm = () => {
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     const [_, error] = await execute({ values, redirectURL });
 
-    if (error) {
-      form.reset();
-      form.setFocus("email");
-    }
+    // if (error) {
+    //   form.reset();
+    //   form.setFocus("email");
+    // }
   };
 
   return (

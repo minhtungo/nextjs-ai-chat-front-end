@@ -2,6 +2,7 @@
 
 import { removeChatAction } from "@/actions/chat";
 import Spinner from "@/components/common/Spinner";
+import DeleteChatAlert from "@/components/private/chat/DeleteChatAlert";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,48 +92,13 @@ const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive, isActive }) => {
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteChatDialog
+      <DeleteChatAlert
         deleteDialogOpen={deleteDialogOpen}
         setDeleteDialogOpen={setDeleteDialogOpen}
         isRemovePending={isRemovePending}
         onDeleteChat={onDeleteChat}
       />
     </>
-  );
-};
-
-const DeleteChatDialog = ({
-  deleteDialogOpen,
-  setDeleteDialogOpen,
-  isRemovePending,
-  onDeleteChat,
-}: {
-  deleteDialogOpen: boolean;
-  setDeleteDialogOpen: (value: boolean) => void;
-  isRemovePending: boolean;
-  onDeleteChat: (e: any) => Promise<void>;
-}) => {
-  return (
-    <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This will permanently delete your chat message and remove your data
-            from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={isRemovePending}>
-            Cancel
-          </AlertDialogCancel>
-          <AlertDialogAction disabled={isRemovePending} onClick={onDeleteChat}>
-            {isRemovePending && <Spinner />}
-            Delete
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
   );
 };
 
