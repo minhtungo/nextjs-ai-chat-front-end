@@ -68,7 +68,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
       >
         <input
           type="text"
-          value={chat.title || title || chat.subject || "test"}
+          value={chat.title || ""}
           onChange={(e) => console.log(e.target.value)}
           className="h-full w-full"
         />
