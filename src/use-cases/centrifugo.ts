@@ -3,6 +3,7 @@ import {
   getPublishMessageTokenAction,
   getSubscriptionTokenAction,
 } from "@/actions/centrifuge";
+import { createPayload, encodeData } from "@/lib/utils";
 import { Centrifuge } from "centrifuge";
 
 export const getConnectionToken = async () => {
@@ -11,8 +12,6 @@ export const getConnectionToken = async () => {
   if (err) {
     throw new Centrifuge.UnauthorizedError("Unauthorized");
   }
-
-  // console.log("data=========", data);
 
   return data.token;
 };
@@ -43,4 +42,12 @@ export const getPublishMessageToken = async (
   }
 
   return data.token;
+};
+
+export const encodeDataUseCase = async ({ userId }: { userId: string }) => {
+  const payload = createPayload({
+    uid: userId,
+  });
+
+  return encodeData(payload);
 };

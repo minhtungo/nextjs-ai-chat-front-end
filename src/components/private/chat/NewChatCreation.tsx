@@ -22,8 +22,6 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
     undefined,
   );
 
-  // const {} = useCentrifuge({});
-
   const { isPending, execute } = useServerAction(createNewChatAction);
 
   const { setChat } = chatStore();

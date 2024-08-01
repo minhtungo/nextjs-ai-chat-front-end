@@ -1,7 +1,11 @@
+import { encodeData } from "@/lib/utils";
+import jwt from "jsonwebtoken";
+
 interface FetchAuthProps {
   url: string;
   method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
   body?: { [key: string]: any };
+  payload: { [key: string]: any };
   formData?: FormData;
 }
 
@@ -9,10 +13,11 @@ export const fetchAuth = async ({
   url,
   method,
   body,
+  payload,
   formData,
 }: FetchAuthProps) => {
   try {
-    const accessToken = process.env.ACCESS_TOKEN;
+    const accessToken = encodeData(payload);
 
     const response = await fetch(`${process.env.SERVER_BASE_URL}${url}`, {
       method: method,

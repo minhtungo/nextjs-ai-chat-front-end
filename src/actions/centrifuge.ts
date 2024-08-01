@@ -3,6 +3,7 @@
 import { authedAction } from "@/lib/safe-actions";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
+import { encodeDataUseCase } from "@/use-cases/centrifugo";
 
 const TOKEN_EXPIRATION_IN_MINUTES = 5;
 
@@ -71,3 +72,11 @@ export const getPublishMessageTokenAction = authedAction
 
     return { token: signedToken };
   });
+
+export const encodeDataAction = authedAction.handler(
+  async ({ ctx: { user } }) => {
+    return encodeDataUseCase({
+      userId: user.id!,
+    });
+  },
+);

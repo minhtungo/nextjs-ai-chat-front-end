@@ -28,17 +28,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     clearMessageStore();
   }, []);
 
-  // const { publishMessage } = useCentrifuge({
-  //   channel: id!,
-  //   userId: user.id!,
-  //   onPublication: (message: Message) => {
-  //     setChat((prev) => ({
-  //       ...prev,
-  //       messages: [...prev.messages, message],
-  //     }));
-  //   },
-  // });
-
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

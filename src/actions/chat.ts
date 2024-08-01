@@ -1,19 +1,18 @@
 "use server";
 
-import { removeChat } from "@/data/chat";
-import { authedAction } from "@/lib/safe-actions";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
+import { authedAction } from "@/lib/safe-actions";
 import {
   createNewChatUseCase,
   getChatsUseCase,
+  removeAllChatsUseCase,
   removeChatUseCase,
   saveChatUseCase,
 } from "@/use-cases/chat";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
-import { revalidatePath } from "next/cache";
-import { removeAllChatsUseCase } from "@/use-cases/chat";
 
 export const getChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
@@ -68,7 +67,7 @@ export const saveChatAction = authedAction
       throw new Error("Error saving chat");
     }
 
-    if(title !== null) {
+    if (title !== null) {
       revalidatePath(`/${PROTECTED_BASE_URL}/chat/${chatId}`);
     }
   });

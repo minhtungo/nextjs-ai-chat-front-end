@@ -1,9 +1,10 @@
-import { type ClassValue, clsx } from "clsx";
-import { customAlphabet } from "nanoid";
-import { toast } from "sonner";
-import { twMerge } from "tailwind-merge";
-import { SUBJECTS } from "./constant";
 import { DASHBOARD_LINKS } from "@/lib/routes";
+import { type ClassValue, clsx } from "clsx";
+import jwt from "jsonwebtoken";
+import { customAlphabet } from "nanoid";
+import { twMerge } from "tailwind-merge";
+import { v4 as uuid } from "uuid";
+import { SUBJECTS } from "./constant";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -79,4 +80,21 @@ export const generateBreadcrumbs = (pathname: string) => {
   });
 
   return breadcrumbs;
+};
+
+export const encodeData = (data: any) => {
+  const token = jwt.sign(data, process.env.JWT_SECRET!, {
+    algorithm: "HS256",
+  });
+
+  return token;
+};
+
+export const createPayload = (data: any) => {
+  return {
+    jti: uuid(),
+    iat: Math.floor(Date.now() / 1000),
+    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+    ...data,
+  };
 };
