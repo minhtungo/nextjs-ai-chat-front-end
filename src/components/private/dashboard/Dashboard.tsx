@@ -1,11 +1,9 @@
 "use client";
 
-import { encodeDataAction } from "@/actions/centrifuge";
 import NewChatCreation from "@/components/private/chat/NewChatCreation";
 import Container from "@/components/private/common/Container";
 import Typography from "@/components/ui/typography";
 import { useCentrifuge } from "@/store/centrifuge";
-import { getConnectionToken } from "@/use-cases/centrifugo";
 import { Centrifuge, State } from "centrifuge";
 import { User } from "next-auth";
 import { FC, useEffect } from "react";
@@ -23,7 +21,7 @@ const Dashboard: FC<DashboardProps> = ({ user, encodedData }) => {
       const newCentrifuge = new Centrifuge(
         process.env.NEXT_PUBLIC_WS_ENDPOINT!,
         {
-          getToken: getConnectionToken,
+          // getToken: getConnectionToken,
           debug: true,
           data: encodedData,
         },
@@ -38,10 +36,10 @@ const Dashboard: FC<DashboardProps> = ({ user, encodedData }) => {
       if (newCentrifuge.state === State.Disconnected) {
         newCentrifuge.connect();
       }
-      return () => {
-        newCentrifuge.disconnect();
-        setCentrifuge(null);
-      };
+      // return () => {
+      //   newCentrifuge.disconnect();
+      //   setCentrifuge(null);
+      // };
     }
   }, []);
 

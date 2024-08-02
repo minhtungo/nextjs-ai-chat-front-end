@@ -1,7 +1,7 @@
 import { fetchAuth } from "@/lib/fetch";
 import { createPayload } from "@/lib/utils";
 
-const createRoom = async (userId: string) => {
+export const createChatRoom = async (userId: string) => {
   const payload = createPayload({
     uid: userId,
   });

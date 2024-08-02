@@ -9,6 +9,7 @@ import PromptForm from "./PromptForm";
 import { saveChatAction } from "@/actions/chat";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
+import { useSubscription } from "@/store/centrifuge";
 
 interface ChatPanelProps {
   user: User;
@@ -23,6 +24,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
+  const [sub, setSub] = useSubscription();
 
   useEffect(() => {
     clearMessageStore();
@@ -71,7 +73,11 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
         chat.messages.length === 0 ? newMessage.content.substring(0, 25) : null,
     });
 
-    // await publishMessage(submitContent);
+    if (sub) {
+      sub.publish({
+        input: submitContent,
+      });
+    }
 
     // Submit and get response message
     // const responseMessage = await submitUserMessage(content, encodedImage);

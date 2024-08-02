@@ -28,6 +28,10 @@ export const getSubscriptionToken = async (channel: string) => {
   return data.token;
 };
 
+export const getChannelSubscriptionToken = async (channel: string) => {
+  return getSubscriptionToken(channel);
+};
+
 export const getPublishMessageToken = async (
   channel: string,
   message: string,

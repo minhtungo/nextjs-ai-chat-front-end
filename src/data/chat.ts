@@ -1,11 +1,11 @@
 import { db } from "@/lib/db";
-import { ChatConfig } from "@/store/chat";
-import { Chat, Message, NewMessage } from "@/types/chat";
+import { Chat, NewMessage } from "@/types/chat";
 import { cache } from "react";
 
 export const createNewChat = async (chat: Chat) => {
   return await db.chat.create({
     data: {
+      id: chat.id,
       title: chat.title,
       userId: chat.userId,
       createdAt: chat.createdAt,

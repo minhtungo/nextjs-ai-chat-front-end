@@ -7,11 +7,13 @@ import {
   saveChat,
 } from "@/data/chat";
 import { getUserById } from "@/data/user";
+import { createChatRoom } from "@/lib/chat";
 import { Chat, NewMessage } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createNewChatUseCase = async (chat: Chat) => {
-  return await createNewChat(chat);
+  const { roomid } = await createChatRoom(chat.userId);
+  return await createNewChat({ ...chat, id: roomid });
 };
 
 export const saveChatUseCase = async ({
