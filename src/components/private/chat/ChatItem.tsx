@@ -66,12 +66,6 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
           (isActiveChat || isActive) && "flex",
         )}
       >
-        <input
-          type="text"
-          value={chat.title || ""}
-          onChange={(e) => console.log(e.target.value)}
-          className="h-full w-full"
-        />
         <ChatActions
           chat={chat}
           isActive={isActive}

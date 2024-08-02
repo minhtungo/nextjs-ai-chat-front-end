@@ -1,8 +1,8 @@
 import { Message } from "@/types/chat";
 import { FC } from "react";
 import UserMessage from "./UserMessage";
-import BotMessage from "./BotMessage";
 import { cn } from "@/lib/utils";
+import BotMessage from "@/components/private/chat/BotMessage";
 
 interface MessageHistoryProps {
   messages: Message[];

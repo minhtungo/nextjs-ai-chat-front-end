@@ -13,18 +13,23 @@ import { useSubscription } from "@/store/centrifuge";
 
 interface ChatPanelProps {
   user: User;
+  chatId: string;
   className?: string;
 }
 
-const ChatPanel: FC<ChatPanelProps> = ({ user, className }) => {
+const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
+
   const {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
-  const [sub, setSub] = useSubscription();
+
+  console.log("chat", chat);
+  const channel = `rooms:${chatId}`;
+  const sub = useSubscription(channel);
 
   useEffect(() => {
     clearMessageStore();

@@ -5,22 +5,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
-import { useCentrifuge, useSubscription } from "@/store/centrifuge";
 import { chatInitialState, chatStore } from "@/store/chat";
 import { FC, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
-import SubmitButton from "../../common/SubmitButton";
+import SubmitButton from "@/components/common/SubmitButton";
 import SubjectsRadio from "./SubjectsRadio";
+import { useCentrifuge } from "@/store/centrifuge";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
+  encodedData?: string;
 }
 
-const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
+const NewChatCreation: FC<NewChatCreationProps> = ({
+  toggleDialog,
+  encodedData,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [centrifuge] = useCentrifuge();
-  const [_, setSub] = useSubscription();
+  const centrifuge = useCentrifuge();
+
   const [selectedSubject, setSelectedSubject] = useState<string | undefined>(
     undefined,
   );

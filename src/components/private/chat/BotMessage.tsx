@@ -23,7 +23,7 @@ interface BotMessageProps {
 }
 
 const BotMessage: FC<BotMessageProps> = ({ content }) => {
-  const text = useStreamableText(content);
+  // const text = useStreamableText(content);
 
   return (
     <div className="space-y-1.5">
@@ -37,7 +37,7 @@ const BotMessage: FC<BotMessageProps> = ({ content }) => {
             },
           }}
         >
-          {text}
+          {content as string}
         </MemoizedReactMarkdown>
       </Card>
       <TooltipProvider delayDuration={100}>
