@@ -8,8 +8,8 @@ export type ChatConfig = {
   messages: Message[] | [];
   overlay: {
     isOpen: boolean;
-    selectedImage: string | null;
-    selectedImageIndex: number | null;
+    selectedImage?: string | null;
+    selectedImageIndex?: number | null;
   };
   isEditingTitle?: boolean;
 };

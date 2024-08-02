@@ -1,8 +1,5 @@
 "use client";
 
-import Typography from "@/components/ui/typography";
-import { usePathname } from "next/navigation";
-import React, { FC } from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,6 +10,8 @@ import {
 } from "@/components/ui/breadcrumb";
 import { generateBreadcrumbs } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { FC } from "react";
 
 interface HeaderTitleProps {}
 

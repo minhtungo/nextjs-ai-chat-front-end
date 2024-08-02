@@ -10,7 +10,7 @@ import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 import MessageHistory from "./MessageHistory";
 import { useCentrifuge, useSubscription } from "@/store/centrifuge";
-import { getSubscriptionToken } from "@/use-cases/centrifugo";
+import { getSubscriptionToken } from "@/use-cases/centrifuge";
 import { SubscriptionState } from "centrifuge";
 
 export interface ChatProps extends React.ComponentProps<"div"> {

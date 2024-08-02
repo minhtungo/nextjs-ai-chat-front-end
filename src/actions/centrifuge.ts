@@ -3,7 +3,7 @@
 import { authedAction } from "@/lib/safe-actions";
 import { z } from "zod";
 import jwt from "jsonwebtoken";
-import { encodeDataUseCase } from "@/use-cases/centrifugo";
+import { encodeDataUseCase } from "@/use-cases/centrifuge";
 
 const TOKEN_EXPIRATION_IN_MINUTES = 5;
 

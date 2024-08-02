@@ -11,12 +11,10 @@ import {
 import { locales } from "@/lib/config";
 import { usePathname, useRouter } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
+import { Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
-import ENFlag from "./icons/ENFlag";
-import VNFlag from "./icons/VNFlag";
-import { Earth, Globe } from "lucide-react";
 
 interface LanguageSwitcherProps {
   className?: string;
