@@ -8,6 +8,8 @@ import {
 } from "@/data/chat";
 import { getUserById } from "@/data/user";
 import { createChatRoom } from "@/lib/chat";
+import { fetchAuth } from "@/lib/fetch";
+import { createPayload } from "@/lib/utils";
 import { Chat, NewMessage } from "@/types/chat";
 import { ZSAError } from "zsa";
 
@@ -51,6 +53,29 @@ export const removeAllChatsUseCase = async (userID: string) => {
 
   try {
     await removeAllChats(existingUser.id);
+  } catch (error) {
+    throw new ZSAError("ERROR", "error.generalError");
+  }
+};
+
+// new
+export const loadMessagesUseCase = async ({
+  userId,
+  roomId,
+  query: { limit = 10, offset },
+}: {
+  userId: string;
+  roomId: string;
+  query: { limit?: number; offset: number };
+}) => {
+  try {
+    return await fetchAuth({
+      url: `/chat/rooms/${roomId}/messages?limit=${limit}&offset=${offset}`,
+      method: "GET",
+      payload: createPayload({
+        uid: userId,
+      }),
+    });
   } catch (error) {
     throw new ZSAError("ERROR", "error.generalError");
   }

@@ -1,9 +1,9 @@
-import { atom, useAtom, useAtomValue } from "jotai";
-import { useEffect } from "react";
-import { Centrifuge, Subscription, SubscriptionState } from "centrifuge";
 import { encodeDataAction } from "@/actions/centrifuge";
-import { getSubscriptionToken } from "@/use-cases/centrifuge";
 import { parseMessages } from "@/lib/utils";
+import { getSubscriptionToken } from "@/use-cases/centrifuge";
+import { Centrifuge, Subscription } from "centrifuge";
+import { atom, useAtom } from "jotai";
+import { useEffect } from "react";
 
 const centrifugeAtom = atom<Centrifuge | null>(null);
 

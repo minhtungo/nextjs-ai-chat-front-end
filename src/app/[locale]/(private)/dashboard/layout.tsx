@@ -1,11 +1,11 @@
 import { auth } from "@/auth";
 import JoTaiProvider from "@/components/providers/JotaiProvider";
-import { ReactQueryClientProvider } from "@/components/providers/ReactQueryClientProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import "./dashboard.css";
+import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 
 const getAuth = cache(async () => {
   return await auth();
@@ -29,9 +29,9 @@ export default async function DashBoardLayout({
   }
   return (
     <SessionProvider session={session}>
-      <ReactQueryClientProvider>
+      <ReactQueryProvider>
         <JoTaiProvider>{children}</JoTaiProvider>
-      </ReactQueryClientProvider>
+      </ReactQueryProvider>
       <Toaster closeButton />
     </SessionProvider>
   );

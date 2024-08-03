@@ -5,6 +5,7 @@ import { authedAction } from "@/lib/safe-actions";
 import {
   createNewChatUseCase,
   getChatsUseCase,
+  loadMessagesUseCase,
   removeAllChatsUseCase,
   removeChatUseCase,
   saveChatUseCase,
@@ -96,3 +97,21 @@ export const removeAllChatsAction = authedAction.handler(
     };
   },
 );
+
+// new
+export const loadMessagesAction = authedAction
+  .input(
+    z.object({
+      roomId: z.string(),
+      query: z.object({ limit: z.number().optional(), offset: z.number() }),
+    }),
+  )
+  .handler(async ({ input: { roomId, query }, ctx: { user } }) => {
+    const res = await loadMessagesUseCase({
+      userId: user.id!,
+      roomId: roomId,
+      query,
+    });
+
+    return { messages: res.data.result.data.history?.toReversed() };
+  });

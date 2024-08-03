@@ -24,6 +24,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
       {
         overlay: { isOpen, selectedImage },
         messages,
+        id,
       },
       setChat,
     ],
@@ -158,7 +159,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                 className="px-4 sm:pl-4 sm:pr-6"
               />
             </ScrollArea>
-            <ChatPanel className="w-full px-4 pb-4" user={user} />
+            <ChatPanel className="w-full px-4 pb-4" user={user} chatId={id!} />
           </div>
         </div>
       </div>
