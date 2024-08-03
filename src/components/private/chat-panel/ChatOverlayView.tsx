@@ -38,7 +38,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
     undefined,
   );
 
-  const { clear, onMouseDown, canvasRef } = useDraw(
+  const { clear, onMouseDown, canvasRef, getConvexHull } = useDraw(
     ({ prevPoint, currentPoint, ctx }) => {
       drawLine({
         prevPoint,
@@ -86,6 +86,14 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               {isEditing && (
                 <div className="flex gap-x-4">
                   <LineWidthSlider setLineWidth={setLineWidth} />
+                  <button
+                    onClick={() => {
+                      const hull = getConvexHull();
+                      console.log("---------hull", hull);
+                    }}
+                  >
+                    Testing
+                  </button>
                   <Button
                     size="icon"
                     variant="ghost"

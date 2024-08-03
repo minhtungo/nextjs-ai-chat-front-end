@@ -1,5 +1,6 @@
 import { Draw, Point } from "./../types/draw.d";
 import { useEffect, useRef, useState, useCallback } from "react";
+import convexHull from "convex-hull";
 
 export const useDraw = (
   onDraw: ({ ctx, currentPoint, prevPoint }: Draw) => void,
@@ -7,6 +8,7 @@ export const useDraw = (
   const [mouseDown, setMouseDown] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const prevPoint = useRef<null | Point>(null);
+  const points = useRef<number[][]>([]);
 
   const onMouseDown = () => setMouseDown(true);
 
@@ -18,6 +20,7 @@ export const useDraw = (
     if (!ctx) return;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    points.current = [];
   };
 
   const exportDrawingAsBlob = useCallback(
@@ -47,6 +50,7 @@ export const useDraw = (
 
       onDraw({ ctx, currentPoint, prevPoint: prevPoint.current });
       prevPoint.current = currentPoint;
+      points.current.push([currentPoint.x, currentPoint.y]);
     };
 
     const computePointInCanvas = (e: MouseEvent) => {
@@ -76,11 +80,18 @@ export const useDraw = (
     };
   }, [onDraw]);
 
+  const getConvexHull = () => {
+    if (points.current.length < 3) return [];
+    console.log("points", points.current); // Not enough points to form a hull
+    return convexHull(points.current);
+  };
+
   return {
     canvasRef,
     onMouseDown,
     clear,
     exportDrawingAsBlob,
     exportDrawingAsDataURL,
+    getConvexHull,
   };
 };

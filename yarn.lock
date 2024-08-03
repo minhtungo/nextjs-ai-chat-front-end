@@ -1568,6 +1568,13 @@ acorn@^8.12.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.12.0.tgz#1627bfa2e058148036133b8d9b51a700663c294c"
   integrity sha512-RTvkC4w+KNXrM39/lWCUaG0IbRkWdCv7W/IOW9oU6SawyxulvkQy5HQPVTKxEjczcUvapcrw3cFx/60VN/NRNw==
 
+affine-hull@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/affine-hull/-/affine-hull-1.0.0.tgz#763ff1d38d063ceb7e272f17ee4d7bbcaf905c5d"
+  integrity sha512-3QNG6+vFAwJvSZHsJYDJ/mt1Cxx9n5ffA+1Ohmj7udw0JuRgUVIXK0P9N9pCMuEdS3jCNt8GFX5q2fChq+GO3Q==
+  dependencies:
+    robust-orientation "^1.1.3"
+
 agent-base@^7.0.2, agent-base@^7.1.0:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-7.1.1.tgz#bdbded7dfb096b751a2a087eeeb9664725b2e317"
@@ -1824,6 +1831,11 @@ binary-extensions@^2.0.0:
   resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-2.3.0.tgz#f6e14a97858d327252200242d4ccfe522c445522"
   integrity sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==
 
+bit-twiddle@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/bit-twiddle/-/bit-twiddle-1.0.2.tgz#0c6c1fabe2b23d17173d9a61b7b7093eb9e1769e"
+  integrity sha512-B9UhK0DKFZhoTFcfvAzhqsjStvGJp9vYWf3+6SNTtdSQnvIgfkHbgHrg/e4+TH71N2GDu8tpmCVoyfrL1d7ntA==
+
 brace-expansion@^1.1.7:
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.11.tgz#3c7fcbf529d87226f3d2f52b966ff5271eb441dd"
@@ -2036,6 +2048,15 @@ config-chain@^1.1.13:
   dependencies:
     ini "^1.3.4"
     proto-list "~1.2.1"
+
+convex-hull@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/convex-hull/-/convex-hull-1.0.3.tgz#20a3aa6ce87f4adea2ff7d17971c9fc1c67e1fff"
+  integrity sha512-24rZAoh81t41GHPLAxcsokgjH9XNoVqU2OiSi8iMHUn6HUURfiefcEWAPt1AfwZjBBWTKadOm1xUcUMnfFukhQ==
+  dependencies:
+    affine-hull "^1.0.0"
+    incremental-convex-hull "^1.0.1"
+    monotone-convex-hull-2d "^1.0.1"
 
 cookie@0.6.0:
   version "0.6.0"
@@ -3174,6 +3195,14 @@ imurmurhash@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/imurmurhash/-/imurmurhash-0.1.4.tgz#9218b9b2b928a238b13dc4fb6b6d576f231453ea"
   integrity sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==
+
+incremental-convex-hull@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/incremental-convex-hull/-/incremental-convex-hull-1.0.1.tgz#51428c14cb9d9a6144bfe69b2851fb377334be1e"
+  integrity sha512-mKRJDXtzo1R9LxCuB1TdwZXHaPaIEldoGPsXy2jrJc/kufyqp8y/VAQQxThSxM2aroLoh6uObexPk1ASJ7FB7Q==
+  dependencies:
+    robust-orientation "^1.1.2"
+    simplicial-complex "^1.0.0"
 
 ini@^1.3.4:
   version "1.3.8"
@@ -4338,6 +4367,13 @@ minimist@^1.2.0, minimist@^1.2.6:
   resolved "https://registry.yarnpkg.com/minipass/-/minipass-7.1.1.tgz#f7f85aff59aa22f110b20e27692465cf3bf89481"
   integrity sha512-UZ7eQ+h8ywIRAW1hIEl2AqdwzJucU/Kp59+8kkZeSvafXhZjul247BvIJjEVFVeON6d7lM46XX1HXCduKAS8VA==
 
+monotone-convex-hull-2d@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/monotone-convex-hull-2d/-/monotone-convex-hull-2d-1.0.1.tgz#47f5daeadf3c4afd37764baa1aa8787a40eee08c"
+  integrity sha512-ixQ3qdXTVHvR7eAoOjKY8kGxl9YjOFtzi7qOjwmFFPfBqZHVOjUFOBy/Dk9dusamRSPJe9ggyfSypRbs0Bl8BA==
+  dependencies:
+    robust-orientation "^1.1.3"
+
 ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
@@ -5097,6 +5133,34 @@ reusify@^1.0.4:
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.0.4.tgz#90da382b1e126efc02146e90845a88db12925d76"
   integrity sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==
 
+robust-orientation@^1.1.2, robust-orientation@^1.1.3:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/robust-orientation/-/robust-orientation-1.2.1.tgz#f6c2b00a5df5f1cb9597be63a45190f273899361"
+  integrity sha512-FuTptgKwY6iNuU15nrIJDLjXzCChWB+T4AvksRtwPS/WZ3HuP1CElCm1t+OBfgQKfWbtZIawip+61k7+buRKAg==
+  dependencies:
+    robust-scale "^1.0.2"
+    robust-subtract "^1.0.0"
+    robust-sum "^1.0.0"
+    two-product "^1.0.2"
+
+robust-scale@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/robust-scale/-/robust-scale-1.0.2.tgz#775132ed09542d028e58b2cc79c06290bcf78c32"
+  integrity sha512-jBR91a/vomMAzazwpsPTPeuTPPmWBacwA+WYGNKcRGSh6xweuQ2ZbjRZ4v792/bZOhRKXRiQH0F48AvuajY0tQ==
+  dependencies:
+    two-product "^1.0.2"
+    two-sum "^1.0.0"
+
+robust-subtract@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/robust-subtract/-/robust-subtract-1.0.0.tgz#e0b164e1ed8ba4e3a5dda45a12038348dbed3e9a"
+  integrity sha512-xhKUno+Rl+trmxAIVwjQMiVdpF5llxytozXJOdoT4eTIqmqsndQqFb1A0oiW3sZGlhMRhOi6pAD4MF1YYW6o/A==
+
+robust-sum@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/robust-sum/-/robust-sum-1.0.0.tgz#16646e525292b4d25d82757a286955e0bbfa53d9"
+  integrity sha512-AvLExwpaqUqD1uwLU6MwzzfRdaI6VEZsyvQ3IAQ0ZJ08v1H+DTyqskrf2ZJyh0BDduFVLN7H04Zmc+qTiahhAw==
+
 rrweb-cssom@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz#ed298055b97cbddcdeb278f904857629dec5e0e1"
@@ -5227,6 +5291,14 @@ signal-exit@^4.0.1:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==
+
+simplicial-complex@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/simplicial-complex/-/simplicial-complex-1.0.0.tgz#6c33a4ed69fcd4d91b7bcadd3b30b63683eae241"
+  integrity sha512-mHauIKSOy3GquM5VnYEiu7eP5y4A8BiaN9ezUUgyYFz1k68PqDYcyaH3kenp2cyvWZE96QKE3nrxYw65Allqiw==
+  dependencies:
+    bit-twiddle "^1.0.0"
+    union-find "^1.0.0"
 
 slash@^3.0.0:
   version "3.0.0"
@@ -5553,6 +5625,16 @@ tslib@^2.0.0, tslib@^2.1.0, tslib@^2.4.0:
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
 
+two-product@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/two-product/-/two-product-1.0.2.tgz#67d95d4b257a921e2cb4bd7af9511f9088522eaa"
+  integrity sha512-vOyrqmeYvzjToVM08iU52OFocWT6eB/I5LUWYnxeAPGXAhAxXYU/Yr/R2uY5/5n4bvJQL9AQulIuxpIsMoT8XQ==
+
+two-sum@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/two-sum/-/two-sum-1.0.0.tgz#31d3f32239e4f731eca9df9155e2b297f008ab64"
+  integrity sha512-phP48e8AawgsNUjEY2WvoIWqdie8PoiDZGxTDv70LDr01uX5wLEQbOgSP7Z/B6+SW5oLtbe8qaYX2fKJs3CGTw==
+
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/type-check/-/type-check-0.4.0.tgz#07b8203bfa7056c0657050e3ccd2c37730bab8f1"
@@ -5653,6 +5735,11 @@ unified@^11.0.0:
     is-plain-obj "^4.0.0"
     trough "^2.0.0"
     vfile "^6.0.0"
+
+union-find@^1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/union-find/-/union-find-1.0.2.tgz#292bac415e6ad3a89535d237010db4a536284e58"
+  integrity sha512-wFA9bMD/40k7ZcpKVXfu6X1qD3ri5ryO8HUsuA1RnxPCQl66Mu6DgkxyR+XNnd+osD0aLENixcJVFj+uf+O4gw==
 
 unist-util-is@^6.0.0:
   version "6.0.0"

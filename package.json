@@ -39,6 +39,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "convex-hull": "^1.0.3",
     "dayjs": "^1.11.12",
     "embla-carousel-react": "^8.1.8",
     "html-react-parser": "^5.1.12",
