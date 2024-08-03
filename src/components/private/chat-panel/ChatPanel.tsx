@@ -7,9 +7,9 @@ import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
 import { saveChatAction } from "@/actions/chat";
+import { useSubscription } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
-import { useSubscription } from "@/store/centrifuge";
 
 interface ChatPanelProps {
   user: User;
@@ -27,7 +27,8 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
     clearMessageStore,
   } = useMessageStore();
 
-  console.log("chat", chat);
+  console.log("chat--------------", chatId);
+
   const channel = `rooms:${chatId}`;
   const sub = useSubscription(channel);
 
@@ -89,12 +90,23 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
     // setMessages((currentMessages) => [...currentMessages, responseMessage]);
   };
 
+  const testing = () => {
+    if (sub) {
+      let message = "history:" + 1722572938.111934;
+
+      sub.publish({
+        input: message,
+      });
+    }
+  };
+
   return (
     <div
       className={cn(
         className ? className : "mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6",
       )}
     >
+      <button onClick={testing}>test</button>
       <PromptForm onSubmit={onSubmit} />
     </div>
   );

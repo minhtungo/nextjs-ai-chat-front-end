@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Centrifuge, Subscription, SubscriptionState } from "centrifuge";
 import { encodeDataAction } from "@/actions/centrifuge";
 import { getSubscriptionToken } from "@/use-cases/centrifuge";
+import { parseMessages } from "@/lib/utils";
 
 const centrifugeAtom = atom<Centrifuge | null>(null);
 
@@ -52,28 +53,30 @@ export const useCentrifuge = () => {
 
 export const useSubscription = (channel: string) => {
   const centrifuge = useCentrifuge();
+
   const [sub, setSub] = useAtom(subscriptionAtom);
-  if (!centrifuge) return;
 
   useEffect(() => {
-    if (!sub) {
+    if (centrifuge && !sub) {
       const getChannelSubscriptionToken = async () => {
         return getSubscriptionToken(channel);
       };
+
       let newSub = centrifuge.getSubscription(channel);
 
-      if (newSub) {
-        if (newSub.state === SubscriptionState.Unsubscribed) {
-          newSub.subscribe();
-        }
-      } else if (!newSub) {
+      if (!newSub) {
         newSub = centrifuge.newSubscription(channel, {});
-        newSub.subscribe();
       }
 
       newSub.on("subscribed", (ctx) => {
-        console.log(`sub subscribed ${ctx}`);
+        const messages = parseMessages(ctx.data);
+
+        console.log("Parsed messages:", messages);
       });
+
+      newSub.on("subscribed", () =>
+        console.log("Successfully subscribed to channel:", channel),
+      );
 
       newSub.on("unsubscribed", (ctx) => {
         console.log(`sub unsubscribed ${ctx}`);
@@ -84,7 +87,7 @@ export const useSubscription = (channel: string) => {
       });
 
       newSub.on("state", (ctx) => {
-        console.log(`sub state ${ctx}`);
+        console.log(`sub state ${ctx.newState}`);
       });
 
       newSub.on("join", (ctx) => {
@@ -96,8 +99,10 @@ export const useSubscription = (channel: string) => {
       });
 
       newSub.on("publication", (ctx) => {
-        console.log(`sub publication 2 ${JSON.stringify(ctx.data, null, 2)}`);
+        console.log(`sub publication ${JSON.stringify(ctx.data, null, 2)}`);
       });
+
+      newSub.subscribe();
 
       setSub(newSub);
     }
@@ -105,33 +110,3 @@ export const useSubscription = (channel: string) => {
 
   return sub;
 };
-
-// export const useSubscription = (channel: string) => {
-//   const centrifuge = useAtomValue(centrifugeAtom);
-//   const [sub, setSub] = useAtom(subscriptionAtom);
-
-//   if (!centrifuge) return;
-
-//   useEffect(() => {
-//     if (!sub) {
-//     }
-//     if (centrifuge && !subscriptions.get(channel)) {
-//       const subscription = centrifuge.subscribe(channel, (message) => {
-//         console.log("Message received on channel", channel, message);
-//       });
-
-//       setSubscriptions((prev) => new Map(prev.set(channel, subscription)));
-
-//       return () => {
-//         subscription.unsubscribe();
-//         setSubscriptions((prev) => {
-//           const newMap = new Map(prev);
-//           newMap.delete(channel);
-//           return newMap;
-//         });
-//       };
-//     }
-//   }, [centrifuge, channel, subscriptions, setSubscriptions]);
-
-//   return subscriptions.get(channel);
-// };

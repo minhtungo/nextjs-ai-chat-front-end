@@ -15,13 +15,9 @@ import { useCentrifuge } from "@/store/centrifuge";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
-  encodedData?: string;
 }
 
-const NewChatCreation: FC<NewChatCreationProps> = ({
-  toggleDialog,
-  encodedData,
-}) => {
+const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const centrifuge = useCentrifuge();
 

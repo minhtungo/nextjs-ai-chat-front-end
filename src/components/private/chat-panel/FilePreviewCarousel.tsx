@@ -1,16 +1,13 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 export function FilePreviewCarousel({
   fileArray,
@@ -21,11 +18,11 @@ export function FilePreviewCarousel({
   imageRefs: React.MutableRefObject<HTMLImageElement[]>;
   handleCarouselChange: (index: number) => void;
 }) {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!api) {
       return;
     }

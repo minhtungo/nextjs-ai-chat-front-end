@@ -98,3 +98,13 @@ export const createPayload = (data: any) => {
     ...data,
   };
 };
+
+export const parseMessages = (data: string[]) => {
+  return data.map((message) => {
+    return {
+      content: message[0],
+      timestamp: message[1],
+      userId: message[2],
+    };
+  });
+};

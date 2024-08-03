@@ -2,7 +2,6 @@
 
 import { ElementRef, FC, useEffect, useRef } from "react";
 
-import { useSubscription } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { File, Chat as TChat, Message as TMessage } from "@prisma/client";
 import { User } from "next-auth";
