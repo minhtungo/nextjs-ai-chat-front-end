@@ -14,6 +14,8 @@ const MessageHistory: FC<MessageHistoryProps> = ({ messages, className }) => {
     return null;
   }
 
+  console.log("full messages", messages);
+
   return (
     <div
       className={cn("flex h-full w-full flex-1 flex-col gap-y-4", className)}

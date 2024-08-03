@@ -14,8 +14,6 @@ const ImageMasker = ({
   useEffect(() => {
     const canvas = canvasRef.current;
 
-    console.log("image", image);
-
     if (canvas && image) {
       canvas.width = image.offsetWidth;
       canvas.height = image.offsetHeight;

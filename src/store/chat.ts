@@ -8,8 +8,7 @@ export type ChatConfig = {
   messages: Message[] | [];
   overlay: {
     isOpen: boolean;
-    selectedImage?: string | null;
-    selectedImageIndex?: number | null;
+    selectedImageIndex: number;
   };
   isEditingTitle?: boolean;
 };
@@ -21,19 +20,53 @@ export const chatInitialState: ChatConfig = {
   messages: [],
   overlay: {
     isOpen: false,
-    selectedImage: null,
-    selectedImageIndex: null,
+    selectedImageIndex: 0,
   },
   isEditingTitle: false,
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);
 
+const chatDocsArrayAtom = atom((get) => {
+  const messages = get(chatAtom).messages;
+  return messages.flatMap((message) =>
+    message.files.filter((file) => file.type === "document"),
+  );
+});
+
+const chatImagesArrayAtom = atom((get) => {
+  const messages = get(chatAtom).messages;
+  return messages.flatMap((message) =>
+    message.files.filter((file) => file.type === "image"),
+  );
+});
+
 const chatStore = () => {
+  const setChat = useSetAtom(chatAtom);
+
+  const updateChatOverlay = ({
+    isOpen,
+    selectedImageIndex = 0,
+  }: {
+    isOpen: boolean;
+    selectedImageIndex: number;
+  }) => {
+    setChat((prev) => ({
+      ...prev,
+      overlay: {
+        isOpen,
+        selectedImageIndex,
+      },
+    }));
+  };
+
   return {
     store: useAtom(chatAtom),
     getChat: useAtomValue(chatAtom),
     setChat: useSetAtom(chatAtom),
+    chatDocsArray: useAtomValue(chatDocsArrayAtom),
+    chatImagesArray: useAtomValue(chatImagesArrayAtom),
+    updateChatOverlay,
   };
 };
 
