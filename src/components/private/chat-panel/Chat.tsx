@@ -1,6 +1,6 @@
 "use client";
 
-import { ElementRef, FC, useCallback, useEffect, useMemo, useRef } from "react";
+import { ElementRef, FC, useEffect, useRef } from "react";
 
 import { chatStore } from "@/store/chat";
 import { File, Chat as TChat, Message as TMessage } from "@prisma/client";
@@ -9,8 +9,6 @@ import Container from "../common/Container";
 import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 import MessageHistory from "./MessageHistory";
-import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
-import { loadMessagesAction } from "@/actions/chat";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
@@ -23,9 +21,16 @@ export interface ChatProps extends React.ComponentProps<"div"> {
 
 const Chat: FC<ChatProps> = ({ user, chat }) => {
   const {
-    store: [{ messages }, setChat],
+    store: [
+      {
+        messages,
+        overlay: { isOpen: isOverlayOpen },
+      },
+      setChat,
+    ],
   } = chatStore();
-  const observer = useRef<IntersectionObserver>();
+
+  const scrollRef = useRef<ElementRef<"div">>(null);
 
   useEffect(() => {
     setChat((prev) => ({
@@ -38,13 +43,23 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
           return {
             id,
             content,
-            files: files.map(({ name, type, url }) => {
-              return {
+            files: files.map(
+              ({
                 name,
                 type,
                 url,
-              };
-            }),
+              }: {
+                name: string;
+                type: string;
+                url: string;
+              }) => {
+                return {
+                  name,
+                  type,
+                  url,
+                };
+              },
+            ),
             role,
             userId,
             chatId,
@@ -54,68 +69,68 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
     }));
   }, []);
 
-  const scrollRef = useRef<ElementRef<"div">>(null);
-
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const { isLoading, data, fetchNextPage, hasNextPage, isFetching } =
-    useServerActionInfiniteQuery(loadMessagesAction, {
-      initialPageParam: 0,
-      queryKey: ["loadMessages", chat.id],
-      getNextPageParam: (lastPage, allPages) => {
-        console.log("lastPage", lastPage);
-        console.log("allPages", allPages);
-        return lastPage.messages.data ? allPages.length + 1 : undefined;
-      },
-      input: ({ pageParam }) => ({
-        roomId: chat.id,
-        query: {
-          limit: 10,
-          offset: 1722650605.583214,
-        },
-      }),
-    });
-
-  const flatMessages = useMemo(
-    () => (data ? data?.pages.flatMap((item) => item.messages) : []),
-    [data],
-  );
-  console.log("-------------------data", flatMessages);
-  console.log("messages", messages);
-
-  const lastElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (isLoading) return;
-
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [fetchNextPage, hasNextPage, isFetching, isLoading],
-  );
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+    }
+  }, [messages, scrollRef.current]);
 
   return (
     <>
       <Container>
-        <div className="h-full w-full flex-1">
+        <div className="h-full w-full">
           {messages && messages.length > 0 && (
             <MessageHistory messages={messages} />
           )}
         </div>
+        <div ref={scrollRef} />
       </Container>
-      <div ref={scrollRef} />
+
       <ChatPanel user={user} chatId={chat.id} />
-      <ChatOverlayView user={user} />
+      {isOverlayOpen && <ChatOverlayView user={user} />}
     </>
   );
 };
 
 export default Chat;
+
+// const observer = useRef<IntersectionObserver>();
+// const { isLoading, data, fetchNextPage, hasNextPage, isFetching } =
+//   useServerActionInfiniteQuery(loadMessagesAction, {
+//     initialPageParam: 0,
+//     queryKey: ["loadMessages", chat.id],
+//     getNextPageParam: (lastPage, allPages) => {
+//       console.log("lastPage", lastPage);
+//       console.log("allPages", allPages);
+//       return lastPage.messages.data ? allPages.length + 1 : undefined;
+//     },
+//     input: ({ pageParam }) => ({
+//       roomId: chat.id,
+//       query: {
+//         limit: 10,
+//         offset: 1722650605.583214,
+//       },
+//     }),
+//   });
+
+// const flatMessages = useMemo(
+//   () => (data ? data?.pages.flatMap((item) => item.messages) : []),
+//   [data],
+// );
+
+// const lastElementRef = useCallback(
+//   (node: HTMLDivElement) => {
+//     if (isLoading) return;
+
+//     if (observer.current) observer.current.disconnect();
+
+//     observer.current = new IntersectionObserver((entries) => {
+//       if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+//         fetchNextPage();
+//       }
+//     });
+
+//     if (node) observer.current.observe(node);
+//   },
+//   [fetchNextPage, hasNextPage, isFetching, isLoading],
+// );

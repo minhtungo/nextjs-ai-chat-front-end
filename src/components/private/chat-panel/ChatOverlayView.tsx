@@ -22,7 +22,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
   const {
     store: [
       {
-        overlay: { isOpen, selectedImageIndex },
+        overlay: { selectedImageIndex },
         messages,
         id,
       },
@@ -65,8 +65,6 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
     };
   }, []);
 
-  if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 bg-accent transition">
       <div className="flex duration-300 ease-in-out">
@@ -76,14 +74,15 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               {isEditing && (
                 <div className="flex gap-3">
                   <LineWidthSlider setLineWidth={setLineWidth} />
-                  <button
+                  <Button
                     onClick={() => {
                       const hull = getConvexHull();
                       console.log("---------hull", hull);
                     }}
+                    variant="outline"
                   >
-                    Testing
-                  </button>
+                    Test Get Convex Hull
+                  </Button>
                   <Button
                     size="icon"
                     variant="ghost"

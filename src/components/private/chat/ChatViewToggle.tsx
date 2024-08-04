@@ -14,6 +14,7 @@ import {
 const ChatViewToggle = () => {
   const {
     store: [{ messages }, setChat],
+    updateChatOverlay,
   } = chatStore();
 
   if (
@@ -39,13 +40,10 @@ const ChatViewToggle = () => {
               size="sm"
               className="hidden gap-1 text-muted-foreground md:inline-flex"
               onClick={() => {
-                setChat((prev) => ({
-                  ...prev,
-                  overlay: {
-                    isOpen: true,
-                    selectedImage: messagesWithImages[0].files[0].url!,
-                  },
-                }));
+                updateChatOverlay({
+                  isOpen: true,
+                  selectedImageIndex: 0,
+                });
               }}
             >
               <AppWindowMac className="size-5" />
