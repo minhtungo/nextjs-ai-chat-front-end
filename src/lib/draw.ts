@@ -11,15 +11,16 @@ export const drawLine = ({
   lineWidth = 5,
 }: DrawLineProps) => {
   const { x: currX, y: currY } = currentPoint;
-  const color = "rgba(59, 130, 246)";
+  const color = "rgba(59, 130, 246, 0.2)";
 
   let startPoint = prevPoint ?? currentPoint;
 
-  ctx.beginPath();
-  ctx.globalCompositeOperation = "multiply";
+  ctx.globalCompositeOperation = "source-over";
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = color;
   ctx.globalAlpha = 0.2;
+
+  ctx.beginPath();
   ctx.moveTo(startPoint.x, startPoint.y);
   ctx.lineTo(currX, currY);
   ctx.stroke();

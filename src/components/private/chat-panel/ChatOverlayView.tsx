@@ -8,7 +8,7 @@ import { chatStore } from "@/store/chat";
 import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
-import { FC, useEffect, useRef, useState } from "react";
+import { ElementRef, FC, useEffect, useRef, useState } from "react";
 import ChatPanel from "./ChatPanel";
 import ImageMasker from "./ImageMasker";
 import LineWidthSlider from "./LineWidthSlider";
@@ -32,10 +32,18 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
     chatImagesArray,
   } = chatStore();
 
+  const scrollRef = useRef<ElementRef<"div">>(null);
+
   const [isEditing, setIsEditing] = useState(false);
   const [lineWidth, setLineWidth] = useState(25);
 
   const imageRefs = useRef([]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+    }
+  }, [messages, scrollRef.current]);
 
   const { clear, onMouseDown, canvasRef, getConvexHull } = useDraw(
     ({ prevPoint, currentPoint, ctx }) => {
@@ -95,28 +103,39 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               )}
 
               <div className="ml-auto flex gap-2">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="hover:bg-background/60"
-                  onClick={() => setIsEditing(!isEditing)}
-                >
-                  <Paintbrush className="size-5" />
-                </Button>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="hover:bg-background/60"
-                  onClick={() => {
-                    setIsEditing(false);
-                    setChat((prev) => ({
-                      ...prev,
-                      overlay: { ...prev.overlay, isOpen: false },
-                    }));
-                  }}
-                >
-                  <X className="size-5" />
-                </Button>
+                {isEditing ? (
+                  <button
+                    className="text-muted-foreground hover:text-foreground"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    Cancel
+                  </button>
+                ) : (
+                  <>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="hover:bg-background/60"
+                      onClick={() => setIsEditing(!isEditing)}
+                    >
+                      {isEditing ? "Cancel" : <Paintbrush className="size-5" />}
+                    </Button>
+                    <Button
+                      size="icon"
+                      variant="ghost"
+                      className="hover:bg-background/60"
+                      onClick={() => {
+                        setIsEditing(false);
+                        setChat((prev) => ({
+                          ...prev,
+                          overlay: { ...prev.overlay, isOpen: false },
+                        }));
+                      }}
+                    >
+                      <X className="size-5" />
+                    </Button>
+                  </>
+                )}
               </div>
             </div>
             <div className="p-4">
@@ -181,11 +200,12 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
         </div>
         <div className="relative w-[450px] shrink-0 bg-background">
           <div className="relative flex h-screen flex-col">
-            <ScrollArea className="flex h-full w-full flex-1 flex-col py-4 lg:py-6">
+            <ScrollArea className="flex-1 py-4 lg:py-6">
               <MessageHistory
                 messages={messages}
                 className="px-4 sm:pl-4 sm:pr-6"
               />
+              <div ref={scrollRef} />
             </ScrollArea>
             <ChatPanel className="w-full px-4 pb-4" user={user} chatId={id!} />
           </div>

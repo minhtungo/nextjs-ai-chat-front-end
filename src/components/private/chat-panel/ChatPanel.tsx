@@ -79,7 +79,13 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
 
     if (sub) {
       sub.publish({
-        input: submitContent,
+        content: submitContent,
+        images: files
+          .filter((file) => file.type === "image")
+          .map((file) => file.url!),
+        docs: files
+          .filter((file) => file.type === "document")
+          .map((file) => file.url!),
       });
     }
 

@@ -12,7 +12,6 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import Spinner from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 import { useMessageStore } from "@/store/message";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import DocPreview from "./DocPreview";
 import UtilButtons from "./UtilButtons";
