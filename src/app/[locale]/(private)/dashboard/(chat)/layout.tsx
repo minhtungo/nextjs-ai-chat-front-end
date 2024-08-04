@@ -37,7 +37,7 @@ export default async function DashBoardLayout({
       </Sidebar>
       <main className="relative flex h-screen w-full flex-1 flex-col overflow-auto pl-0 duration-300 ease-in-out animate-in peer-[[data-state=open]]:lg:pl-[300px]">
         <Header />
-        <div className="group relative flex h-full w-full flex-1 flex-col overflow-hidden">
+        <div className="group relative flex h-full w-full flex-1 flex-col overflow-hidden py-4">
           {children}
         </div>
       </main>
