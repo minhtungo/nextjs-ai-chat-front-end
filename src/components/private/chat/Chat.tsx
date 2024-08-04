@@ -9,7 +9,7 @@ import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 import MessageHistory from "./MessageHistory";
-import PromptSuggestions from "@/components/private/chat/PromptSuggestion";
+import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import ChatWelcome from "@/components/private/chat/ChatWelcome";
 

@@ -27,7 +27,12 @@ const promptSuggestion = [
 
 const PromptSuggestions: FC<PromptSuggestionProps> = ({ className }) => {
   return (
-    <div className={cn("grid grid-cols-4 gap-3 text-sm", className)}>
+    <div
+      className={cn(
+        "grid grid-cols-4 gap-3 text-sm transition-colors",
+        className,
+      )}
+    >
       {promptSuggestion.map(({ title, description }) => (
         <button
           key={`${title}-prompt-suggestion`}
