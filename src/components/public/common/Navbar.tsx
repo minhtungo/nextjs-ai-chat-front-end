@@ -7,7 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, Suspense, useEffect, useState } from "react";
 import Logo from "../../common/Logo";
-import Container from "../../common/Container";
+import MaxWidthWrapper from "../../common/MaxWidthWrapper";
 import MobileMenu from "./MobileMenu";
 import ThemeToggle from "./ThemeToggle";
 import debounce from "lodash.debounce";
@@ -44,7 +44,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
             "border-b border-border/40 bg-background/80 shadow-sm backdrop-blur",
         )}
       >
-        <Container>
+        <MaxWidthWrapper>
           <div className="flex h-14 items-center">
             <Link href="/">
               <Logo />
@@ -70,7 +70,7 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
               <MobileMenu />
             </div>
           </div>
-        </Container>
+        </MaxWidthWrapper>
       </nav>
     </header>
   );

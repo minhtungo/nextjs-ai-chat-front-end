@@ -2,7 +2,7 @@
 
 import { FC, FormEvent, useEffect } from "react";
 
-import { cn, nanoid } from "@/lib/utils";
+import { nanoid } from "@/lib/utils";
 import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
@@ -14,10 +14,9 @@ import { useMessageStore } from "@/store/message";
 interface ChatPanelProps {
   user: User;
   chatId: string;
-  className?: string;
 }
 
-const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
+const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
@@ -94,15 +93,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId, className }) => {
     // setMessages((currentMessages) => [...currentMessages, responseMessage]);
   };
 
-  return (
-    <div
-      className={cn(
-        className ? className : "mx-auto mb-4 w-full max-w-5xl px-4 lg:px-6",
-      )}
-    >
-      <PromptForm onSubmit={onSubmit} />
-    </div>
-  );
+  return <PromptForm onSubmit={onSubmit} />;
 };
 
 export default ChatPanel;

@@ -1,4 +1,4 @@
-import Container from "@/components/common/Container";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import Footer from "@/components/public/common/Footer";
 import Navbar from "@/components/public/common/Navbar";
 import NavButtons from "@/components/public/common/NavButtons";
@@ -18,12 +18,13 @@ export default function GuestLayout({
   params: { locale: string };
 }>) {
   unstable_setRequestLocale(locale);
+
   return (
     <div className="grid min-h-[100dvh] grid-rows-[auto_1fr_auto]">
       <Suspense>
         <Navbar navButtons={<NavButtons />} />
       </Suspense>
-      <Container tag="main">{children}</Container>
+      <MaxWidthWrapper tag="main">{children}</MaxWidthWrapper>
       <Footer />
     </div>
   );

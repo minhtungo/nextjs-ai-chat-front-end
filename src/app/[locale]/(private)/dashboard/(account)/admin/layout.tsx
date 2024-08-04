@@ -1,7 +1,7 @@
 import Typography from "@/components/ui/typography";
 import { Suspense } from "react";
 import Nav from "@/components/private/admin/Nav";
-import Container from "@/components/private/common/Container";
+import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
 
 export default async function AdminDashBoardLayout({
   children,
@@ -9,7 +9,7 @@ export default async function AdminDashBoardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container className="max-w-7xl">
+    <ScrollAreaContainer className="max-w-7xl">
       <Typography variant="h2" tag="h1" className="mb-3">
         Admin Dashboard
       </Typography>
@@ -17,6 +17,6 @@ export default async function AdminDashBoardLayout({
         <Nav />
       </Suspense>
       {children}
-    </Container>
+    </ScrollAreaContainer>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserAvatar from "@/components/private/common/UserAvatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,7 +17,6 @@ import { LogOut, ShieldCheck } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import ThemeSwitch from "./ThemeSwitch";
-import { Badge } from "@/components/ui/badge";
 
 const UserMenu = () => {
   const user = useCurrentUser();
@@ -33,12 +33,7 @@ const UserMenu = () => {
           className="flex h-fit w-full items-center justify-between"
         >
           <div className="flex items-center gap-x-1">
-            <Avatar className="size-6">
-              <AvatarImage src={user.image || ""} alt={`${user.name}-avatar`} />
-              <AvatarFallback className="text-[13px]">
-                {user.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
-              </AvatarFallback>
-            </Avatar>
+            <UserAvatar user={user} />
             <span className="text-sm font-medium">{user.name}</span>
           </div>
           <Badge variant="secondary" className="capitalize">

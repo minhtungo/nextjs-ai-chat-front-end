@@ -6,6 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { useMessageStore } from "@/store/message";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
@@ -13,11 +14,13 @@ import { Dispatch, FC, SetStateAction } from "react";
 interface UtilButtonsProps {
   showMathKeyboard: boolean;
   setShowMathKeyboard: Dispatch<SetStateAction<boolean>>;
+  className?: string;
 }
 
 const UtilButtons: FC<UtilButtonsProps> = ({
   showMathKeyboard,
   setShowMathKeyboard,
+  className,
 }) => {
   const { addFiles } = useMessageStore();
 
@@ -26,10 +29,9 @@ const UtilButtons: FC<UtilButtonsProps> = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
-            size="icon"
-            className="flex"
+            size="xs"
             type="button"
+            className={cn("bg-primary/50", className)}
             onClick={() => setShowMathKeyboard(!showMathKeyboard)}
           >
             <Plus className="pointer-events-none size-3.5" />

@@ -5,10 +5,13 @@ import { ElementRef, FC, useEffect, useRef } from "react";
 import { chatStore } from "@/store/chat";
 import { File, Chat as TChat, Message as TMessage } from "@prisma/client";
 import { User } from "next-auth";
-import Container from "../common/Container";
+import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 import MessageHistory from "./MessageHistory";
+import PromptSuggestions from "@/components/private/chat/PromptSuggestion";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import ChatWelcome from "@/components/private/chat/ChatWelcome";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
@@ -77,16 +80,23 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
 
   return (
     <>
-      <Container>
-        <div className="h-full w-full">
-          {messages && messages.length > 0 && (
+      {messages && messages.length > 0 ? (
+        <>
+          <ScrollAreaContainer className="flex h-full w-full flex-col pt-4">
             <MessageHistory messages={messages} />
-          )}
-        </div>
-        <div ref={scrollRef} />
-      </Container>
+            <div ref={scrollRef} />
+          </ScrollAreaContainer>
+        </>
+      ) : (
+        <ChatWelcome className="h-full w-full flex-1" />
+      )}
+      <MaxWidthWrapper className="space-y-3 py-3">
+        {messages && messages.length > 4 && (
+          <PromptSuggestions className="mt-4" />
+        )}
 
-      <ChatPanel user={user} chatId={chat.id} />
+        <ChatPanel user={user} chatId={chat.id} />
+      </MaxWidthWrapper>
       {isOverlayOpen && <ChatOverlayView user={user} />}
     </>
   );

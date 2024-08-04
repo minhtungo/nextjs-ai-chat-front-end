@@ -27,7 +27,7 @@ const BotMessage: FC<BotMessageProps> = ({ content }) => {
 
   return (
     <div className="space-y-1.5">
-      <Card className="bg-primary-muted w-fit p-3 sm:p-4">
+      <Card className="bg-primary-muted break-words p-2 sm:px-3 sm:py-2">
         <MemoizedReactMarkdown
           className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
           remarkPlugins={[remarkGfm, remarkMath]}

@@ -11,17 +11,15 @@ interface MessageHistoryProps {
 
 const MessageHistory: FC<MessageHistoryProps> = ({ messages, className }) => {
   return (
-    <div
-      className={cn("flex h-full w-full flex-1 flex-col gap-y-4", className)}
-    >
+    <div className={cn("w-full space-y-4", className)}>
       {messages.map((message) => (
-        <div key={message.id} className="whitespace-pre-wrap">
+        <>
           {message.role === "user" ? (
-            <UserMessage message={message} />
+            <UserMessage key={message.id} message={message} />
           ) : (
-            <BotMessage content={message.content} />
+            <BotMessage key={message.id} content={message.content} />
           )}
-        </div>
+        </>
       ))}
     </div>
   );

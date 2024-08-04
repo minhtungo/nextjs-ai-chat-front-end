@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserAvatar from "@/components/private/common/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -15,12 +15,7 @@ const UserInfo: FC<UserInfoProps> = async ({ className }) => {
   }
   return (
     <div className={cn("flex items-center gap-x-2", className)}>
-      <Avatar className="size-7">
-        <AvatarImage src={user?.image || ""} alt={`${user?.name}-avatar`} />
-        <AvatarFallback className="text-[13px]">
-          {user?.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
-        </AvatarFallback>
-      </Avatar>
+      <UserAvatar user={user} />
       <div className="w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm font-medium">
         {user?.name}
       </div>

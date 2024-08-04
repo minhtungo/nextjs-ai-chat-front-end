@@ -37,7 +37,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [lineWidth, setLineWidth] = useState(25);
 
-  const imageRefs = useRef([]);
+  const imageRefs = useRef<HTMLImageElement[]>([]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -82,7 +82,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               {isEditing && (
                 <div className="flex gap-3">
                   <LineWidthSlider setLineWidth={setLineWidth} />
-                  <Button
+                  {/* <Button
                     onClick={() => {
                       const hull = getConvexHull();
                       console.log("---------hull", hull);
@@ -90,7 +90,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                     variant="outline"
                   >
                     Test Get Convex Hull
-                  </Button>
+                  </Button> */}
                   <Button
                     size="icon"
                     variant="ghost"
@@ -142,7 +142,11 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               <div className="relative mx-auto w-fit">
                 <Image
                   src={chatImagesArray[selectedImageIndex].url!}
-                  ref={(el) => (imageRefs.current[selectedImageIndex] = el)}
+                  ref={(el) => {
+                    if (el && imageRefs.current) {
+                      imageRefs.current[selectedImageIndex] = el;
+                    }
+                  }}
                   width={1024}
                   height={1024}
                   className="h-auto max-h-[100vh] w-fit max-w-full"
@@ -161,9 +165,9 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                 )}
               </div>
             </div>
-            <div className="flex h-14 w-full items-center justify-center gap-3 text-base text-muted-foreground">
+            <div className="flex h-14 w-full items-center justify-center gap-1 text-base text-muted-foreground">
               <button
-                className="text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                className="p-2 text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => {
                   updateChatOverlay({
                     isOpen: true,
@@ -180,7 +184,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               </button>
               Image {selectedImageIndex + 1} of {chatImagesArray.length}
               <button
-                className="text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                className="p-2 text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => {
                   updateChatOverlay({
                     isOpen: true,
@@ -207,7 +211,9 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               />
               <div ref={scrollRef} />
             </ScrollArea>
-            <ChatPanel className="w-full px-4 pb-4" user={user} chatId={id!} />
+            <div className="mb-3 px-4">
+              <ChatPanel user={user} chatId={id!} />
+            </div>
           </div>
         </div>
       </div>

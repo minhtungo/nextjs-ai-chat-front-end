@@ -1,10 +1,10 @@
 import { FC } from "react";
-import Container from "@/components/common/Container";
 import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/routes";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 
 interface FooterProps {
   className?: string;
@@ -14,7 +14,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
   const t = useTranslations("common.Navbar");
   return (
     <footer className={cn("border-t border-border py-6", className)}>
-      <Container className="space-y-5">
+      <MaxWidthWrapper className="space-y-4">
         <div className="flex flex-col flex-wrap items-center justify-between gap-4 sm:flex-row">
           <ul className="flex gap-x-12 gap-y-4 text-left text-sm sm:items-center sm:justify-center">
             {FOOTER_LINKS.map(({ title, href }) => (
@@ -41,7 +41,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
             ))}
           </div>
         </div>
-      </Container>
+      </MaxWidthWrapper>
     </footer>
   );
 };

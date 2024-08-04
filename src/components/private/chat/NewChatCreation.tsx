@@ -11,7 +11,6 @@ import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 import SubmitButton from "@/components/common/SubmitButton";
 import SubjectsRadio from "./SubjectsRadio";
-import { useCentrifuge } from "@/store/centrifuge";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
@@ -19,7 +18,6 @@ interface NewChatCreationProps {
 
 const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const centrifuge = useCentrifuge();
 
   const [selectedSubject, setSelectedSubject] = useState<string | undefined>(
     undefined,
