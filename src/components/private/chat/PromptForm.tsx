@@ -13,7 +13,7 @@ import Spinner from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 import { useMessageStore } from "@/store/message";
 import Image from "next/image";
-import DocPreview from "./DocPreview";
+import DocPreview from "../chat/DocPreview";
 import UtilButtons from "./UtilButtons";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {

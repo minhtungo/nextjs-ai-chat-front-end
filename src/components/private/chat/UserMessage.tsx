@@ -1,10 +1,10 @@
 import { FC } from "react";
 
-import ImagePreview from "@/components/private/chat-panel/ImagePreview";
+import ImagePreview from "@/components/private/chat/ImagePreview";
 import { Card } from "@/components/ui/card";
 import { chatStore } from "@/store/chat";
 import { Message } from "@/types/chat";
-import DocPreview from "./DocPreview";
+import DocPreview from "../chat/DocPreview";
 
 interface UserMessageProps {
   message: Message;
