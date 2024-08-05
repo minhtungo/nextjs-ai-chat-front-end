@@ -1,11 +1,11 @@
-import { Message } from "@/types/chat";
+import { MessageStore } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 export type ChatConfig = {
   id: string | null;
   title?: string;
   subject: string | null;
-  messages: Message[] | [];
+  messages: MessageStore[];
   overlay: {
     isOpen: boolean;
     selectedImageIndex: number;
@@ -29,16 +29,12 @@ const chatAtom = atom<ChatConfig>(chatInitialState);
 
 const chatDocsArrayAtom = atom((get) => {
   const messages = get(chatAtom).messages;
-  return messages.flatMap((message) =>
-    message.files.filter((file) => file.type === "document"),
-  );
+  return messages.flatMap((message) => message?.docs);
 });
 
 const chatImagesArrayAtom = atom((get) => {
   const messages = get(chatAtom).messages;
-  return messages.flatMap((message) =>
-    message.files.filter((file) => file.type === "image"),
-  );
+  return messages.flatMap((message) => message.images);
 });
 
 const chatStore = () => {

@@ -77,7 +77,10 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 {files && files.length > 0 && (
                   <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
                     {files.map(({ preview, name, type, isUploading, id }) => (
-                      <div className="relative overflow-visible rounded-lg">
+                      <div
+                        className="relative overflow-visible rounded-lg"
+                        key={id}
+                      >
                         {type === "image" ? (
                           <Image
                             src={preview!}
@@ -87,7 +90,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                             className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
                           />
                         ) : (
-                          <DocPreview name={name} />
+                          <DocPreview name={name} type={type} />
                         )}
                         <button
                           className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"

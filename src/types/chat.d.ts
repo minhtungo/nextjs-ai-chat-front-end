@@ -1,19 +1,27 @@
+import { Message } from "@/lib/definitions";
+
 type IFile = {
-  id: string;
   name: string;
+  type: "image" | "document" | "pdf";
   url?: string;
-  type: "image" | "document";
   preview?: string;
   isUploading?: boolean;
 };
 
-export type Message = {
+export type MessageResponse = {
+  message: {
+    content: string;
+    docs?: IFile[];
+    images?: IFile[];
+  };
+  timestamp: number;
+  userid: string;
+};
+
+export type MessageStore = Omit<Message, "docs" | "images"> & {
   id: string;
-  content: string;
-  files: IFile[];
-  role: string;
-  userId: string;
-  chatId: string;
+  docs?: IFile[];
+  images?: IFile[];
 };
 
 export type NewMessage = Omit<Message, "id" | "chatId">;

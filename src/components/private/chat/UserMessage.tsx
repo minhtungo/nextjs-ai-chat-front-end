@@ -3,14 +3,16 @@ import { FC } from "react";
 import ImagePreview from "@/components/private/chat/ImagePreview";
 import { Card } from "@/components/ui/card";
 import { chatStore } from "@/store/chat";
-import { Message } from "@/types/chat";
+import { MessageStore } from "@/types/chat";
 import DocPreview from "../chat/DocPreview";
 
 interface UserMessageProps {
-  message: Message;
+  message: MessageStore;
 }
 
-const UserMessage: FC<UserMessageProps> = ({ message: { content, files } }) => {
+const UserMessage: FC<UserMessageProps> = ({
+  message: { content, images, docs },
+}) => {
   const { getChat: chat, chatImagesArray, updateChatOverlay } = chatStore();
 
   const onImageClick = (url: string) => {
@@ -18,20 +20,17 @@ const UserMessage: FC<UserMessageProps> = ({ message: { content, files } }) => {
       updateChatOverlay({
         isOpen: true,
         selectedImageIndex: chatImagesArray.findIndex(
-          (image) => image.url === url,
+          (image) => image!.url === url,
         ),
       });
     }
   };
-  const messageDocsArray = files.filter((file) => file.type === "document");
-
-  const messageImagesArray = files.filter((file) => file.type === "image");
 
   return (
     <div className="flex w-full flex-col items-end gap-y-3 empty:hidden">
-      {messageImagesArray.length > 0 && (
-        <div className="flex max-w-72 flex-row flex-wrap items-center justify-end">
-          {messageImagesArray.map(({ url }) => (
+      {images && images.length > 0 && (
+        <div className="flex max-w-[70%] flex-row flex-wrap items-center justify-end gap-2">
+          {images.map(({ url }) => (
             <ImagePreview
               key={url}
               url={url!}
@@ -41,10 +40,10 @@ const UserMessage: FC<UserMessageProps> = ({ message: { content, files } }) => {
           ))}
         </div>
       )}
-      {messageDocsArray.length > 0 && (
+      {docs && docs.length > 0 && (
         <div className="flex max-w-72 flex-row flex-wrap items-center justify-end gap-1">
-          {messageDocsArray.map(({ name }) => (
-            <DocPreview name={name} />
+          {docs.map(({ name, type }) => (
+            <DocPreview name={name} type={type} />
           ))}
         </div>
       )}

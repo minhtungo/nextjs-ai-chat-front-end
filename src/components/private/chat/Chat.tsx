@@ -1,17 +1,20 @@
 "use client";
 
-import { ElementRef, FC, useEffect, useRef } from "react";
+import { ElementRef, FC, useEffect, useMemo, useRef } from "react";
 
+import { loadMessagesAction } from "@/actions/chat";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import ChatWelcome from "@/components/private/chat/ChatWelcome";
+import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
+import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
 import { chatStore } from "@/store/chat";
 import { File, Chat as TChat, Message as TMessage } from "@prisma/client";
 import { User } from "next-auth";
+import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 import MessageHistory from "./MessageHistory";
-import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
-import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import ChatWelcome from "@/components/private/chat/ChatWelcome";
 
 export interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
@@ -26,7 +29,6 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
   const {
     store: [
       {
-        messages,
         overlay: { isOpen: isOverlayOpen },
       },
       setChat,
@@ -34,64 +36,73 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
   } = chatStore();
 
   const scrollRef = useRef<ElementRef<"div">>(null);
+  const { ref, inView } = useInView();
+
+  const { isLoading, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useServerActionInfiniteQuery(loadMessagesAction, {
+      initialPageParam: 0,
+      queryKey: ["loadMessages", chat.id],
+      getNextPageParam: (lastPage, allPages) => {
+        return lastPage.messages[lastPage.messages.length - 1]?.timestamp !== 0
+          ? lastPage.messages[lastPage.messages.length - 1]?.timestamp
+          : undefined;
+      },
+      input: ({ pageParam }) => ({
+        roomId: chat.id,
+        query: {
+          limit: 15,
+          ...(pageParam !== 0 && { offset: pageParam }),
+        },
+      }),
+    });
+
+  const messageData = useMemo(
+    () => (data ? data?.pages.flatMap((item) => item.messages) : []),
+    [data],
+  );
+
+  console.log("flatMessages", messageData);
+
+  // useEffect(() => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
+  //   }
+  // }, [scrollRef.current]);
 
   useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+    console.log("inView", inView, hasNextPage);
+  }, [inView, hasNextPage]);
+
+  useEffect(() => {
+    if (isLoading) return;
+
     setChat((prev) => ({
       ...prev,
       id: chat.id,
       subject: chat.subject,
       ...(chat.title && { title: chat.title }),
-      messages: chat.messages.map(
-        ({ id, content, files, role, userId, chatId }) => {
-          return {
-            id,
-            content,
-            files: files.map(
-              ({
-                name,
-                type,
-                url,
-              }: {
-                name: string;
-                type: string;
-                url: string;
-              }) => {
-                return {
-                  name,
-                  type,
-                  url,
-                };
-              },
-            ),
-            role,
-            userId,
-            chatId,
-          };
-        },
-      ),
+      messages: messageData.toReversed(),
     }));
-  }, []);
+  }, [isLoading, messageData]);
 
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
-    }
-  }, [messages, scrollRef.current]);
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
-      {messages && messages.length > 0 ? (
-        <>
-          <ScrollAreaContainer className="flex h-full w-full flex-col pt-4">
-            <MessageHistory messages={messages} />
-            <div ref={scrollRef} />
-          </ScrollAreaContainer>
-        </>
+      {messageData && messageData.length > 0 ? (
+        <ScrollAreaContainer className="flex h-full w-full flex-col pt-4">
+          <div ref={ref} />
+          <MessageHistory />
+          <div ref={scrollRef} />
+        </ScrollAreaContainer>
       ) : (
         <ChatWelcome className="h-full w-full flex-1" />
       )}
       <MaxWidthWrapper className="space-y-3 py-3">
-        {messages && messages.length > 4 && (
+        {messageData && messageData.length > 4 && (
           <PromptSuggestions className="mt-4" />
         )}
 
@@ -103,44 +114,3 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
 };
 
 export default Chat;
-
-// const observer = useRef<IntersectionObserver>();
-// const { isLoading, data, fetchNextPage, hasNextPage, isFetching } =
-//   useServerActionInfiniteQuery(loadMessagesAction, {
-//     initialPageParam: 0,
-//     queryKey: ["loadMessages", chat.id],
-//     getNextPageParam: (lastPage, allPages) => {
-//       console.log("lastPage", lastPage);
-//       console.log("allPages", allPages);
-//       return lastPage.messages.data ? allPages.length + 1 : undefined;
-//     },
-//     input: ({ pageParam }) => ({
-//       roomId: chat.id,
-//       query: {
-//         limit: 10,
-//         offset: 1722650605.583214,
-//       },
-//     }),
-//   });
-
-// const flatMessages = useMemo(
-//   () => (data ? data?.pages.flatMap((item) => item.messages) : []),
-//   [data],
-// );
-
-// const lastElementRef = useCallback(
-//   (node: HTMLDivElement) => {
-//     if (isLoading) return;
-
-//     if (observer.current) observer.current.disconnect();
-
-//     observer.current = new IntersectionObserver((entries) => {
-//       if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-//         fetchNextPage();
-//       }
-//     });
-
-//     if (node) observer.current.observe(node);
-//   },
-//   [fetchNextPage, hasNextPage, isFetching, isLoading],
-// );

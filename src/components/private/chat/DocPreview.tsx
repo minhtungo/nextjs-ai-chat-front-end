@@ -1,17 +1,24 @@
 import { Card } from "@/components/ui/card";
+import { File } from "lucide-react";
 import { FC } from "react";
 
 interface DocPreviewProps {
   name: string;
+  type: "document" | "pdf" | "image";
 }
 
-const DocPreview: FC<DocPreviewProps> = ({ name }) => {
+const DocPreview: FC<DocPreviewProps> = ({ name, type }) => {
   return (
-    <Card className="h-14 w-full max-w-[450px] overflow-hidden border-border bg-muted/40 p-2 pr-4 sm:p-2 sm:pr-6">
-      <div className="inline-block w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
-        {name}
+    <Card className="flex h-14 w-fit max-w-[450px] items-center gap-2 overflow-hidden border-border bg-muted/40 p-2">
+      <div className="flex size-10 items-center justify-center rounded-lg bg-accent">
+        <File className="size-4" />
       </div>
-      <div className="text-xs text-muted-foreground">Document</div>
+      <div>
+        <div className="inline-block overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
+          {name}
+        </div>
+        <div className="text-xs capitalize text-muted-foreground">{type}</div>
+      </div>
     </Card>
   );
 };

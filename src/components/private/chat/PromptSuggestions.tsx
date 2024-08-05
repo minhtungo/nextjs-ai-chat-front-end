@@ -20,8 +20,8 @@ const promptSuggestion = [
     description: "Rome",
   },
   {
-    title: "What is the capital of Italy?",
-    description: "Rome",
+    title: "What is the capital of Vietnam?",
+    description: "Ha noi",
   },
 ];
 

@@ -1,4 +1,4 @@
-import { object, string, optional, boolean, z } from "zod";
+import { object, string, optional, boolean, z, number, array } from "zod";
 import { passwordRegex } from "./regex";
 
 export const signInSchema = object({
@@ -99,3 +99,26 @@ export const contactUsFormSchema = object({
   phoneNumber: string().min(1, "error.content"),
   message: string().min(1, "error.content"),
 });
+
+export const messageSchema = object({
+  id: string(),
+  content: string(),
+  docs: array(
+    object({
+      name: string(),
+      type: z.enum(["image", "document", "pdf"]),
+      url: string().optional(),
+    }),
+  ),
+  images: array(
+    object({
+      name: string(),
+      type: z.enum(["image", "document", "pdf"]),
+      url: string().optional(),
+    }),
+  ),
+  timestamp: number(),
+  userId: string(),
+});
+
+export type Message = z.infer<typeof messageSchema>;

@@ -1,7 +1,9 @@
 "use server";
 
+import { messageSchema } from "@/lib/definitions";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
+import { MessageStore } from "@/types/chat";
 import {
   createNewChatUseCase,
   getChatsUseCase,
@@ -36,16 +38,16 @@ export const createNewChatAction = authedAction
     let chat;
     try {
       chat = await createNewChatUseCase({
-        subject,
         userId: user.id!,
-        createdAt: new Date(),
-        messages: [],
+        subject,
         title: "",
       });
     } catch (error) {
       throw new ZSAError("ERROR", error);
     }
-    redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
+    if (chat?.id) {
+      redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
+    }
   });
 
 export const saveChatAction = authedAction
@@ -103,15 +105,18 @@ export const loadMessagesAction = authedAction
   .input(
     z.object({
       roomId: z.string(),
-      query: z.object({ limit: z.number().optional(), offset: z.number() }),
+      query: z.object({
+        limit: z.number().optional(),
+        offset: z.number().optional(),
+      }),
     }),
   )
+  .output(z.object({ messages: z.array(messageSchema) }))
   .handler(async ({ input: { roomId, query }, ctx: { user } }) => {
-    const res = await loadMessagesUseCase({
+    const messages = await loadMessagesUseCase({
       userId: user.id!,
       roomId: roomId,
       query,
     });
-
-    return { messages: res.data.result.data.history?.toReversed() };
+    return { messages };
   });

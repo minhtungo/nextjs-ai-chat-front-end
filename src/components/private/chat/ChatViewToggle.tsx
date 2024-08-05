@@ -19,15 +19,13 @@ const ChatViewToggle = () => {
 
   if (
     !messages ||
-    !messages.some((message) =>
-      message.files.some((file) => file.type === "image"),
-    )
+    !messages.some((message) => message.images && message.images?.length > 0)
   ) {
     return null;
   }
 
-  const messagesWithImages = messages.filter((message) =>
-    message.files.some((file) => file.type === "image"),
+  const messagesWithImages = messages.filter(
+    (message) => message.images && message.images.length > 0,
   );
 
   return (

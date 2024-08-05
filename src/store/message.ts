@@ -1,3 +1,4 @@
+import { uploadFileAction } from "@/actions/storage";
 import { uploadFile } from "@/lib/file";
 import { nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
@@ -11,7 +12,7 @@ export interface IFile {
   name: string;
   url?: string;
   preview?: string;
-  type: "image" | "document";
+  type: "image" | "document" | "pdf";
   isUploading?: boolean;
   size: number;
 }
@@ -73,7 +74,11 @@ const useMessageStore = () => {
         validFiles.push({
           id: nanoid(),
           name: file.name,
-          type: file.type.startsWith("image") ? "image" : "document",
+          type: file.type.startsWith("image")
+            ? "image"
+            : file.type.includes("pdf")
+              ? "pdf"
+              : "document",
           preview: file.type.startsWith("image")
             ? URL.createObjectURL(file)
             : undefined,
@@ -93,19 +98,18 @@ const useMessageStore = () => {
       files: [...prev.files, ...validFiles],
     }));
 
-    // const formData = new FormData();
-
-    // for (const file of files) {
-    //   formData.append("file", file);
-    //   formData.append("name", file.name);
-    // }
-
-    // const [data, error] = await uploadFileAction(formData);
-
     await Promise.all(
       files.map(async (file, index) => {
         try {
           setIsPending(true);
+
+          // const formData = new FormData();
+
+          // formData.append("file", file);
+          // formData.append("name", file.name);
+
+          // const [data, error] = await uploadFileAction(formData);
+
           const url = await uploadFile(file);
           setMessageStore((prev) => ({
             ...prev,

@@ -6,7 +6,6 @@ import { nanoid } from "@/lib/utils";
 import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
-import { saveChatAction } from "@/actions/chat";
 import { useSubscription } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
@@ -26,8 +25,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     clearMessageStore,
   } = useMessageStore();
 
-  const channel = `rooms:${chatId}`;
-  const sub = useSubscription(channel);
+  const sub = useSubscription(`rooms:${chatId}`);
 
   useEffect(() => {
     clearMessageStore();
@@ -50,13 +48,41 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       e.target["message"]?.blur();
     }
 
+    const images = files
+      .filter((file) => file.type === "image")
+      .map((file) => ({
+        url: file.url!,
+        name: file.name,
+        type: file.type,
+      }));
+
+    const docs = files
+      .filter((file) => file.type !== "image")
+      .map((file) => ({
+        url: file.url!,
+        name: file.name,
+        type: file.type,
+      }));
+
+    if (sub) {
+      sub.publish({
+        input: {
+          content: submitContent,
+          images,
+          docs,
+        },
+      });
+    }
+
     const newMessage = {
       id: nanoid(),
       content: submitContent,
-      files,
       role: "user",
       userId: user?.id!,
       chatId: chat.id!,
+      docs,
+      images,
+      timestamp: new Date().getTime(),
     };
 
     setChat((prev) => ({
@@ -65,32 +91,10 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       ...(prev.messages.length === 0 && {
         title: newMessage.content.substring(0, 25),
       }),
+      overlay: { isOpen: false, selectedImageIndex: 0 },
     }));
 
     clearMessageStore();
-
-    await saveChatAction({
-      message: newMessage,
-      chatId: chat.id!,
-      title:
-        chat.messages.length === 0 ? newMessage.content.substring(0, 25) : null,
-    });
-
-    if (sub) {
-      sub.publish({
-        content: submitContent,
-        images: files
-          .filter((file) => file.type === "image")
-          .map((file) => file.url!),
-        docs: files
-          .filter((file) => file.type === "document")
-          .map((file) => file.url!),
-      });
-    }
-
-    // Submit and get response message
-    // const responseMessage = await submitUserMessage(content, encodedImage);
-    // setMessages((currentMessages) => [...currentMessages, responseMessage]);
   };
 
   return <PromptForm onSubmit={onSubmit} />;
