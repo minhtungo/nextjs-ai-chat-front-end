@@ -9,7 +9,7 @@ import { User } from "next-auth";
 import ChatOverlayView from "./ChatOverlayView";
 import ChatPanel from "./ChatPanel";
 
-export interface ChatProps extends React.ComponentProps<"div"> {
+interface ChatProps extends React.ComponentProps<"div"> {
   user: User;
   chat: ChatRoom;
 }
@@ -23,8 +23,8 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
 
   return (
     <>
-      <ChatHistory chat={chat} />
-      <ChatPanel user={user} chatId={chat.id} />
+      <ChatHistory chat={chat} userId={user.id!} />
+      <ChatPanel userId={user.id!} chatId={chat.id} />
       {isOverlayOpen && <ChatOverlayView user={user} />}
     </>
   );

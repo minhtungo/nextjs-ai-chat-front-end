@@ -3,11 +3,10 @@
 import { messageSchema } from "@/lib/definitions";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
-import { MessageStore } from "@/types/chat";
 import {
   createNewChatUseCase,
   getChatsUseCase,
-  loadMessagesUseCase,
+  getMessagesUseCase,
   removeAllChatsUseCase,
   removeChatUseCase,
   saveChatUseCase,
@@ -106,7 +105,7 @@ export const removeAllChatsAction = authedAction.handler(
 );
 
 // new
-export const loadMessagesAction = authedAction
+export const getMessagesAction = authedAction
   .input(
     z.object({
       roomId: z.string(),
@@ -118,7 +117,7 @@ export const loadMessagesAction = authedAction
   )
   .output(z.object({ messages: z.array(messageSchema) }))
   .handler(async ({ input: { roomId, query }, ctx: { user } }) => {
-    const messages = await loadMessagesUseCase({
+    const messages = await getMessagesUseCase({
       userId: user.id!,
       roomId: roomId,
       query,

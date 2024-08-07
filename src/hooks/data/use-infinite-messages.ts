@@ -1,4 +1,4 @@
-import { loadMessagesAction } from "@/actions/chat";
+import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
 import { useEffect, useMemo } from "react";
 import { chatStore } from "@/store/chat";
@@ -11,23 +11,29 @@ const useInfiniteMessages = ({
   chat: Chat;
   inView: boolean;
 }) => {
-  const { isLoading, data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useServerActionInfiniteQuery(loadMessagesAction, {
-      initialPageParam: 0,
-      queryKey: ["loadMessages", chat.id],
-      getNextPageParam: (lastPage) => {
-        return lastPage.messages[lastPage.messages.length - 1]?.timestamp !== 0
-          ? lastPage.messages[lastPage.messages.length - 1]?.timestamp
-          : undefined;
+  const {
+    isLoading,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+  } = useServerActionInfiniteQuery(getMessagesAction, {
+    initialPageParam: 0,
+    queryKey: ["loadMessages", chat.id],
+    getNextPageParam: (lastPage) => {
+      return lastPage.messages[lastPage.messages.length - 1]?.timestamp !== 0
+        ? lastPage.messages[lastPage.messages.length - 1]?.timestamp
+        : undefined;
+    },
+    input: ({ pageParam }) => ({
+      roomId: chat.id,
+      query: {
+        limit: 15,
+        ...(pageParam !== 0 && { offset: pageParam }),
       },
-      input: ({ pageParam }) => ({
-        roomId: chat.id,
-        query: {
-          limit: 15,
-          ...(pageParam !== 0 && { offset: pageParam }),
-        },
-      }),
-    });
+    }),
+  });
 
   const messageData = useMemo(
     () => (data ? data?.pages.flatMap((item) => item.messages) : []),
@@ -62,6 +68,7 @@ const useInfiniteMessages = ({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    isFetching,
   };
 };
 

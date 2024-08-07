@@ -31,5 +31,7 @@ export const uploadFileAction = authedAction
     },
   )
   .handler(async ({ input: { file }, ctx }) => {
-    return await uploadFileUseCase(file, ctx.user.id!);
+    const response = await uploadFileUseCase(file, ctx.user.id!);
+    console.log("response---", response);
+    return response;
   });

@@ -1,27 +1,23 @@
 "use client";
 
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
-import { Chat } from "@/types/chat";
+import { cn } from "@/lib/utils";
+import { Chat, ChatRoom } from "@/types/chat";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import ChatActions from "./ChatActions";
-import { chatStore } from "@/store/chat";
 
 interface ChatItemProps {
-  chat: Chat;
+  chat: ChatRoom;
   setIsOpen: (value: boolean) => void;
 }
 
 const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
   const pathname = usePathname();
   const [isActive, setIsActive] = useState(false);
-  const {
-    getChat: { title, subject },
-  } = chatStore();
 
   const isActiveChat = pathname === `${PROTECTED_BASE_URL}/chat/${chat.id}`;
 
@@ -41,16 +37,13 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
       <Link
         href={`${PROTECTED_BASE_URL}/chat/${chat.id}`}
         className={cn(
-          buttonVariants({ variant: "ghost" }),
-          "flex items-center justify-start overflow-hidden p-2 pl-3 text-muted-foreground",
+          buttonVariants({ variant: "ghost", size: "sm" }),
+          "flex items-center justify-start overflow-hidden px-4 py-2 text-muted-foreground",
           (isActive || isActiveChat) && "text-foreground",
         )}
       >
-        <MessageCircle className="size-4" />
         <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap capitalize">
-          {chat.title ||
-            chat.messages?.[0]?.content.substring(0, 20) ||
-            chat.subject}
+          {chat.title}
 
           <div
             className={cn(
@@ -66,11 +59,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
           (isActiveChat || isActive) && "flex",
         )}
       >
-        <ChatActions
-          chat={chat}
-          isActive={isActive}
-          setIsActive={setIsActive}
-        />
+        <ChatActions chat={chat} setIsActive={setIsActive} />
       </div>
     </li>
   );

@@ -15,19 +15,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { chatStore } from "@/store/chat";
-import { Chat } from "@/types/chat";
+import { ChatRoom } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
 interface ChatActionsProps {
-  chat: Chat;
-  isActive: boolean;
+  chat: ChatRoom;
   setIsActive: (value: boolean) => void;
 }
 
-const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive, isActive }) => {
+const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive }) => {
   const {
     getChat: { isEditingTitle },
     setChat,

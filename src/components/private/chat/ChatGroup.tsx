@@ -6,14 +6,14 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-import { Chat } from "@/types/chat";
+import { chatStore } from "@/store/chat";
+import { ChatRoom } from "@/types/chat";
 import { ChevronRight, Folder, FolderOpen } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import ChatItem from "./ChatItem";
-import { chatStore } from "@/store/chat";
 
 interface SidebarItemProps {
-  chats: Chat[];
+  chats: ChatRoom[];
   subject: string;
 }
 
@@ -55,7 +55,7 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
         </div>
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">
-        <ol className="space-y-1.5">
+        <ol className="space-y-1">
           {chats.map((chat) => (
             <ChatItem
               key={`${chat.id}-chat-item`}

@@ -2,23 +2,21 @@
 
 import { FC, FormEvent, useEffect } from "react";
 
-import { nanoid } from "@/lib/utils";
-import { User } from "next-auth";
 import PromptForm from "./PromptForm";
 
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
+import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
 import { useSubscription } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
-import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import { transformFilesArray } from "@/lib/message";
-import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 
 interface ChatPanelProps {
-  user: User;
+  userId: string;
   chatId: string;
 }
 
-const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
+const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const {
     store: [chat, setChat],
   } = chatStore();
@@ -27,6 +25,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
+
   const channel = `rooms:${chatId}`;
   const sub = useSubscription(channel);
 
@@ -39,9 +38,9 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
 
     if (isPending) return;
 
-    const submitContent = mathEquation || message;
+    const content = mathEquation || message;
 
-    if (!submitContent || submitContent.trim() === "") {
+    if (!content || content.trim() === "") {
       return;
     }
 
@@ -51,50 +50,37 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       e.target["message"]?.blur();
     }
 
-    const images = transformFilesArray(
-      files.filter((file) => file.type === "image"),
-    );
-
-    const docs = transformFilesArray(
-      files.filter((file) => file.type !== "image"),
-    );
+    const { images, docs } = getMessageFiles(files);
 
     if (sub) {
       sub.publish({
         input: {
-          content: submitContent,
+          content,
           images,
           docs,
         },
       });
     }
 
-    const newMessage = {
-      id: nanoid(),
-      content: submitContent,
-      role: "user",
-      userId: user?.id!,
-      chatId: chat.id!,
+    const newMessage = createNewMessageStore({
+      content,
+      userId,
       docs,
       images,
-      timestamp: new Date().getTime(),
-    };
+    });
 
     setChat((prev) => ({
       ...prev,
       messages: [...prev.messages, newMessage],
-      ...(prev.messages.length === 0 && {
-        title: newMessage.content.substring(0, 25),
-      }),
     }));
 
     clearMessageStore();
   };
 
   return (
-    <MaxWidthWrapper className="space-y-3 py-3">
+    <MaxWidthWrapper className="space-y-3 pt-3">
       {chat.messages && chat.messages.length > 4 && (
-        <PromptSuggestions className="mt-4" />
+        <PromptSuggestions className="mt-4" sub={sub} userId={userId} />
       )}
       <PromptForm onSubmit={onSubmit} />
     </MaxWidthWrapper>

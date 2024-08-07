@@ -12,9 +12,10 @@ import MessageHistory from "./MessageHistory";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chat: ChatRoom;
+  userId: string;
 }
 
-const ChatHistory: FC<ChatHistoryProps> = ({ chat }) => {
+const ChatHistory: FC<ChatHistoryProps> = ({ chat, userId }) => {
   const scrollRef = useRef<ElementRef<"div">>(null);
   const { ref: inViewRef, inView } = useInView();
 
@@ -29,7 +30,13 @@ const ChatHistory: FC<ChatHistoryProps> = ({ chat }) => {
   //   }
   // }, [scrollRef.current]);
 
-  if (isLoading) return <div className="h-full">Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner className="size-5" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -41,7 +48,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({ chat }) => {
           <div ref={scrollRef} />
         </ScrollAreaContainer>
       ) : (
-        <EmptyChat className="h-full" />
+        <EmptyChat className="h-full" userId={userId} />
       )}
     </>
   );

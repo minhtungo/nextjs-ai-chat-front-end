@@ -141,7 +141,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
             <div className="p-4">
               <div className="relative mx-auto w-fit">
                 <Image
-                  src={chatImagesArray[selectedImageIndex].url!}
+                  src={chatImagesArray[selectedImageIndex]!.url!}
                   ref={(el) => {
                     if (el && imageRefs.current) {
                       imageRefs.current[selectedImageIndex] = el;

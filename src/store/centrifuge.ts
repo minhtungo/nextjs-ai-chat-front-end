@@ -1,13 +1,11 @@
 import { encodeDataAction } from "@/actions/centrifuge";
-import { parseMessages } from "@/lib/utils";
-import { getSubscriptionToken } from "@/use-cases/centrifuge";
 import { Centrifuge, Subscription } from "centrifuge";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
 
-const centrifugeAtom = atom<Centrifuge | null>(null);
+export const centrifugeAtom = atom<Centrifuge | null>(null);
 
-const subscriptionAtom = atom<Subscription | null>(null);
+export const subscriptionAtom = atom<Subscription | null>(null);
 // const subscriptionAtom = atom<Map<string, Subscription>>(new Map());
 
 export const useCentrifuge = () => {
@@ -87,11 +85,16 @@ export const useSubscription = (channel: string) => {
 
       cleanup();
 
-      const newSub =
-        centrifuge.getSubscription(channel) ||
-        centrifuge.newSubscription(channel);
+      // const getChannelSubscriptionToken = async () => {
+      //   return getSubscriptionToken(channel);
+      // };
 
-      await setupSubscriptionListeners(newSub);
+      let newSub = centrifuge.getSubscription(channel);
+
+      if (!newSub) {
+        newSub = centrifuge.newSubscription(channel, {});
+        await setupSubscriptionListeners(newSub);
+      }
 
       newSub.subscribe();
       setSub(newSub);
@@ -107,3 +110,5 @@ export const useSubscription = (channel: string) => {
 
   return sub;
 };
+
+export const useSub = () => useAtomValue(subscriptionAtom);

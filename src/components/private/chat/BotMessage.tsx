@@ -9,14 +9,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useStreamableText } from "@/hooks/use-streamable-text";
 import { Redo, ThumbsDown, ThumbsUp } from "lucide-react";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import { StreamableValue } from "ai/rsc";
-import { Card } from "@/components/ui/card";
 import { MemoizedReactMarkdown } from "@/components/markdown";
+import { Card } from "@/components/ui/card";
+import { StreamableValue } from "ai/rsc";
 
 interface BotMessageProps {
   content: string | StreamableValue<string>;

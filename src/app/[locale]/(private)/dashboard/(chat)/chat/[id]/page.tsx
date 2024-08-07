@@ -1,9 +1,8 @@
+import Chat from "@/components/private/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 
-import { getChatByIDUseCase } from "@/use-cases/chat";
-import { notFound } from "next/navigation";
+import { getMessagesUseCase } from "@/use-cases/chat";
 import { FC } from "react";
-import Chat from "@/components/private/chat/Chat";
 
 interface ChatPageProps {
   params: {
@@ -18,11 +17,19 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     throw new Error("Unauthorized");
   }
 
-  const chat = await getChatByIDUseCase(id, user.id!);
+  const { messages } = await getMessagesUseCase({
+    roomId: id,
+    userId: user.id!,
+    query: {},
+  });
 
-  if (!chat || chat.userId !== user.id) {
-    notFound();
-  }
+  const chat = {
+    id,
+    messages,
+    userId: user.id!,
+    title: "New Chat",
+    subject: "Mathematics",
+  };
 
   return <Chat user={user} chat={chat} />;
 };

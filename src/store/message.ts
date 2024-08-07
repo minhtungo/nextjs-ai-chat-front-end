@@ -103,14 +103,18 @@ const useMessageStore = () => {
         try {
           setIsPending(true);
 
-          // const formData = new FormData();
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("name", file.name);
 
-          // formData.append("file", file);
-          // formData.append("name", file.name);
+          const [data, error] = await uploadFileAction(formData);
 
-          // const [data, error] = await uploadFileAction(formData);
+          if (error) {
+            throw new Error(error.message);
+          }
 
-          const url = await uploadFile(file);
+          const url = data.img_urls[0].url;
+
           setMessageStore((prev) => ({
             ...prev,
             files: prev.files.map((f) =>

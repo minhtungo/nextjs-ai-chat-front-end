@@ -2,29 +2,24 @@ import { getChatsAction } from "@/actions/chat";
 import { cache } from "react";
 import { toast } from "sonner";
 import ChatGroup from "./ChatGroup";
-import { Chat } from "@/types/chat";
+import { Chat, ChatRoom } from "@/types/chat";
+import { getChatsUseCase } from "@/use-cases/chat";
+import { getCurrentUser } from "@/lib/auth";
 
 interface SubjectGroup {
   subject: string;
-  chats: Chat[];
+  chats: ChatRoom[];
 }
 
-const loadChats = cache(async () => {
-  const [data, error] = await getChatsAction();
-
-  return {
-    chats: data,
-    error,
-  };
-});
-
 const ChatListHistory = async () => {
-  const { chats, error } = await loadChats();
+  const user = await getCurrentUser();
 
-  if (error) {
-    toast.error(error.message);
-    return null;
-  }
+  if (!user)
+    return (
+      <div className="mt-2 text-sm text-muted-foreground">No user found.</div>
+    );
+
+  const { data: chats } = await getChatsUseCase(user.id!);
 
   if (!chats || chats.length === 0) {
     return (

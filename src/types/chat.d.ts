@@ -13,6 +13,14 @@ export type CreateNewRoomResponse = {
   uid: string;
 };
 
+export type ChatRoom = {
+  id: string;
+  userId: string;
+  message: string;
+  title: string;
+  subject: string;
+};
+
 export type MessageFile = {
   id: string;
   name: string;

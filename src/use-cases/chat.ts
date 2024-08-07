@@ -6,10 +6,10 @@ import {
   saveChat,
 } from "@/data/chat";
 import { getUserById } from "@/data/user";
-import { createChatRoom } from "@/lib/chat";
+import { createChatRoom, transformRoomData } from "@/lib/chat";
 import { fetchAuth } from "@/lib/fetch";
 import { createPayload, nanoid } from "@/lib/utils";
-import { MessageResponse, NewMessage } from "@/types/chat";
+import { ChatRoom, MessageResponse, NewMessage } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createNewChatUseCase = async ({
@@ -57,8 +57,20 @@ export const getChatByIDUseCase = async (chatID: string, userID: string) => {
   return await getChatById(chatID, userID);
 };
 
-export const getChatsUseCase = async (userID: string) => {
-  return await getChats(userID);
+export const getChatsUseCase = async (userId: string) => {
+  const { data } = await fetchAuth({
+    url: "/chat/list-rooms",
+    method: "GET",
+    payload: createPayload({
+      uid: userId,
+    }),
+  });
+
+  const roomData = transformRoomData(data);
+
+  return {
+    data: roomData,
+  };
 };
 
 export const removeChatUseCase = async (chatId: string, userId: string) => {
@@ -80,7 +92,7 @@ export const removeAllChatsUseCase = async (userID: string) => {
 };
 
 // new
-export const loadMessagesUseCase = async ({
+export const getMessagesUseCase = async ({
   userId,
   roomId,
   query: { limit = 20, offset },
