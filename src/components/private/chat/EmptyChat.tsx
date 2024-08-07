@@ -5,11 +5,11 @@ import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 
-interface ChatWelcomeProps {
+interface EmptyChatProps {
   className?: string;
 }
 
-const ChatWelcome: FC<ChatWelcomeProps> = ({ className }) => {
+const EmptyChat: FC<EmptyChatProps> = ({ className }) => {
   return (
     <MaxWidthWrapper
       className={cn(
@@ -26,4 +26,4 @@ const ChatWelcome: FC<ChatWelcomeProps> = ({ className }) => {
   );
 };
 
-export default ChatWelcome;
+export default EmptyChat;

@@ -1,5 +1,5 @@
 import Logo from "@/components/common/Logo";
-import ChatHistory from "@/components/private/chat/ChatHistory";
+import ChatList from "@/components/private/chat/ChatList";
 import CreateChatButton from "@/components/private/chat/CreateChatButton";
 import Sidebar from "@/components/private/common/Sidebar";
 import Header from "@/components/private/dashboard/Header";
@@ -27,7 +27,7 @@ export default async function DashBoardLayout({
           </div>
           <ScrollArea className="h-full flex-1">
             <div className="overflow-hidden px-4 py-2">
-              <ChatHistory />
+              <ChatList />
             </div>
           </ScrollArea>
           <div className="w-full px-4">

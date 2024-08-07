@@ -39,7 +39,6 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({ className }) => {
           className="rounded-lg border bg-secondary/40 p-2 text-left text-card-foreground shadow-sm sm:px-3 sm:py-2"
         >
           <p>{title}</p>
-          <p className="text-xs text-muted-foreground">{description}</p>
         </button>
       ))}
     </div>

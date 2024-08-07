@@ -8,6 +8,21 @@ type IFile = {
   isUploading?: boolean;
 };
 
+export type CreateNewRoomResponse = {
+  roomid: string;
+  uid: string;
+};
+
+export type MessageFile = {
+  id: string;
+  name: string;
+  url?: string;
+  preview?: string;
+  type: "image" | "document" | "pdf";
+  isUploading?: boolean;
+  size: number;
+};
+
 export type MessageResponse = {
   message: {
     content: string;
@@ -27,10 +42,9 @@ export type MessageStore = Omit<Message, "docs" | "images"> & {
 export type NewMessage = Omit<Message, "id" | "chatId">;
 
 export type Chat = {
-  id?: string;
-  title: string | null;
-  subject: string | null;
-  createdAt: Date;
+  id: string;
+  title: string;
+  subject: string;
   userId: string;
   messages: Message[];
 };

@@ -58,6 +58,7 @@ export const useSubscription = (channel: string) => {
   const [sub, setSub] = useAtom(subscriptionAtom);
 
   useEffect(() => {
+    sub?.state === "unsubscribed" && setSub(null);
     if (centrifuge && !sub) {
       const getChannelSubscriptionToken = async () => {
         return getSubscriptionToken(channel);

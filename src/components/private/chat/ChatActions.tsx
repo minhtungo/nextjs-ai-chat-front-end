@@ -1,18 +1,7 @@
 "use client";
 
 import { removeChatAction } from "@/actions/chat";
-import Spinner from "@/components/common/Spinner";
 import DeleteChatAlert from "@/components/private/chat/DeleteChatAlert";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,

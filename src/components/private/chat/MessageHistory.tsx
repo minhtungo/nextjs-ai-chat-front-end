@@ -13,12 +13,10 @@ const MessageHistory: FC<MessageHistoryProps> = ({ className }) => {
     getChat: { messages },
   } = chatStore();
 
-  console.log("messages", messages);
-
   return (
     <div className={cn("w-full space-y-4", className)}>
-      {messages.map((message, index) => (
-        <React.Fragment key={index + message.content.substring(0, 10)}>
+      {messages.map((message) => (
+        <React.Fragment key={message.id}>
           {message.userId ? (
             <UserMessage message={message} />
           ) : (

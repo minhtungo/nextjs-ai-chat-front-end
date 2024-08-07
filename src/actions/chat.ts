@@ -40,12 +40,17 @@ export const createNewChatAction = authedAction
       chat = await createNewChatUseCase({
         userId: user.id!,
         subject,
-        title: "",
+        title: subject,
       });
+
+      // return {
+      //   id: room.id,
+      // };
     } catch (error) {
       throw new ZSAError("ERROR", error);
     }
-    if (chat?.id) {
+
+    if (chat) {
       redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
     }
   });

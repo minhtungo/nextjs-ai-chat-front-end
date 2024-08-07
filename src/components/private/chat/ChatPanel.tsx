@@ -9,6 +9,9 @@ import PromptForm from "./PromptForm";
 import { useSubscription } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import { transformFilesArray } from "@/lib/message";
+import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 
 interface ChatPanelProps {
   user: User;
@@ -24,8 +27,14 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
+  const channel = `rooms:${chatId}`;
+  const sub = useSubscription(channel);
 
-  const sub = useSubscription(`rooms:${chatId}`);
+  useEffect(() => {
+    return () => {
+      sub?.unsubscribe();
+    };
+  }, [chatId]);
 
   useEffect(() => {
     clearMessageStore();
@@ -48,21 +57,13 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       e.target["message"]?.blur();
     }
 
-    const images = files
-      .filter((file) => file.type === "image")
-      .map((file) => ({
-        url: file.url!,
-        name: file.name,
-        type: file.type,
-      }));
+    const images = transformFilesArray(
+      files.filter((file) => file.type === "image"),
+    );
 
-    const docs = files
-      .filter((file) => file.type !== "image")
-      .map((file) => ({
-        url: file.url!,
-        name: file.name,
-        type: file.type,
-      }));
+    const docs = transformFilesArray(
+      files.filter((file) => file.type !== "image"),
+    );
 
     if (sub) {
       sub.publish({
@@ -91,13 +92,19 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
       ...(prev.messages.length === 0 && {
         title: newMessage.content.substring(0, 25),
       }),
-      overlay: { isOpen: false, selectedImageIndex: 0 },
     }));
 
     clearMessageStore();
   };
 
-  return <PromptForm onSubmit={onSubmit} />;
+  return (
+    <MaxWidthWrapper className="space-y-3 py-3">
+      {chat.messages && chat.messages.length > 4 && (
+        <PromptSuggestions className="mt-4" />
+      )}
+      <PromptForm onSubmit={onSubmit} />
+    </MaxWidthWrapper>
+  );
 };
 
 export default ChatPanel;

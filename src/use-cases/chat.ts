@@ -1,5 +1,4 @@
 import {
-  createNewChat,
   getChatById,
   getChats,
   removeAllChats,
@@ -28,10 +27,15 @@ export const createNewChatUseCase = async ({
       subject: subject,
       title: title,
     });
-    console.log("createroomdata", data);
-    return await createNewChat({ userId, subject, title, id: data.roomid });
+
+    return {
+      id: data.roomid,
+      userId: data.uid,
+      title,
+      subject,
+    };
   } catch (error) {
-    console.error("Error creating chat room:", error);
+    throw new ZSAError("ERROR", "error.generalError");
   }
 };
 
