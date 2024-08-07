@@ -54,60 +54,55 @@ export const useCentrifuge = () => {
 
 export const useSubscription = (channel: string) => {
   const centrifuge = useCentrifuge();
-
   const [sub, setSub] = useAtom(subscriptionAtom);
 
+  const cleanup = () => {
+    if (sub) {
+      sub.unsubscribe();
+      sub.removeAllListeners();
+      setSub(null);
+    }
+  };
+
+  const setupSubscriptionListeners = async (newSub: Subscription) => {
+    newSub.on("subscribed", (ctx) => {
+      console.log("Successfully subscribed to channel:", channel);
+    });
+
+    newSub.on("unsubscribed", () =>
+      console.log("Unsubscribed from channel:", channel),
+    );
+    newSub.on("error", (ctx) => console.log("Subscription error:", ctx));
+
+    newSub.on("publication", (ctx) =>
+      console.log("Received publication:", JSON.stringify(ctx.data)),
+    );
+  };
+
   useEffect(() => {
-    sub?.state === "unsubscribed" && setSub(null);
-    if (centrifuge && !sub) {
-      const getChannelSubscriptionToken = async () => {
-        return getSubscriptionToken(channel);
-      };
+    let active = true;
 
-      let newSub = centrifuge.getSubscription(channel);
+    const subscribeToChannel = async () => {
+      if (!centrifuge || !active) return;
 
-      if (!newSub) {
-        newSub = centrifuge.newSubscription(channel, {});
-      }
+      cleanup();
 
-      newSub.on("subscribed", (ctx) => {
-        const messages = parseMessages(ctx.data);
+      const newSub =
+        centrifuge.getSubscription(channel) ||
+        centrifuge.newSubscription(channel);
 
-        console.log("Parsed messages:", messages);
-      });
-
-      newSub.on("subscribed", () =>
-        console.log("Successfully subscribed to channel:", channel),
-      );
-
-      newSub.on("unsubscribed", (ctx) => {
-        console.log(`sub unsubscribed ${ctx}`);
-      });
-
-      newSub.on("error", (ctx) => {
-        console.log(`sub error ${ctx}`);
-      });
-
-      newSub.on("state", (ctx) => {
-        console.log(`sub state ${ctx.newState}`);
-      });
-
-      newSub.on("join", (ctx) => {
-        console.log(`sub join ${ctx}`);
-      });
-
-      newSub.on("leave", (ctx) => {
-        console.log(`sub leave ${ctx}`);
-      });
-
-      newSub.on("publication", (ctx) => {
-        console.log(`sub publication ${JSON.stringify(ctx.data, null, 2)}`);
-      });
+      await setupSubscriptionListeners(newSub);
 
       newSub.subscribe();
-
       setSub(newSub);
-    }
+    };
+
+    subscribeToChannel();
+
+    return () => {
+      active = false;
+      cleanup();
+    };
   }, [channel, centrifuge]);
 
   return sub;

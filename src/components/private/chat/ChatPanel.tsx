@@ -31,12 +31,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ user, chatId }) => {
   const sub = useSubscription(channel);
 
   useEffect(() => {
-    return () => {
-      sub?.unsubscribe();
-    };
-  }, [chatId]);
-
-  useEffect(() => {
     clearMessageStore();
   }, []);
 
