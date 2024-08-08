@@ -1,6 +1,5 @@
 "use client";
 
-import Spinner from "@/components/common/Spinner";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { TSubject } from "@/lib/constant";
 import { cn } from "@/lib/utils";

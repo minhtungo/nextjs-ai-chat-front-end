@@ -1,3 +1,5 @@
+"use client";
+
 import BotMessage from "@/components/private/chat/BotMessage";
 import { cn } from "@/lib/utils";
 import { chatStore } from "@/store/chat";

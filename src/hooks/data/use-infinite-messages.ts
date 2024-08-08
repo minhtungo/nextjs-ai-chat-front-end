@@ -40,8 +40,6 @@ const useInfiniteMessages = ({
     [data],
   );
 
-  const messages = messageData.toReversed();
-
   const { setChat } = chatStore();
 
   useEffect(() => {
@@ -51,8 +49,8 @@ const useInfiniteMessages = ({
       ...prev,
       id: chat.id,
       subject: chat.subject,
-      ...(chat.title && { title: chat.title }),
-      messages,
+      title: chat.title,
+      messages: messageData.toReversed(),
     }));
   }, [isLoading, messageData]);
 
@@ -64,7 +62,7 @@ const useInfiniteMessages = ({
 
   return {
     isLoading,
-    messages,
+    messages: messageData.toReversed(),
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,

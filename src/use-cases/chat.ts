@@ -1,15 +1,9 @@
-import {
-  getChatById,
-  getChats,
-  removeAllChats,
-  removeChat,
-  saveChat,
-} from "@/data/chat";
+import { getChatById, removeAllChats, removeChat, saveChat } from "@/data/chat";
 import { getUserById } from "@/data/user";
 import { createChatRoom, transformRoomData } from "@/lib/chat";
 import { fetchAuth } from "@/lib/fetch";
 import { createPayload, nanoid } from "@/lib/utils";
-import { ChatRoom, MessageResponse, NewMessage } from "@/types/chat";
+import { MessageResponse, NewMessage } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createNewChatUseCase = async ({
@@ -114,6 +108,7 @@ export const getMessagesUseCase = async ({
         uid: userId,
       }),
     });
+
     const data = response.data.result.data.history.map(
       (item: MessageResponse) => {
         return {

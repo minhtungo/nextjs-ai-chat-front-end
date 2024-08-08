@@ -68,7 +68,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
       docs,
       images,
     });
-
     setChat((prev) => ({
       ...prev,
       messages: [...prev.messages, newMessage],

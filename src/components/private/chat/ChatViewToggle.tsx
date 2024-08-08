@@ -13,7 +13,7 @@ import {
 
 const ChatViewToggle = () => {
   const {
-    store: [{ messages }, setChat],
+    getChat: { messages },
     updateChatOverlay,
   } = chatStore();
 
@@ -24,35 +24,29 @@ const ChatViewToggle = () => {
     return null;
   }
 
-  const messagesWithImages = messages.filter(
-    (message) => message.images && message.images.length > 0,
-  );
-
   return (
-    <>
-      <TooltipProvider delayDuration={100}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="hidden gap-1 text-muted-foreground md:inline-flex"
-              onClick={() => {
-                updateChatOverlay({
-                  isOpen: true,
-                  selectedImageIndex: 0,
-                });
-              }}
-            >
-              <AppWindowMac className="size-5" />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Toggle chat view</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    </>
+    <TooltipProvider delayDuration={100}>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="hidden gap-1 text-muted-foreground md:inline-flex"
+            onClick={() => {
+              updateChatOverlay({
+                isOpen: true,
+                selectedImageIndex: 0,
+              });
+            }}
+          >
+            <AppWindowMac className="size-5" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>
+          <p>Toggle chat view</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 

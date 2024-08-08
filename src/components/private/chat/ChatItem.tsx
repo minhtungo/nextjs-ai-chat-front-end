@@ -3,8 +3,7 @@
 import { buttonVariants } from "@/components/ui/button";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import { Chat, ChatRoom } from "@/types/chat";
-import { MessageCircle } from "lucide-react";
+import { ChatRoom } from "@/types/chat";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC, useEffect, useState } from "react";

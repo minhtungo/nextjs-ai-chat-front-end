@@ -18,17 +18,14 @@ export const createChatRoom = async ({
     method: "POST",
     payload: createPayload({
       uid: userId,
+    }),
+    body: {
       subject,
       title,
-    }),
+    },
   });
 
   return data;
-};
-
-type MessageFiles = {
-  images: IFile[];
-  docs: IFile[];
 };
 
 export const getMessageFiles = (files: MessageFile[]) => {
@@ -58,16 +55,20 @@ interface RoomData {
   user: string[];
   unseen: string;
   message: string;
+  title: string;
+  subject: string;
 }
 
 export const transformRoomData = (data: Record<string, RoomData>) => {
-  return Object.entries(data).map(([roomId, { user, message }]) => ({
-    id: roomId,
-    userId: user[0],
-    message,
-    title: "New Chat",
-    subject: "Mathematics",
-  }));
+  return Object.entries(data)
+    .map(([roomId, { user, message, title, subject }]) => ({
+      id: roomId,
+      userId: user[0],
+      message,
+      title,
+      subject,
+    }))
+    .toReversed();
 };
 
 export const createNewMessageStore = ({
