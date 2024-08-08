@@ -10,6 +10,7 @@ import {
   removeAllChatsUseCase,
   removeChatUseCase,
   saveChatUseCase,
+  updateChatUseCase,
 } from "@/use-cases/chat";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -123,4 +124,25 @@ export const getMessagesAction = authedAction
       query,
     });
     return { messages };
+  });
+
+export const updateChatAction = authedAction
+  .input(
+    z.object({
+      roomId: z.string(),
+      title: z.string().optional(),
+      subject: z.string().optional(),
+    }),
+  )
+  .handler(async ({ input: { roomId, title, subject }, ctx: { user } }) => {
+    try {
+      return await updateChatUseCase({
+        userId: user.id!,
+        roomId,
+        title,
+        subject,
+      });
+    } catch (error) {
+      throw new Error("Error updating chat");
+    }
   });

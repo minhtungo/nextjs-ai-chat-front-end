@@ -1,5 +1,4 @@
 import { fetchAuth } from "@/lib/fetch";
-import { createPayload } from "@/lib/utils";
 import { ZSAError } from "zsa";
 
 export const uploadFileUseCase = async (file: File, userId: string) => {
@@ -13,9 +12,9 @@ export const uploadFileUseCase = async (file: File, userId: string) => {
       url: "/assets/v1/auth/upload",
       method: "POST",
       formData,
-      payload: createPayload({
+      token: {
         uid: userId,
-      }),
+      },
     });
 
     if (data.success) {

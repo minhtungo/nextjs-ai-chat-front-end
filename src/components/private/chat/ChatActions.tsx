@@ -14,23 +14,23 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { chatStore } from "@/store/chat";
 import { ChatRoom } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
 interface ChatActionsProps {
   chat: ChatRoom;
   setIsActive: (value: boolean) => void;
+  toggleUpdateTitle: () => void;
 }
 
-const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive }) => {
-  const {
-    getChat: { isEditingTitle },
-    setChat,
-  } = chatStore();
+const ChatActions: FC<ChatActionsProps> = ({
+  chat,
+  setIsActive,
+  toggleUpdateTitle,
+}) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const { isPending: isRemovePending, execute } =
     useServerAction(removeChatAction);
@@ -69,11 +69,7 @@ const ChatActions: FC<ChatActionsProps> = ({ chat, setIsActive }) => {
             <span>Delete</span>
             <span className="sr-only">Delete</span>
           </DropdownMenuItem>
-          <DropdownMenuItem
-            onClick={() =>
-              setChat((prev) => ({ ...prev, isEditingTitle: !isEditingTitle }))
-            }
-          >
+          <DropdownMenuItem onClick={toggleUpdateTitle}>
             <Pencil className="size-4" />
             <span>Rename</span>
             <span className="sr-only">Rename</span>

@@ -17,15 +17,17 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     throw new Error("Unauthorized");
   }
 
-  const { messages } = await getMessagesUseCase({
+  const data = await getMessagesUseCase({
     roomId: id,
     userId: user.id!,
     query: {},
   });
 
+  console.log("messages", data);
+
   const chat = {
     id,
-    messages,
+    messages: data.messages,
     userId: user.id!,
     title: "New Chat",
     subject: "Mathematics",

@@ -2,7 +2,7 @@ import { getChatById, removeAllChats, removeChat, saveChat } from "@/data/chat";
 import { getUserById } from "@/data/user";
 import { createChatRoom, transformRoomData } from "@/lib/chat";
 import { fetchAuth } from "@/lib/fetch";
-import { createPayload, nanoid } from "@/lib/utils";
+import { createToken, nanoid } from "@/lib/utils";
 import { MessageResponse, NewMessage } from "@/types/chat";
 import { ZSAError } from "zsa";
 
@@ -55,9 +55,9 @@ export const getChatsUseCase = async (userId: string) => {
   const { data } = await fetchAuth({
     url: "/chat/list-rooms",
     method: "GET",
-    payload: createPayload({
+    token: {
       uid: userId,
-    }),
+    },
   });
 
   const roomData = transformRoomData(data);
@@ -104,9 +104,9 @@ export const getMessagesUseCase = async ({
     const response = await fetchAuth({
       url: `/chat/rooms/${roomId}/messages?${query.toString()}`,
       method: "GET",
-      payload: createPayload({
+      token: {
         uid: userId,
-      }),
+      },
     });
 
     const data = response.data.result.data.history.map(
@@ -136,5 +136,39 @@ export const getMessagesUseCase = async ({
     return data;
   } catch (error) {
     throw new ZSAError("ERROR", "error.generalError");
+  }
+};
+
+export const updateChatUseCase = async ({
+  userId,
+  roomId,
+  title,
+  subject,
+}: {
+  userId: string;
+  roomId: string;
+  title?: string;
+  subject?: string;
+}) => {
+  try {
+    const response = await fetchAuth({
+      url: `/chat/update/${roomId}`,
+      method: "PUT",
+      token: {
+        uid: userId,
+      },
+      body: {
+        ...(title && { title }),
+        ...(subject && { subject }),
+      },
+    });
+
+    if (response.success) {
+      return response.data;
+    } else if (response.error) {
+      throw new ZSAError("ERROR", "Failed to update chat");
+    }
+  } catch (error) {
+    throw new ZSAError("ERROR", "Failed to update chat");
   }
 };

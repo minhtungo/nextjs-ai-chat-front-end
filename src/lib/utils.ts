@@ -90,7 +90,7 @@ export const encodeData = (data: any) => {
   return token;
 };
 
-export const createPayload = (data: any) => {
+export const createToken = (data: any) => {
   return {
     jti: uuid(),
     iat: Math.floor(Date.now() / 1000),

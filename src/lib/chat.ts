@@ -1,7 +1,5 @@
-import { NewMessage } from "./../types/chat.d";
 import { fetchAuth } from "@/lib/fetch";
-import { createPayload, nanoid } from "@/lib/utils";
-import { IFile } from "@/store/message";
+import { nanoid } from "@/lib/utils";
 import { CreateNewRoomResponse, MessageFile } from "@/types/chat";
 
 export const createChatRoom = async ({
@@ -16,9 +14,9 @@ export const createChatRoom = async ({
   const { data } = await fetchAuth({
     url: "/chat/create-room",
     method: "POST",
-    payload: createPayload({
+    token: {
       uid: userId,
-    }),
+    },
     body: {
       subject,
       title,
