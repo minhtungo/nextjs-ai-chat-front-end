@@ -20,7 +20,7 @@ export const uploadFileAction = authedAction
     z.object({
       file: z
         .any()
-        .refine((file) => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+        .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
         .refine(
           (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
           "Only .jpg, .jpeg, .png, .webp, .doc and .pdf formats are supported.",
@@ -32,6 +32,5 @@ export const uploadFileAction = authedAction
   )
   .handler(async ({ input: { file }, ctx }) => {
     const response = await uploadFileUseCase(file, ctx.user.id!);
-    console.log("response---", response);
     return response;
   });
