@@ -14,12 +14,11 @@ export const useCentrifuge = () => {
   useEffect(() => {
     if (!centrifuge) {
       (async () => {
-        console.log("running centrifuge");
         const [data] = await encodeDataAction();
+
         const newCentrifuge = new Centrifuge(
           process.env.NEXT_PUBLIC_WS_ENDPOINT!,
           {
-            debug: true,
             data,
           },
         );

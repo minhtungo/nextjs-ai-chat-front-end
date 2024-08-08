@@ -47,8 +47,6 @@ model User {
   accounts      Account[]
   settings      UserSettings?
   subscription Subscription?
-  chats Chat[]
-  messsages     Message[]
   mails     Mail[]
 }
 
@@ -61,49 +59,6 @@ model UserSettings {
   user          User      @relation(fields: [userId], references: [id])
 
   @@unique([userId])
-}
-
-model Chat {
-  id        String   @id @default(cuid())
-  title String?
-  subject String?
-
-  userId    String
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  messages Message[]
-
-  @@index([id])
-}
-
-model Message {
-  id             String        @id @default(cuid())
-  content        String
-  files          File[]
-  role           String
-  chatId         String
-  userId         String
-
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  
-  chat   Chat @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  user           User @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model File {
-  id        String   @id @default(cuid())
-  name      String
-  url       String
-  type      String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  messageId String
-  message   Message  @relation(fields: [messageId], references: [id], onDelete: Cascade)
 }
 
 model Account {

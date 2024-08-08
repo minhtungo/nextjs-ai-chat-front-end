@@ -7,12 +7,8 @@ import {
   createNewChatUseCase,
   getChatsUseCase,
   getMessagesUseCase,
-  removeAllChatsUseCase,
-  removeChatUseCase,
-  saveChatUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
@@ -55,57 +51,6 @@ export const createNewChatAction = authedAction
     }
   });
 
-export const saveChatAction = authedAction
-  .input(
-    z.object({
-      message: z.any(),
-      chatId: z.string(),
-      title: z.string().nullable(),
-    }),
-  )
-  .handler(async ({ input: { message, chatId, title }, ctx: { user } }) => {
-    try {
-      await saveChatUseCase({
-        message,
-        chatId,
-        title,
-        userId: user.id!,
-      });
-    } catch (error) {
-      throw new Error("Error saving chat");
-    }
-
-    if (title !== null) {
-      revalidatePath(`/${PROTECTED_BASE_URL}/chat/${chatId}`);
-    }
-  });
-
-export const removeChatAction = authedAction
-  .input(z.object({ chatId: z.string() }))
-  .handler(async ({ input: { chatId }, ctx: { user } }) => {
-    try {
-      await removeChatUseCase(chatId, user?.id!);
-    } catch (error) {
-      throw new Error("Error removing chat");
-    }
-
-    revalidatePath(`${PROTECTED_BASE_URL}`);
-    redirect(PROTECTED_BASE_URL);
-  });
-
-export const removeAllChatsAction = authedAction.handler(
-  async ({ ctx: { user } }) => {
-    await removeAllChatsUseCase(user.id!);
-
-    revalidatePath(`${PROTECTED_BASE_URL}`);
-
-    return {
-      message: "success",
-    };
-  },
-);
-
-// new
 export const getMessagesAction = authedAction
   .input(
     z.object({
@@ -144,5 +89,24 @@ export const updateChatAction = authedAction
       });
     } catch (error) {
       throw new Error("Error updating chat");
+    }
+  });
+
+export const removeChatAction = authedAction
+  .input(
+    z.object({
+      chatId: z.string(),
+    }),
+  )
+  .handler(async ({ input: { chatId }, ctx: { user } }) => {
+    try {
+      // return await updateChatUseCase({
+      //   userId: user.id!,
+      //   roomId,
+      //   title,
+      //   subject,
+      // });
+    } catch (error) {
+      throw new Error("Error removing chat");
     }
   });

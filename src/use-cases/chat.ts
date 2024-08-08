@@ -1,9 +1,7 @@
-import { getChatById, removeAllChats, removeChat, saveChat } from "@/data/chat";
-import { getUserById } from "@/data/user";
 import { createChatRoom, transformRoomData } from "@/lib/chat";
 import { fetchAuth } from "@/lib/fetch";
-import { createToken, nanoid } from "@/lib/utils";
-import { MessageResponse, NewMessage } from "@/types/chat";
+import { nanoid } from "@/lib/utils";
+import { MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createNewChatUseCase = async ({
@@ -33,24 +31,6 @@ export const createNewChatUseCase = async ({
   }
 };
 
-export const saveChatUseCase = async ({
-  message,
-  chatId,
-  userId,
-  title,
-}: {
-  message: NewMessage;
-  chatId: string;
-  userId: string;
-  title: string | null;
-}) => {
-  return await saveChat({ message, chatId, userId, title });
-};
-
-export const getChatByIDUseCase = async (chatID: string, userID: string) => {
-  return await getChatById(chatID, userID);
-};
-
 export const getChatsUseCase = async (userId: string) => {
   const { data } = await fetchAuth({
     url: "/chat/list-rooms",
@@ -65,24 +45,6 @@ export const getChatsUseCase = async (userId: string) => {
   return {
     data: roomData,
   };
-};
-
-export const removeChatUseCase = async (chatId: string, userId: string) => {
-  return await removeChat(chatId, userId);
-};
-
-export const removeAllChatsUseCase = async (userID: string) => {
-  const existingUser = await getUserById(userID);
-
-  if (!existingUser) {
-    throw new ZSAError("NOT_AUTHORIZED", "error.unauthorized");
-  }
-
-  try {
-    await removeAllChats(existingUser.id);
-  } catch (error) {
-    throw new ZSAError("ERROR", "error.generalError");
-  }
 };
 
 // new

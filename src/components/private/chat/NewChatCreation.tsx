@@ -39,7 +39,7 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
       return;
     }
 
-    const [data, error] = await execute({
+    const [_, error] = await execute({
       subject: selectedSubject,
     });
 
