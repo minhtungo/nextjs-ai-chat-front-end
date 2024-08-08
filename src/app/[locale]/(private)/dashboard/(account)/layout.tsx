@@ -6,6 +6,7 @@ import GoBackButton from "@/components/private/account/GoBackButton";
 import Header from "@/components/private/account/Header";
 import SidebarNav from "@/components/private/account/SidebarNav";
 import UserInfo from "@/components/private/account/UserInfo";
+import MainArea from "@/components/private/common/MainArea";
 
 export default async function DashBoardLayout({
   children,
@@ -13,28 +14,22 @@ export default async function DashBoardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative flex min-h-screen">
-      <Sidebar className="peer absolute inset-y-0 z-30 hidden -translate-x-full border-r bg-card duration-300 ease-in-out data-[state=open]:translate-x-0 lg:flex lg:w-[300px]">
-        <div className="flex h-full max-h-screen flex-col gap-2 py-3">
+    <>
+      <Sidebar>
+        <UserInfo className="mb-3 px-4" />
+        <ScrollArea className="h-full flex-1">
           <Suspense>
-            <UserInfo className="mb-3 px-4" />
+            <SidebarNav className="px-4" />
           </Suspense>
-          <ScrollArea className="h-full flex-1">
-            <Suspense>
-              <SidebarNav className="px-4" />
-            </Suspense>
-          </ScrollArea>
-          <div className="w-full px-4">
-            <GoBackButton className="w-full justify-start" />
-          </div>
+        </ScrollArea>
+        <div className="w-full px-4">
+          <GoBackButton className="w-full justify-start" />
         </div>
       </Sidebar>
-      <main className="relative flex h-screen w-full flex-1 flex-col overflow-auto pl-0 duration-300 ease-in-out animate-in peer-[[data-state=open]]:lg:pl-[300px]">
+      <MainArea>
         <Header />
-        <div className="group relative flex h-full w-full flex-1 flex-col gap-4 overflow-hidden">
-          <ScrollAreaContainer>{children}</ScrollAreaContainer>
-        </div>
-      </main>
-    </div>
+        <ScrollAreaContainer className="py-4">{children}</ScrollAreaContainer>
+      </MainArea>
+    </>
   );
 }

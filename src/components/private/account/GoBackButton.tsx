@@ -21,7 +21,7 @@ const GoBackButton: FC<GoBackButtonProps> = ({ className }) => {
       )}
       href={PROTECTED_BASE_URL}
     >
-      <ChevronLeft className="size-4.5" /> Go Back
+      <ChevronLeft className="size-4" /> Go Back
     </Link>
   );
 };

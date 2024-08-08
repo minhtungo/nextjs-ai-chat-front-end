@@ -1,8 +1,7 @@
-import { getCurrentUser } from "@/lib/auth";
-import { Separator } from "@radix-ui/react-dropdown-menu";
-import { Metadata } from "next";
 import GeneralSettings from "@/components/private/account/GeneralSettings";
 import UserProfileForm from "@/components/private/account/UserProfileForm.server";
+import { getCurrentUser } from "@/lib/auth";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Account",
@@ -16,11 +15,10 @@ const AccountPage = async () => {
   }
 
   return (
-    <>
+    <div className="space-y-12">
       <UserProfileForm currentUser={currentUser} />
-      <Separator className="my-6" />
       <GeneralSettings user={currentUser} />
-    </>
+    </div>
   );
 };
 

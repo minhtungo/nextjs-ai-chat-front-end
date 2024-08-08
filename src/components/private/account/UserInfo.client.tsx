@@ -10,9 +10,11 @@ interface UserInfoProps {
 
 const UserInfo: FC<UserInfoProps> = async ({ className }) => {
   const user = await getCurrentUser();
+
   if (!user) {
     throw new Error("User not found");
   }
+
   return (
     <div className={cn("flex items-center gap-x-2", className)}>
       <UserAvatar user={user} />

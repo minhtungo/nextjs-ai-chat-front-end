@@ -23,8 +23,6 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     query: {},
   });
 
-  console.log("messages", data);
-
   const chat = {
     id,
     messages: data.messages,

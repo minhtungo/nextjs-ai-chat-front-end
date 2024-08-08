@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Badge } from "@/components/ui/badge";
+import SubmitButton from "@/components/common/SubmitButton";
 import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import Typography from "@/components/ui/typography";
 import { ACADEMIC_LEVELS, LANGUAGES, SUBJECTS } from "@/lib/constant";
@@ -29,14 +29,13 @@ import { updateUserProfileSchema } from "@/lib/definitions";
 import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Pen } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import SubmitButton from "@/components/common/SubmitButton";
 
 interface UserProfileFormProps {
   user: UserProfileProps;
@@ -68,14 +67,6 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof updateUserProfileSchema>) => {
-    // if (file) {
-    //   const blob = await put("images", URL.createObjectURL(file), {
-    //     access: "public",
-    //   });
-
-    //   values.image = blob.url;
-    // }
-
     values.subjects = subjects?.map((subject) => subject.value) || [];
 
     const [_, err] = await execute(values);
@@ -108,9 +99,9 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                 }}
               />
               <label htmlFor="attach-profile-image" className="cursor-pointer">
-                <Avatar className="size-16 sm:size-20">
-                  <div className="absolute inset-0 z-10 hidden h-full w-full items-center justify-center bg-background/50 hover:flex">
-                    <Pen className="size-4 text-zinc-800 dark:text-zinc-100" />
+                <Avatar className="size-16 border sm:size-24">
+                  <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-card/60 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
+                    <Pencil className="size-4" />
                   </div>
                   <AvatarImage
                     src={
@@ -125,12 +116,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               </label>
               <span className="sr-only">Attach Image</span>
             </div>
-            <div className="space-y-3">
-              <Label className="block">Current Plan</Label>
-              <Badge className="capitalize" variant="success">
-                {user.plan}
-              </Badge>
-            </div>
+
             <div className="space-y-2">
               <Label>Email</Label>
               <Input placeholder="Email" value={user.email!} disabled />

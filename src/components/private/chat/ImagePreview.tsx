@@ -16,7 +16,7 @@ const ImagePreview: FC<ImagePreviewProps> = ({
   return (
     <div
       role={!isOverlayOpen ? "button" : "img"}
-      className="relative max-h-40 overflow-hidden rounded-lg border border-border"
+      className="relative max-h-40 overflow-hidden rounded-lg border"
       onClick={onClick}
     >
       <Image
@@ -28,7 +28,7 @@ const ImagePreview: FC<ImagePreviewProps> = ({
       />
       {!isOverlayOpen && (
         <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-accent/50 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-          <MessageSquareShare className="size-5" />
+          <MessageSquareShare className="size-4 sm:size-5" />
         </div>
       )}
     </div>

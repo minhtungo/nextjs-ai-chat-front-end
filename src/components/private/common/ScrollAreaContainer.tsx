@@ -13,7 +13,7 @@ const ScrollAreaContainer: FC<ScrollAreaContainerProps> = ({
   className,
 }) => {
   return (
-    <ScrollArea className="h-full w-full flex-1">
+    <ScrollArea className="relative h-full w-full flex-1 overflow-hidden">
       <MaxWidthWrapper className={className}>{children}</MaxWidthWrapper>
     </ScrollArea>
   );

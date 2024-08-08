@@ -110,3 +110,21 @@ export const removeChatAction = authedAction
       throw new Error("Error removing chat");
     }
   });
+
+export const removeAllChatsAction = authedAction.handler(
+  async ({ input, ctx: { user } }) => {
+    try {
+      // return await updateChatUseCase({
+      //   userId: user.id!,
+      //   roomId,
+      //   title,
+      //   subject,
+      // });
+      return {
+        message: true,
+      };
+    } catch (error) {
+      throw new Error("Error removing chat");
+    }
+  },
+);
