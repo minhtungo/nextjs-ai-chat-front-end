@@ -1,21 +1,18 @@
-import { createChatRoom, transformRoomData } from "@/lib/chat";
+import { createChatRoom } from "@/lib/chat";
 import { fetchAuth } from "@/lib/fetch";
 import { nanoid } from "@/lib/utils";
-import { MessageResponse } from "@/types/chat";
+import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createNewChatUseCase = async ({
-  userId,
   subject,
   title,
 }: {
-  userId: string;
   subject: string;
   title: string;
 }) => {
   try {
     const data = await createChatRoom({
-      userId: userId,
       subject: subject,
       title: title,
     });
@@ -31,28 +28,26 @@ export const createNewChatUseCase = async ({
   }
 };
 
-export const getChatsUseCase = async (userId: string) => {
+export const getChatsUseCase = async (): Promise<ChatRoom[]> => {
   const { data } = await fetchAuth({
-    url: "/chat/list-rooms",
+    path: "/chat/list-rooms",
     method: "GET",
-    token: {
-      uid: userId,
-    },
   });
 
-  const roomData = transformRoomData(data);
-
-  return {
-    data: roomData,
-  };
+  return data.map((data: any) => ({
+    id: data.id,
+    userId: data.user[0],
+    title: data.title,
+    subject: data.subject,
+    timestamp: data.timestamp,
+    last_active: data.last_active,
+  }));
 };
 
 export const getMessagesUseCase = async ({
-  userId,
   roomId,
   query: { limit = 20, offset },
 }: {
-  userId: string;
   roomId: string;
   query: { limit?: number; offset?: number };
 }) => {
@@ -63,14 +58,11 @@ export const getMessagesUseCase = async ({
     });
 
     const response = await fetchAuth({
-      url: `/chat/rooms/${roomId}/messages?${query.toString()}`,
+      path: `/chat/rooms/${roomId}/messages?${query.toString()}`,
       method: "GET",
-      token: {
-        uid: userId,
-      },
     });
 
-    const data = response.data.result.data.history.map(
+    const messages = response.data.result.data.history.map(
       (item: MessageResponse) => {
         return {
           id: nanoid(),
@@ -94,9 +86,9 @@ export const getMessagesUseCase = async ({
         };
       },
     );
-    return data;
-  } catch (error) {
-    throw new ZSAError("ERROR", "error.generalError");
+    return messages;
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
@@ -113,11 +105,8 @@ export const updateChatUseCase = async ({
 }) => {
   try {
     const response = await fetchAuth({
-      url: `/chat/update/${roomId}`,
+      path: `/chat/update/${roomId}`,
       method: "PUT",
-      token: {
-        uid: userId,
-      },
       body: {
         ...(title && { title }),
         ...(subject && { subject }),
@@ -134,24 +123,17 @@ export const updateChatUseCase = async ({
   }
 };
 
-export const getMessageImagesUseCase = async ({
-  userId,
-  path,
-}: {
-  userId: string;
-  path: string;
-}) => {
+export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
   try {
-    const response = await fetchAuth({
-      baseUrl: process.env.ASSET_SERVER_URL,
-      url: path,
-      method: "GET",
-      token: {
-        uid: userId,
-      },
-    });
-    const imageBlob = await response.data.blob();
-    return URL.createObjectURL(imageBlob);
+    const path = new URL(url).pathname;
+
+    const response = await fetch(`/api/chat/image?path=${path}`);
+
+    const blob = await response.blob();
+
+    return {
+      imageSrc: URL.createObjectURL(blob),
+    };
   } catch (error) {
     console.log(error);
   }

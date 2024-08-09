@@ -1,10 +1,7 @@
-import { getChatsAction } from "@/actions/chat";
-import { cache } from "react";
-import { toast } from "sonner";
-import ChatGroup from "./ChatGroup";
-import { Chat, ChatRoom } from "@/types/chat";
-import { getChatsUseCase } from "@/use-cases/chat";
 import { getCurrentUser } from "@/lib/auth";
+import { ChatRoom } from "@/types/chat";
+import { getChatsUseCase } from "@/use-cases/chat";
+import ChatGroup from "./ChatGroup";
 
 interface SubjectGroup {
   subject: string;
@@ -19,7 +16,7 @@ const ChatListHistory = async () => {
       <div className="mt-2 text-sm text-muted-foreground">No user found.</div>
     );
 
-  const { data: chats } = await getChatsUseCase(user.id!);
+  const chats = await getChatsUseCase();
 
   if (!chats || chats.length === 0) {
     return (
@@ -29,8 +26,9 @@ const ChatListHistory = async () => {
     );
   }
 
-  const chatGroups: SubjectGroup[] = chats.reduce<SubjectGroup[]>(
-    (acc, chat) => {
+  const chatGroups: SubjectGroup[] = chats
+    .toReversed()
+    .reduce<SubjectGroup[]>((acc, chat) => {
       const subjectGroup = acc.find((group) => group.subject === chat.subject);
       if (subjectGroup) {
         subjectGroup.chats.push(chat);
@@ -41,9 +39,7 @@ const ChatListHistory = async () => {
         });
       }
       return acc;
-    },
-    [],
-  );
+    }, []);
 
   return (
     <div className="space-y-3">

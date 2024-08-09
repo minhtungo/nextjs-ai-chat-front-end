@@ -16,8 +16,6 @@ export const useCentrifuge = () => {
       (async () => {
         const [data] = await getTokenAction();
 
-        console.log("data--", data);
-
         const newCentrifuge = new Centrifuge(
           process.env.NEXT_PUBLIC_WS_ENDPOINT!,
           {

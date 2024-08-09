@@ -3,20 +3,15 @@ import { nanoid } from "@/lib/utils";
 import { CreateNewRoomResponse, MessageFile } from "@/types/chat";
 
 export const createChatRoom = async ({
-  userId,
   subject,
   title,
 }: {
-  userId: string;
   subject: string;
   title: string;
 }): Promise<CreateNewRoomResponse> => {
   const { data } = await fetchAuth({
-    url: "/chat/create-room",
+    path: "/chat/create-room",
     method: "POST",
-    token: {
-      uid: userId,
-    },
     body: {
       subject,
       title,
@@ -56,18 +51,6 @@ interface RoomData {
   title: string;
   subject: string;
 }
-
-export const transformRoomData = (data: Record<string, RoomData>) => {
-  return Object.entries(data)
-    .map(([roomId, { user, message, title, subject }]) => ({
-      id: roomId,
-      userId: user[0],
-      message,
-      title,
-      subject,
-    }))
-    .toReversed();
-};
 
 export const createNewMessageStore = ({
   content,

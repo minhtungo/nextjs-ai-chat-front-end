@@ -8,6 +8,7 @@ import {
   signUpSchema,
 } from "@/lib/definitions";
 import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
+import { authedAction } from "@/lib/safe-actions";
 import {
   forgotPasswordUseCase,
   setNewPasswordUseCase,

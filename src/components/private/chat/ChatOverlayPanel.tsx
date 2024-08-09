@@ -58,7 +58,6 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
     const { images, docs } = getMessageFiles(files);
 
     const hull = getConvexHull();
-    console.log("-------------hull", hull);
 
     if (sub) {
       sub.publish({

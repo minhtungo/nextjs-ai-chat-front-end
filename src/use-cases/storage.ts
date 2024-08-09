@@ -9,12 +9,9 @@ export const uploadFileUseCase = async (file: File, userId: string) => {
     formData.append("type_upload", "users");
 
     const data = await fetchAuth({
-      url: "/assets/v1/auth/upload",
+      path: "/assets/v1/auth/upload",
       method: "POST",
       formData,
-      token: {
-        uid: userId,
-      },
     });
 
     if (data.success) {

@@ -30,6 +30,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "assets.lumi-ai.io",
       },
+      {
+        protocol: "http",
+        hostname: "localhost:9000",
+      },
     ],
   },
 };

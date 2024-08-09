@@ -17,7 +17,7 @@ import { ZSAError } from "zsa";
 export const getChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
     try {
-      const chats = await getChatsUseCase(user?.id!);
+      const chats = await getChatsUseCase();
       return chats;
     } catch (error) {
       throw new Error("Error fetching chats");
@@ -35,7 +35,6 @@ export const createNewChatAction = authedAction
     let chat;
     try {
       chat = await createNewChatUseCase({
-        userId: user.id!,
         subject,
         title: subject,
       });
@@ -63,9 +62,8 @@ export const getMessagesAction = authedAction
     }),
   )
   .output(z.object({ messages: z.array(messageSchema) }))
-  .handler(async ({ input: { roomId, query }, ctx: { user } }) => {
+  .handler(async ({ input: { roomId, query } }) => {
     const messages = await getMessagesUseCase({
-      userId: user.id!,
       roomId: roomId,
       query,
     });
@@ -133,17 +131,14 @@ export const removeAllChatsAction = authedAction.handler(
 export const getMessageImagesAction = authedAction
   .input(
     z.object({
-      imagePath: z.string(),
+      url: z.string(),
     }),
   )
-  .handler(async ({ input: { imagePath }, ctx: { user } }) => {
-    const path = new URL(imagePath).pathname;
-    const url = await getMessageImagesUseCase({
+  .handler(async ({ input: { url }, ctx: { user } }) => {
+    const path = new URL(url).pathname;
+    const image = await getMessageImagesUseCase({
       userId: user.id!,
       path,
     });
-
-    console.log(url);
-
-    // return { images };
+    return { image };
   });

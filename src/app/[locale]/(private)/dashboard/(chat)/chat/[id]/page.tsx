@@ -2,6 +2,7 @@ import Chat from "@/components/private/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 
 import { getMessagesUseCase } from "@/use-cases/chat";
+import { getTokenUseCase } from "@/use-cases/user";
 import { FC } from "react";
 
 interface ChatPageProps {
@@ -19,7 +20,6 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
 
   const data = await getMessagesUseCase({
     roomId: id,
-    userId: user.id!,
     query: {},
   });
 

@@ -1,47 +1,61 @@
-import { createToken, encodeData } from "@/lib/utils";
+import { getTokenAction } from "@/actions/centrifuge";
 
 interface FetchAuthProps {
-  url: string;
-  method: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
-  body?: { [key: string]: any };
-  token: { [key: string]: any };
-  formData?: FormData;
   baseUrl?: string;
+  path: string;
+  method?: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
+  body?: { [key: string]: any };
+  formData?: FormData;
+  responseType?: "json" | "blob";
+  headers?: HeadersInit;
 }
 
 export const fetchAuth = async ({
-  url,
-  method,
+  baseUrl = process.env.NEXT_PUBLIC_CHAT_SERVER_URL,
+  path,
+  method = "GET",
   body,
-  token,
   formData,
-  baseUrl = process.env.CHAT_SERVER_URL,
+  responseType = "json",
+  headers,
 }: FetchAuthProps) => {
   try {
-    const accessToken = encodeData(createToken(token));
+    const [accessToken, error] = await getTokenAction();
 
-    const response = await fetch(`${baseUrl}${url}`, {
-      method: method,
+    if (error) {
+      throw new Error("Error fetching token");
+    }
+
+    const response = await fetch(`${baseUrl}${path}`, {
+      method,
       headers: {
         "Access-Token": accessToken!,
+        ...headers,
       },
       ...(body && { body: JSON.stringify(body) }),
       ...(formData && { body: formData }),
     });
 
-    if (response.ok) {
-      const data = await response.json();
-      return {
-        success: true,
-        data,
-        statusCode: response.status,
-      };
-    } else {
+    if (!response.ok) {
       return {
         error: true,
         statusCode: response.status,
       };
     }
+
+    let data;
+
+    if (responseType === "json") {
+      data = await response.json();
+    } else if (responseType === "blob") {
+      data = response;
+    }
+
+    return {
+      success: true,
+      data,
+      statusCode: response.status,
+    };
   } catch (error) {
     return {
       error,

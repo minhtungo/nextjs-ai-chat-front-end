@@ -14,8 +14,10 @@ import {
 } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
+import { encodeData } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { v4 as uuid } from "uuid";
 
 export const updateUserProfileUseCase = async (
   userID: string,
@@ -71,4 +73,15 @@ export const changeUserPasswordUseCase = async (
 
     sendChangePasswordEmail(dbUser.email, dbUser?.name!);
   }
+};
+
+export const getTokenUseCase = async (userId: string) => {
+  const accessToken = encodeData({
+    jti: uuid(),
+    iat: Math.floor(Date.now() / 1000),
+    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+    uid: userId,
+  });
+
+  return accessToken;
 };

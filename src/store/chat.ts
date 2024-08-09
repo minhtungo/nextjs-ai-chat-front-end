@@ -1,4 +1,5 @@
 import { MessageStore } from "@/types/chat";
+import { getMessageImagesUseCase } from "@/use-cases/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 
 export type ChatConfig = {
@@ -26,6 +27,7 @@ export const chatInitialState: ChatConfig = {
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);
+const chatImageCacheAtom = atom<{ [url: string]: string }>({});
 
 const chatDocsArrayAtom = atom((get) => {
   const messages = get(chatAtom).messages;
@@ -39,6 +41,8 @@ const chatImagesArrayAtom = atom((get) => {
 
 const chatStore = () => {
   const setChat = useSetAtom(chatAtom);
+  const setChatImageCache = useSetAtom(chatImageCacheAtom);
+  const chatImageCache = useAtomValue(chatImageCacheAtom);
 
   const updateChatOverlay = ({
     isOpen,
@@ -56,6 +60,15 @@ const chatStore = () => {
     }));
   };
 
+  const cacheImage = async (url: string) => {
+    if (!chatImageCache[url]) {
+      const dataUrl = await getMessageImagesUseCase({ url }); // Your existing function to fetch image
+      setChatImageCache((prev) => ({ ...prev, [url]: dataUrl?.imageSrc! }));
+      return dataUrl?.imageSrc!;
+    }
+    return chatImageCache[url];
+  };
+
   return {
     store: useAtom(chatAtom),
     getChat: useAtomValue(chatAtom),
@@ -63,6 +76,8 @@ const chatStore = () => {
     chatDocsArray: useAtomValue(chatDocsArrayAtom),
     chatImagesArray: useAtomValue(chatImagesArrayAtom),
     updateChatOverlay,
+    cacheImage,
+    chatImageCache,
   };
 };
 

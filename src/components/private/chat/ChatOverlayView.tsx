@@ -1,20 +1,18 @@
 "use client";
 
+import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatOverlayPanel from "@/components/private/chat/ChatOverlayPanel";
 import { Button } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { useDraw } from "@/hooks/use-draw";
 import { drawLine } from "@/lib/draw";
 import { chatStore } from "@/store/chat";
+import { ChatRoom } from "@/types/chat";
 import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
 import { ElementRef, FC, useEffect, useRef, useState } from "react";
 import ImageMasker from "./ImageMasker";
 import LineWidthSlider from "./LineWidthSlider";
-import MessageHistory from "./MessageHistory";
-import ChatHistory from "@/components/private/chat/ChatHistory";
-import { ChatRoom } from "@/types/chat";
 
 interface ChatOverlayViewProps {
   user: User;

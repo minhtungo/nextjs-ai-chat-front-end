@@ -1,11 +1,10 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 import ImagePreview from "@/components/private/chat/ImagePreview";
 import { Card } from "@/components/ui/card";
 import { chatStore } from "@/store/chat";
 import { MessageStore } from "@/types/chat";
 import DocPreview from "../chat/DocPreview";
-import { getMessageImagesAction } from "@/actions/chat";
 
 interface UserMessageProps {
   message: MessageStore;
@@ -27,29 +26,24 @@ const UserMessage: FC<UserMessageProps> = ({
     }
   };
 
+  const imageElements = useMemo(
+    () =>
+      images?.map(({ url }) => (
+        <ImagePreview
+          key={url}
+          url={url!}
+          isOverlayOpen={chat.overlay.isOpen}
+          onClick={() => onImageClick(url!)}
+        />
+      )),
+    [images],
+  );
+
   return (
     <div className="flex w-full flex-col items-end gap-y-3 empty:hidden">
       {images && images.length > 0 && (
         <div className="flex max-w-[70%] flex-row flex-wrap items-center justify-end gap-2">
-          {images.map(({ url }) => (
-            <div className="flex flex-col">
-              <ImagePreview
-                key={url}
-                url={url!}
-                isOverlayOpen={chat.overlay.isOpen}
-                onClick={() => onImageClick(url!)}
-              />
-              <button
-                onClick={async () => {
-                  await getMessageImagesAction({
-                    imagePath: url!,
-                  });
-                }}
-              >
-                Test
-              </button>
-            </div>
-          ))}
+          {imageElements}
         </div>
       )}
       {docs && docs.length > 0 && (
