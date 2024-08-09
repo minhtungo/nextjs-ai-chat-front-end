@@ -3,11 +3,11 @@
 import { FC } from "react";
 
 import ChatHistory from "@/components/private/chat/ChatHistory";
-import { Chat as ChatRoom } from "@/types/chat";
 import { User } from "next-auth";
 import ChatPanel from "./ChatPanel";
 import { chatStore } from "@/store/chat";
 import ChatOverlayView from "@/components/private/chat/ChatOverlayView";
+import { ChatRoom } from "@/types/chat";
 
 interface ChatProps extends React.ComponentProps<"div"> {
   user: User;

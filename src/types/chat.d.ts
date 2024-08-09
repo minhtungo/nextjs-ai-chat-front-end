@@ -15,7 +15,13 @@ export type CreateNewRoomResponse = {
 
 export type ChatRoom = {
   id: string;
-  userId: string;
+  title: string;
+  subject: string;
+  messages: Message[];
+};
+
+export type ChatListItem = {
+  id: string;
   title: string;
   subject: string;
   timestamp: number;

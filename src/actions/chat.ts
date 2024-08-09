@@ -6,6 +6,7 @@ import { authedAction } from "@/lib/safe-actions";
 import {
   createNewChatUseCase,
   getChatsUseCase,
+  getChatUseCase,
   getMessageImagesUseCase,
   getMessagesUseCase,
   updateChatUseCase,
@@ -13,6 +14,25 @@ import {
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
+
+export const getChatAction = authedAction
+  .input(
+    z.object({
+      chatId: z.string(),
+      limit: z.number().optional(),
+    }),
+  )
+  .handler(async ({ input: { chatId, limit }, ctx: { user } }) => {
+    try {
+      const chat = await getChatUseCase({
+        chatId,
+        limit,
+      });
+      return chat;
+    } catch (error) {
+      throw new ZSAError("ERROR", error);
+    }
+  });
 
 export const getChatsAction = authedAction.handler(
   async ({ ctx: { user } }) => {
@@ -134,11 +154,9 @@ export const getMessageImagesAction = authedAction
       url: z.string(),
     }),
   )
-  .handler(async ({ input: { url }, ctx: { user } }) => {
-    const path = new URL(url).pathname;
+  .handler(async ({ input: { url } }) => {
     const image = await getMessageImagesUseCase({
-      userId: user.id!,
-      path,
+      url,
     });
     return { image };
   });

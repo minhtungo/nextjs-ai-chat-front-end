@@ -1,14 +1,14 @@
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
-import { useEffect, useMemo } from "react";
 import { chatStore } from "@/store/chat";
-import { Chat } from "@/types/chat";
+import { ChatRoom } from "@/types/chat";
+import { useEffect, useMemo } from "react";
 
 const useInfiniteMessages = ({
   chat,
   inView,
 }: {
-  chat: Chat;
+  chat: ChatRoom;
   inView: boolean;
 }) => {
   const {

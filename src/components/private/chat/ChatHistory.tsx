@@ -3,24 +3,28 @@
 import { ElementRef, FC, useEffect, useRef } from "react";
 
 import Spinner from "@/components/common/Spinner";
-import ChatOverlayView from "@/components/private/chat/ChatOverlayView";
 import EmptyChat from "@/components/private/chat/EmptyChat";
 import useInfiniteMessages from "@/hooks/data/use-infinite-messages";
-import { chatStore } from "@/store/chat";
-import { Chat as ChatRoom } from "@/types/chat";
+import { cn } from "@/lib/utils";
 import { User } from "next-auth";
 import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import MessageHistory from "./MessageHistory";
-import { cn } from "@/lib/utils";
+import { ChatRoom } from "@/types/chat";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chat: ChatRoom;
   user: User;
   className?: string;
+  messageClassName?: string;
 }
 
-const ChatHistory: FC<ChatHistoryProps> = ({ chat, user, className }) => {
+const ChatHistory: FC<ChatHistoryProps> = ({
+  chat,
+  user,
+  className,
+  messageClassName,
+}) => {
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.1,
   });
@@ -54,7 +58,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({ chat, user, className }) => {
         >
           {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
           <div ref={inViewRef} />
-          <MessageHistory />
+          <MessageHistory className={messageClassName} />
           <div ref={bottomRef} />
           <div ref={scrollRef} />
         </ScrollAreaContainer>

@@ -197,7 +197,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
         </div>
         <div className="relative w-[450px] shrink-0 bg-background">
           <div className="relative flex h-screen flex-col">
-            <ChatHistory chat={chat} user={user} className="py-4" />
+            <ChatHistory chat={chat} user={user} messageClassName="py-4" />
             <div className="mb-3 px-4">
               <ChatOverlayPanel
                 userId={user.id!}

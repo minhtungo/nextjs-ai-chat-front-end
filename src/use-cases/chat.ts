@@ -28,6 +28,40 @@ export const createNewChatUseCase = async ({
   }
 };
 
+export const getChatUseCase = async ({
+  chatId,
+  limit = 20,
+}: {
+  chatId: string;
+  limit?: number;
+}): Promise<ChatRoom> => {
+  try {
+    const {
+      data: {
+        result: { data },
+      },
+    } = await fetchAuth({
+      path: `/chat/info/${chatId}?limit=${limit}`,
+    });
+
+    return {
+      id: chatId,
+      title: data.title,
+      subject: data.subject,
+      messages: data.history.map((item: any) => ({
+        id: nanoid(),
+        content: item.message.content,
+        docs: item.message.docs,
+        images: item.message.images,
+        timestamp: item.timestamp,
+        userId: item.userid,
+      })),
+    };
+  } catch (error) {
+    throw new Error("error.generalError");
+  }
+};
+
 export const getChatsUseCase = async (): Promise<ChatRoom[]> => {
   const { data } = await fetchAuth({
     path: "/chat/list-rooms",
