@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import { User } from "next-auth";
@@ -19,7 +19,17 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
     getChat: {
       overlay: { isOpen: isOverlayOpen },
     },
+    setChat,
   } = chatStore();
+
+  useEffect(() => {
+    setChat((prev) => ({
+      ...prev,
+      id: chat.id,
+      subject: chat.subject,
+      title: chat.title,
+    }));
+  }, []);
 
   return (
     <>
