@@ -64,7 +64,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
           }}
         >
           <div className="p-2">
-            <div className="flex w-full items-center gap-1.5 lg:gap-3">
+            <div className="flex w-full items-center gap-2 lg:gap-3">
               <UtilButtons
                 showMathKeyboard={showMathKeyboard}
                 setShowMathKeyboard={setShowMathKeyboard}
@@ -121,7 +121,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                     }
                   }}
                   onKeyDown={onKeyDown}
-                  placeholder="Send a message"
+                  placeholder="Message"
                   className="max-h-48 min-h-0 w-full resize-none bg-transparent text-sm focus-within:outline-none"
                   autoFocus
                   spellCheck={false}

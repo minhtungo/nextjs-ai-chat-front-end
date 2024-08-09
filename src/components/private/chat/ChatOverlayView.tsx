@@ -1,5 +1,6 @@
 "use client";
 
+import ChatOverlayPanel from "@/components/private/chat/ChatOverlayPanel";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useDraw } from "@/hooks/use-draw";
@@ -9,22 +10,23 @@ import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
 import { User } from "next-auth";
 import Image from "next/image";
 import { ElementRef, FC, useEffect, useRef, useState } from "react";
-import ChatPanel from "./ChatPanel";
 import ImageMasker from "./ImageMasker";
 import LineWidthSlider from "./LineWidthSlider";
 import MessageHistory from "./MessageHistory";
+import ChatHistory from "@/components/private/chat/ChatHistory";
+import { ChatRoom } from "@/types/chat";
 
 interface ChatOverlayViewProps {
   user: User;
+  chat: ChatRoom;
 }
 
-const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
+const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
   const {
     store: [
       {
         overlay: { selectedImageIndex },
         messages,
-        id,
       },
       setChat,
     ],
@@ -73,6 +75,13 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
     };
   }, []);
 
+  const onToggleEditing = () => {
+    if (isEditing) {
+      clear();
+    }
+    setIsEditing(!isEditing);
+  };
+
   return (
     <div className="fixed inset-0 z-50 bg-accent transition">
       <div className="flex duration-300 ease-in-out">
@@ -82,15 +91,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
               {isEditing && (
                 <div className="flex gap-3">
                   <LineWidthSlider setLineWidth={setLineWidth} />
-                  {/* <Button
-                    onClick={() => {
-                      const hull = getConvexHull();
-                      console.log("---------hull", hull);
-                    }}
-                    variant="outline"
-                  >
-                    Test Get Convex Hull
-                  </Button> */}
+
                   <Button
                     size="icon"
                     variant="ghost"
@@ -106,7 +107,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                 {isEditing ? (
                   <button
                     className="text-muted-foreground hover:text-foreground"
-                    onClick={() => setIsEditing(false)}
+                    onClick={onToggleEditing}
                   >
                     Cancel
                   </button>
@@ -116,7 +117,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                       size="icon"
                       variant="ghost"
                       className="hover:bg-background/60"
-                      onClick={() => setIsEditing(!isEditing)}
+                      onClick={onToggleEditing}
                     >
                       {isEditing ? "Cancel" : <Paintbrush className="size-5" />}
                     </Button>
@@ -125,7 +126,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                       variant="ghost"
                       className="hover:bg-background/60"
                       onClick={() => {
-                        setIsEditing(false);
+                        onToggleEditing();
                         setChat((prev) => ({
                           ...prev,
                           overlay: { ...prev.overlay, isOpen: false },
@@ -173,10 +174,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                     isOpen: true,
                     selectedImageIndex: selectedImageIndex - 1,
                   });
-                  if (isEditing) {
-                    clear();
-                    setIsEditing(false);
-                  }
+                  onToggleEditing();
                 }}
                 disabled={selectedImageIndex === 0}
               >
@@ -190,10 +188,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
                     isOpen: true,
                     selectedImageIndex: selectedImageIndex + 1,
                   });
-                  if (isEditing) {
-                    clear();
-                    setIsEditing(false);
-                  }
+                  onToggleEditing();
                 }}
                 disabled={selectedImageIndex === chatImagesArray.length - 1}
               >
@@ -204,15 +199,15 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user }) => {
         </div>
         <div className="relative w-[450px] shrink-0 bg-background">
           <div className="relative flex h-screen flex-col">
-            <ScrollArea className="flex-1 py-4 lg:py-6">
-              <MessageHistory
-                messages={messages}
-                className="px-4 sm:pl-4 sm:pr-6"
-              />
-              <div ref={scrollRef} />
-            </ScrollArea>
+            <ChatHistory chat={chat} user={user} className="py-4" />
             <div className="mb-3 px-4">
-              <ChatPanel user={user} chatId={id!} />
+              <ChatOverlayPanel
+                userId={user.id!}
+                getConvexHull={getConvexHull}
+                isEditing={isEditing}
+                onToggleEditing={onToggleEditing}
+                selectedImageUrl={chatImagesArray[selectedImageIndex]?.url!}
+              />
             </div>
           </div>
         </div>

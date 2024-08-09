@@ -82,7 +82,6 @@ export const useDraw = (
 
   const getConvexHull = () => {
     if (points.current.length < 3) return [];
-    console.log("points", points.current); // Not enough points to form a hull
     return convexHull(points.current);
   };
 

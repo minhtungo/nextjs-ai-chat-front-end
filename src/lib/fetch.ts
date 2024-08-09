@@ -6,6 +6,7 @@ interface FetchAuthProps {
   body?: { [key: string]: any };
   token: { [key: string]: any };
   formData?: FormData;
+  baseUrl?: string;
 }
 
 export const fetchAuth = async ({
@@ -14,11 +15,12 @@ export const fetchAuth = async ({
   body,
   token,
   formData,
+  baseUrl = process.env.CHAT_SERVER_URL,
 }: FetchAuthProps) => {
   try {
     const accessToken = encodeData(createToken(token));
 
-    const response = await fetch(`${process.env.SERVER_BASE_URL}${url}`, {
+    const response = await fetch(`${baseUrl}${url}`, {
       method: method,
       headers: {
         "Access-Token": accessToken!,
@@ -36,7 +38,7 @@ export const fetchAuth = async ({
       };
     } else {
       return {
-        success: false,
+        error: true,
         statusCode: response.status,
       };
     }

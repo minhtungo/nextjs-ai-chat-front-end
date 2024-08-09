@@ -47,7 +47,6 @@ export const getChatsUseCase = async (userId: string) => {
   };
 };
 
-// new
 export const getMessagesUseCase = async ({
   userId,
   roomId,
@@ -132,5 +131,28 @@ export const updateChatUseCase = async ({
     }
   } catch (error) {
     throw new ZSAError("ERROR", "Failed to update chat");
+  }
+};
+
+export const getMessageImagesUseCase = async ({
+  userId,
+  path,
+}: {
+  userId: string;
+  path: string;
+}) => {
+  try {
+    const response = await fetchAuth({
+      baseUrl: process.env.ASSET_SERVER_URL,
+      url: path,
+      method: "GET",
+      token: {
+        uid: userId,
+      },
+    });
+    const imageBlob = await response.data.blob();
+    return URL.createObjectURL(imageBlob);
+  } catch (error) {
+    console.log(error);
   }
 };

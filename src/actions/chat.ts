@@ -6,6 +6,7 @@ import { authedAction } from "@/lib/safe-actions";
 import {
   createNewChatUseCase,
   getChatsUseCase,
+  getMessageImagesUseCase,
   getMessagesUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
@@ -128,3 +129,21 @@ export const removeAllChatsAction = authedAction.handler(
     }
   },
 );
+
+export const getMessageImagesAction = authedAction
+  .input(
+    z.object({
+      imagePath: z.string(),
+    }),
+  )
+  .handler(async ({ input: { imagePath }, ctx: { user } }) => {
+    const path = new URL(imagePath).pathname;
+    const url = await getMessageImagesUseCase({
+      userId: user.id!,
+      path,
+    });
+
+    console.log(url);
+
+    // return { images };
+  });

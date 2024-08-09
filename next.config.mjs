@@ -22,6 +22,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "9ldo8wxnc3do2hc5.public.blob.vercel-storage.com",
       },
+      {
+        protocol: "https",
+        hostname: "assets.lumi-ai.io",
+      },
+      {
+        protocol: "http",
+        hostname: "assets.lumi-ai.io",
+      },
     ],
   },
 };

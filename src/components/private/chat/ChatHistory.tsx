@@ -12,19 +12,15 @@ import { User } from "next-auth";
 import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import MessageHistory from "./MessageHistory";
-import { ArrowUpIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chat: ChatRoom;
   user: User;
+  className?: string;
 }
 
-const ChatHistory: FC<ChatHistoryProps> = ({ chat, user }) => {
-  const {
-    getChat: {
-      overlay: { isOpen: isOverlayOpen },
-    },
-  } = chatStore();
+const ChatHistory: FC<ChatHistoryProps> = ({ chat, user, className }) => {
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.1,
   });
@@ -53,7 +49,9 @@ const ChatHistory: FC<ChatHistoryProps> = ({ chat, user }) => {
   return (
     <>
       {messages && messages.length > 0 ? (
-        <ScrollAreaContainer className="flex h-full w-full flex-col">
+        <ScrollAreaContainer
+          className={cn("flex h-full w-full flex-col", className)}
+        >
           {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
           <div ref={inViewRef} />
           <MessageHistory />
@@ -63,7 +61,6 @@ const ChatHistory: FC<ChatHistoryProps> = ({ chat, user }) => {
       ) : (
         <EmptyChat className="h-full" userId={user.id!} />
       )}
-      {isOverlayOpen && <ChatOverlayView user={user} />}
     </>
   );
 };

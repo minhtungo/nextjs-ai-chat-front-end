@@ -46,14 +46,14 @@ const PromptHints: FC<PromptSuggestionProps> = ({ className, userId }) => {
   return (
     <div
       className={cn(
-        "grid max-w-[70%] grid-cols-3 gap-3 break-words text-sm text-muted-foreground transition-colors",
+        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3 md:max-w-[75%]",
         className,
       )}
     >
       {promptSuggestion.map(({ content }) => (
         <button
           key={`${content}-prompt-hint`}
-          className="rounded-lg border bg-card p-3 text-left shadow-sm hover:bg-accent"
+          className="rounded-lg border bg-card px-4 py-3 text-left shadow-sm hover:bg-accent"
           onClick={() => {
             publishMessage(content);
           }}

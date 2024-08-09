@@ -1,9 +1,9 @@
 "use server";
 
 import { authedAction } from "@/lib/safe-actions";
-import { z } from "zod";
+import { getTokenUseCase } from "@/use-cases/centrifuge";
 import jwt from "jsonwebtoken";
-import { encodeDataUseCase } from "@/use-cases/centrifuge";
+import { z } from "zod";
 
 const TOKEN_EXPIRATION_IN_MINUTES = 5;
 
@@ -73,9 +73,9 @@ export const getPublishMessageTokenAction = authedAction
     return { token: signedToken };
   });
 
-export const encodeDataAction = authedAction.handler(
+export const getTokenAction = authedAction.handler(
   async ({ ctx: { user } }) => {
-    return encodeDataUseCase({
+    return await getTokenUseCase({
       userId: user.id!,
     });
   },

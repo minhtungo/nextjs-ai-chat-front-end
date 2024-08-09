@@ -1,4 +1,4 @@
-import { encodeDataAction } from "@/actions/centrifuge";
+import { getTokenAction } from "@/actions/centrifuge";
 import { Centrifuge, Subscription } from "centrifuge";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";
@@ -14,12 +14,15 @@ export const useCentrifuge = () => {
   useEffect(() => {
     if (!centrifuge) {
       (async () => {
-        const [data] = await encodeDataAction();
+        const [data] = await getTokenAction();
+
+        console.log("data--", data);
 
         const newCentrifuge = new Centrifuge(
           process.env.NEXT_PUBLIC_WS_ENDPOINT!,
           {
             data,
+            debug: true,
           },
         );
 

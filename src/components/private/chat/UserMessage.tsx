@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { chatStore } from "@/store/chat";
 import { MessageStore } from "@/types/chat";
 import DocPreview from "../chat/DocPreview";
+import { getMessageImagesAction } from "@/actions/chat";
 
 interface UserMessageProps {
   message: MessageStore;
@@ -31,12 +32,23 @@ const UserMessage: FC<UserMessageProps> = ({
       {images && images.length > 0 && (
         <div className="flex max-w-[70%] flex-row flex-wrap items-center justify-end gap-2">
           {images.map(({ url }) => (
-            <ImagePreview
-              key={url}
-              url={url!}
-              isOverlayOpen={chat.overlay.isOpen}
-              onClick={() => onImageClick(url!)}
-            />
+            <div className="flex flex-col">
+              <ImagePreview
+                key={url}
+                url={url!}
+                isOverlayOpen={chat.overlay.isOpen}
+                onClick={() => onImageClick(url!)}
+              />
+              <button
+                onClick={async () => {
+                  await getMessageImagesAction({
+                    imagePath: url!,
+                  });
+                }}
+              >
+                Test
+              </button>
+            </div>
           ))}
         </div>
       )}
