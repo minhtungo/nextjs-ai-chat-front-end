@@ -172,7 +172,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
                     isOpen: true,
                     selectedImageIndex: selectedImageIndex - 1,
                   });
-                  onToggleEditing();
+                  if (isEditing) onToggleEditing();
                 }}
                 disabled={selectedImageIndex === 0}
               >
@@ -186,7 +186,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
                     isOpen: true,
                     selectedImageIndex: selectedImageIndex + 1,
                   });
-                  onToggleEditing();
+                  if (isEditing) onToggleEditing();
                 }}
                 disabled={selectedImageIndex === chatImagesArray.length - 1}
               >
