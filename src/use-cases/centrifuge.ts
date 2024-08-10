@@ -1,9 +1,11 @@
+import "server-only";
+
 import {
   getConnectionTokenAction,
   getPublishMessageTokenAction,
   getSubscriptionTokenAction,
 } from "@/actions/centrifuge";
-import { createToken, encodeData } from "@/lib/utils";
+
 import { Centrifuge } from "centrifuge";
 
 export const getConnectionToken = async () => {
@@ -46,14 +48,4 @@ export const getPublishMessageToken = async (
   }
 
   return data.token;
-};
-
-export const getTokenUseCase = async ({ userId }: { userId: string }) => {
-  const payload = createToken({
-    uid: userId,
-  });
-
-  console.log("----payload", payload);
-
-  return encodeData(payload);
 };

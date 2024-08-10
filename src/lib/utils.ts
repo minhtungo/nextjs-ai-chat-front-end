@@ -82,11 +82,23 @@ export const generateBreadcrumbs = (pathname: string) => {
   return breadcrumbs;
 };
 
-export const encodeData = (data: any) => {
-  const token = jwt.sign(data, process.env.JWT_SECRET!, {
+export type AccessToken = {
+  jti: string;
+  iat: number;
+  exp: number;
+  [key: string]: any;
+};
+
+export const encodeToken = (data: AccessToken) => {
+  return jwt.sign(data, process.env.JWT_SECRET!, {
     algorithm: "HS256",
   });
-  return token;
+};
+
+export const decodeToken = (token: string) => {
+  return jwt.verify(token, process.env.JWT_SECRET!, {
+    algorithms: ["HS256"],
+  });
 };
 
 export const createToken = (data: any) => {

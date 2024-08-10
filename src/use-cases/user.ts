@@ -74,14 +74,3 @@ export const changeUserPasswordUseCase = async (
     sendChangePasswordEmail(dbUser.email, dbUser?.name!);
   }
 };
-
-export const getTokenUseCase = async (userId: string) => {
-  const accessToken = encodeData({
-    jti: uuid(),
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60,
-    uid: userId,
-  });
-
-  return accessToken;
-};

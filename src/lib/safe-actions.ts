@@ -1,3 +1,5 @@
+"import server";
+
 import { createServerActionProcedure } from "zsa";
 import { getCurrentUser } from "./auth";
 import { getUserRole } from "@/data/user";

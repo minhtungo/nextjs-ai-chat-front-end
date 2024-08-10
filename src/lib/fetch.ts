@@ -1,4 +1,4 @@
-import { getTokenAction } from "@/actions/centrifuge";
+import { getTokenAction } from "@/actions/api";
 
 interface FetchAuthProps {
   baseUrl?: string;
@@ -22,16 +22,16 @@ export const fetchAuth = async ({
   tags,
 }: FetchAuthProps) => {
   try {
-    const [accessToken, error] = await getTokenAction();
+    const [tokenRes, error] = await getTokenAction();
 
-    if (error) {
-      throw new Error("Error fetching token");
+    if (error || !tokenRes) {
+      throw new Error("Error getting tokens");
     }
 
     const response = await fetch(`${baseUrl}${path}`, {
       method,
       headers: {
-        "Access-Token": accessToken!,
+        "Access-Token": tokenRes.token,
         ...headers,
       },
       ...(body && { body: JSON.stringify(body) }),

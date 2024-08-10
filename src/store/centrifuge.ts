@@ -1,4 +1,4 @@
-import { getTokenAction } from "@/actions/centrifuge";
+import { getTokenAction } from "@/actions/api";
 import { Centrifuge, Subscription } from "centrifuge";
 import { atom, useAtom, useAtomValue } from "jotai";
 import { useEffect } from "react";

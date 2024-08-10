@@ -1,6 +1,8 @@
 import Momo from "@/components/icons/Momo";
 import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
 
+export const TOKEN_EXPIRATION_IN_MINUTES = 60;
+
 export const FEATURES = [
   {
     title: "Interactive AI Tutoring",
