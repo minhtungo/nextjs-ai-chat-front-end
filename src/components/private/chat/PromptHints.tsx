@@ -24,15 +24,12 @@ const promptSuggestion = [
 
 const PromptHints: FC<PromptSuggestionProps> = ({ className, userId }) => {
   const sub = useSub();
-  const { setChat } = chatStore();
+  const { setMessages } = chatStore();
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });
 
-    setChat((prev) => ({
-      ...prev,
-      messages: [...prev.messages, newMessage],
-    }));
+    setMessages((prev) => [...prev, newMessage]);
 
     if (sub) {
       sub.publish({

@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 
 const ChatViewToggle = () => {
-  const {
-    getChat: { messages },
-    updateChatOverlay,
-  } = chatStore();
+  const { messages, setChat } = chatStore();
 
   if (
     !messages ||
@@ -33,10 +30,10 @@ const ChatViewToggle = () => {
             size="sm"
             className="hidden gap-1 text-muted-foreground md:inline-flex"
             onClick={() => {
-              updateChatOverlay({
-                isOpen: true,
+              setChat((prev) => ({
+                ...prev,
                 selectedImageIndex: 0,
-              });
+              }));
             }}
           >
             <AppWindowMac className="size-5" />

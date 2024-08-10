@@ -2,13 +2,14 @@ import { getMessageImageQueryKey } from "@/lib/queryKey";
 import { getMessageImagesUseCase } from "@/use-cases/chat";
 import { useQueries } from "@tanstack/react-query";
 
-export const useMessageImages = (urls: (string | undefined)[]) => {
+export const useMessageImages = (urls: string[]) => {
   return useQueries({
-    queries: (urls || []).map((url) => {
-      const path = new URL(url!).pathname;
+    queries: urls.map((url) => {
       return {
-        queryKey: getMessageImageQueryKey(path),
-        queryFn: () => getMessageImagesUseCase({ path }),
+        queryKey: getMessageImageQueryKey(url),
+        queryFn: () => getMessageImagesUseCase({ url }),
+        staleTime: Infinity,
+        enabled: !!url,
       };
     }),
   });

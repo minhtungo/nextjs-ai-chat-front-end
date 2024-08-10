@@ -3,6 +3,7 @@
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatOverlayPanel from "@/components/private/chat/ChatOverlayPanel";
 import { Button } from "@/components/ui/button";
+import { useMessageImages } from "@/data/queries/use-message-images";
 import { useDraw } from "@/hooks/use-draw";
 import { drawLine } from "@/lib/draw";
 import { chatStore } from "@/store/chat";
@@ -21,15 +22,10 @@ interface ChatOverlayViewProps {
 
 const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
   const {
-    store: [
-      {
-        overlay: { selectedImageIndex },
-        messages,
-      },
-      setChat,
-    ],
-    updateChatOverlay,
-    chatImagesArray,
+    chat: { selectedImageIndex },
+    chatImages,
+    messages,
+    setChat,
   } = chatStore();
 
   const scrollRef = useRef<ElementRef<"div">>(null);
@@ -38,6 +34,17 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
   const [lineWidth, setLineWidth] = useState(25);
 
   const imageRefs = useRef<HTMLImageElement[]>([]);
+
+  const imagesQueries = useMessageImages(
+    (chatImages ?? []).map(({ url }) => url!),
+  );
+
+  const updateChatOverlay = (selectedImageIndex: number | null) => {
+    setChat((prevState) => ({
+      ...prevState,
+      selectedImageIndex,
+    }));
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -59,10 +66,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
   useEffect(() => {
     const handleClose = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        updateChatOverlay({
-          isOpen: false,
-          selectedImageIndex: 0,
-        });
+        updateChatOverlay(null);
       }
     };
 
@@ -123,13 +127,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
                       size="icon"
                       variant="ghost"
                       className="hover:bg-background/60"
-                      onClick={() => {
-                        onToggleEditing();
-                        setChat((prev) => ({
-                          ...prev,
-                          overlay: { ...prev.overlay, isOpen: false },
-                        }));
-                      }}
+                      onClick={() => updateChatOverlay(null)}
                     >
                       <X className="size-5" />
                     </Button>
@@ -139,25 +137,29 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
             </div>
             <div className="p-4">
               <div className="relative mx-auto w-fit">
-                <Image
-                  src={chatImagesArray[selectedImageIndex]!.url!}
-                  ref={(el) => {
-                    if (el && imageRefs.current) {
-                      imageRefs.current[selectedImageIndex] = el;
-                    }
-                  }}
-                  width={1024}
-                  height={1024}
-                  className="h-auto max-h-[100vh] w-fit max-w-full"
-                  alt="Image"
-                />
+                {imagesQueries[selectedImageIndex!]?.data && (
+                  <>
+                    <Image
+                      src={imagesQueries[selectedImageIndex!]?.data?.imageSrc!}
+                      ref={(el) => {
+                        if (el && imageRefs.current) {
+                          imageRefs.current[selectedImageIndex!] = el;
+                        }
+                      }}
+                      width={1024}
+                      height={1024}
+                      className="h-auto max-h-[100vh] w-fit max-w-full"
+                      alt="Image"
+                    />
+                  </>
+                )}
                 {isEditing && (
                   <div className="absolute inset-0 z-10 cursor-crosshair">
                     <div className="relative">
                       <ImageMasker
                         onMouseDown={onMouseDown}
                         canvasRef={canvasRef}
-                        image={imageRefs.current[selectedImageIndex]}
+                        image={imageRefs.current[selectedImageIndex!]}
                       />
                     </div>
                   </div>
@@ -168,27 +170,21 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
               <button
                 className="p-2 text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => {
-                  updateChatOverlay({
-                    isOpen: true,
-                    selectedImageIndex: selectedImageIndex - 1,
-                  });
+                  updateChatOverlay(selectedImageIndex! - 1);
                   if (isEditing) onToggleEditing();
                 }}
                 disabled={selectedImageIndex === 0}
               >
                 <ChevronLeft className="size-4" />
               </button>
-              Image {selectedImageIndex + 1} of {chatImagesArray.length}
+              Image {selectedImageIndex! + 1} of {chatImages.length}
               <button
                 className="p-2 text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 onClick={() => {
-                  updateChatOverlay({
-                    isOpen: true,
-                    selectedImageIndex: selectedImageIndex + 1,
-                  });
+                  updateChatOverlay(selectedImageIndex! + 1);
                   if (isEditing) onToggleEditing();
                 }}
-                disabled={selectedImageIndex === chatImagesArray.length - 1}
+                disabled={selectedImageIndex === chatImages.length - 1}
               >
                 <ChevronRight className="size-4" />
               </button>
@@ -204,7 +200,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
                 getConvexHull={getConvexHull}
                 isEditing={isEditing}
                 onToggleEditing={onToggleEditing}
-                selectedImageUrl={chatImagesArray[selectedImageIndex]?.url!}
+                selectedImageUrl={chatImages[selectedImageIndex!]?.url!}
               />
             </div>
           </div>

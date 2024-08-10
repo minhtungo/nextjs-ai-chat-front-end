@@ -1,9 +1,7 @@
 import Chat from "@/components/private/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 
-import { getChatUseCase, getMessagesUseCase } from "@/use-cases/chat";
-import { getTokenUseCase } from "@/use-cases/user";
-import { notFound } from "next/navigation";
+import { getChatUseCase } from "@/use-cases/chat";
 import { FC } from "react";
 
 interface ChatPageProps {

@@ -16,9 +16,7 @@ interface ChatProps extends React.ComponentProps<"div"> {
 
 const Chat: FC<ChatProps> = ({ user, chat }) => {
   const {
-    getChat: {
-      overlay: { isOpen: isOverlayOpen },
-    },
+    chat: { selectedImageIndex },
     setChat,
   } = chatStore();
 
@@ -35,7 +33,9 @@ const Chat: FC<ChatProps> = ({ user, chat }) => {
     <>
       <ChatHistory chat={chat} user={user} />
       <ChatPanel userId={user.id!} chatId={chat.id} />
-      {isOverlayOpen && <ChatOverlayView chat={chat} user={user} />}
+      {selectedImageIndex !== null && (
+        <ChatOverlayView chat={chat} user={user} />
+      )}
     </>
   );
 };

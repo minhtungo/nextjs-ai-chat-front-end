@@ -14,16 +14,14 @@ interface UserMessageProps {
 const UserMessage: FC<UserMessageProps> = ({
   message: { content, images, docs },
 }) => {
-  const { getChat: chat, chatImagesArray, updateChatOverlay } = chatStore();
+  const { chat, chatImages, setChat } = chatStore();
 
   const onImageClick = (url: string) => {
-    if (!chat.overlay.isOpen) {
-      updateChatOverlay({
-        isOpen: true,
-        selectedImageIndex: chatImagesArray.findIndex(
-          (image) => image!.url === url,
-        ),
-      });
+    if (!chat.selectedImageIndex) {
+      setChat((prevState) => ({
+        ...prevState,
+        selectedImageIndex: chatImages.findIndex((image) => image!.url === url),
+      }));
     }
   };
 
@@ -39,8 +37,8 @@ const UserMessage: FC<UserMessageProps> = ({
               src={data?.imageSrc!}
               path={data?.path!}
               isLoading={isLoading}
-              isOverlayOpen={chat.overlay.isOpen}
-              onClick={() => onImageClick(data?.path!)}
+              isOverlayOpen={!!chat.selectedImageIndex}
+              onClick={() => onImageClick(data?.url!)}
             />
           ))}
         </div>

@@ -53,5 +53,7 @@ export const getTokenUseCase = async ({ userId }: { userId: string }) => {
     uid: userId,
   });
 
+  console.log("----payload", payload);
+
   return encodeData(payload);
 };

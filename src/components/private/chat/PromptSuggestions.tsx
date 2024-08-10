@@ -1,5 +1,5 @@
 import { createNewMessageStore } from "@/lib/chat";
-import { cn, nanoid } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { chatStore } from "@/store/chat";
 import { Subscription } from "centrifuge";
 import { FC } from "react";
@@ -27,15 +27,12 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
   sub,
   userId,
 }) => {
-  const { setChat } = chatStore();
+  const { setMessages } = chatStore();
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });
 
-    setChat((prev) => ({
-      ...prev,
-      messages: [...prev.messages, newMessage],
-    }));
+    setMessages((prev) => [...prev, newMessage]);
 
     if (sub) {
       sub.publish({

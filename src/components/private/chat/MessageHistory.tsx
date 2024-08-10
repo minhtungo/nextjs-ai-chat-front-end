@@ -1,20 +1,17 @@
 "use client";
 
-import BotMessage from "@/components/private/chat/BotMessage";
 import { cn } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
+import BotMessage from "@/components/private/chat/BotMessage";
 import React, { FC } from "react";
 import UserMessage from "./UserMessage";
+import { MessageStore } from "@/types/chat";
 
 interface MessageHistoryProps {
   className?: string;
+  messages: MessageStore[];
 }
 
-const MessageHistory: FC<MessageHistoryProps> = ({ className }) => {
-  const {
-    getChat: { messages },
-  } = chatStore();
-
+const MessageHistory: FC<MessageHistoryProps> = ({ messages, className }) => {
   return (
     <div className={cn("w-full space-y-4", className)}>
       {messages.map((message) => (

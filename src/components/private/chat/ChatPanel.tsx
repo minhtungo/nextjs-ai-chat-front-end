@@ -1,7 +1,6 @@
 "use client";
 
 import { FC, FormEvent, useEffect } from "react";
-
 import PromptForm from "./PromptForm";
 
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
@@ -17,9 +16,7 @@ interface ChatPanelProps {
 }
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
-  const {
-    store: [chat, setChat],
-  } = chatStore();
+  const { messages, setMessages } = chatStore();
 
   const {
     messageStore: { files, mathEquation, message, isPending },
@@ -68,17 +65,15 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
       docs,
       images,
     });
-    setChat((prev) => ({
-      ...prev,
-      messages: [...prev.messages, newMessage],
-    }));
+
+    setMessages((prev) => [...prev, newMessage]);
 
     clearMessageStore();
   };
 
   return (
     <MaxWidthWrapper className="space-y-3 pt-3">
-      {chat.messages && chat.messages.length > 4 && (
+      {messages && messages.length > 4 && (
         <PromptSuggestions className="mt-4" sub={sub} userId={userId} />
       )}
       <PromptForm onSubmit={onSubmit} />

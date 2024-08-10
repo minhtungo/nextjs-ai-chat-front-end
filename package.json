@@ -52,6 +52,7 @@
     "next-auth": "^5.0.0-beta.18",
     "next-intl": "^3.17.2",
     "next-themes": "^0.3.0",
+    "node-cache": "^5.1.2",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",

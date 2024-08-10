@@ -20,7 +20,7 @@ interface SidebarItemProps {
 const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    getChat: { subject: chatSubject },
+    chat: { subject: chatSubject },
   } = chatStore();
 
   useEffect(() => {

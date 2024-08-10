@@ -13,9 +13,11 @@ export const createChatUseCase = async ({
 }) => {
   try {
     const data = await createChatRoom({
-      subject: subject,
-      title: title,
+      subject,
+      title,
     });
+
+    console.log("new room data", data);
 
     return {
       id: data.roomid,
@@ -181,8 +183,9 @@ export const removeChatsUseCase = async ({ chats }: { chats: string[] }) => {
   // }
 };
 
-export const getMessageImagesUseCase = async ({ path }: { path?: string }) => {
+export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
   try {
+    const path = new URL(url).pathname;
     const response = await fetch(`/api/chat/image?path=${path}`);
 
     const blob = await response.blob();
@@ -190,6 +193,7 @@ export const getMessageImagesUseCase = async ({ path }: { path?: string }) => {
     return {
       imageSrc: URL.createObjectURL(blob),
       path,
+      url,
     };
   } catch (error) {
     throw new Error("Failed to fetch image");

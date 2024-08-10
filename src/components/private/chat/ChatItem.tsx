@@ -44,6 +44,11 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
   const onTitleChange = async (e: any) => {
     e.preventDefault();
 
+    if (newTitle === chat.title) {
+      setNewTitle("");
+      return;
+    }
+
     startTransition(async () => {
       const [_, error] = await updateChatAction({
         roomId: chat.id!,
