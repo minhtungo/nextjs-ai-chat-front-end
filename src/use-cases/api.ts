@@ -13,15 +13,11 @@ const tokenCache = new NodeCache({ stdTTL: 3600 }); // Cache with 1-hour TTL
 export const getTokenUseCase = async ({ userId }: { userId: string }) => {
   try {
     const cachedToken = tokenCache.get("accessToken") as string;
-    console.log("Started Cached token", cachedToken);
     if (cachedToken) {
       const decodedToken = decodeToken(cachedToken) as AccessToken;
       const isExpired = Date.now() >= decodedToken.exp * 1000;
 
-      console.log("Cached isExpired", isExpired);
-
       if (!isExpired) {
-        console.log("Returning cached token", cachedToken);
         return {
           token: cachedToken,
         };
@@ -34,8 +30,6 @@ export const getTokenUseCase = async ({ userId }: { userId: string }) => {
 
     const newToken = encodeToken(payload);
     tokenCache.set("accessToken", newToken);
-
-    console.log("Returning new token", newToken);
 
     return {
       token: newToken,

@@ -12,7 +12,6 @@ export const getTokenAction = authedAction.handler(
 
       return token;
     } catch (error) {
-      console.error("Test Error getting token", error);
       throw new Error("Error fetching token");
     }
   },

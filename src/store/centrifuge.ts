@@ -19,7 +19,7 @@ export const useCentrifuge = () => {
         const newCentrifuge = new Centrifuge(
           process.env.NEXT_PUBLIC_WS_ENDPOINT!,
           {
-            data,
+            data: data?.token,
             debug: true,
           },
         );

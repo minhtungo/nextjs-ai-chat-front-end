@@ -43,7 +43,7 @@ export const useInfiniteMessages = ({
       data ? data?.pages.flatMap((item) => item.messages).toReversed() : [],
     [data],
   );
-
+  console.log("messageData", messageData);
   const chatImages = useMemo(
     () =>
       messageData

@@ -59,7 +59,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
         >
           {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
           <div ref={inViewRef} />
-          <MessageHistory messages={messages} className={messageClassName} />
+          <MessageHistory className={messageClassName} />
           <div ref={bottomRef} />
           <div ref={scrollRef} />
         </ScrollAreaContainer>
