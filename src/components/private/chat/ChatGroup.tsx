@@ -56,13 +56,15 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
       </CollapsibleTrigger>
       <CollapsibleContent className="mt-2">
         <ol className="space-y-1">
-          {chats.map((chat) => (
-            <ChatItem
-              key={`${chat.id}-chat-item`}
-              chat={chat}
-              setIsOpen={setIsOpen}
-            />
-          ))}
+          {chats
+            .toSorted((a: any, b: any) => b.last_active - a.last_active)
+            .map((chat) => (
+              <ChatItem
+                key={`${chat.id}-chat-item`}
+                chat={chat}
+                setIsOpen={setIsOpen}
+              />
+            ))}
         </ol>
       </CollapsibleContent>
     </Collapsible>

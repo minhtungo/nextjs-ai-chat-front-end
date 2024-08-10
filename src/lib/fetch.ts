@@ -11,7 +11,7 @@ interface FetchAuthProps {
 }
 
 export const fetchAuth = async ({
-  baseUrl = process.env.NEXT_PUBLIC_CHAT_SERVER_URL,
+  baseUrl = process.env.CHAT_SERVER_URL,
   path,
   method = "GET",
   body,

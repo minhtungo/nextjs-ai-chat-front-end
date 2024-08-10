@@ -5,7 +5,7 @@ export async function GET(req: Request) {
   const path = searchParams.get("path");
 
   const response = await fetchAuth({
-    baseUrl: process.env.NEXT_PUBLIC_ASSET_SERVER_URL,
+    baseUrl: process.env.ASSET_SERVER_URL,
     path: path!,
     responseType: "blob",
   });

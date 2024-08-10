@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/tooltip";
 import { ChatRoom } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
-import { Dispatch, FC, SetStateAction, useState } from "react";
+import { FC, useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
@@ -38,8 +38,9 @@ const ChatActions: FC<ChatActionsProps> = ({
   const onDeleteChat = async (e: any) => {
     e.preventDefault();
     const [_, error] = await execute({
-      chatId: chat.id!,
+      chats: [chat.id!],
     });
+    setDeleteDialogOpen(false);
 
     if (error) {
       toast.error(error.message);

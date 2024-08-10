@@ -68,14 +68,16 @@ export const getChatsUseCase = async (): Promise<ChatRoom[]> => {
     method: "GET",
   });
 
-  return data.map((data: any) => ({
-    id: data.id,
-    userId: data.user[0],
-    title: data.title,
-    subject: data.subject,
-    timestamp: data.timestamp,
-    last_active: data.last_active,
-  }));
+  return data
+    .map((data: any) => ({
+      id: data.id,
+      userId: data.user[0],
+      title: data.title,
+      subject: data.subject,
+      timestamp: data.timestamp,
+      last_active: data.last_active,
+    }))
+    .toSorted((a: any, b: any) => b.last_active - a.last_active);
 };
 
 export const getMessagesUseCase = async ({
@@ -157,6 +159,22 @@ export const updateChatUseCase = async ({
   }
 };
 
+export const removeChatsUseCase = async ({ chats }: { chats: string[] }) => {
+  const response = await fetchAuth({
+    path: `/chat/delete`,
+    method: "DELETE",
+    body: {
+      rooms: chats,
+    },
+  });
+
+  if (response.success) {
+    return response.data;
+  } else if (response.error) {
+    throw new ZSAError("ERROR", "Failed to remove chat");
+  }
+};
+
 export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
   try {
     const path = new URL(url).pathname;
@@ -169,6 +187,6 @@ export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
       imageSrc: URL.createObjectURL(blob),
     };
   } catch (error) {
-    console.log(error);
+    throw new Error("Failed to fetch image");
   }
 };

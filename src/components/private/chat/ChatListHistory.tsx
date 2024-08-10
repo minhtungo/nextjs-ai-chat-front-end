@@ -26,9 +26,8 @@ const ChatListHistory = async () => {
     );
   }
 
-  const chatGroups: SubjectGroup[] = chats
-    .toReversed()
-    .reduce<SubjectGroup[]>((acc, chat) => {
+  const chatGroups: SubjectGroup[] = chats.reduce<SubjectGroup[]>(
+    (acc, chat) => {
       const subjectGroup = acc.find((group) => group.subject === chat.subject);
       if (subjectGroup) {
         subjectGroup.chats.push(chat);
@@ -39,7 +38,9 @@ const ChatListHistory = async () => {
         });
       }
       return acc;
-    }, []);
+    },
+    [],
+  );
 
   return (
     <div className="space-y-3">

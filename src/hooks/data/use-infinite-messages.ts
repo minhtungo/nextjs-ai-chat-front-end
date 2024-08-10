@@ -47,9 +47,6 @@ const useInfiniteMessages = ({
 
     setChat((prev) => ({
       ...prev,
-      id: chat.id,
-      subject: chat.subject,
-      title: chat.title,
       messages: messageData.toReversed(),
     }));
   }, [isLoading, messageData]);

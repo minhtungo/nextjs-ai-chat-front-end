@@ -9,8 +9,10 @@ import {
   getChatUseCase,
   getMessageImagesUseCase,
   getMessagesUseCase,
+  removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
@@ -114,20 +116,19 @@ export const updateChatAction = authedAction
 export const removeChatAction = authedAction
   .input(
     z.object({
-      chatId: z.string(),
+      chats: z.array(z.string()),
     }),
   )
-  .handler(async ({ input: { chatId }, ctx: { user } }) => {
+  .handler(async ({ input: { chats } }) => {
     try {
-      // return await updateChatUseCase({
-      //   userId: user.id!,
-      //   roomId,
-      //   title,
-      //   subject,
-      // });
+      await removeChatsUseCase({
+        chats,
+      });
     } catch (error) {
       throw new Error("Error removing chat");
     }
+    revalidatePath(PROTECTED_BASE_URL);
+    redirect(PROTECTED_BASE_URL);
   });
 
 export const removeAllChatsAction = authedAction.handler(
