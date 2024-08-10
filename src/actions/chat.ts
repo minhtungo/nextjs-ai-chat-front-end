@@ -103,7 +103,6 @@ export const updateChatAction = authedAction
   .handler(async ({ input: { roomId, title, subject }, ctx: { user } }) => {
     try {
       return await updateChatUseCase({
-        userId: user.id!,
         roomId,
         title,
         subject,

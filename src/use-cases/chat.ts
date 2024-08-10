@@ -35,40 +35,46 @@ export const getChatUseCase = async ({
   chatId: string;
   limit?: number;
 }): Promise<ChatRoom> => {
-  try {
-    const {
-      data: {
-        result: { data },
-      },
-    } = await fetchAuth({
-      path: `/chat/info/${chatId}?limit=${limit}`,
-    });
+  const response = await fetchAuth({
+    path: `/chat/info/${chatId}?limit=${limit}`,
+  });
 
-    return {
-      id: chatId,
-      title: data.title,
-      subject: data.subject,
-      messages: data.history.map((item: any) => ({
-        id: nanoid(),
-        content: item.message.content,
-        docs: item.message.docs,
-        images: item.message.images,
-        timestamp: item.timestamp,
-        userId: item.userid,
-      })),
-    };
-  } catch (error) {
-    throw new Error("error.generalError");
+  if (response.error) {
+    throw new Error(`Failed to get chat: ${response.error}`);
   }
+
+  const {
+    data: {
+      result: { data },
+    },
+  } = response;
+
+  return {
+    id: chatId,
+    title: data.title,
+    subject: data.subject,
+    messages: data.history.map((item: any) => ({
+      id: nanoid(),
+      content: item.message.content,
+      docs: item.message.docs,
+      images: item.message.images,
+      timestamp: item.timestamp,
+      userId: item.userid,
+    })),
+  };
 };
 
 export const getChatsUseCase = async (): Promise<ChatRoom[]> => {
-  const { data } = await fetchAuth({
+  const response = await fetchAuth({
     path: "/chat/list-rooms",
     method: "GET",
   });
 
-  return data
+  if (response.error) {
+    throw new Error(`Failed to get chat: ${response.error}`);
+  }
+
+  return response.data
     .map((data: any) => ({
       id: data.id,
       userId: data.user[0],
@@ -87,54 +93,52 @@ export const getMessagesUseCase = async ({
   roomId: string;
   query: { limit?: number; offset?: number };
 }) => {
-  try {
-    const query = new URLSearchParams({
-      ...(limit && { limit: limit.toString() }),
-      ...(offset && { offset: offset.toString() }),
-    });
+  const query = new URLSearchParams({
+    ...(limit && { limit: limit.toString() }),
+    ...(offset && { offset: offset.toString() }),
+  });
 
-    const response = await fetchAuth({
-      path: `/chat/rooms/${roomId}/messages?${query.toString()}`,
-      method: "GET",
-    });
+  const response = await fetchAuth({
+    path: `/chat/rooms/${roomId}/messages?${query.toString()}`,
+    method: "GET",
+  });
 
-    const messages = response.data.result.data.history.map(
-      (item: MessageResponse) => {
-        return {
-          id: nanoid(),
-          content: item.message.content,
-          docs: item.message.docs?.map((doc) => {
-            return {
-              name: doc.name,
-              type: doc.type,
-              url: doc.url,
-            };
-          }),
-          images: item.message.images?.map((image) => {
-            return {
-              name: image.name,
-              type: image.type,
-              url: image.url,
-            };
-          }),
-          timestamp: item.timestamp,
-          userId: item.userid,
-        };
-      },
-    );
-    return messages;
-  } catch (error: any) {
-    throw new Error(error);
+  if (response.error) {
+    throw new Error(`Failed to get messages: ${response.error}`);
   }
+
+  const messages = response.data.result.data.history.map(
+    (item: MessageResponse) => {
+      return {
+        id: nanoid(),
+        content: item.message.content,
+        docs: item.message.docs?.map((doc) => {
+          return {
+            name: doc.name,
+            type: doc.type,
+            url: doc.url,
+          };
+        }),
+        images: item.message.images?.map((image) => {
+          return {
+            name: image.name,
+            type: image.type,
+            url: image.url,
+          };
+        }),
+        timestamp: item.timestamp,
+        userId: item.userid,
+      };
+    },
+  );
+  return messages;
 };
 
 export const updateChatUseCase = async ({
-  userId,
   roomId,
   title,
   subject,
 }: {
-  userId: string;
   roomId: string;
   title?: string;
   subject?: string;
@@ -171,7 +175,7 @@ export const removeChatsUseCase = async ({ chats }: { chats: string[] }) => {
   if (response.success) {
     return response.data;
   } else if (response.error) {
-    throw new ZSAError("ERROR", "Failed to remove chat");
+    throw new ZSAError("ERROR", `Failed to remove chat: ${response.error}`);
   }
 };
 

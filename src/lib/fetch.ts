@@ -38,7 +38,7 @@ export const fetchAuth = async ({
 
     if (!response.ok) {
       return {
-        error: true,
+        error: response.statusText,
         statusCode: response.status,
       };
     }
