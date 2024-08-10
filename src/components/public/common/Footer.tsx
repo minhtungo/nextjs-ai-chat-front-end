@@ -1,10 +1,9 @@
-import { FC } from "react";
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/routes";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl";
-import LanguageSwitcher from "./LanguageSwitcher";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/routes";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { FC } from "react";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 interface FooterProps {
   className?: string;
@@ -13,10 +12,10 @@ interface FooterProps {
 const Footer: FC<FooterProps> = ({ className }) => {
   const t = useTranslations("common.Navbar");
   return (
-    <footer className={cn("border-t border-border py-6", className)}>
-      <MaxWidthWrapper className="space-y-4">
+    <footer className={className}>
+      <MaxWidthWrapper className="space-y-4 border-t border-border/40 py-6">
         <div className="flex flex-col flex-wrap items-center justify-between gap-4 sm:flex-row">
-          <ul className="flex gap-x-12 gap-y-4 text-left text-sm sm:items-center sm:justify-center">
+          <ul className="flex gap-x-8 gap-y-4 text-left text-sm sm:items-center sm:justify-center">
             {FOOTER_LINKS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}
@@ -26,7 +25,6 @@ const Footer: FC<FooterProps> = ({ className }) => {
               </li>
             ))}
           </ul>
-
           <LanguageSwitcher />
         </div>
         <div className="flex flex-col flex-wrap items-center justify-between gap-4 sm:flex-row">

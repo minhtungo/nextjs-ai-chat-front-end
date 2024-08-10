@@ -23,18 +23,19 @@ const Navbar: FC<navbarProps> = ({ navButtons }) => {
 
   const t = useTranslations("common.Navbar");
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   const handleScroll = debounce(() => {
     if (window.scrollY > 20) {
       setScrolling(true);
     } else {
       setScrolling(false);
     }
-  }, 100);
+  }, 30);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <header className="sticky inset-x-0 top-0 z-50">
       <nav
