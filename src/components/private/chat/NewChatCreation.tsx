@@ -1,16 +1,14 @@
 "use client";
 
-import { createNewChatAction } from "@/actions/chat";
 import SubmitButton from "@/components/common/SubmitButton";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useCreateChat } from "@/data/mutations/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
 import { useCentrifuge } from "@/store/centrifuge";
 import { chatInitialState, chatStore } from "@/store/chat";
 import { FC, useEffect, useState } from "react";
-import { toast } from "sonner";
-import { useServerAction } from "zsa-react";
 import SubjectsRadio from "./SubjectsRadio";
 
 interface NewChatCreationProps {
@@ -18,15 +16,14 @@ interface NewChatCreationProps {
 }
 
 const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
-  const [searchTerm, setSearchTerm] = useState("");
-
   const centrifuge = useCentrifuge();
 
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubject, setSelectedSubject] = useState<string | undefined>(
     undefined,
   );
 
-  const { isPending, execute } = useServerAction(createNewChatAction);
+  const { mutateAsync: createChat, isPending } = useCreateChat(toggleDialog);
 
   const { setChat } = chatStore();
 
@@ -38,23 +35,9 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
     if (!selectedSubject) {
       return;
     }
-
-    const [_, error] = await execute({
+    await createChat({
       subject: selectedSubject,
     });
-
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
-
-    if (toggleDialog) {
-      toggleDialog(false);
-    }
-
-    // if (data) {
-    //   window.history.pushState({}, "", `${PROTECTED_BASE_URL}/chat/${data.id}`);
-    // }
   };
 
   return (

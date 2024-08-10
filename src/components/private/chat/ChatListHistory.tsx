@@ -1,7 +1,7 @@
 import { getCurrentUser } from "@/lib/auth";
 import { ChatRoom } from "@/types/chat";
-import { getChatsUseCase } from "@/use-cases/chat";
 import ChatGroup from "./ChatGroup";
+import { getChatListUseCase } from "@/use-cases/chat";
 
 interface SubjectGroup {
   subject: string;
@@ -16,7 +16,7 @@ const ChatListHistory = async () => {
       <div className="mt-2 text-sm text-muted-foreground">No user found.</div>
     );
 
-  const chats = await getChatsUseCase();
+  const chats = await getChatListUseCase();
 
   if (!chats || chats.length === 0) {
     return (

@@ -4,13 +4,14 @@ import { ElementRef, FC, useEffect, useRef } from "react";
 
 import Spinner from "@/components/common/Spinner";
 import EmptyChat from "@/components/private/chat/EmptyChat";
-import useInfiniteMessages from "@/hooks/data/use-infinite-messages";
+
 import { cn } from "@/lib/utils";
 import { User } from "next-auth";
 import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import MessageHistory from "./MessageHistory";
 import { ChatRoom } from "@/types/chat";
+import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chat: ChatRoom;

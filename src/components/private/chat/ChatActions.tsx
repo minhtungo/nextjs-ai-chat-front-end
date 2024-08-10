@@ -1,6 +1,5 @@
 "use client";
 
-import { removeChatAction } from "@/actions/chat";
 import DeleteChatAlert from "@/components/private/chat/DeleteChatAlert";
 import {
   DropdownMenu,
@@ -14,11 +13,10 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useRemoveChats } from "@/data/mutations/use-remove-chats";
 import { ChatRoom } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
-import { toast } from "sonner";
-import { useServerAction } from "zsa-react";
 
 interface ChatActionsProps {
   chat: ChatRoom;
@@ -32,20 +30,17 @@ const ChatActions: FC<ChatActionsProps> = ({
   toggleUpdateTitle,
 }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const { isPending: isRemovePending, execute } =
-    useServerAction(removeChatAction);
+
+  const { mutateAsync: removeChats, isPending: isRemoving } = useRemoveChats();
 
   const onDeleteChat = async (e: any) => {
     e.preventDefault();
-    const [_, error] = await execute({
+
+    await removeChats({
       chats: [chat.id!],
     });
-    setDeleteDialogOpen(false);
 
-    if (error) {
-      toast.error(error.message);
-      return;
-    }
+    setDeleteDialogOpen(false);
   };
 
   return (
@@ -54,33 +49,33 @@ const ChatActions: FC<ChatActionsProps> = ({
         <TooltipProvider delayDuration={100}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger className="bg-accent">
                 <Ellipsis className="size-4" />
               </DropdownMenuTrigger>
             </TooltipTrigger>
-            <TooltipContent>Delete chat</TooltipContent>
+            <TooltipContent>Options</TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <DropdownMenuContent>
+          <DropdownMenuItem onClick={toggleUpdateTitle}>
+            <Pencil className="size-4" />
+            <span>Rename</span>
+            <span className="sr-only">Rename</span>
+          </DropdownMenuItem>
           <DropdownMenuItem
-            disabled={isRemovePending}
+            disabled={isRemoving}
             onClick={() => setDeleteDialogOpen(true)}
           >
             <Trash className="size-4" />
             <span>Delete</span>
             <span className="sr-only">Delete</span>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={toggleUpdateTitle}>
-            <Pencil className="size-4" />
-            <span>Rename</span>
-            <span className="sr-only">Rename</span>
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <DeleteChatAlert
         deleteDialogOpen={deleteDialogOpen}
         setDeleteDialogOpen={setDeleteDialogOpen}
-        isRemovePending={isRemovePending}
+        isRemovePending={isRemoving}
         onDeleteChat={onDeleteChat}
       />
     </>

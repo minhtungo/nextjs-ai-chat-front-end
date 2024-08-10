@@ -4,7 +4,7 @@ import { nanoid } from "@/lib/utils";
 import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 
-export const createNewChatUseCase = async ({
+export const createChatUseCase = async ({
   subject,
   title,
 }: {
@@ -64,10 +64,11 @@ export const getChatUseCase = async ({
   };
 };
 
-export const getChatsUseCase = async (): Promise<ChatRoom[]> => {
+export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
   const response = await fetchAuth({
     path: "/chat/list-rooms",
     method: "GET",
+    tags: ["get-chat-list"],
   });
 
   if (response.error) {
@@ -174,21 +175,21 @@ export const removeChatsUseCase = async ({ chats }: { chats: string[] }) => {
 
   if (response.success) {
     return response.data;
-  } else if (response.error) {
-    throw new ZSAError("ERROR", `Failed to remove chat: ${response.error}`);
   }
+  // else if (response.error) {
+  //   throw Error(`Failed to remove chat: ${response.error}`);
+  // }
 };
 
-export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
+export const getMessageImagesUseCase = async ({ path }: { path?: string }) => {
   try {
-    const path = new URL(url).pathname;
-
     const response = await fetch(`/api/chat/image?path=${path}`);
 
     const blob = await response.blob();
 
     return {
       imageSrc: URL.createObjectURL(blob),
+      path,
     };
   } catch (error) {
     throw new Error("Failed to fetch image");

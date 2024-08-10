@@ -7,7 +7,6 @@ import {
   DEFAULT_LOGIN_REDIRECT,
   apiAuthPrefix,
   authRoutes,
-  onboardingHref,
   publicRoutes,
   signInHref,
 } from "./lib/routes";

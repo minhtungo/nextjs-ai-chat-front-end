@@ -4,13 +4,14 @@ import { chatStore } from "@/store/chat";
 import { ChatRoom } from "@/types/chat";
 import { useEffect, useMemo } from "react";
 
-const useInfiniteMessages = ({
+export const useInfiniteMessages = ({
   chat,
   inView,
 }: {
   chat: ChatRoom;
   inView: boolean;
 }) => {
+  console.log(chat);
   const {
     isLoading,
     data,
@@ -20,10 +21,10 @@ const useInfiniteMessages = ({
     isFetching,
   } = useServerActionInfiniteQuery(getMessagesAction, {
     initialPageParam: 0,
-    queryKey: ["loadMessages", chat.id],
+    queryKey: ["getMessages", chat.id],
     getNextPageParam: (lastPage) => {
-      return lastPage.messages[lastPage.messages.length - 1]?.timestamp !== 0
-        ? lastPage.messages[lastPage.messages.length - 1]?.timestamp
+      return lastPage.messages[lastPage.messages?.length - 1]?.timestamp !== 0
+        ? lastPage.messages[lastPage.messages?.length - 1]?.timestamp
         : undefined;
     },
     input: ({ pageParam }) => ({
@@ -66,5 +67,3 @@ const useInfiniteMessages = ({
     isFetching,
   };
 };
-
-export default useInfiniteMessages;

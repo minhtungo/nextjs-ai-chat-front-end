@@ -1,8 +1,8 @@
 "use client";
 
 import { updateChatAction } from "@/actions/chat";
+import Spinner from "@/components/common/Spinner";
 import { buttonVariants } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { chatStore } from "@/store/chat";
@@ -11,8 +11,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useEffect, useRef, useState, useTransition } from "react";
 import ChatActions from "./ChatActions";
-import { Check } from "lucide-react";
-import Spinner from "@/components/common/Spinner";
 
 interface ChatItemProps {
   chat: ChatRoom;
@@ -85,9 +83,6 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
               }}
               className="flex h-9 w-full flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground"
             />
-            {/* <button>
-              <Check className="size-4 text-muted-foreground" />
-            </button> */}
           </div>
         </div>
       ) : (
@@ -102,7 +97,6 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
           >
             <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap capitalize">
               {chat.title}
-
               <div
                 className={cn(
                   "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
@@ -113,7 +107,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
           </Link>
           <div
             className={cn(
-              "absolute bottom-0 right-0 top-0 hidden items-center pr-2 group-hover:flex",
+              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-2 group-hover:flex",
               (isActiveChat || isActive) && "flex",
             )}
           >

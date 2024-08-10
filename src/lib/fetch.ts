@@ -8,6 +8,7 @@ interface FetchAuthProps {
   formData?: FormData;
   responseType?: "json" | "blob";
   headers?: HeadersInit;
+  tags?: string[];
 }
 
 export const fetchAuth = async ({
@@ -18,6 +19,7 @@ export const fetchAuth = async ({
   formData,
   responseType = "json",
   headers,
+  tags,
 }: FetchAuthProps) => {
   try {
     const [accessToken, error] = await getTokenAction();
@@ -34,6 +36,9 @@ export const fetchAuth = async ({
       },
       ...(body && { body: JSON.stringify(body) }),
       ...(formData && { body: formData }),
+      ...(tags && {
+        next: { tags },
+      }),
     });
 
     if (!response.ok) {

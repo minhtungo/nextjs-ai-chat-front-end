@@ -4,15 +4,15 @@ import { messageSchema } from "@/lib/definitions";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
 import {
-  createNewChatUseCase,
-  getChatsUseCase,
+  createChatUseCase,
+  getChatListUseCase,
   getChatUseCase,
   getMessageImagesUseCase,
   getMessagesUseCase,
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
@@ -36,18 +36,14 @@ export const getChatAction = authedAction
     }
   });
 
-export const getChatsAction = authedAction.handler(
+export const getChatListAction = authedAction.handler(
   async ({ ctx: { user } }) => {
-    try {
-      const chats = await getChatsUseCase();
-      return chats;
-    } catch (error) {
-      throw new Error("Error fetching chats");
-    }
+    const chats = await getChatListUseCase();
+    return { chats };
   },
 );
 
-export const createNewChatAction = authedAction
+export const createChatAction = authedAction
   .input(
     z.object({
       subject: z.string(),
@@ -56,7 +52,7 @@ export const createNewChatAction = authedAction
   .handler(async ({ input: { subject }, ctx: { user } }) => {
     let chat;
     try {
-      chat = await createNewChatUseCase({
+      chat = await createChatUseCase({
         subject,
         title: subject,
       });
@@ -112,21 +108,17 @@ export const updateChatAction = authedAction
     }
   });
 
-export const removeChatAction = authedAction
+export const removeChatsAction = authedAction
   .input(
     z.object({
       chats: z.array(z.string()),
     }),
   )
   .handler(async ({ input: { chats } }) => {
-    try {
-      await removeChatsUseCase({
-        chats,
-      });
-    } catch (error) {
-      throw new Error("Error removing chat");
-    }
-    revalidatePath(PROTECTED_BASE_URL);
+    await removeChatsUseCase({
+      chats,
+    });
+    revalidateTag("get-chat-list");
     redirect(PROTECTED_BASE_URL);
   });
 
