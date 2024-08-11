@@ -10,6 +10,7 @@ import { ChatRoom } from "@/types/chat";
 import { ChevronRight, Folder, FolderOpen } from "lucide-react";
 import { FC, useState } from "react";
 import ChatItem from "./ChatItem";
+import { useParams } from "next/navigation";
 
 interface SidebarItemProps {
   chats: ChatRoom[];
@@ -17,7 +18,11 @@ interface SidebarItemProps {
 }
 
 const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { id: chatId } = useParams<{ id: string }>();
+
+  const [isOpen, setIsOpen] = useState(
+    chats.some((chat) => chat.id === chatId),
+  );
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
@@ -51,8 +56,8 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
             .map((chat) => (
               <ChatItem
                 key={`${chat.id}-chat-item`}
+                chatId={chatId}
                 chat={chat}
-                setIsOpen={setIsOpen}
               />
             ))}
         </ol>

@@ -1,6 +1,7 @@
 "use server";
 
 import { messageSchema } from "@/lib/definitions";
+import { CHAT_LIST_QUERY_KEY } from "@/lib/queryKey";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
 import {
@@ -96,15 +97,12 @@ export const updateChatAction = authedAction
     }),
   )
   .handler(async ({ input: { roomId, title, subject }, ctx: { user } }) => {
-    try {
-      return await updateChatUseCase({
-        roomId,
-        title,
-        subject,
-      });
-    } catch (error) {
-      throw new Error("Error updating chat");
-    }
+    await updateChatUseCase({
+      roomId,
+      title,
+      subject,
+    });
+    revalidateTag(CHAT_LIST_QUERY_KEY);
   });
 
 export const removeChatsAction = authedAction
@@ -117,7 +115,7 @@ export const removeChatsAction = authedAction
     await removeChatsUseCase({
       chats,
     });
-    revalidateTag("get-chat-list");
+    revalidateTag(CHAT_LIST_QUERY_KEY);
     redirect(PROTECTED_BASE_URL);
   });
 

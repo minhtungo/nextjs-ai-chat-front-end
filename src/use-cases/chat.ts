@@ -1,6 +1,7 @@
 import { createChatRoom } from "@/lib/chat";
 import { MESSAGES_LIMIT } from "@/lib/constant";
 import { fetchAuth } from "@/lib/fetch";
+import { getChatListQueryKey } from "@/lib/queryKey";
 import { nanoid } from "@/lib/utils";
 import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
@@ -72,7 +73,7 @@ export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
   const response = await fetchAuth({
     path: "/chat/list-rooms",
     method: "GET",
-    tags: ["get-chat-list"],
+    tags: getChatListQueryKey(),
   });
 
   if (response.error) {
@@ -150,23 +151,19 @@ export const updateChatUseCase = async ({
   title?: string;
   subject?: string;
 }) => {
-  try {
-    const response = await fetchAuth({
-      path: `/chat/update/${roomId}`,
-      method: "PUT",
-      body: {
-        ...(title && { title }),
-        ...(subject && { subject }),
-      },
-    });
+  const response = await fetchAuth({
+    path: `/chat/update/${roomId}`,
+    method: "PUT",
+    body: {
+      ...(title && { title }),
+      ...(subject && { subject }),
+    },
+  });
 
-    if (response.success) {
-      return response.data;
-    } else if (response.error) {
-      throw new ZSAError("ERROR", "Failed to update chat");
-    }
-  } catch (error) {
-    throw new ZSAError("ERROR", "Failed to update chat");
+  if (response.success) {
+    return response.data;
+  } else if (response.error) {
+    throw new Error("Failed to update chat");
   }
 };
 

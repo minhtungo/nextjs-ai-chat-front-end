@@ -1,40 +1,29 @@
 "use client";
 
-import { updateChatAction } from "@/actions/chat";
 import Spinner from "@/components/common/Spinner";
 import { buttonVariants } from "@/components/ui/button";
+import { useUpdateChat } from "@/data/mutations/use-update-chat";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
 import { ChatRoom } from "@/types/chat";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { FC, useEffect, useRef, useState, useTransition } from "react";
+import { FC, useRef, useState } from "react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
   chat: ChatRoom;
-  setIsOpen: (value: boolean) => void;
+  chatId: string;
 }
 
-const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
-  const pathname = usePathname();
+const ChatItem: FC<ChatItemProps> = ({ chat, chatId }) => {
   const [isActive, setIsActive] = useState(false);
   const [newTitle, setNewTitle] = useState("");
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [isPending, startTransition] = useTransition();
-  const router = useRouter();
+  const { mutate: updateChat, isPending } = useUpdateChat();
 
-  const { setChat } = chatStore();
-
-  const isActiveChat = pathname === `${PROTECTED_BASE_URL}/chat/${chat.id}`;
-
-  useEffect(() => {
-    if (isActiveChat) {
-      setIsOpen(true);
-    }
-  }, [isActiveChat]);
+  const isActiveChat = chatId === chat.id;
 
   const toggleUpdateTitle = () => {
     inputRef.current?.focus();
@@ -49,18 +38,11 @@ const ChatItem: FC<ChatItemProps> = ({ chat, setIsOpen }) => {
       return;
     }
 
-    startTransition(async () => {
-      const [_, error] = await updateChatAction({
-        roomId: chat.id!,
-        title: newTitle,
-      });
-      router.refresh();
+    updateChat({
+      roomId: chat.id!,
+      title: newTitle,
     });
 
-    setChat((prev) => ({
-      ...prev,
-      title: newTitle,
-    }));
     setNewTitle("");
   };
 
