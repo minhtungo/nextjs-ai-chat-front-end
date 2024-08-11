@@ -7,8 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateChat } from "@/data/mutations/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
 import { useCentrifuge } from "@/store/centrifuge";
-import { chatInitialState, chatStore } from "@/store/chat";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import SubjectsRadio from "./SubjectsRadio";
 
 interface NewChatCreationProps {
@@ -24,12 +23,6 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
   );
 
   const { mutateAsync: createChat, isPending } = useCreateChat(toggleDialog);
-
-  const { setChat } = chatStore();
-
-  useEffect(() => {
-    setChat(chatInitialState);
-  }, []);
 
   const createNewChat = async () => {
     if (!selectedSubject) {
@@ -74,7 +67,7 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
                     .includes(searchTerm.toLowerCase()),
               )}
               isPending={isPending}
-              className="grid w-full gap-3 sm:grid-cols-2 md:grid-cols-3"
+              className="grid w-full gap-3 text-sm sm:grid-cols-2"
             />
           </TabsContent>
         ))}

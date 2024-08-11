@@ -7,7 +7,7 @@ import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
 import { useSubscription } from "@/store/centrifuge";
-import { chatStore } from "@/store/chat";
+import { chatInitialState, chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
 
 interface ChatPanelProps {
@@ -16,7 +16,7 @@ interface ChatPanelProps {
 }
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
-  const { messages, setMessages } = chatStore();
+  const { messages, setMessages, setChat } = chatStore();
 
   const {
     messageStore: { files, mathEquation, message, isPending },
@@ -29,6 +29,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   useEffect(() => {
     return () => {
       clearMessageStore();
+      setChat(chatInitialState);
     };
   }, [chatId]);
 

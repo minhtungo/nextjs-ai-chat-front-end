@@ -21,14 +21,14 @@ import { FC, useState } from "react";
 interface ChatActionsProps {
   chat: ChatRoom;
   setIsActive: (value: boolean) => void;
-  toggleUpdateTitle: () => void;
+  onUpdateTitle: () => void;
   currentChatId: string;
 }
 
 const ChatActions: FC<ChatActionsProps> = ({
   chat,
   setIsActive,
-  toggleUpdateTitle,
+  onUpdateTitle,
   currentChatId,
 }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -59,7 +59,7 @@ const ChatActions: FC<ChatActionsProps> = ({
           </Tooltip>
         </TooltipProvider>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={toggleUpdateTitle}>
+          <DropdownMenuItem onClick={onUpdateTitle}>
             <Pencil className="size-4" />
             <span>Rename</span>
             <span className="sr-only">Rename</span>

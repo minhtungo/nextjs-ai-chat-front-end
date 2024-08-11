@@ -4,13 +4,11 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 export type ChatConfig = {
   id: string | null;
   selectedImageIndex: number | null;
-  isEditingTitle?: boolean;
 };
 
 export const chatInitialState: ChatConfig = {
   id: "",
   selectedImageIndex: null,
-  isEditingTitle: false,
 };
 
 const chatAtom = atom<ChatConfig>(chatInitialState);

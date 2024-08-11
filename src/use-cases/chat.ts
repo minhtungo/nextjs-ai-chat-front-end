@@ -20,8 +20,6 @@ export const createChatUseCase = async ({
       title,
     });
 
-    console.log("new room data", data);
-
     return {
       id: data.roomid,
       userId: data.uid,

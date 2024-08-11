@@ -25,7 +25,7 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
   selectedImageUrl,
   onToggleEditing,
 }) => {
-  const { setChat } = chatStore();
+  const { setMessages } = chatStore();
 
   const {
     messageStore: { files, mathEquation, message, isPending },
@@ -80,10 +80,8 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
       images,
     });
 
-    setChat((prev) => ({
-      ...prev,
-      messages: [...prev.messages, newMessage],
-    }));
+    setMessages((prev) => [...prev, newMessage]);
+
     onToggleEditing();
     clearMessageStore();
   };

@@ -43,7 +43,7 @@ const ChatListHistory = async () => {
   );
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {chatGroups.map(({ subject, chats }) => {
         return (
           <ChatGroup

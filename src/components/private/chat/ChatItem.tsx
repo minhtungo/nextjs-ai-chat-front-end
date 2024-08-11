@@ -1,6 +1,7 @@
 "use client";
 
 import Spinner from "@/components/common/Spinner";
+import EditChatTitle from "@/components/private/chat/EditChatTitle";
 import { buttonVariants } from "@/components/ui/button";
 import { useUpdateChat } from "@/data/mutations/use-update-chat";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
@@ -16,23 +17,18 @@ interface ChatItemProps {
 }
 
 const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(currentChatId === chat.id);
   const [newTitle, setNewTitle] = useState("");
-
-  const inputRef = useRef<HTMLInputElement>(null);
 
   const { mutate: updateChat, isPending } = useUpdateChat();
 
   const isActiveChat = currentChatId === chat.id;
 
   const toggleUpdateTitle = () => {
-    inputRef.current?.focus();
     setNewTitle(chat.title);
   };
 
-  const onTitleChange = async (e: any) => {
-    e.preventDefault();
-
+  const onTitleChange = async () => {
     if (newTitle === chat.title) {
       setNewTitle("");
       return;
@@ -55,22 +51,11 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
     >
       {newTitle ? (
         <div className="border-1 z-10 h-full w-full rounded-lg border-ring bg-card">
-          <div className="flex items-center gap-x-2">
-            <input
-              value={newTitle}
-              onChange={(e) => {
-                setNewTitle(e.target.value);
-              }}
-              onBlur={onTitleChange}
-              ref={inputRef}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  onTitleChange(e);
-                }
-              }}
-              className="flex h-9 w-full flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground"
-            />
-          </div>
+          <EditChatTitle
+            newTitle={newTitle}
+            onTitleChange={onTitleChange}
+            setNewTitle={setNewTitle}
+          />
         </div>
       ) : (
         <>
@@ -105,7 +90,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
                 chat={chat}
                 setIsActive={setIsActive}
                 currentChatId={currentChatId}
-                toggleUpdateTitle={toggleUpdateTitle}
+                onUpdateTitle={toggleUpdateTitle}
               />
             )}
           </div>
