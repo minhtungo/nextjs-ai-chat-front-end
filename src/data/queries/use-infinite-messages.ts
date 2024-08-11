@@ -21,15 +21,11 @@ export const useInfiniteMessages = ({
   } = useServerActionInfiniteQuery(getMessagesAction, {
     initialPageParam: 0,
     queryKey: getMessagesQueryKey(chatId),
-    getNextPageParam: (lastPage) => {
-      return lastPage.messages[lastPage.messages?.length - 1]?.timestamp !== 0
-        ? lastPage.messages[lastPage.messages?.length - 1]?.timestamp
-        : undefined;
-    },
+    getNextPageParam: (lastPage) =>
+      lastPage.messages[0]?.timestamp || undefined,
     input: ({ pageParam }) => ({
       roomId: chatId,
       query: {
-        limit: 15,
         ...(pageParam !== 0 && { offset: pageParam }),
       },
     }),
@@ -37,45 +33,23 @@ export const useInfiniteMessages = ({
 
   const { setChatImages, setChatDocs, setMessages } = chatStore();
 
+  console.log("data", data);
+
   const messageData = useMemo(
-    () =>
-      data ? data?.pages.flatMap((item) => item.messages).toReversed() : [],
+    () => data?.pages.flatMap((page) => page.messages) || [],
     [data],
   );
 
-  const chatImages = useMemo(
-    () =>
-      messageData
-        .filter((message) => message.images?.length > 0)
-        .flatMap((message) => message.images?.map((image) => image))
-        .toReversed(),
-    [messageData],
-  );
-
-  const chatDocs = useMemo(
-    () =>
-      messageData
-        .filter((message) => message.docs?.length > 0)
-        .flatMap((message) => message.docs?.map((doc) => doc))
-        .toReversed(),
-    [messageData],
-  );
-
   useEffect(() => {
-    setChatImages(chatImages);
-  }, [chatImages]);
-
-  useEffect(() => {
-    setChatDocs(chatDocs);
-  }, [chatDocs]);
-
-  useEffect(() => {
-    if (!messageData) return;
-    setMessages(messageData);
+    if (messageData) {
+      setMessages(messageData);
+      setChatImages(messageData.flatMap((msg) => msg.images || []));
+      setChatDocs(messageData.flatMap((msg) => msg.docs || []));
+    }
   }, [messageData]);
 
   useEffect(() => {
-    if (inView && hasNextPage) {
+    if (messageData && inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);
@@ -87,7 +61,5 @@ export const useInfiniteMessages = ({
     hasNextPage,
     isFetchingNextPage,
     isFetching,
-    chatImages,
-    chatDocs,
   };
 };

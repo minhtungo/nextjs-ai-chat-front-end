@@ -78,12 +78,12 @@ export const useDraw = (
       canvasRef.current?.removeEventListener("mousemove", handler);
       window.removeEventListener("mouseup", mouseUpHandler);
     };
-  }, [onDraw]);
+  }, []);
 
-  const getConvexHull = () => {
+  const getConvexHull = useCallback(() => {
     if (points.current.length < 3) return [];
     return convexHull(points.current);
-  };
+  }, [points]);
 
   return {
     canvasRef,

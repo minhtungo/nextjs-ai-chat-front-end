@@ -1,9 +1,10 @@
 import { createChatRoom } from "@/lib/chat";
 import { MESSAGES_LIMIT } from "@/lib/constant";
+import { Message } from "@/lib/definitions";
 import { fetchAuth } from "@/lib/fetch";
 import { getChatListQueryKey } from "@/lib/queryKey";
 import { nanoid } from "@/lib/utils";
-import { ChatRoom, MessageResponse } from "@/types/chat";
+import { ChatRoom, MessageResponse, MessageStore } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createChatUseCase = async ({
@@ -115,30 +116,26 @@ export const getMessagesUseCase = async ({
     throw new Error(`Failed to get messages: ${response.error}`);
   }
 
-  const messages = response.data.result.data.history.map(
-    (item: MessageResponse) => {
-      return {
-        id: nanoid(),
-        content: item.message.content,
-        docs: item.message.docs?.map((doc) => {
-          return {
-            name: doc.name,
-            type: doc.type,
-            url: doc.url,
-          };
-        }),
-        images: item.message.images?.map((image) => {
-          return {
-            name: image.name,
-            type: image.type,
-            url: image.url,
-          };
-        }),
-        timestamp: item.timestamp,
-        userId: item.userid,
-      };
-    },
-  );
+  const messages: Message[] = response.data.result.data.history
+    .toReversed()
+    .map((item: MessageResponse) => ({
+      id: nanoid(),
+      content: item.message.content,
+      docs: item.message.docs?.map((doc) => ({
+        name: doc.name,
+        type: doc.type,
+        url: doc.url,
+      })),
+      images: item.message.images?.map((image) => ({
+        name: image.name,
+        type: image.type,
+        url: image.url,
+      })),
+      timestamp: item.timestamp,
+      userId: item.userid,
+    }));
+
+  console.log("messages", messages);
   return { messages };
 };
 

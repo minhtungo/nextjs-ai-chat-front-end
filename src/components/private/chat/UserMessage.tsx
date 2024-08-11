@@ -12,7 +12,7 @@ interface UserMessageProps {
 }
 
 const UserMessage: FC<UserMessageProps> = ({
-  message: { content, images, docs },
+  message: { content, images, docs, id },
 }) => {
   const { chat, chatImages, setChat } = chatStore();
 
@@ -46,7 +46,7 @@ const UserMessage: FC<UserMessageProps> = ({
       {docs && docs.length > 0 && (
         <div className="flex max-w-72 flex-row flex-wrap items-center justify-end gap-1">
           {docs.map(({ name, type }) => (
-            <DocPreview name={name} type={type} />
+            <DocPreview key={`${id}-${name}-doc`} name={name} type={type} />
           ))}
         </div>
       )}
