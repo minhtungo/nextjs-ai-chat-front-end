@@ -1,6 +1,5 @@
 "use client";
 
-import { removeAllChatsAction } from "@/actions/chat";
 import SubmitButton from "@/components/common/SubmitButton";
 import {
   AlertDialog,
@@ -14,18 +13,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useRemoveChats } from "@/data/mutations/use-remove-chats";
 import { useState } from "react";
-import { toast } from "sonner";
-import { useServerAction } from "zsa-react";
 
 const DeleteAllChatButton = () => {
   const [open, setOpen] = useState(false);
-  const { isPending, execute } = useServerAction(removeAllChatsAction);
+  const { mutate: removeChats, isPending } = useRemoveChats(setOpen);
 
-  const handleDeletion = async () => {
-    const [data] = await execute();
-    toast.success(data?.message);
-    setOpen(false);
+  const handleDeletion = async (e: any) => {
+    e.preventDefault();
+    removeChats({
+      deleteAll: true,
+    });
   };
 
   return (

@@ -30,7 +30,7 @@ export const FEATURES = [
   },
 ];
 
-export const MESSAGES_LIMIT = 20;
+export const MESSAGES_LIMIT = 25;
 
 export const INTRO_BLOCKS = [
   {

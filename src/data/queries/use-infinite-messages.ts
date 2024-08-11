@@ -1,5 +1,6 @@
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
+import { MESSAGES_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
 import { chatStore } from "@/store/chat";
 import { useEffect, useMemo } from "react";
@@ -33,10 +34,8 @@ export const useInfiniteMessages = ({
 
   const { setChatImages, setChatDocs, setMessages } = chatStore();
 
-  console.log("data", data);
-
   const messageData = useMemo(
-    () => data?.pages.flatMap((page) => page.messages) || [],
+    () => data?.pages.toReversed().flatMap((page) => page.messages) || [],
     [data],
   );
 
@@ -49,7 +48,7 @@ export const useInfiniteMessages = ({
   }, [messageData]);
 
   useEffect(() => {
-    if (messageData && inView && hasNextPage) {
+    if (messageData.length > MESSAGES_LIMIT && inView && hasNextPage) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);
@@ -61,5 +60,6 @@ export const useInfiniteMessages = ({
     hasNextPage,
     isFetchingNextPage,
     isFetching,
+    data,
   };
 };

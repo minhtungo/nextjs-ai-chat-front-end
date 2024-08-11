@@ -30,7 +30,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const { ref: bottomRef, inView: isBottom } = useInView();
   const scrollRef = useRef<ElementRef<"div">>(null);
 
-  const { messages, isFetchingNextPage } = useInfiniteMessages({
+  const { isFetchingNextPage, messages } = useInfiniteMessages({
     chatId,
     inView,
   });
@@ -52,15 +52,17 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   return (
     <>
       {messages && messages.length > 0 ? (
-        <ScrollAreaContainer
-          className={cn("flex h-full w-full flex-col", className)}
-        >
-          {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
-          <div ref={inViewRef} />
-          <MessageHistory className={messageClassName} />
-          <div ref={bottomRef} />
-          <div ref={scrollRef} />
-        </ScrollAreaContainer>
+        <>
+          <ScrollAreaContainer
+            className={cn("flex h-full w-full flex-col", className)}
+          >
+            {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
+            <div ref={inViewRef} />
+            <MessageHistory className={messageClassName} />
+            <div ref={bottomRef} />
+            <div ref={scrollRef} />
+          </ScrollAreaContainer>
+        </>
       ) : (
         <EmptyChat className="h-full" userId={userId} />
       )}

@@ -56,7 +56,7 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
             .map((chat) => (
               <ChatItem
                 key={`${chat.id}-chat-item`}
-                chatId={chatId}
+                currentChatId={chatId}
                 chat={chat}
               />
             ))}

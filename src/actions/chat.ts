@@ -78,7 +78,6 @@ export const getMessagesAction = authedAction
       }),
     }),
   )
-  .output(z.object({ messages: z.array(messageSchema) }))
   .handler(async ({ input: { roomId, query } }) => {
     console.log("-----------Messages Action Called");
     const messages = await getMessagesUseCase({
@@ -108,34 +107,21 @@ export const updateChatAction = authedAction
 export const removeChatsAction = authedAction
   .input(
     z.object({
-      chats: z.array(z.string()),
+      chats: z.array(z.string()).default([]),
+      deleteAll: z.boolean().default(false),
+      currentChatId: z.string().optional(),
     }),
   )
-  .handler(async ({ input: { chats } }) => {
+  .handler(async ({ input: { chats, deleteAll, currentChatId } }) => {
     await removeChatsUseCase({
       chats,
+      deleteAll,
     });
     revalidateTag(CHAT_LIST_QUERY_KEY);
-    redirect(PROTECTED_BASE_URL);
-  });
-
-export const removeAllChatsAction = authedAction.handler(
-  async ({ input, ctx: { user } }) => {
-    try {
-      // return await updateChatUseCase({
-      //   userId: user.id!,
-      //   roomId,
-      //   title,
-      //   subject,
-      // });
-      return {
-        message: true,
-      };
-    } catch (error) {
-      throw new Error("Error removing chat");
+    if (currentChatId && currentChatId === chats[0]) {
+      redirect(PROTECTED_BASE_URL);
     }
-  },
-);
+  });
 
 export const getMessageImagesAction = authedAction
   .input(

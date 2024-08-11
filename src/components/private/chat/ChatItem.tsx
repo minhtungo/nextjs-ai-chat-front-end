@@ -12,10 +12,10 @@ import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
   chat: ChatRoom;
-  chatId: string;
+  currentChatId: string;
 }
 
-const ChatItem: FC<ChatItemProps> = ({ chat, chatId }) => {
+const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
   const [isActive, setIsActive] = useState(false);
   const [newTitle, setNewTitle] = useState("");
 
@@ -23,7 +23,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, chatId }) => {
 
   const { mutate: updateChat, isPending } = useUpdateChat();
 
-  const isActiveChat = chatId === chat.id;
+  const isActiveChat = currentChatId === chat.id;
 
   const toggleUpdateTitle = () => {
     inputRef.current?.focus();
@@ -104,6 +104,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, chatId }) => {
               <ChatActions
                 chat={chat}
                 setIsActive={setIsActive}
+                currentChatId={currentChatId}
                 toggleUpdateTitle={toggleUpdateTitle}
               />
             )}

@@ -135,7 +135,6 @@ export const getMessagesUseCase = async ({
       userId: item.userid,
     }));
 
-  console.log("messages", messages);
   return { messages };
 };
 
@@ -164,21 +163,27 @@ export const updateChatUseCase = async ({
   }
 };
 
-export const removeChatsUseCase = async ({ chats }: { chats: string[] }) => {
+export const removeChatsUseCase = async ({
+  chats,
+  deleteAll,
+}: {
+  chats: string[];
+  deleteAll: boolean;
+}) => {
   const response = await fetchAuth({
     path: `/chat/delete`,
     method: "DELETE",
     body: {
-      rooms: chats,
+      ...(chats.length > 0 && { rooms: chats }),
+      ...(deleteAll && { deleteAll }),
     },
   });
 
   if (response.success) {
     return response.data;
+  } else if (response.error) {
+    throw Error(`Failed to remove chat: ${response.error}`);
   }
-  // else if (response.error) {
-  //   throw Error(`Failed to remove chat: ${response.error}`);
-  // }
 };
 
 export const getMessageImagesUseCase = async ({ url }: { url: string }) => {

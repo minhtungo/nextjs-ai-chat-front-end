@@ -22,25 +22,27 @@ interface ChatActionsProps {
   chat: ChatRoom;
   setIsActive: (value: boolean) => void;
   toggleUpdateTitle: () => void;
+  currentChatId: string;
 }
 
 const ChatActions: FC<ChatActionsProps> = ({
   chat,
   setIsActive,
   toggleUpdateTitle,
+  currentChatId,
 }) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const { mutateAsync: removeChats, isPending: isRemoving } = useRemoveChats();
+  const { mutateAsync: removeChats, isPending: isRemoving } =
+    useRemoveChats(setDeleteDialogOpen);
 
   const onDeleteChat = async (e: any) => {
     e.preventDefault();
 
     await removeChats({
       chats: [chat.id!],
+      currentChatId,
     });
-
-    setDeleteDialogOpen(false);
   };
 
   return (
