@@ -30,6 +30,8 @@ export const FEATURES = [
   },
 ];
 
+export const MESSAGES_LIMIT = 20;
+
 export const INTRO_BLOCKS = [
   {
     title: "Instant Answers with AI Tutor Chat",

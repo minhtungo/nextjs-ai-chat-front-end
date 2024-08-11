@@ -2,14 +2,13 @@ import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
 import { getMessagesQueryKey } from "@/lib/queryKey";
 import { chatStore } from "@/store/chat";
-import { ChatRoom } from "@/types/chat";
 import { useEffect, useMemo } from "react";
 
 export const useInfiniteMessages = ({
-  chat,
+  chatId,
   inView,
 }: {
-  chat: ChatRoom;
+  chatId: string;
   inView: boolean;
 }) => {
   const {
@@ -21,14 +20,14 @@ export const useInfiniteMessages = ({
     isFetching,
   } = useServerActionInfiniteQuery(getMessagesAction, {
     initialPageParam: 0,
-    queryKey: getMessagesQueryKey(chat.id),
+    queryKey: getMessagesQueryKey(chatId),
     getNextPageParam: (lastPage) => {
       return lastPage.messages[lastPage.messages?.length - 1]?.timestamp !== 0
         ? lastPage.messages[lastPage.messages?.length - 1]?.timestamp
         : undefined;
     },
     input: ({ pageParam }) => ({
-      roomId: chat.id,
+      roomId: chatId,
       query: {
         limit: 15,
         ...(pageParam !== 0 && { offset: pageParam }),
@@ -43,7 +42,7 @@ export const useInfiniteMessages = ({
       data ? data?.pages.flatMap((item) => item.messages).toReversed() : [],
     [data],
   );
-  console.log("messageData", messageData);
+
   const chatImages = useMemo(
     () =>
       messageData

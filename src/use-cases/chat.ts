@@ -1,4 +1,5 @@
 import { createChatRoom } from "@/lib/chat";
+import { MESSAGES_LIMIT } from "@/lib/constant";
 import { fetchAuth } from "@/lib/fetch";
 import { nanoid } from "@/lib/utils";
 import { ChatRoom, MessageResponse } from "@/types/chat";
@@ -30,15 +31,14 @@ export const createChatUseCase = async ({
   }
 };
 
-export const getChatUseCase = async ({
+export const getChatInfoUseCase = async ({
   chatId,
-  limit = 20,
 }: {
   chatId: string;
-  limit?: number;
-}): Promise<ChatRoom> => {
+}): Promise<{ chat: ChatRoom }> => {
+  console.log("-----------ChatInfo useCase Called");
   const response = await fetchAuth({
-    path: `/chat/info/${chatId}?limit=${limit}`,
+    path: `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
   });
 
   if (response.error) {
@@ -51,7 +51,7 @@ export const getChatUseCase = async ({
     },
   } = response;
 
-  return {
+  const chat = {
     id: chatId,
     title: data.title,
     subject: data.subject,
@@ -64,6 +64,8 @@ export const getChatUseCase = async ({
       userId: item.userid,
     })),
   };
+
+  return { chat };
 };
 
 export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
@@ -91,13 +93,15 @@ export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
 
 export const getMessagesUseCase = async ({
   roomId,
-  query: { limit = 20, offset },
+  query: { offset },
 }: {
   roomId: string;
-  query: { limit?: number; offset?: number };
+  query: { offset?: number };
 }) => {
+  console.log("-----------Messages useCase Called");
+
   const query = new URLSearchParams({
-    ...(limit && { limit: limit.toString() }),
+    limit: MESSAGES_LIMIT.toString(),
     ...(offset && { offset: offset.toString() }),
   });
 
@@ -134,7 +138,7 @@ export const getMessagesUseCase = async ({
       };
     },
   );
-  return messages;
+  return { messages };
 };
 
 export const updateChatUseCase = async ({

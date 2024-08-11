@@ -3,16 +3,12 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 
 export type ChatConfig = {
   id: string | null;
-  title?: string;
-  subject: string | null;
   selectedImageIndex: number | null;
   isEditingTitle?: boolean;
 };
 
 export const chatInitialState: ChatConfig = {
   id: "",
-  subject: "",
-  title: "",
   selectedImageIndex: null,
   isEditingTitle: false,
 };

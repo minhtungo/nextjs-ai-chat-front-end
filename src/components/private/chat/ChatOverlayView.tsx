@@ -7,20 +7,18 @@ import { useMessageImages } from "@/data/queries/use-message-images";
 import { useDraw } from "@/hooks/use-draw";
 import { drawLine } from "@/lib/draw";
 import { chatStore } from "@/store/chat";
-import { ChatRoom } from "@/types/chat";
 import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
-import { User } from "next-auth";
 import Image from "next/image";
 import { ElementRef, FC, useEffect, useRef, useState } from "react";
 import ImageMasker from "./ImageMasker";
 import LineWidthSlider from "./LineWidthSlider";
 
 interface ChatOverlayViewProps {
-  user: User;
-  chat: ChatRoom;
+  userId: string;
+  chatId: string;
 }
 
-const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
+const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
   const {
     chat: { selectedImageIndex },
     chatImages,
@@ -193,10 +191,14 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ user, chat }) => {
         </div>
         <div className="relative w-[450px] shrink-0 bg-background">
           <div className="relative flex h-screen flex-col">
-            <ChatHistory chat={chat} user={user} messageClassName="py-4" />
+            <ChatHistory
+              chatId={chatId}
+              userId={userId}
+              messageClassName="py-4"
+            />
             <div className="mb-3 px-4">
               <ChatOverlayPanel
-                userId={user.id!}
+                userId={userId!}
                 getConvexHull={getConvexHull}
                 isEditing={isEditing}
                 onToggleEditing={onToggleEditing}

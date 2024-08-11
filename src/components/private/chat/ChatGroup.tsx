@@ -6,10 +6,9 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
 import { ChatRoom } from "@/types/chat";
 import { ChevronRight, Folder, FolderOpen } from "lucide-react";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import ChatItem from "./ChatItem";
 
 interface SidebarItemProps {
@@ -19,15 +18,6 @@ interface SidebarItemProps {
 
 const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    chat: { subject: chatSubject },
-  } = chatStore();
-
-  useEffect(() => {
-    if (chatSubject === subject) {
-      setIsOpen(true);
-    }
-  }, [chatSubject]);
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>

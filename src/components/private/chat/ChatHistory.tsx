@@ -7,22 +7,20 @@ import EmptyChat from "@/components/private/chat/EmptyChat";
 
 import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
 import { cn } from "@/lib/utils";
-import { ChatRoom } from "@/types/chat";
-import { User } from "next-auth";
 import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import MessageHistory from "./MessageHistory";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
-  chat: ChatRoom;
-  user: User;
+  chatId: string;
+  userId: string;
   className?: string;
   messageClassName?: string;
 }
 
 const ChatHistory: FC<ChatHistoryProps> = ({
-  chat,
-  user,
+  chatId,
+  userId,
   className,
   messageClassName,
 }) => {
@@ -33,7 +31,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const scrollRef = useRef<ElementRef<"div">>(null);
 
   const { isLoading, messages, isFetchingNextPage } = useInfiniteMessages({
-    chat,
+    chatId,
     inView,
   });
 
@@ -64,7 +62,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
           <div ref={scrollRef} />
         </ScrollAreaContainer>
       ) : (
-        <EmptyChat className="h-full" userId={user.id!} />
+        <EmptyChat className="h-full" userId={userId} />
       )}
     </>
   );

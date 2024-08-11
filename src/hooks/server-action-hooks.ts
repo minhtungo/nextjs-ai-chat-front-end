@@ -1,4 +1,4 @@
-import { getChatListQueryKey, getMessagesQueryKey } from "@/lib/queryKey";
+import { queryKeys } from "@/lib/queryKey";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   createServerActionsKeyFactory,
@@ -6,8 +6,7 @@ import {
 } from "zsa-react-query";
 
 export const QueryKeyFactory = createServerActionsKeyFactory({
-  getMessagesQueryKey,
-  getChatListQueryKey,
+  ...queryKeys,
 });
 
 const {

@@ -1,16 +1,17 @@
 "use client";
 
 import Typography from "@/components/ui/typography";
-import { chatStore } from "@/store/chat";
+import { useChatInfo } from "@/data/queries/use-chat-info";
+import { useParams } from "next/navigation";
 
 const HeaderTitle = () => {
-  const {
-    chat: { subject, title },
-  } = chatStore();
+  const { id: chatId } = useParams<{ id: string }>();
+
+  const { data } = useChatInfo(chatId);
 
   return (
     <Typography tag="h1" variant="h5" className="font-normal capitalize">
-      {title || subject || "Dashboard"}
+      {data?.chat.title ?? "Dashboard"}
     </Typography>
   );
 };

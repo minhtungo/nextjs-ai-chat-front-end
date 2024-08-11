@@ -1,7 +1,13 @@
 import Chat from "@/components/private/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 
-import { getChatUseCase } from "@/use-cases/chat";
+import { getChatInfoQueryKey, getMessagesQueryKey } from "@/lib/queryKey";
+import { getChatInfoUseCase, getMessagesUseCase } from "@/use-cases/chat";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
 import { FC } from "react";
 
 interface ChatPageProps {
@@ -17,11 +23,31 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     throw new Error("Unauthorized");
   }
 
-  const chat = await getChatUseCase({
-    chatId: id,
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: getChatInfoQueryKey(id),
+    queryFn: () =>
+      getChatInfoUseCase({
+        chatId: id,
+      }),
   });
 
-  return <Chat user={user} chat={chat} />;
+  await queryClient.prefetchInfiniteQuery({
+    initialPageParam: 0,
+    queryKey: getMessagesQueryKey(id),
+    queryFn: () =>
+      getMessagesUseCase({
+        roomId: id!,
+        query: {},
+      }),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Chat userId={user.id!} chatId={id} />
+    </HydrationBoundary>
+  );
 };
 
 export default ChatPage;

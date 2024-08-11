@@ -27,8 +27,10 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(channel);
 
   useEffect(() => {
-    clearMessageStore();
-  }, []);
+    return () => {
+      clearMessageStore();
+    };
+  }, [chatId]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

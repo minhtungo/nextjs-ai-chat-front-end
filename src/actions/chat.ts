@@ -5,8 +5,8 @@ import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
 import {
   createChatUseCase,
+  getChatInfoUseCase,
   getChatListUseCase,
-  getChatUseCase,
   getMessageImagesUseCase,
   getMessagesUseCase,
   removeChatsUseCase,
@@ -17,18 +17,17 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
 
-export const getChatAction = authedAction
+export const getChatInfoAction = authedAction
   .input(
     z.object({
       chatId: z.string(),
-      limit: z.number().optional(),
     }),
   )
-  .handler(async ({ input: { chatId, limit }, ctx: { user } }) => {
+  .handler(async ({ input: { chatId }, ctx: { user } }) => {
+    console.log("-----------chatInfo action Called");
     try {
-      const chat = await getChatUseCase({
+      const chat = await getChatInfoUseCase({
         chatId,
-        limit,
       });
       return chat;
     } catch (error) {
@@ -74,18 +73,18 @@ export const getMessagesAction = authedAction
     z.object({
       roomId: z.string(),
       query: z.object({
-        limit: z.number().optional(),
         offset: z.number().optional(),
       }),
     }),
   )
   .output(z.object({ messages: z.array(messageSchema) }))
   .handler(async ({ input: { roomId, query } }) => {
+    console.log("-----------Messages Action Called");
     const messages = await getMessagesUseCase({
       roomId: roomId,
       query,
     });
-    return { messages };
+    return messages;
   });
 
 export const updateChatAction = authedAction
