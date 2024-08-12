@@ -18,6 +18,8 @@ const ImageMasker = ({
       canvas.width = image.offsetWidth;
       canvas.height = image.offsetHeight;
 
+      console.log("width, height", image.offsetWidth, image.offsetHeight);
+
       const ctx = canvas.getContext("2d");
       if (ctx) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);

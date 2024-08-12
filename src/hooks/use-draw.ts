@@ -23,22 +23,22 @@ export const useDraw = (
     points.current = [];
   };
 
-  const exportDrawingAsBlob = useCallback(
-    (callback: (blob: Blob | null) => void) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
+  // const exportDrawingAsBlob = useCallback(
+  //   (callback: (blob: Blob | null) => void) => {
+  //     const canvas = canvasRef.current;
+  //     if (!canvas) return;
 
-      canvas.toBlob((blob) => {
-        callback(blob);
-      }, "image/png");
-    },
-    [],
-  );
+  //     canvas.toBlob((blob) => {
+  //       callback(blob);
+  //     }, "image/png");
+  //   },
+  //   [],
+  // );
 
-  const exportDrawingAsDataURL = useCallback(() => {
-    const canvas = canvasRef.current;
-    return canvas ? canvas.toDataURL("image/png") : null;
-  }, []);
+  // const exportDrawingAsDataURL = useCallback(() => {
+  //   const canvas = canvasRef.current;
+  //   return canvas ? canvas.toDataURL("image/png") : null;
+  // }, []);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -89,8 +89,8 @@ export const useDraw = (
     canvasRef,
     onMouseDown,
     clear,
-    exportDrawingAsBlob,
-    exportDrawingAsDataURL,
+    // exportDrawingAsBlob,
+    // exportDrawingAsDataURL,
     getConvexHull,
   };
 };

@@ -64,7 +64,7 @@ const ForgotPasswordForm = () => {
 
           {error && <FormError message={error.message} />}
           {data && data.message && <FormSuccess message={data.message} />}
-          <SubmitButton className="w-full" isPending={isPending}>
+          <SubmitButton className="w-full" isPending={isPending} size="sm">
             {t("cta")}
           </SubmitButton>
         </form>

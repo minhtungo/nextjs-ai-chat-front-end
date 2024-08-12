@@ -64,6 +64,7 @@ const SignUpForm = () => {
           <Button
             variant="outline"
             className="w-full"
+            size="sm"
             onClick={() => setIsSignUpByEmail(true)}
           >
             <Mail className="size-4 sm:size-5" />{" "}
@@ -147,12 +148,13 @@ const SignUpForm = () => {
             {/* @ts-ignore*/}
             {data && data.message && <FormSuccess message={t(data.message)} />}
             <div className="grid gap-3 pt-2">
-              <SubmitButton className="w-full" isPending={isPending}>
+              <SubmitButton className="w-full" isPending={isPending} size="sm">
                 {t("SignUp.cta")}
               </SubmitButton>
               <Button
                 className="w-full"
                 variant="outline"
+                size="sm"
                 onClick={() => setIsSignUpByEmail(false)}
               >
                 <span>{t("SignUp.action.goBack")}</span>

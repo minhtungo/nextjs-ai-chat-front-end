@@ -2,15 +2,22 @@
 
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatOverlayPanel from "@/components/private/chat/ChatOverlayPanel";
+import { ImageMaskEditor } from "@/components/private/chat/ImageMaskEditor";
 import { Button } from "@/components/ui/button";
 import { useMessageImages } from "@/data/queries/use-message-images";
-import { useDraw } from "@/hooks/use-draw";
-import { drawLine } from "@/lib/draw";
 import { chatStore } from "@/store/chat";
+import "@/styles/draw.css";
+import convexHull from "convex-hull";
 import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
 import Image from "next/image";
-import { ElementRef, FC, useEffect, useRef, useState } from "react";
-import ImageMasker from "./ImageMasker";
+import {
+  ElementRef,
+  FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import LineWidthSlider from "./LineWidthSlider";
 
 interface ChatOverlayViewProps {
@@ -29,13 +36,33 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
   const scrollRef = useRef<ElementRef<"div">>(null);
 
   const [isEditing, setIsEditing] = useState(false);
-  const [lineWidth, setLineWidth] = useState(25);
+  const [cursorSize, setCursorSize] = useState(25);
 
+  const drawingPoints = useRef<Array<[number, number]>>([]);
   const imageRefs = useRef<HTMLImageElement[]>([]);
 
   const imagesQueries = useMessageImages(
     (chatImages ?? []).map(({ url }) => url!),
   );
+
+  const canvasRef = useRef<HTMLCanvasElement>();
+
+  const clear = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
+  const getConvexHull = useCallback(() => {
+    if (drawingPoints.current.length < 3) return [];
+    console.log("drawingPoints", drawingPoints.current);
+    console.log("convel hull", convexHull(drawingPoints.current));
+    return convexHull(drawingPoints.current) as Array<[number, number]>;
+  }, [drawingPoints]);
 
   const updateChatOverlay = (selectedImageIndex: number | null) => {
     setChat((prevState) => ({
@@ -49,17 +76,6 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
       scrollRef.current.scrollIntoView({ block: "end", behavior: "smooth" });
     }
   }, [messages, scrollRef.current]);
-
-  const { clear, onMouseDown, canvasRef, getConvexHull } = useDraw(
-    ({ prevPoint, currentPoint, ctx }) => {
-      drawLine({
-        prevPoint,
-        currentPoint,
-        ctx,
-        lineWidth,
-      });
-    },
-  );
 
   useEffect(() => {
     const handleClose = (event: KeyboardEvent) => {
@@ -90,7 +106,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
             <div className="flex h-14 w-full items-center gap-3 px-4">
               {isEditing && (
                 <div className="flex gap-3">
-                  <LineWidthSlider setLineWidth={setLineWidth} />
+                  <LineWidthSlider setLineWidth={setCursorSize} />
 
                   <Button
                     size="icon"
@@ -100,6 +116,7 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
                   >
                     <Eraser className="size-5" />
                   </Button>
+                  <button onClick={getConvexHull}>Get Convex Hull</button>
                 </div>
               )}
 
@@ -154,10 +171,11 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
                 {isEditing && (
                   <div className="absolute inset-0 z-10 cursor-crosshair">
                     <div className="relative">
-                      <ImageMasker
-                        onMouseDown={onMouseDown}
+                      <ImageMaskEditor
                         canvasRef={canvasRef}
                         image={imageRefs.current[selectedImageIndex!]}
+                        cursorSize={cursorSize}
+                        drawingPoints={drawingPoints.current}
                       />
                     </div>
                   </div>

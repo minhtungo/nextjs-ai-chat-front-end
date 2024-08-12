@@ -29,6 +29,7 @@ const BackButton: FC<BackButtonProps> = ({
       className={cn(
         buttonVariants({
           variant,
+          size: "sm",
         }),
         className,
         "w-full",

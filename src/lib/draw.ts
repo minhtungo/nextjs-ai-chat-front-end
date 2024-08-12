@@ -1,14 +1,18 @@
 import { Draw } from "./../types/draw.d";
 
 type DrawLineProps = Draw & {
-  lineWidth: number;
+  cursorSize: number;
 };
+
+const MASK_OPACITY = 0.2;
+const MASK_COLOR = "#23272d";
+const MASK_BLEND_MODE = "normal";
 
 export const drawLine = ({
   prevPoint,
   currentPoint,
   ctx,
-  lineWidth = 5,
+  cursorSize = 10,
 }: DrawLineProps) => {
   const { x: currX, y: currY } = currentPoint;
   const color = "rgba(59, 130, 246, 0.2)";
