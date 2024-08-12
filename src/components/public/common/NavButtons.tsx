@@ -1,14 +1,11 @@
+import SignOutButton from "@/components/private/common/SignOutButton";
+import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";
 import { PROTECTED_BASE_URL, signInHref, signUpHref } from "@/lib/routes";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { FC } from "react";
-import { buttonVariants } from "@/components/ui/button";
-import SignOutButton from "@/components/private/common/SignOutButton";
 
-interface NavButtonsProps {}
-
-const NavButtons: FC<NavButtonsProps> = async () => {
+const NavButtons = async () => {
   const t = await getTranslations("common.Navbar");
   const user = await getCurrentUser();
 
@@ -29,8 +26,6 @@ const NavButtons: FC<NavButtonsProps> = async () => {
         </>
       ) : (
         <>
-          {/* <LanguageSwitcher className="hidden md:flex" /> */}
-
           <Link
             href={signUpHref}
             className={buttonVariants({

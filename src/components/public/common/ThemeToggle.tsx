@@ -25,7 +25,7 @@ const ThemeToggle: FC<ThemeToggleProps> = ({
   }, []);
 
   if (!mounted) {
-    return <Skeleton className={cn("h-10 w-10", className)} />;
+    return <Skeleton className="size-8" />;
   }
 
   return (

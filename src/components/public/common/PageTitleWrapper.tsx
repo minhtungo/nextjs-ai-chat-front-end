@@ -15,10 +15,7 @@ const PageTitleWrapper: FC<PageTitleWrapperProps> = ({
 }) => {
   return (
     <div
-      className={cn(
-        "mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center text-center sm:mb-14",
-        className,
-      )}
+      className={cn("mx-auto mb-10 max-w-2xl space-y-2 text-center", className)}
     >
       <Typography variant="h2" tag="h1">
         {title}
@@ -27,7 +24,7 @@ const PageTitleWrapper: FC<PageTitleWrapperProps> = ({
         <Typography
           variant="h5"
           tag="p"
-          className="mt-4 font-normal text-muted-foreground"
+          className="font-normal text-muted-foreground"
         >
           {description}
         </Typography>

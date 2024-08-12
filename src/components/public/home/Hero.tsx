@@ -55,17 +55,17 @@ const Hero: FC<HeroProps> = () => {
 
           <div>
             <div className="mx-auto">
-              <div className="mt-12 flow-root sm:mt-20">
-                <div className="card-wrapper z-0 rounded-xl p-1 ring-1 ring-inset ring-border lg:rounded-2xl">
-                  <div className="card-content z-10 h-full w-full bg-background shadow-2xl lg:rounded-2xl">
+              <div className="mt-12 sm:mt-20">
+                <div className="card-wrapper l z-0 rounded-2xl p-1 ring-1 ring-inset ring-border">
+                  <div className="card-content z-10 rounded-2xl bg-background">
                     <ThemeImage
                       srcLight="/images/hero.png"
                       srcDark="/images/hero-dark.png"
-                      width={1916}
-                      height={922}
+                      width={1920}
+                      height={925}
                       fetchPriority="high"
                       alt="Product Preview"
-                      className="relative rounded-xl shadow-2xl lg:rounded-2xl"
+                      className="rounded-2xl"
                     />
                   </div>
                 </div>

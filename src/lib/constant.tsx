@@ -67,14 +67,11 @@ export const PRICING_PLANS = [
     price: 0,
     duration: "plan.free.duration",
     features: [
-      // {
-      //   title: "plan.free.features.1.title",
-      // },
       {
-        title: "10 messages / hour",
+        title: "plan.free.features.1.title",
       },
       {
-        title: "1 image upload / hour",
+        title: "plan.free.features.2.title",
       },
     ],
   },
@@ -87,10 +84,10 @@ export const PRICING_PLANS = [
     duration: "plan.free.duration",
     features: [
       {
-        title: "50 messages / hour",
+        title: "plan.pro.features.1.title",
       },
       {
-        title: "10 images upload / hour",
+        title: "plan.pro.features.2.title",
       },
     ],
   },

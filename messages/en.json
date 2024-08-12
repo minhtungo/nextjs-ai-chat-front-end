@@ -55,13 +55,10 @@
           "cta": "Get Started",
           "features": {
             "1": {
-              "title": "Chat with Lumi 1"
+              "title": "10 messages / hour"
             },
             "2": {
-              "title": "Chat with Lumi 2"
-            },
-            "3": {
-              "title": "Chat with Lumi 3"
+              "title": "1 image upload / hour"
             }
           }
         },
@@ -71,13 +68,10 @@
           "cta": "Get Started",
           "features": {
             "1": {
-              "title": "Chat with Lumi 1"
+              "title": "50 messages / hour"
             },
             "2": {
-              "title": "Chat with Lumi 2"
-            },
-            "3": {
-              "title": "Chat with Lumi 3"
+              "title": "10 images upload / hour"
             }
           }
         },
