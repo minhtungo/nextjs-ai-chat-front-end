@@ -50,7 +50,7 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
-    const [_, error] = await execute({ values, redirectURL });
+    await execute({ values, redirectURL });
 
     // if (error) {
     //   form.reset();
@@ -59,7 +59,10 @@ const SignInForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel={t("SignIn.title")} noBorder>
+    <CardWrapper
+      headerLabel={t("SignIn.title")}
+      description={t("SignIn.description")}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           {!data ? (

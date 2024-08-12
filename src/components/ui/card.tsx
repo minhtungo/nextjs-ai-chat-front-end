@@ -14,8 +14,8 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       ref={ref}
       className={cn(
         "rounded-lg bg-card text-card-foreground",
-        showBorderOnMobile ? "border shadow-sm" : "sm:border sm:shadow-sm",
-        noBorder && "sm:border-none sm:shadow-none",
+        showBorderOnMobile ? "border shadow-sm" : "sm:border sm:shadow",
+        noBorder && "border-none shadow-none sm:border-none sm:shadow-none",
         size === "sm" && "p-4 sm:p-4",
         className,
       )}
@@ -49,7 +49,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold capitalize leading-none tracking-tight",
+      "text-2xl font-semibold leading-none tracking-tight",
       className,
     )}
     {...props}

@@ -18,9 +18,13 @@ import { FC, useTransition } from "react";
 
 interface LanguageSwitcherProps {
   className?: string;
+  showIcon?: boolean;
 }
 
-const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
+const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
+  className,
+  showIcon,
+}) => {
   const t = useTranslations("LocaleSwitcher");
   const locale = useLocale();
 
@@ -43,15 +47,18 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({ className }) => {
   };
 
   return (
-    <div className="flex items-center gap-x-3">
-      <Globe className="size-5 text-muted-foreground" />
+    <div className="flex items-center gap-x-2">
+      {showIcon && <Globe className="size-5 text-muted-foreground" />}
       <Select
         defaultValue={locale}
         disabled={isPending}
         onValueChange={onSelectChange}
       >
         <SelectTrigger
-          className={cn("h-9 w-fit px-2 text-muted-foreground", className)}
+          className={cn(
+            "h-9 w-fit border-none px-0 text-foreground shadow-none",
+            className,
+          )}
         >
           <SelectValue placeholder={t("label")} />
         </SelectTrigger>

@@ -96,7 +96,8 @@
   },
   "auth": {
     "SignUp": {
-      "title": "Sign up for a Lumi account",
+      "title": "Create your Lumi account",
+      "description": "Welcome! Please fill in the details to get started",
       "cta": "Sign up",
       "action": {
         "title": "Already signed up?",
@@ -124,7 +125,8 @@
       }
     },
     "SignIn": {
-      "title": "Sign In to your account",
+      "title": "Sign In to Lumi",
+      "description": "Welcome back! Please sign in to continue",
       "cta": "Sign In",
       "action": {
         "title": "Not a member?",
@@ -143,9 +145,17 @@
         }
       }
     },
+    "ForgotPassword": {
+      "title": "Forgot Password",
+      "description": "Please fill in the details to reset your password",
+      "cta": "Reset Password",
+      "goBack": "Back to Sign In"
+    },
     "ResetPassword": {
-      "title": "Reset Password",
-      "cta": "Set Password",
+      "title": "Forgot Password",
+      "description": "Please fill in the details to set your new password",
+      "cta": "Reset Password",
+      "goBack": "Back to Sign In",
       "fields": {
         "password": {
           "label": "New password",

@@ -46,7 +46,10 @@ const ResetPasswordForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel={t("ResetPassword.title")} noBorder>
+    <CardWrapper
+      headerLabel={t("ResetPassword.title")}
+      description={t("ResetPassword.description")}
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField

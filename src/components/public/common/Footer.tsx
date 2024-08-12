@@ -20,7 +20,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
             <Link href="/">
               <Logo />
             </Link>
-            <LanguageSwitcher />
+            <LanguageSwitcher showIcon />
           </div>
           <ul className="flex items-center gap-x-8 gap-y-4 text-sm">
             {FOOTER_LINKS.map(({ title, href }) => (

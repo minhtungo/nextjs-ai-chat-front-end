@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import Providers from "@/components/providers";
+import { locales } from "@/lib/config";
+import { unstable_setRequestLocale } from "next-intl/server";
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,11 +17,6 @@ export const metadata: Metadata = {
     template: "%s | Lumi",
   },
   description: "",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
-  },
 };
 
 export default async function RootLayout({
@@ -25,6 +26,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }>) {
+  unstable_setRequestLocale(locale);
+
   return (
     <html suppressHydrationWarning lang={locale}>
       <body className={inter.className}>

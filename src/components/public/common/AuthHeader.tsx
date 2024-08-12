@@ -1,15 +1,14 @@
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Suspense } from "react";
 
 import Logo from "@/components/common/Logo";
+import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
 import MobileMenu from "@/components/public/common/MobileMenu";
-import NavButtons from "@/components/public/common/NavButtons";
 import NavLinks from "@/components/public/common/NavLinks";
 import ThemeToggle from "@/components/public/common/ThemeToggle";
 
-const Header = () => {
+const AuthHeader = () => {
   const t = useTranslations("common.Navbar");
 
   return (
@@ -23,9 +22,7 @@ const Header = () => {
             <NavLinks />
             <div className="ml-auto flex items-center space-x-3">
               <ThemeToggle />
-              <Suspense>
-                <NavButtons />
-              </Suspense>
+              <LanguageSwitcher />
               <MobileMenu />
             </div>
           </div>
@@ -35,4 +32,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AuthHeader;

@@ -1,3 +1,5 @@
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import AuthHeader from "@/components/public/common/AuthHeader";
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -15,8 +17,14 @@ export default function AuthLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <div className="flex h-full w-full items-center justify-center py-12">
-      {children}
-    </div>
+    <>
+      <AuthHeader />
+      <MaxWidthWrapper
+        tag="main"
+        className="flex h-full w-full items-center justify-center py-12"
+      >
+        {children}
+      </MaxWidthWrapper>
+    </>
   );
 }

@@ -20,8 +20,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { useTranslations } from "next-intl";
 
 const ForgotPasswordForm = () => {
+  const t = useTranslations("auth.ForgotPassword");
+
   const { data, error, execute, isPending } =
     useServerAction(forgotPasswordAction);
 
@@ -38,10 +41,10 @@ const ForgotPasswordForm = () => {
 
   return (
     <CardWrapper
-      headerLabel="Quên mật khẩu"
+      headerLabel={t("title")}
+      description={t("description")}
       backButtonHref={signInHref}
-      backButtonLabel="Quay lại đăng nhập"
-      noBorder
+      backButtonLabel={t("goBack")}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -52,7 +55,7 @@ const ForgotPasswordForm = () => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" placeholder="Địa chỉ email" {...field} />
+                  <Input type="email" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -62,7 +65,7 @@ const ForgotPasswordForm = () => {
           {error && <FormError message={error.message} />}
           {data && data.message && <FormSuccess message={data.message} />}
           <SubmitButton className="w-full" isPending={isPending}>
-            Lấy lại mật khẩu
+            {t("cta")}
           </SubmitButton>
         </form>
       </Form>

@@ -52,7 +52,10 @@ const SignUpForm = () => {
   };
 
   return (
-    <CardWrapper headerLabel={t("SignUp.title")} noBorder>
+    <CardWrapper
+      headerLabel={t("SignUp.title")}
+      description={t("SignUp.description")}
+    >
       {!isSignUpByEmail ? (
         <>
           <Suspense>

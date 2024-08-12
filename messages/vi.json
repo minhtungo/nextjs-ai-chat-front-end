@@ -99,7 +99,8 @@
   },
   "auth": {
     "SignUp": {
-      "title": "Đăng ký tài khoản Lumi",
+      "title": "Tạo tài khoản Lumi",
+      "description": "Chào mừng! Vui lòng điền thông tin để bắt đầu",
       "cta": "Đăng ký",
       "action": {
         "title": "Bạn đã có tài khoản?",
@@ -127,7 +128,8 @@
       }
     },
     "SignIn": {
-      "title": "Chào Mừng Đến Với Lumi",
+      "title": "Đăng nhập vào Lumi",
+      "description": "Chào mừng! Vui lòng đăng nhập để tiếp tục",
       "cta": "Đăng nhập",
       "action": {
         "title": "Bạn chưa có tài khoản?",
@@ -146,9 +148,17 @@
         }
       }
     },
+    "ForgotPassword": {
+      "title": "Tạo mật khẩu mới",
+      "description": "Vui lòng điền thông tin để lấy lại mật khẩu của bạn",
+      "cta": "Đặt mật khẩu",
+      "goBack": "Quay lại đăng nhập"
+    },
     "ResetPassword": {
       "title": "Tạo mật khẩu mới",
+      "description": "Vui lòng điền thông tin để đặt lại mật khẩu của bạn",
       "cta": "Đặt mật khẩu",
+      "goBack": "Quay lại đăng nhập",
       "fields": {
         "password": {
           "label": "Mật khẩu mới",
