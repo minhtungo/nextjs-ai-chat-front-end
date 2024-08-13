@@ -3845,10 +3845,10 @@ jose@^5.6.3:
   resolved "https://registry.yarnpkg.com/jose/-/jose-5.6.3.tgz#415688bc84875461c86dfe271ea6029112a23e27"
   integrity sha512-1Jh//hEEwMhNYPDDLwXHa2ePWgWiFNNUadVmguAAw2IJ6sj9mNxV5tGXJNqlMkJAybF6Lgw1mISDxTePP/187g==
 
-jotai@^2.9.2:
-  version "2.9.2"
-  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.9.2.tgz#0b1036bc1672d02ea7cf73c6b01728de461d6ecf"
-  integrity sha512-jIBXEadOHCziOuMY6HAy2KQcHipGhnsbF+twqh8Lcmcz/Yei0gdBtW5mOYdKmbQxGqkvfvXM3w/oHtJ2WNGSFg==
+jotai@^2.9.3:
+  version "2.9.3"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-2.9.3.tgz#abcae49a737cd50e3144a6c9eb39840db077c727"
+  integrity sha512-IqMWKoXuEzWSShjd9UhalNsRGbdju5G2FrqNLQJT+Ih6p41VNYe2sav5hnwQx4HJr25jq9wRqvGSWGviGG6Gjw==
 
 js-beautify@^1.14.11:
   version "1.15.1"

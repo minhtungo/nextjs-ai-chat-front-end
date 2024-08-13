@@ -1,7 +1,5 @@
 import OnboardingForm from "@/components/private/onboarding/OnboardingForm";
 import { getCurrentUser } from "@/lib/auth";
-import { PROTECTED_BASE_URL } from "@/lib/routes";
-import { redirect } from "next/navigation";
 
 const OnboardingPage = async () => {
   const user = await getCurrentUser();
@@ -10,9 +8,9 @@ const OnboardingPage = async () => {
     throw new Error("Unauthorized");
   }
 
-  if (user.isOnboarded) {
-    redirect(PROTECTED_BASE_URL);
-  }
+  // if (user.isOnboarded) {
+  //   redirect(PROTECTED_BASE_URL);
+  // }
 
   return (
     <div className="flex min-h-[100dvh] w-screen flex-col items-center justify-center">

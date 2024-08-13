@@ -38,6 +38,7 @@ model User {
   academicLevel    String?
   learningGoals String?
   subjects      String[]
+  goals         String[]
   isOnboarded   Boolean  @default(false)
 
   createdAt DateTime @default(now())

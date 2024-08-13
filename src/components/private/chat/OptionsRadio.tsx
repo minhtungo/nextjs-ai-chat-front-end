@@ -5,52 +5,55 @@ import { TSubject } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 import { FC, useRef } from "react";
 
-interface SubjectsRadioProps {
+interface OptionsRadioProps {
   className?: string;
-  selectedSubject?: string;
-  setSelectedSubject: (value: string) => void;
+  selectedOption?: string;
+  setSelectedOption: (value: string) => void;
   isPending?: boolean;
-  subjectsList: TSubject[];
+  list: {
+    label: string;
+    value: string;
+  }[];
 }
 
-const SubjectsRadio: FC<SubjectsRadioProps> = ({
+const OptionsRadio: FC<OptionsRadioProps> = ({
   className,
-  subjectsList,
-  selectedSubject,
-  setSelectedSubject,
+  list,
+  selectedOption,
+  setSelectedOption,
   isPending,
 }) => {
   const otherRef = useRef<HTMLInputElement>(null);
 
   return (
     <RadioGroup
-      value={selectedSubject}
+      value={selectedOption}
       onValueChange={(value) => {
-        setSelectedSubject(value);
+        setSelectedOption(value);
       }}
       className={cn(className)}
       disabled={isPending}
     >
-      {subjectsList.map((subject) => (
+      {list.map((item) => (
         <RadioGroupItem
-          value={subject.value}
-          key={`new-chat-subject-radio-${subject.value}`}
-          className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/20 px-6 py-4 hover:border-primary/60 data-[state=checked]:border-primary"
+          value={item.value}
+          key={`new-chat-subject-radio-${item.value}`}
+          className="rounded-lg border border-border/60 bg-accent/20 px-6 py-4 hover:border-primary/60 data-[state=checked]:border-primary"
         >
           <div className="w-full overflow-hidden text-ellipsis text-left">
-            {subject.label}
+            {item.label}
           </div>
         </RadioGroupItem>
       ))}
       <RadioGroupItem
         value={otherRef?.current?.value || "Other"}
         key="new-chat-subject-radio-other"
-        className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/20 px-6 py-4 hover:border-primary/60 data-[state=checked]:border-primary"
+        className="flex items-center gap-2 rounded-lg border border-border/60 bg-accent/20 px-6 py-4 hover:border-primary/60 data-[state=checked]:border-primary"
       >
         <span>Other:</span>
         <input
           ref={otherRef}
-          onChange={(e) => setSelectedSubject(e.target.value)}
+          onChange={(e) => setSelectedOption(e.target.value)}
           type="text"
           className="flex-1 border-b focus-visible:border-b-primary focus-visible:outline-none"
         />
@@ -59,4 +62,4 @@ const SubjectsRadio: FC<SubjectsRadioProps> = ({
   );
 };
 
-export default SubjectsRadio;
+export default OptionsRadio;

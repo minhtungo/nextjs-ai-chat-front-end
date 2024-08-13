@@ -155,3 +155,11 @@ export const hexToRgb = (color: string) => {
   var parts = color.replace("#", "").match(/.{1,2}/g) as any;
   return parts.map((part: string) => parseInt(part, 16));
 };
+
+export const match = <T, R>(value: T, cases: Record<string, R>) => {
+  for (const key in cases) {
+    if (value === key) {
+      return cases[key];
+    }
+  }
+};

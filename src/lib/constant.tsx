@@ -3,6 +3,33 @@ import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
 
 export const TOKEN_EXPIRATION_IN_MINUTES = 60;
 
+export const GOAlS = [
+  {
+    label: "Improve learning efficiency",
+    value: "improve-learning-efficiency",
+  },
+  {
+    label: "Enhance critical thinking skills",
+    value: "enhance-critical-thinking-skills",
+  },
+  {
+    label: "Develop problem-solving abilities",
+    value: "develop-problem-solving-abilities",
+  },
+  {
+    label: "Enhance memory retention",
+    value: "enhance-memory-retention",
+  },
+  {
+    label: "Foster creativity and innovation",
+    value: "foster-creativity-and-innovation",
+  },
+  {
+    label: "Strengthen analytical and logical thinking",
+    value: "strengthen-analytical-and-logical-thinking",
+  },
+];
+
 export const FEATURES = [
   {
     title: "Interactive AI Tutoring",

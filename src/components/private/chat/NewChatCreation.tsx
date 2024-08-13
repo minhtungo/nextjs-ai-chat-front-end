@@ -1,6 +1,7 @@
 "use client";
 
 import SubmitButton from "@/components/common/SubmitButton";
+import OptionsRadio from "@/components/private/chat/OptionsRadio";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -8,7 +9,6 @@ import { useCreateChat } from "@/data/mutations/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
 import { useCentrifuge } from "@/store/centrifuge";
 import { FC, useState } from "react";
-import SubjectsRadio from "./SubjectsRadio";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
@@ -54,10 +54,10 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
 
         {SUBJECTS_BY_LEVEL.map(({ level, subjects }) => (
           <TabsContent value={level} key={`${level}-tab-content`}>
-            <SubjectsRadio
-              selectedSubject={selectedSubject}
-              setSelectedSubject={setSelectedSubject}
-              subjectsList={subjects.filter(
+            <OptionsRadio
+              selectedOption={selectedSubject}
+              setSelectedOption={setSelectedSubject}
+              list={subjects.filter(
                 (subject) =>
                   subject.value
                     .toLowerCase()

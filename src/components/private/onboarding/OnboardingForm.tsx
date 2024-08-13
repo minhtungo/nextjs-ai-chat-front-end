@@ -42,7 +42,7 @@ interface OnboardingFormProps {
   user: User;
 }
 
-const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
+const OnboardingForm: FC<OnboardingFormProps> = () => {
   const [subjects, setSubjects] = useState<Option[]>([]);
 
   const { isPending, execute } = useServerAction(onboardingFormAction);
@@ -72,7 +72,7 @@ const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full" noBorder>
+    <Card className="w-full" noBorderMobile>
       {!isFinished ? (
         <>
           <Logo />
@@ -81,7 +81,7 @@ const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
           </Typography>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
-              <CardContent className="w-full space-y-4" noBorder>
+              <CardContent className="w-full space-y-4">
                 <FormField
                   control={form.control}
                   name="academicLevel"
@@ -129,7 +129,7 @@ const OnboardingForm: FC<OnboardingFormProps> = ({ user }) => {
                   />
                 </div>
               </CardContent>
-              <CardFooter noBorder>
+              <CardFooter>
                 <SubmitButton
                   className="w-full"
                   isPending={isPending}
