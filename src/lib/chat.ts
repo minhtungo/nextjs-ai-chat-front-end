@@ -22,13 +22,17 @@ export const createChatRoom = async ({
 };
 
 export const getMessageFiles = (files: MessageFile[]) => {
-  const images = files
+  const imagesWithPreview = files
     .filter((file) => file.type === "image")
     .map((file) => ({
       url: file.url,
       name: file.name,
       type: file.type,
+      thumbnail: file.thumbnail,
+      preview: file.preview,
     }));
+
+  const images = imagesWithPreview.map(({ preview, ...file }) => file);
 
   const docs = files
     .filter((file) => file.type !== "image")
@@ -40,6 +44,7 @@ export const getMessageFiles = (files: MessageFile[]) => {
 
   return {
     images,
+    imagesWithPreview,
     docs,
   };
 };

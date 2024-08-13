@@ -6,6 +6,7 @@ type IFile = {
   url?: string;
   preview?: string;
   isUploading?: boolean;
+  thumbnail?: string;
 };
 
 export type CreateNewRoomResponse = {
@@ -34,6 +35,7 @@ export type MessageFile = {
   url?: string;
   preview?: string;
   type: "image" | "document" | "pdf";
+  thumbnail?: string;
   isUploading?: boolean;
   size: number;
 };

@@ -1,4 +1,4 @@
-import { uploadFileAction } from "@/actions/storage";
+import { uploadFileAction } from "@/actions/upload";
 import { nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
 import { toast } from "sonner";
@@ -11,6 +11,7 @@ export interface IFile {
   name: string;
   url?: string;
   preview?: string;
+  thumbnail?: string;
   type: "image" | "document" | "pdf";
   isUploading?: boolean;
   size: number;
@@ -112,13 +113,14 @@ const useMessageStore = () => {
             throw new Error(error.message);
           }
 
-          const url = data.img_urls[0].url;
+          const url = data?.img_urls[0].url;
+          const thumbnail = data?.thumbnail;
 
           setMessageStore((prev) => ({
             ...prev,
             files: prev.files.map((f) =>
               f.id === validFiles[index].id
-                ? { ...f, url, isUploading: false }
+                ? { ...f, url, thumbnail, isUploading: false }
                 : f,
             ),
           }));

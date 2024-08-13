@@ -1,6 +1,6 @@
 "use server";
 
-const MAX_FILE_SIZE = 5000000;
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -12,7 +12,7 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 import { authedAction } from "@/lib/safe-actions";
-import { uploadFileUseCase } from "@/use-cases/storage";
+import { uploadFileUseCase } from "@/use-cases/upload";
 import { z } from "zod";
 
 export const uploadFileAction = authedAction
@@ -23,7 +23,7 @@ export const uploadFileAction = authedAction
         .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
         .refine(
           (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-          "Only .jpg, .jpeg, .png, .webp, .doc and .pdf formats are supported.",
+          "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
         ),
     }),
     {

@@ -1,6 +1,5 @@
 "use server";
 
-import { messageSchema } from "@/lib/definitions";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/queryKey";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";

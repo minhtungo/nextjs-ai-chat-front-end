@@ -50,7 +50,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
       e.target["message"]?.blur();
     }
 
-    const { images, docs } = getMessageFiles(files);
+    const { images, docs, imagesWithPreview } = getMessageFiles(files);
 
     if (sub) {
       sub.publish({
@@ -66,7 +66,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
       content,
       userId,
       docs,
-      images,
+      images: imagesWithPreview,
     });
 
     setMessages((prev) => [...prev, newMessage]);

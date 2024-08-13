@@ -26,8 +26,6 @@ const SubjectsRadio: FC<SubjectsRadioProps> = ({
     <RadioGroup
       value={selectedSubject}
       onValueChange={(value) => {
-        console.log("otherSubjectRef", otherRef?.current?.value);
-        console.log("value", value);
         setSelectedSubject(value);
       }}
       className={cn(className)}

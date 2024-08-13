@@ -55,7 +55,7 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
       e.target["message"]?.blur();
     }
 
-    const { images, docs } = getMessageFiles(files);
+    const { images, docs, imagesWithPreview } = getMessageFiles(files);
 
     const hull = getConvexHull();
 
@@ -77,7 +77,7 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
       content,
       userId,
       docs,
-      images,
+      images: imagesWithPreview,
     });
 
     setMessages((prev) => [...prev, newMessage]);

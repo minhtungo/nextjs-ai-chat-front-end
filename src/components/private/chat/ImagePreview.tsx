@@ -1,13 +1,15 @@
-import Spinner from "@/components/common/Spinner";
+import { cn } from "@/lib/utils";
 import { MessageSquareShare } from "lucide-react";
 import Image from "next/image";
 import { FC } from "react";
 
 interface ImagePreviewProps {
-  src: string;
+  src: string | undefined;
+  thumbnail: string | undefined;
+  preview: string | undefined;
   path: string;
   isLoading: boolean;
-  onClick?: () => void;
+  onClick: () => void;
   isOverlayOpen: boolean;
 }
 
@@ -16,35 +18,57 @@ const ImagePreview: FC<ImagePreviewProps> = ({
   path,
   onClick,
   isOverlayOpen,
+  preview,
   isLoading,
+  thumbnail,
 }) => {
   return (
     <div
-      role={!isOverlayOpen ? "button" : "img"}
-      className="relative aspect-square max-h-40 overflow-hidden rounded-lg border"
-      onClick={onClick}
+      className={cn(
+        "relative aspect-square h-40 w-40 overflow-hidden rounded-lg border",
+        !isOverlayOpen ? "cursor-pointer" : "cursor-default",
+      )}
+      onClick={() => {
+        if (!isOverlayOpen) {
+          onClick();
+        }
+      }}
     >
-      {isLoading && (
-        <div className="flex size-40 items-center justify-center rounded-lg">
-          <Spinner />
-        </div>
-      )}
-      {src && (
-        <>
+      <>
+        {preview && isLoading ? (
           <Image
-            src={src}
-            height={300}
-            width={300}
+            src={preview ?? ""}
             alt={path}
-            className="h-full max-h-40 w-full rounded-lg object-cover"
+            fill
+            className="h-full w-full rounded-lg object-cover"
           />
-          {!isOverlayOpen && (
-            <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-accent/50 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-              <MessageSquareShare className="size-4 sm:size-5" />
-            </div>
-          )}
-        </>
-      )}
+        ) : (
+          <>
+            <Image
+              sizes="10px"
+              fill
+              priority
+              src={`data:image/webp;base64,${thumbnail}`}
+              alt={path}
+              className="h-full w-full rounded-lg object-cover"
+            />
+            <Image
+              src={src ?? ""}
+              alt={path}
+              fill
+              className={cn(
+                "h-full w-full rounded-lg object-cover transition-opacity duration-200 ease-in-out",
+                isLoading ? "opacity-0" : "opacity-100",
+              )}
+            />
+          </>
+        )}
+        {src && !isOverlayOpen && (
+          <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-accent/50 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
+            <MessageSquareShare className="size-4 sm:size-5" />
+          </div>
+        )}
+      </>
     </div>
   );
 };

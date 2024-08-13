@@ -22,13 +22,13 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
     undefined,
   );
 
-  const { mutateAsync: createChat, isPending } = useCreateChat(toggleDialog);
+  const { mutate: createChat, isPending } = useCreateChat(toggleDialog);
 
   const createNewChat = async () => {
     if (!selectedSubject) {
       return;
     }
-    await createChat({
+    createChat({
       subject: selectedSubject,
     });
   };
