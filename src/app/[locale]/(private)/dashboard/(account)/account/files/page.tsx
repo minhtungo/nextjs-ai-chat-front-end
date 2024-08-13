@@ -13,6 +13,8 @@ const FilesPage = async () => {
     throw new Error("Unauthorized");
   }
 
+  // const assets = await getUserUploadedFilesUseCase(user.id!);
+
   return (
     <>
       <PageTitle title="Files" />

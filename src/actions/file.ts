@@ -12,7 +12,7 @@ const ACCEPTED_IMAGE_TYPES = [
 ];
 
 import { authedAction } from "@/lib/safe-actions";
-import { uploadFileUseCase } from "@/use-cases/upload";
+import { uploadFileUseCase } from "@/use-cases/file";
 import { z } from "zod";
 
 export const uploadFileAction = authedAction

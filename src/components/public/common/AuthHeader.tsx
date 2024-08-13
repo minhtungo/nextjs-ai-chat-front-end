@@ -4,7 +4,6 @@ import Link from "next/link";
 
 import Logo from "@/components/common/Logo";
 import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
-import MobileMenu from "@/components/public/common/MobileMenu";
 import NavLinks from "@/components/public/common/NavLinks";
 import ThemeToggle from "@/components/public/common/ThemeToggle";
 
@@ -23,7 +22,6 @@ const AuthHeader = () => {
             <div className="ml-auto flex items-center space-x-3">
               <ThemeToggle />
               <LanguageSwitcher />
-              <MobileMenu />
             </div>
           </div>
         </MaxWidthWrapper>

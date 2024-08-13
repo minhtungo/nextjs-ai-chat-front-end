@@ -55,3 +55,41 @@ export const uploadFileUseCase = async (
     throw new ZSAError("ERROR", "Failed to upload file");
   }
 };
+
+// type GetUploadedFilesResponse = {
+//   assets: [
+//     {
+//       id: string;
+//       name: string;
+//       type: string;
+//       url: string;
+//     },
+//   ];
+// };
+
+export const getUserUploadedFilesUseCase = async (userId: string) => {
+  const data = await fetchAuth({
+    path: `/assets/v1/auth/admin/assets/list?page=1&page_size=10?path=/users/${userId}/`,
+    method: "GET",
+  });
+
+  console.log(data);
+
+  // const assets = data.data.assets.map((asset: any) => ({
+  //   id: asset._id,
+  //   name: asset.name,
+  //   type: asset.type_asset,
+  //   url: asset.url_img,
+  // }));
+
+  // console.log(assets);
+
+  if (data.success) {
+    return {
+      assets: data.data,
+    };
+  } else if (data.error) {
+    console.log(data.error);
+    console.log("Failed to get user uploaded files: " + data.error);
+  }
+};

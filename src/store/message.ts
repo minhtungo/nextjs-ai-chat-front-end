@@ -1,4 +1,4 @@
-import { uploadFileAction } from "@/actions/upload";
+import { uploadFileAction } from "@/actions/file";
 import { nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
 import { toast } from "sonner";
