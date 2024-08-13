@@ -1,5 +1,5 @@
 import { uploadFileAction } from "@/actions/file";
-import { nanoid } from "@/lib/utils";
+import { getImageDimensions, nanoid } from "@/lib/utils";
 import { atom, useAtom } from "jotai";
 import { toast } from "sonner";
 
@@ -15,6 +15,8 @@ export interface IFile {
   type: "image" | "document" | "pdf";
   isUploading?: boolean;
   size: number;
+  originalWidth?: number;
+  originalHeight?: number;
 }
 
 interface IMessage {
@@ -59,6 +61,8 @@ const useMessageStore = () => {
       return;
     }
 
+    console.log("add files", files);
+
     let totalFilesSize = currentFiles.reduce((acc, file) => acc + file.size, 0);
 
     const totalFilesCount = currentFiles.length;
@@ -71,6 +75,16 @@ const useMessageStore = () => {
         totalFilesCount + validFiles.length <= MAX_FILE_COUNT &&
         totalFilesSize <= MAX_FILE_SIZE_MB * 1024 * 1024
       ) {
+        let originalWidth = undefined;
+        let originalHeight = undefined;
+
+        if (file.type.startsWith("image")) {
+          const { width, height } = await getImageDimensions(file);
+          console.log("inside width", width, "height", height);
+          originalWidth = width;
+          originalHeight = height;
+        }
+
         validFiles.push({
           id: nanoid(),
           name: file.name,
@@ -84,7 +98,10 @@ const useMessageStore = () => {
             : undefined,
           size: file.size,
           isUploading: true,
+          ...(originalWidth ? { originalWidth } : {}),
+          ...(originalHeight ? { originalHeight } : {}),
         });
+        console.log("this is call", validFiles);
       } else {
         toast.error(
           `You can only upload ${MAX_FILE_COUNT} files and ${MAX_FILE_SIZE_MB}MB of files at a time.`,

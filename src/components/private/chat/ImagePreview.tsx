@@ -44,14 +44,16 @@ const ImagePreview: FC<ImagePreviewProps> = ({
           />
         ) : (
           <>
-            <Image
-              sizes="10px"
-              fill
-              priority
-              src={`data:image/webp;base64,${thumbnail}`}
-              alt={path}
-              className="h-full w-full rounded-lg object-cover"
-            />
+            {thumbnail && (
+              <Image
+                sizes="10px"
+                fill
+                priority
+                src={`data:image/webp;base64,${thumbnail}`}
+                alt={path}
+                className="h-full w-full rounded-lg object-cover"
+              />
+            )}
             <Image
               src={src ?? ""}
               alt={path}

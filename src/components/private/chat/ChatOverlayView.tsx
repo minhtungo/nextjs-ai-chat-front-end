@@ -7,17 +7,9 @@ import { Button } from "@/components/ui/button";
 import { useMessageImages } from "@/data/queries/use-message-images";
 import { chatStore } from "@/store/chat";
 import "@/styles/draw.css";
-import convexHull from "convex-hull";
 import { ChevronLeft, ChevronRight, Eraser, Paintbrush, X } from "lucide-react";
 import Image from "next/image";
-import {
-  ElementRef,
-  FC,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ElementRef, FC, useEffect, useRef, useState } from "react";
 import LineWidthSlider from "./LineWidthSlider";
 
 interface ChatOverlayViewProps {
@@ -56,13 +48,6 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   };
-
-  const getConvexHull = useCallback(() => {
-    if (drawingPoints.current.length < 3) return [];
-    console.log("drawingPoints", drawingPoints.current);
-    console.log("convel hull", convexHull(drawingPoints.current));
-    return convexHull(drawingPoints.current) as Array<[number, number]>;
-  }, [drawingPoints]);
 
   const updateChatOverlay = (selectedImageIndex: number | null) => {
     setChat((prevState) => ({
@@ -116,7 +101,6 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
                   >
                     <Eraser className="size-5" />
                   </Button>
-                  <button onClick={getConvexHull}>Get Convex Hull</button>
                 </div>
               )}
 
@@ -153,20 +137,18 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
             <div className="p-4">
               <div className="relative mx-auto w-fit">
                 {imagesQueries[selectedImageIndex!]?.data && (
-                  <>
-                    <Image
-                      src={imagesQueries[selectedImageIndex!]?.data?.imageSrc!}
-                      ref={(el) => {
-                        if (el && imageRefs.current) {
-                          imageRefs.current[selectedImageIndex!] = el;
-                        }
-                      }}
-                      width={1024}
-                      height={1024}
-                      className="h-auto max-h-[100vh] w-fit max-w-full"
-                      alt="Image"
-                    />
-                  </>
+                  <Image
+                    src={imagesQueries[selectedImageIndex!]?.data?.imageSrc!}
+                    ref={(el) => {
+                      if (el && imageRefs.current) {
+                        imageRefs.current[selectedImageIndex!] = el;
+                      }
+                    }}
+                    width={1024}
+                    height={1024}
+                    className="h-auto max-h-[100vh] w-fit max-w-full"
+                    alt="Image"
+                  />
                 )}
                 {isEditing && (
                   <div className="absolute inset-0 z-10 cursor-crosshair">
@@ -217,10 +199,10 @@ const ChatOverlayView: FC<ChatOverlayViewProps> = ({ userId, chatId }) => {
             <div className="mb-3 px-4">
               <ChatOverlayPanel
                 userId={userId!}
-                getConvexHull={getConvexHull}
                 isEditing={isEditing}
                 onToggleEditing={onToggleEditing}
-                selectedImageUrl={chatImages[selectedImageIndex!]?.url!}
+                selectedImage={imageRefs.current[selectedImageIndex!]}
+                drawingPoints={drawingPoints}
               />
             </div>
           </div>

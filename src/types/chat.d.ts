@@ -7,6 +7,8 @@ type IFile = {
   preview?: string;
   isUploading?: boolean;
   thumbnail?: string;
+  originalWidth?: number;
+  originalHeight?: number;
 };
 
 export type CreateNewRoomResponse = {
@@ -38,6 +40,8 @@ export type MessageFile = {
   thumbnail?: string;
   isUploading?: boolean;
   size: number;
+  originalWidth?: number;
+  originalHeight?: number;
 };
 
 export type MessageResponse = {

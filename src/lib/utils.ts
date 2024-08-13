@@ -163,3 +163,13 @@ export const match = <T, R>(value: T, cases: Record<string, R>) => {
     }
   }
 };
+
+export const getImageDimensions = (file: File) => {
+  return new Promise<{ width: number; height: number }>((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({ width: img.width, height: img.height });
+    };
+    img.src = URL.createObjectURL(file);
+  });
+};

@@ -16,6 +16,8 @@ const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
     setChat,
   } = chatStore();
 
+  console.log("images", images);
+
   const onImageClick = (url: string) => {
     if (!selectedImageIndex) {
       setChat((prevState) => ({

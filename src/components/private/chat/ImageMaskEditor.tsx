@@ -78,6 +78,13 @@ export const ImageMaskEditor: FC<MaskEditorProps> = ({
       setSize({ x: image.offsetWidth, y: image.offsetHeight });
 
       context?.drawImage(image, 0, 0);
+
+      console.log(
+        "overlay image offset",
+        image.offsetWidth,
+        image.offsetHeight,
+      );
+      console.log("overlay image original", image.width, image.height);
     }
   }, [image, context]);
 

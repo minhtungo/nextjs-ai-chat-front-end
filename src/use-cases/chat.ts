@@ -129,6 +129,8 @@ export const getMessagesUseCase = async ({
         type: image.type,
         url: image.url,
         thumbnail: image.thumbnail,
+        originalWidth: image?.originalWidth,
+        originalHeight: image?.originalHeight,
       })),
       timestamp: item.timestamp,
       userId: item.userid,

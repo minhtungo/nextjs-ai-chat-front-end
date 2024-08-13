@@ -116,6 +116,8 @@ export const messageSchema = object({
       type: z.enum(["image", "document", "pdf"]),
       url: string().optional(),
       thumbnail: string().optional(),
+      originalWidth: number().optional(),
+      originalHeight: number().optional(),
     }),
   ),
   timestamp: number(),

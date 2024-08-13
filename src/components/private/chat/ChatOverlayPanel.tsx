@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, FormEvent, useEffect } from "react";
+import { FC, FormEvent, MutableRefObject, useEffect } from "react";
 
 import PromptForm from "./PromptForm";
 
@@ -9,28 +9,38 @@ import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
 import { useSub } from "@/store/centrifuge";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
+import { useConvexHull } from "@/hooks/use-convex-hull";
 
 interface ChatOverlayPanelProps {
   userId: string;
-  getConvexHull: () => number[][];
   isEditing: boolean;
-  selectedImageUrl: string;
   onToggleEditing: () => void;
+  selectedImage: HTMLImageElement;
+  drawingPoints: MutableRefObject<[number, number][]>;
 }
 
 const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
   userId,
-  getConvexHull,
   isEditing,
-  selectedImageUrl,
   onToggleEditing,
+  selectedImage,
+  drawingPoints,
 }) => {
-  const { setMessages } = chatStore();
+  const {
+    chat: { selectedImageIndex },
+    setMessages,
+    chatImages,
+  } = chatStore();
 
   const {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
   } = useMessageStore();
+
+  const annotation = useConvexHull({
+    drawingPoints,
+    selectedImage,
+  });
 
   const sub = useSub();
 
@@ -49,6 +59,8 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
       return;
     }
 
+    const selectedImageURl = chatImages[selectedImageIndex!]?.url!;
+
     // Blur focus on mobile
     if (window.innerWidth < 600) {
       // @ts-ignore
@@ -57,8 +69,6 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
 
     const { images, docs, imagesWithPreview } = getMessageFiles(files);
 
-    const hull = getConvexHull();
-
     if (sub) {
       sub.publish({
         input: {
@@ -66,8 +76,8 @@ const ChatOverlayPanel: FC<ChatOverlayPanelProps> = ({
           images,
           docs,
           selectedImage: {
-            url: selectedImageUrl,
-            hull,
+            url: selectedImageURl,
+            annotation,
           },
         },
       });
