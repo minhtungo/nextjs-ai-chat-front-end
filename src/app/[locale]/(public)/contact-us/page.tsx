@@ -1,11 +1,11 @@
 import Section from "@/components/public/home/Section";
-import ContactUsForm from "../../../../components/public/ContactForm";
-import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
+import PageTitle from "@/components/public/common/PageTitle";
+import ContactUsForm from "@/components/public/ContactForm";
 
 const ContactUsPage = async () => {
   return (
     <Section>
-      <PageTitleWrapper
+      <PageTitle
         title="Contact Us"
         description="Lorem
         ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!"

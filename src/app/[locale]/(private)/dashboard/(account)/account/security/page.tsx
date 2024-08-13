@@ -1,4 +1,5 @@
 import Google from "@/components/icons/Google";
+import PageTitle from "@/components/private/common/PageTitle";
 import ChangePassword from "@/components/private/dashboard/ChangePassword";
 import TwoFactorToggle from "@/components/private/dashboard/TwoFactorToggle";
 import { Separator } from "@/components/ui/separator";
@@ -19,6 +20,7 @@ const SecurityPage = async () => {
 
   return (
     <>
+      <PageTitle title="Security" />
       {!user.isOauth && (
         <TwoFactorToggle isTwoFactorEnabled={user?.isTwoFactorEnabled} />
       )}

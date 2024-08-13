@@ -1,10 +1,16 @@
+import PageTitle from "@/components/private/common/PageTitle";
 import FeedbackForm from "@/components/private/dashboard/FeedbackForm";
 import { FC } from "react";
 
 interface FeedbackPageProps {}
 
 const FeedbackPage: FC<FeedbackPageProps> = async () => {
-  return <FeedbackForm />;
+  return (
+    <>
+      <PageTitle title="Feedback" description="Send us your feedback" />
+      <FeedbackForm />
+    </>
+  );
 };
 
 export default FeedbackPage;

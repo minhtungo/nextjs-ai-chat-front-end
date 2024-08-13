@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { sanitize } from "isomorphic-dompurify";
 import Section from "@/components/public/home/Section";
-import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
+import PageTitle from "@/components/public/common/PageTitle";
 
 export async function generateMetadata({
   params: { locale },
@@ -27,7 +27,7 @@ export default function AboutPage({
   const t = useTranslations("public.About");
   return (
     <Section>
-      <PageTitleWrapper title={t("title")} description={t("subtitle")} />
+      <PageTitle title={t("title")} description={t("subtitle")} />
       <Typography variant="div">
         {parse(sanitize(t.markup("content")))}
       </Typography>

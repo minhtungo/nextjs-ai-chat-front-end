@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import FAQ from "@/components/public/common/FAQ";
 import PricingSection from "@/components/public/common/PricingSection";
-import PageTitleWrapper from "@/components/public/common/PageTitleWrapper";
+import PageTitle from "@/components/public/common/PageTitle";
 
 export async function generateMetadata({
   params: { locale },
@@ -30,7 +30,7 @@ export default function PricingPage({
   return (
     <>
       <Section>
-        <PageTitleWrapper title={t("title")} description={t("subtitle")} />
+        <PageTitle title={t("title")} description={t("subtitle")} />
         <PricingSection />
       </Section>
       <Section className="mx-auto max-w-4xl">
