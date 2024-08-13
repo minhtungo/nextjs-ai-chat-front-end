@@ -45,6 +45,7 @@ const ForgotPasswordForm = () => {
       description={t("description")}
       backButtonHref={signInHref}
       backButtonLabel={t("goBack")}
+      noBorderMobile
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

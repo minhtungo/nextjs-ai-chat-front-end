@@ -36,7 +36,7 @@ const VerificationForm = () => {
   }, [onSubmit]);
 
   return (
-    <CardWrapper headerLabel={t("Verification.title")}>
+    <CardWrapper headerLabel={t("Verification.title")} noBorderMobile>
       {isPending && (
         <div className="mb-3">
           <Typography className="mb-2 text-muted-foreground">

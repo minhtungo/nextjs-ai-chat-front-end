@@ -55,6 +55,7 @@ const SignUpForm = () => {
     <CardWrapper
       headerLabel={t("SignUp.title")}
       description={t("SignUp.description")}
+      noBorderMobile
     >
       {!isSignUpByEmail ? (
         <>

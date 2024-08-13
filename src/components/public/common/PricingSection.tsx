@@ -26,8 +26,8 @@ const PricingSection = () => {
           features,
           isFeatured,
         }: PricingPlan) => (
-          <Card key={`${title}-plan`} className="flex-1" showBorderOnMobile>
-            <CardHeader className="gap-y-2" showBorderOnMobile>
+          <Card key={`${title}-plan`} className="flex-1">
+            <CardHeader className="gap-y-2">
               <p className="text-lg font-semibold">{t(title as any)}</p>
 
               <p className="flex items-center gap-1.5">
@@ -36,24 +36,24 @@ const PricingSection = () => {
                   / {t(duration as any)}
                 </span>
               </p>
-              <Typography className="text-sm text-muted-foreground">
+              <Typography size="sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </Typography>
             </CardHeader>
-            <CardContent showBorderOnMobile>
+            <CardContent>
               <ul className="flex flex-col gap-y-2 text-sm">
                 {features.map((feature) => (
                   <li
                     key={`${t(feature.title as any)}-feature`}
-                    className="flex items-center gap-x-2.5"
+                    className="bg-success flex items-center gap-x-2"
                   >
-                    <CircleCheck className="h-4 w-4" />
+                    <CircleCheck className="size-5" />
                     {t(feature.title as any)}
                   </li>
                 ))}
               </ul>
             </CardContent>
-            <CardFooter showBorderOnMobile>
+            <CardFooter>
               <Link
                 className={cn(
                   buttonVariants({

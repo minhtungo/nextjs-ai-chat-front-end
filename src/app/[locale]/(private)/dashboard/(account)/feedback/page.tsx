@@ -11,6 +11,7 @@ const ProfilePage = async () => {
     <CardWrapper
       headerLabel="Report an issue"
       description="What area are you having problems with?"
+      noBorderMobile
     >
       <FeedbackForm />
     </CardWrapper>

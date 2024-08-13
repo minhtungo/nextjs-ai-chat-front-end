@@ -62,6 +62,7 @@ const SignInForm = () => {
     <CardWrapper
       headerLabel={t("SignIn.title")}
       description={t("SignIn.description")}
+      noBorderMobile
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

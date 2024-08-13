@@ -12,6 +12,7 @@ const AuthError: FC<AuthErrorProps> = ({ className }) => {
       headerLabel="Something went wrong!"
       backButtonLabel="Quay lại đăng nhập"
       backButtonHref={signInHref}
+      noBorderMobile
     />
   );
 };

@@ -28,8 +28,8 @@ const Plans = ({ currentPlan }: { currentPlan: Plan }) => {
           features,
           isFeatured,
         }: PricingPlan) => (
-          <Card key={`${title}-plan`} className="flex-1" showBorderOnMobile>
-            <CardHeader className="gap-y-2" showBorderOnMobile>
+          <Card key={`${title}-plan`} className="flex-1">
+            <CardHeader className="gap-y-2">
               <p className="text-lg font-semibold">{t(title as any)}</p>
 
               <p className="flex items-center gap-1.5">
@@ -42,7 +42,7 @@ const Plans = ({ currentPlan }: { currentPlan: Plan }) => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
               </Typography>
             </CardHeader>
-            <CardContent showBorderOnMobile>
+            <CardContent>
               <ul className="flex flex-col gap-y-2 text-sm">
                 {features.map((feature) => (
                   <li
@@ -55,7 +55,7 @@ const Plans = ({ currentPlan }: { currentPlan: Plan }) => {
                 ))}
               </ul>
             </CardContent>
-            <CardFooter showBorderOnMobile>
+            <CardFooter>
               <Link
                 className={cn(
                   buttonVariants({
