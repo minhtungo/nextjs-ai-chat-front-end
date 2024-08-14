@@ -12,6 +12,7 @@ import { getConvexHull } from "@/lib/chat";
 
 interface ChatWindowPanelProps {
   userId: string;
+  chatId: string;
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   selectedImage: HTMLImageElement;
@@ -20,6 +21,7 @@ interface ChatWindowPanelProps {
 
 const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
   userId,
+  chatId,
   isFocusMode,
   onToggleFocusMode,
   selectedImage,
@@ -33,7 +35,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
   const { clearMessageStore } = useMessageStore();
 
   const sub = useSub();
-  const { sendMessage } = useSendMessage({ userId, sub });
+  const { sendMessage } = useSendMessage({ userId, sub, chatId });
 
   useEffect(() => {
     return () => {

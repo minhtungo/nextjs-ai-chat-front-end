@@ -53,6 +53,8 @@ export const useInfiniteMessages = ({
     }
   }, [inView, hasNextPage]);
 
+  console.log("messageData", messageData);
+
   return {
     isLoading,
     messages: messageData,

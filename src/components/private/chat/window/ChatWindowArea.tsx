@@ -140,6 +140,7 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
           <div className="mb-3 px-4">
             <ChatWindowPanel
               userId={userId!}
+              chatId={chatId}
               isFocusMode={isFocusMode}
               onToggleFocusMode={onToggleFocusMode}
               selectedImage={imageRefs.current[selectedImageIndex!]}

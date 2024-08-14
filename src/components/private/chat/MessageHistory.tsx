@@ -12,6 +12,7 @@ interface MessageHistoryProps {
 
 const MessageHistory: FC<MessageHistoryProps> = ({ className }) => {
   const { messages } = chatStore();
+
   return (
     <div className={cn("w-full space-y-4", className)}>
       {messages.map((message) => (

@@ -19,10 +19,11 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(`rooms:${chatId}`);
   const { messages, setChat } = chatStore();
   const { clearMessageStore } = useMessageStore();
-  const { sendMessage } = useSendMessage({ userId, sub });
+  const { sendMessage } = useSendMessage({ userId, sub, chatId });
 
   useEffect(() => {
     return () => {
+      console.log("clearmessagestore");
       clearMessageStore();
       setChat(chatInitialState);
     };
@@ -30,7 +31,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     sendMessage({});
   };
 
