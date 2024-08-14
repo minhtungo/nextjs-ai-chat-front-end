@@ -5,10 +5,10 @@ import PromptForm from "./PromptForm";
 
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
-import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
-import { useSubscription } from "@/store/centrifuge";
 import { chatInitialState, chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
+import { useSendMessage } from "@/hooks/use-send-message";
+import { useSubscription } from "@/store/centrifuge";
 
 interface ChatPanelProps {
   userId: string;
@@ -16,15 +16,10 @@ interface ChatPanelProps {
 }
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
-  const { messages, setMessages, setChat } = chatStore();
-
-  const {
-    messageStore: { files, mathEquation, message, isPending },
-    clearMessageStore,
-  } = useMessageStore();
-
-  const channel = `rooms:${chatId}`;
-  const sub = useSubscription(channel);
+  const sub = useSubscription(`rooms:${chatId}`);
+  const { messages, setChat } = chatStore();
+  const { clearMessageStore } = useMessageStore();
+  const { sendMessage } = useSendMessage({ userId, sub });
 
   useEffect(() => {
     return () => {
@@ -36,42 +31,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isPending) return;
-
-    const content = mathEquation || message;
-
-    if (!content || content.trim() === "") {
-      return;
-    }
-
-    // Blur focus on mobile
-    if (window.innerWidth < 600) {
-      // @ts-ignore
-      e.target["message"]?.blur();
-    }
-
-    const { images, docs, imagesWithPreview } = getMessageFiles(files);
-
-    if (sub) {
-      sub.publish({
-        input: {
-          content,
-          images,
-          docs,
-        },
-      });
-    }
-
-    const newMessage = createNewMessageStore({
-      content,
-      userId,
-      docs,
-      images: imagesWithPreview,
-    });
-
-    setMessages((prev) => [...prev, newMessage]);
-
-    clearMessageStore();
+    sendMessage({});
   };
 
   return (

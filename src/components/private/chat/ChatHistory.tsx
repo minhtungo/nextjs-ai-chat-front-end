@@ -30,7 +30,9 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const { ref: bottomRef, inView: isBottom } = useInView();
   const scrollRef = useRef<ElementRef<"div">>(null);
 
-  const { isFetchingNextPage, messages } = useInfiniteMessages({
+  console.log("chathistory==================");
+
+  const { isFetchingNextPage, messages, isLoading } = useInfiniteMessages({
     chatId,
     inView,
   });
@@ -41,13 +43,13 @@ const ChatHistory: FC<ChatHistoryProps> = ({
     }
   }, [isBottom, messages]);
 
-  // if (isLoading) {
-  //   return (
-  //     <div className="flex h-full w-full items-center justify-center">
-  //       <Spinner className="size-5" />
-  //     </div>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner className="size-5" />
+      </div>
+    );
+  }
 
   return (
     <>

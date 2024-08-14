@@ -61,8 +61,6 @@ const useMessageStore = () => {
       return;
     }
 
-    console.log("add files", files);
-
     let totalFilesSize = currentFiles.reduce((acc, file) => acc + file.size, 0);
 
     const totalFilesCount = currentFiles.length;
