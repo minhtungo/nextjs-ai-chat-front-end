@@ -1,9 +1,15 @@
 import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
+import { CHAT_TOKEN_LIMIT, MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
 import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
 import { useQueryClient } from "@tanstack/react-query";
 import { Subscription } from "centrifuge";
+import {
+  encode,
+  encodeChat,
+  isWithinTokenLimit,
+} from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";
 
 interface useSendMessageProps {
@@ -20,9 +26,16 @@ export const useSendMessage = ({
   const {
     messageStore: { files, mathEquation, message, isPending },
     clearMessageStore,
+    isMessageWithinTokenLimit,
+    setIsMessageWithinTokenLimit,
   } = useMessageStore();
 
-  const { setMessages, messages } = chatStore();
+  const {
+    setMessages,
+    messages,
+    isChatWithinTokenLimit,
+    setIsChatWithinTokenLimit,
+  } = chatStore();
   const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
@@ -36,7 +49,24 @@ export const useSendMessage = ({
 
     const content = mathEquation || message;
 
+    console.log("content", message);
+
     if (!content || content.trim() === "") {
+      console.log("content is empty");
+      return;
+    }
+
+    console.log(encode(content));
+    console.log(encodeChat(messages));
+
+    const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
+    const withinChatLimit = isWithinTokenLimit(messages, CHAT_TOKEN_LIMIT);
+
+    setIsMessageWithinTokenLimit(withinMessageLimit);
+    setIsChatWithinTokenLimit(withinChatLimit);
+
+    if (!withinMessageLimit || !withinChatLimit) {
+      toast.error("You have exceeded the token limit");
       return;
     }
 
@@ -63,17 +93,17 @@ export const useSendMessage = ({
       images: imagesWithPreview,
     });
 
-    console.log("current message", messages);
-    console.log("new message", newMessage);
-
     setMessages((prev) => [...prev, newMessage]);
     queryClient.invalidateQueries({
       queryKey: getMessagesQueryKey(chatId),
     });
+
     clearMessageStore();
   };
 
   return {
     sendMessage,
+    isMessageWithinTokenLimit,
+    isChatWithinTokenLimit,
   };
 };

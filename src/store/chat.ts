@@ -16,6 +16,8 @@ const chatDocsAtom = atom<IFile[]>([]);
 const chatImagesAtom = atom<IFile[]>([]);
 const messagesAtom = atom<MessageStore[]>([]);
 
+const isChatWithinTokenLimitAtom = atom<number | false>(1);
+
 const chatStore = () => {
   return {
     chat: useAtomValue(chatAtom),
@@ -26,6 +28,8 @@ const chatStore = () => {
     setChatImages: useSetAtom(chatImagesAtom),
     messages: useAtomValue(messagesAtom),
     setMessages: useSetAtom(messagesAtom),
+    isChatWithinTokenLimit: useAtomValue(isChatWithinTokenLimitAtom),
+    setIsChatWithinTokenLimit: useSetAtom(isChatWithinTokenLimitAtom),
   };
 };
 

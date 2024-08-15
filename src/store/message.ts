@@ -1,6 +1,6 @@
 import { uploadFileAction } from "@/actions/file";
 import { getImageDimensions, nanoid } from "@/lib/utils";
-import { atom, useAtom } from "jotai";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { toast } from "sonner";
 
 const MAX_FILE_SIZE_MB = 10;
@@ -32,6 +32,8 @@ const initialMessageState: IMessage = {
   files: [],
   isPending: false,
 };
+
+const isMessageWithinTokenLimitAtom = atom<number | false>(1);
 
 const messageAtom = atom<IMessage>(initialMessageState);
 
@@ -171,6 +173,8 @@ const useMessageStore = () => {
     clearMessageStore,
     addFiles,
     removeFile,
+    isMessageWithinTokenLimit: useAtomValue(isMessageWithinTokenLimitAtom),
+    setIsMessageWithinTokenLimit: useSetAtom(isMessageWithinTokenLimitAtom),
   };
 };
 

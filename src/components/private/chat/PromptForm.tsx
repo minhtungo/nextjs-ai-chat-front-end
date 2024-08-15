@@ -30,11 +30,14 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  // const { isChatWithinTokenLimit } = chatStore();
+
   const {
     messageStore: { files, message, isPending },
     setMessage,
     addFiles,
     removeFile,
+    isMessageWithinTokenLimit,
   } = useMessageStore();
 
   useEffect(() => {
@@ -138,7 +141,11 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 type="submit"
                 size="xs"
                 className="self-end rounded-full disabled:bg-primary"
-                disabled={message.trim() === "" || isPending}
+                disabled={
+                  message.trim() === "" ||
+                  isPending ||
+                  !isMessageWithinTokenLimit
+                }
               >
                 <ArrowUp className="size-3.5" />
                 <span className="sr-only">Send message</span>

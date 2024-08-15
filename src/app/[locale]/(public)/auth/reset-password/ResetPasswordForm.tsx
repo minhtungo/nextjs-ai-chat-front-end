@@ -100,7 +100,6 @@ const ResetPasswordForm = () => {
             className="w-full"
             isPending={isPending}
             disabled={!token}
-            size="sm"
           >
             {t("ResetPassword.cta")}
           </SubmitButton>

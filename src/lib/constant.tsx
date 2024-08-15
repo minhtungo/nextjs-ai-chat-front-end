@@ -2,6 +2,8 @@ import Momo from "@/components/icons/Momo";
 import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
 
 export const TOKEN_EXPIRATION_IN_MINUTES = 60;
+export const MESSAGE_TOKEN_LIMIT = 10;
+export const CHAT_TOKEN_LIMIT = 5000;
 
 export const GOAlS = [
   {
