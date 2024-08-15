@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { useMessageImages } from "@/data/queries/use-message-images";
 import { useChatOverlay } from "@/hooks/use-chat-overlay";
 import { clearCanvas } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
 import "@/styles/draw.css";
 import { Eraser, Paintbrush, X } from "lucide-react";
 import Image from "next/image";
@@ -14,6 +13,7 @@ import { FC } from "react";
 import LineWidthSlider from "../LineWidthSlider";
 import SlidesNav from "@/components/private/chat/window/SlidesNav";
 import ChatWindowPanel from "@/components/private/chat/window/ChatWindowPanel";
+import { useChat } from "@/hooks/use-chat";
 
 interface ChatWindowAreaProps {
   userId: string;
@@ -26,14 +26,9 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
   chatId,
   children,
 }) => {
-  const {
-    chat: { selectedImageIndex },
-    chatImages,
-  } = chatStore();
+  const { selectedImageIndex, images } = useChat();
 
-  const imagesQueries = useMessageImages(
-    (chatImages ?? []).map(({ url }) => url!),
-  );
+  const imagesQueries = useMessageImages((images ?? []).map(({ url }) => url!));
 
   const {
     isFocusMode,
@@ -130,7 +125,7 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
           <SlidesNav
             onNavigate={onNavigateImage}
             selectedIndex={selectedImageIndex!}
-            total={chatImages.length}
+            total={images.length}
           />
         </div>
       </div>

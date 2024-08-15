@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { chatStore } from "@/store/chat";
 import { AppWindowMac } from "lucide-react";
 
 import {
@@ -10,16 +9,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useChat } from "@/hooks/use-chat";
 
 const ChatViewToggle = () => {
-  const { messages, setChat } = chatStore();
+  const { setSelectedImageIndex, images } = useChat();
 
-  if (
-    !messages ||
-    !messages.some((message) => message.images && message.images?.length > 0)
-  ) {
-    return null;
-  }
+  if (!images || images.length === 0) return null;
 
   return (
     <TooltipProvider delayDuration={100}>
@@ -30,10 +25,7 @@ const ChatViewToggle = () => {
             size="sm"
             className="hidden gap-1 text-muted-foreground md:inline-flex"
             onClick={() => {
-              setChat((prev) => ({
-                ...prev,
-                selectedImageIndex: 0,
-              }));
+              setSelectedImageIndex(0);
             }}
           >
             <AppWindowMac className="size-5" />

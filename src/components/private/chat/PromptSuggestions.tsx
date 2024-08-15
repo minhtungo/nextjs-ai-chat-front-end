@@ -1,12 +1,12 @@
+import { useChat } from "@/hooks/use-chat";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
+import { useSub } from "@/store/centrifuge";
 import { Subscription } from "centrifuge";
 import { FC } from "react";
 
 interface PromptSuggestionProps {
   className?: string;
-  sub: Subscription | null;
   userId: string;
 }
 
@@ -24,10 +24,12 @@ const promptSuggestion = [
 
 const PromptSuggestions: FC<PromptSuggestionProps> = ({
   className,
-  sub,
   userId,
 }) => {
-  const { setMessages } = chatStore();
+  const { setMessages, messages } = useChat();
+  const sub = useSub();
+
+  if (messages.length < 4) return null;
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });

@@ -4,11 +4,11 @@ import { FC, FormEvent, MutableRefObject, useEffect } from "react";
 
 import PromptForm from "@/components/private/chat/PromptForm";
 import { Badge } from "@/components/ui/badge";
+import { useChat } from "@/hooks/use-chat";
 import { useSendMessage } from "@/hooks/use-send-message";
-import { useSub } from "@/store/centrifuge";
-import { chatStore } from "@/store/chat";
-import { useMessageStore } from "@/store/message";
 import { getConvexHull } from "@/lib/chat";
+import { useSub } from "@/store/centrifuge";
+import { useMessageStore } from "@/store/message";
 
 interface ChatWindowPanelProps {
   userId: string;
@@ -27,10 +27,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
   selectedImage,
   drawingPoints,
 }) => {
-  const {
-    chat: { selectedImageIndex },
-    chatImages,
-  } = chatStore();
+  const { selectedImageIndex, images } = useChat();
 
   const { clearMessageStore } = useMessageStore();
 
@@ -47,7 +44,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
     e.preventDefault();
 
     const focusedImage = {
-      url: chatImages[selectedImageIndex!].url,
+      url: images[selectedImageIndex!].url,
       annotation: getConvexHull({
         drawingPoints,
         selectedImage,

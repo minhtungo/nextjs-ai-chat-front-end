@@ -1,7 +1,7 @@
+import { useChat } from "@/hooks/use-chat";
 import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
 import { CHAT_TOKEN_LIMIT, MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
-import { chatStore } from "@/store/chat";
 import { useMessageStore } from "@/store/message";
 import { useQueryClient } from "@tanstack/react-query";
 import { Subscription } from "centrifuge";
@@ -30,12 +30,7 @@ export const useSendMessage = ({
     setIsMessageWithinTokenLimit,
   } = useMessageStore();
 
-  const {
-    setMessages,
-    messages,
-    isChatWithinTokenLimit,
-    setIsChatWithinTokenLimit,
-  } = chatStore();
+  const { setMessages, messages } = useChat();
   const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
@@ -63,7 +58,6 @@ export const useSendMessage = ({
     const withinChatLimit = isWithinTokenLimit(messages, CHAT_TOKEN_LIMIT);
 
     setIsMessageWithinTokenLimit(withinMessageLimit);
-    setIsChatWithinTokenLimit(withinChatLimit);
 
     if (!withinMessageLimit || !withinChatLimit) {
       toast.error("You have exceeded the token limit");
@@ -104,6 +98,5 @@ export const useSendMessage = ({
   return {
     sendMessage,
     isMessageWithinTokenLimit,
-    isChatWithinTokenLimit,
   };
 };

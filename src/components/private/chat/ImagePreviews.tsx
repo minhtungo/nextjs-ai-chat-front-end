@@ -2,30 +2,14 @@ import { FC } from "react";
 
 import ImagePreview from "@/components/private/chat/ImagePreview";
 import { useMessageImages } from "@/data/queries/use-message-images";
-import { chatStore } from "@/store/chat";
-import { IFile } from "@/types/chat";
+import { AtomFile } from "@/types/chat";
 
 interface ImagePreviewsProps {
-  images: IFile[];
+  images: AtomFile[];
 }
 
 const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
-  const {
-    chat: { selectedImageIndex },
-    chatImages,
-    setChat,
-  } = chatStore();
-
-  console.log("images", images);
-
-  const onImageClick = (url: string) => {
-    if (!selectedImageIndex) {
-      setChat((prevState) => ({
-        ...prevState,
-        selectedImageIndex: chatImages.findIndex((image) => image!.url === url),
-      }));
-    }
-  };
+  console.log("ImagePreviews");
 
   const imagesQueries = useMessageImages(
     (images ?? []).map((image) => image.url!),
@@ -39,11 +23,11 @@ const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
             key={data?.path}
             src={data?.imageSrc}
             thumbnail={images[index].thumbnail}
+            url={data?.url}
             preview={images[index].preview}
             path={data?.path!}
             isLoading={isLoading}
-            isOverlayOpen={selectedImageIndex !== null}
-            onClick={() => onImageClick(data?.url!)}
+            images={images}
           />
         );
       })}

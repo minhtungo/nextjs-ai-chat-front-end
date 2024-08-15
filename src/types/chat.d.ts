@@ -1,12 +1,23 @@
 import { Message } from "@/lib/definitions";
 
-type IFile = {
+type FileType = "image" | "document" | "pdf";
+
+export type NewMessage = {
+  message: string;
+  mathEquation: string;
+  files: AtomFile[];
+  isPending: boolean;
+};
+
+export type AtomFile = {
+  id: string;
   name: string;
-  type: "image" | "document" | "pdf";
+  type: FileType;
   url?: string;
   preview?: string;
-  isUploading?: boolean;
   thumbnail?: string;
+  size: number;
+  isUploading?: boolean;
   originalWidth?: number;
   originalHeight?: number;
 };

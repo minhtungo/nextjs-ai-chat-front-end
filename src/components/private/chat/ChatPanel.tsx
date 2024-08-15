@@ -1,15 +1,16 @@
 "use client";
 
-import { FC, FormEvent, useCallback, useEffect } from "react";
+import { FC, FormEvent, useEffect } from "react";
 import PromptForm from "./PromptForm";
 
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
-import { chatInitialState, chatStore } from "@/store/chat";
-import { useMessageStore } from "@/store/message";
+import { Badge } from "@/components/ui/badge";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { useSubscription } from "@/store/centrifuge";
-import { Badge } from "@/components/ui/badge";
+import { useMessageStore } from "@/store/message";
+import { useChat } from "@/hooks/use-chat";
+import { chatInitialState } from "@/atoms/chat";
 
 interface ChatPanelProps {
   userId: string;
@@ -18,7 +19,7 @@ interface ChatPanelProps {
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(`rooms:${chatId}`);
-  const { messages, setChat } = chatStore();
+  const { setChat } = useChat();
   const { clearMessageStore } = useMessageStore();
   const { sendMessage, isMessageWithinTokenLimit } = useSendMessage({
     userId,
@@ -40,9 +41,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
 
   return (
     <MaxWidthWrapper className="space-y-3 pt-3">
-      {messages && messages.length > 4 && (
-        <PromptSuggestions className="mt-4" sub={sub} userId={userId} />
-      )}
+      <PromptSuggestions className="mt-4" userId={userId} />
       <>
         {!isMessageWithinTokenLimit && (
           <Badge className="mb-3">

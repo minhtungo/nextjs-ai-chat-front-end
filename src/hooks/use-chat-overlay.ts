@@ -1,5 +1,5 @@
+import { useChat } from "@/hooks/use-chat";
 import { clearCanvas } from "@/lib/utils";
-import { chatStore } from "@/store/chat";
 import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
 
 interface useChatOverlayProps {}
@@ -7,7 +7,7 @@ interface useChatOverlayProps {}
 export const useChatOverlay = () => {
   const scrollRef = useRef<ElementRef<"div">>(null);
 
-  const { messages, setChat } = chatStore();
+  const { messages, setSelectedImageIndex } = useChat();
 
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [cursorSize, setCursorSize] = useState(25);
@@ -17,10 +17,7 @@ export const useChatOverlay = () => {
   const imageRefs = useRef<HTMLImageElement[]>([]);
 
   const updateChatOverlay = useCallback((selectedImageIndex: number | null) => {
-    setChat((prevState) => ({
-      ...prevState,
-      selectedImageIndex,
-    }));
+    setSelectedImageIndex(selectedImageIndex);
   }, []);
 
   const onToggleFocusMode = useCallback(() => {

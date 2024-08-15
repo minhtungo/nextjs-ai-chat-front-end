@@ -3,7 +3,7 @@
 import OverlayWindow from "@/components/common/OverlayWindow";
 import Spinner from "@/components/common/Spinner";
 import ChatHistory from "@/components/private/chat/ChatHistory";
-import { chatStore } from "@/store/chat";
+import { useChat } from "@/hooks/use-chat";
 import dynamic from "next/dynamic";
 import { FC } from "react";
 
@@ -24,9 +24,7 @@ const ChatWindowArea = dynamic(
 );
 
 const ChatWindow: FC<ChatWindowProps> = ({ chatId, userId }) => {
-  const {
-    chat: { selectedImageIndex },
-  } = chatStore();
+  const { selectedImageIndex } = useChat();
 
   return (
     <>

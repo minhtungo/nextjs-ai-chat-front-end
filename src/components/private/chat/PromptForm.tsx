@@ -30,8 +30,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // const { isChatWithinTokenLimit } = chatStore();
-
   const {
     messageStore: { files, message, isPending },
     setMessage,

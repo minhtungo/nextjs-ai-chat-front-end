@@ -1,3 +1,4 @@
+import { useChat } from "@/hooks/use-chat";
 import { cn } from "@/lib/utils";
 import { MessageSquareShare } from "lucide-react";
 import Image from "next/image";
@@ -9,19 +10,29 @@ interface ImagePreviewProps {
   preview: string | undefined;
   path: string;
   isLoading: boolean;
-  onClick: () => void;
-  isOverlayOpen: boolean;
+  url: string | undefined;
+  images: AtomFile[];
 }
 
 const ImagePreview: FC<ImagePreviewProps> = ({
   src,
   path,
-  onClick,
-  isOverlayOpen,
   preview,
   isLoading,
   thumbnail,
+  url,
+  images,
 }) => {
+  const { setSelectedImageIndex, selectedImageIndex } = useChat();
+
+  const onImageClick = () => {
+    if (!selectedImageIndex) {
+      setSelectedImageIndex(images.findIndex((image) => image!.url === url));
+    }
+  };
+
+  const isOverlayOpen = selectedImageIndex !== null;
+
   return (
     <div
       className={cn(
@@ -30,7 +41,7 @@ const ImagePreview: FC<ImagePreviewProps> = ({
       )}
       onClick={() => {
         if (!isOverlayOpen) {
-          onClick();
+          onImageClick();
         }
       }}
     >

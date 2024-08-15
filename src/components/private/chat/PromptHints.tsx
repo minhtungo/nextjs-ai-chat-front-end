@@ -1,7 +1,7 @@
+import { useChat } from "@/hooks/use-chat";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useSub } from "@/store/centrifuge";
-import { chatStore } from "@/store/chat";
 import { Lightbulb } from "lucide-react";
 import { FC } from "react";
 
@@ -24,7 +24,7 @@ const promptSuggestion = [
 
 const PromptHints: FC<PromptSuggestionProps> = ({ className, userId }) => {
   const sub = useSub();
-  const { setMessages } = chatStore();
+  const { setMessages } = useChat();
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });

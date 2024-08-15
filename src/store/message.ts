@@ -1,28 +1,16 @@
 import { uploadFileAction } from "@/actions/file";
 import { getImageDimensions, nanoid } from "@/lib/utils";
+import { MessageFile } from "@/types/chat";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { toast } from "sonner";
 
 const MAX_FILE_SIZE_MB = 10;
 const MAX_FILE_COUNT = 10;
 
-export interface IFile {
-  id: string;
-  name: string;
-  url?: string;
-  preview?: string;
-  thumbnail?: string;
-  type: "image" | "document" | "pdf";
-  isUploading?: boolean;
-  size: number;
-  originalWidth?: number;
-  originalHeight?: number;
-}
-
 interface IMessage {
   message: string;
   mathEquation: string;
-  files: IFile[];
+  files: MessageFile[];
   isPending: boolean;
 }
 
@@ -52,7 +40,9 @@ const useMessageStore = () => {
   const setIsPending = (isPending: boolean) =>
     setMessageStore((prev) => ({ ...prev, isPending }));
 
-  const setFiles = (update: IFile[] | ((prevFiles: IFile[]) => IFile[])) =>
+  const setFiles = (
+    update: MessageFile[] | ((prevFiles: MessageFile[]) => MessageFile[]),
+  ) =>
     setMessageStore((prev) => ({
       ...prev,
       files: typeof update === "function" ? update(prev.files) : update,
@@ -67,7 +57,7 @@ const useMessageStore = () => {
 
     const totalFilesCount = currentFiles.length;
 
-    let validFiles = [] as IFile[];
+    let validFiles = [] as MessageFile[];
 
     for (let file of files) {
       totalFilesSize += file.size;
