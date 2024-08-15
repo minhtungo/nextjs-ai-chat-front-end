@@ -1,6 +1,6 @@
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
-import { useChat } from "@/hooks/use-chat";
+import { useMessages } from "@/hooks/use-messages";
 import { MESSAGES_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
 import { useEffect, useMemo } from "react";
@@ -32,7 +32,7 @@ export const useInfiniteMessages = ({
     }),
   });
 
-  const { setChat } = useChat();
+  const { setMessages } = useMessages();
 
   const messageData = useMemo(
     () => data?.pages.toReversed().flatMap((page) => page.messages) || [],
@@ -40,14 +40,10 @@ export const useInfiniteMessages = ({
   );
 
   useEffect(() => {
-    if (messageData) {
-      setChat((prev) => ({
-        ...prev,
-        messages: messageData,
-        docs: messageData.flatMap((msg) => msg.docs || []),
-        images: messageData.flatMap((msg) => msg.images[0] || []),
-      }));
-    }
+    setMessages(() => {
+      if (!messageData) return [];
+      return messageData;
+    });
   }, [messageData]);
 
   useEffect(() => {

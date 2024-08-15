@@ -9,8 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { useSubscription } from "@/store/centrifuge";
 import { useMessageStore } from "@/store/message";
-import { useChat } from "@/hooks/use-chat";
-import { chatInitialState } from "@/atoms/chat";
 
 interface ChatPanelProps {
   userId: string;
@@ -19,7 +17,6 @@ interface ChatPanelProps {
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(`rooms:${chatId}`);
-  const { setChat } = useChat();
   const { clearMessageStore } = useMessageStore();
   const { sendMessage, isMessageWithinTokenLimit } = useSendMessage({
     userId,
@@ -30,7 +27,6 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   useEffect(() => {
     return () => {
       clearMessageStore();
-      setChat(chatInitialState);
     };
   }, [chatId]);
 

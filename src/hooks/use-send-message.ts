@@ -1,4 +1,4 @@
-import { useChat } from "@/hooks/use-chat";
+import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
 import { CHAT_TOKEN_LIMIT, MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
@@ -30,7 +30,7 @@ export const useSendMessage = ({
     setIsMessageWithinTokenLimit,
   } = useMessageStore();
 
-  const { setMessages, messages } = useChat();
+  const { messages, setMessages } = useMessages();
   const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
@@ -55,16 +55,24 @@ export const useSendMessage = ({
     console.log(encodeChat(messages));
 
     const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
-    const withinChatLimit = isWithinTokenLimit(messages, CHAT_TOKEN_LIMIT);
 
     setIsMessageWithinTokenLimit(withinMessageLimit);
 
-    if (!withinMessageLimit || !withinChatLimit) {
+    if (!withinMessageLimit) {
       toast.error("You have exceeded the token limit");
       return;
     }
 
     const { images, docs, imagesWithPreview } = getMessageFiles(files);
+
+    const newMessage = createNewMessageStore({
+      content,
+      userId,
+      docs,
+      images: imagesWithPreview,
+    });
+
+    setMessages((prev) => [...prev, newMessage]);
 
     if (sub) {
       sub.publish({
@@ -80,14 +88,6 @@ export const useSendMessage = ({
       return;
     }
 
-    const newMessage = createNewMessageStore({
-      content,
-      userId,
-      docs,
-      images: imagesWithPreview,
-    });
-
-    setMessages((prev) => [...prev, newMessage]);
     queryClient.invalidateQueries({
       queryKey: getMessagesQueryKey(chatId),
     });

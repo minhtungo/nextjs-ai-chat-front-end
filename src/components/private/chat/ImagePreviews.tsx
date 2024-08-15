@@ -20,14 +20,13 @@ const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
       {imagesQueries?.map(({ data, isLoading }, index) => {
         return (
           <ImagePreview
-            key={data?.path}
+            key={`${data?.path}-${index}`}
             src={data?.imageSrc}
             thumbnail={images[index].thumbnail}
             url={data?.url}
             preview={images[index].preview}
             path={data?.path!}
             isLoading={isLoading}
-            images={images}
           />
         );
       })}

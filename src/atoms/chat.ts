@@ -1,42 +1,49 @@
 import { MessageStore } from "@/types/chat";
 import { atom } from "jotai";
-import { focusAtom } from "jotai-optics";
 
-type FileAtom = {
-  name: string;
-  type: string;
-  url?: string;
-  originalHeight?: number;
-  originalWidth?: number;
-  thumbnail?: string;
-};
+// type FileAtom = {
+//   name: string;
+//   type: string;
+//   url?: string;
+//   originalHeight?: number;
+//   originalWidth?: number;
+//   thumbnail?: string;
+// };
 
-type ChatAtom = {
-  id: string | null;
-  selectedImageIndex: number | null;
-  messages: MessageStore[];
-  docs: FileAtom[];
-  images: FileAtom[];
-};
+// type ChatAtom = {
+//   id: string | null;
+//   selectedImageIndex: number | null;
+//   messages: MessageStore[];
+// };
 
-export const chatInitialState: ChatAtom = {
-  id: "",
-  selectedImageIndex: null,
-  messages: [],
-  docs: [],
-  images: [],
-};
+// export const chatInitialState: ChatAtom = {
+//   id: "",
+//   selectedImageIndex: null,
+//   messages: [],
+// };
 
-export const chatAtom = atom<ChatAtom>(chatInitialState);
+// export const chatAtom = atom<ChatAtom>(chatInitialState);
 
-export const messagesAtom = focusAtom(chatAtom, (optic) =>
-  optic.prop("messages"),
+export const messagesAtom = atom<MessageStore[]>([]);
+
+export const imagesAtom = atom((get) =>
+  get(messagesAtom).flatMap((msg) => msg.images ?? []),
 );
 
-export const docsAtom = focusAtom(chatAtom, (optic) => optic.prop("docs"));
-
-export const imagesAtom = focusAtom(chatAtom, (optic) => optic.prop("images"));
-
-export const selectedImageIndexAtom = focusAtom(chatAtom, (optic) =>
-  optic.prop("selectedImageIndex"),
+export const docsAtom = atom((get) =>
+  get(messagesAtom).flatMap((msg) => msg.docs ?? []),
 );
+
+export const selectedImageIndexAtom = atom<number | null>(null);
+
+export const selectedImageIndexFinderAtom = atom(null, (get, set, url) => {
+  console.log("inside", url);
+  if (get(selectedImageIndexAtom) !== null) {
+    return;
+  }
+  console.log("inside", url);
+  const index = get(imagesAtom).findIndex((image) => image.url === url);
+  console.log("index", index);
+
+  set(selectedImageIndexAtom, index);
+});

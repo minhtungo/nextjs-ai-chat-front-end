@@ -1350,7 +1350,7 @@
   dependencies:
     "@typescript-eslint/utils" "8.0.0-alpha.30"
 
-"@tanstack/query-core@5.51.21":
+"@tanstack/query-core@5.51.21", "@tanstack/query-core@^5.51.21":
   version "5.51.21"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.51.21.tgz#a510469c6c30d3de2a8b8798e340169a4b0fd08f"
   integrity sha512-POQxm42IUp6n89kKWF4IZi18v3fxQWFRolvBA6phNVmA8psdfB1MvDnGacCJdS+EOX12w/CyHM62z//rHmYmvw==
@@ -3866,10 +3866,10 @@ jose@^5.6.3:
   resolved "https://registry.yarnpkg.com/jose/-/jose-5.6.3.tgz#415688bc84875461c86dfe271ea6029112a23e27"
   integrity sha512-1Jh//hEEwMhNYPDDLwXHa2ePWgWiFNNUadVmguAAw2IJ6sj9mNxV5tGXJNqlMkJAybF6Lgw1mISDxTePP/187g==
 
-jotai-optics@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/jotai-optics/-/jotai-optics-0.4.0.tgz#aad207090a06390e61cc85324b623b2692e2e272"
-  integrity sha512-osbEt9AgS55hC4YTZDew2urXKZkaiLmLqkTS/wfW5/l0ib8bmmQ7kBXSFaosV6jDDWSp00IipITcJARFHdp42g==
+jotai-tanstack-query@^0.8.6:
+  version "0.8.6"
+  resolved "https://registry.yarnpkg.com/jotai-tanstack-query/-/jotai-tanstack-query-0.8.6.tgz#dcd780fe995b844cc3696884eca32b78154334fc"
+  integrity sha512-ChzeDnI5FYtK8KHHj6RLe7igj0FahAxZ+X2d+4kqZsqte03PISXglVAW0KnJybRnMVe3H0z3EuJE7wMhW3WKfg==
 
 jotai@^2.9.3:
   version "2.9.3"
@@ -4957,11 +4957,6 @@ onetime@^5.1.0:
   integrity sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==
   dependencies:
     mimic-fn "^2.1.0"
-
-optics-ts@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/optics-ts/-/optics-ts-2.4.1.tgz#de94bda2b0ed7fde5b7631283031b9699459d40d"
-  integrity sha512-HaYzMHvC80r7U/LqAd4hQyopDezC60PO2qF5GuIwALut2cl5rK1VWHsqTp0oqoJJWjiv6uXKqsO+Q2OO0C3MmQ==
 
 optionator@^0.9.3:
   version "0.9.4"

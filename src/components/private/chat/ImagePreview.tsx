@@ -11,7 +11,6 @@ interface ImagePreviewProps {
   path: string;
   isLoading: boolean;
   url: string | undefined;
-  images: AtomFile[];
 }
 
 const ImagePreview: FC<ImagePreviewProps> = ({
@@ -21,29 +20,16 @@ const ImagePreview: FC<ImagePreviewProps> = ({
   isLoading,
   thumbnail,
   url,
-  images,
 }) => {
-  const { setSelectedImageIndex, selectedImageIndex } = useChat();
-
-  const onImageClick = () => {
-    if (!selectedImageIndex) {
-      setSelectedImageIndex(images.findIndex((image) => image!.url === url));
-    }
-  };
-
-  const isOverlayOpen = selectedImageIndex !== null;
+  const { selectedImageIndex, updateImageIndex } = useChat();
 
   return (
     <div
       className={cn(
         "relative aspect-square h-40 w-40 overflow-hidden rounded-lg border",
-        !isOverlayOpen ? "cursor-pointer" : "cursor-default",
+        selectedImageIndex !== null ? "cursor-default" : "cursor-pointer",
       )}
-      onClick={() => {
-        if (!isOverlayOpen) {
-          onImageClick();
-        }
-      }}
+      onClick={() => updateImageIndex(url)}
     >
       <>
         {preview && isLoading ? (
@@ -76,7 +62,7 @@ const ImagePreview: FC<ImagePreviewProps> = ({
             />
           </>
         )}
-        {src && !isOverlayOpen && (
+        {src && selectedImageIndex === null && (
           <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-accent/50 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
             <MessageSquareShare className="size-4 sm:size-5" />
           </div>

@@ -1,13 +1,13 @@
 import { useChat } from "@/hooks/use-chat";
+import { useMessages } from "@/hooks/use-messages";
 import { clearCanvas } from "@/lib/utils";
 import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
-
-interface useChatOverlayProps {}
 
 export const useChatOverlay = () => {
   const scrollRef = useRef<ElementRef<"div">>(null);
 
-  const { messages, setSelectedImageIndex } = useChat();
+  const { setSelectedImageIndex } = useChat();
+  const { messages } = useMessages();
 
   const [isFocusMode, setIsFocusMode] = useState(false);
   const [cursorSize, setCursorSize] = useState(25);

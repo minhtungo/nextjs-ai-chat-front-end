@@ -1,8 +1,7 @@
-import { useChat } from "@/hooks/use-chat";
+import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useSub } from "@/store/centrifuge";
-import { Subscription } from "centrifuge";
 import { FC } from "react";
 
 interface PromptSuggestionProps {
@@ -26,7 +25,7 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
   className,
   userId,
 }) => {
-  const { setMessages, messages } = useChat();
+  const { messages, setMessages } = useMessages();
   const sub = useSub();
 
   if (messages.length < 4) return null;

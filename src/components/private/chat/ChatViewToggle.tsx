@@ -14,7 +14,7 @@ import { useChat } from "@/hooks/use-chat";
 const ChatViewToggle = () => {
   const { setSelectedImageIndex, images } = useChat();
 
-  if (!images || images.length === 0) return null;
+  if (images.length === 0) return null;
 
   return (
     <TooltipProvider delayDuration={100}>
