@@ -9,11 +9,12 @@ import { clearCanvas } from "@/lib/utils";
 import "@/styles/draw.css";
 import { Eraser, Paintbrush, X } from "lucide-react";
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useRef } from "react";
 import LineWidthSlider from "../LineWidthSlider";
 import SlidesNav from "@/components/private/chat/window/SlidesNav";
 import ChatWindowPanel from "@/components/private/chat/window/ChatWindowPanel";
 import { useChat } from "@/hooks/use-chat";
+import { clearPoints } from "@/lib/chat";
 
 interface ChatWindowAreaProps {
   userId: string;
@@ -26,7 +27,8 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
   chatId,
   children,
 }) => {
-  const { selectedImageIndex, images } = useChat();
+  const { selectedImageIndex, images, setSelectedImageIndex } = useChat();
+  const drawingPointsRef = useRef<Array<[number, number]>>([]);
 
   const imagesQueries = useMessageImages((images ?? []).map(({ url }) => url!));
 
@@ -34,13 +36,11 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
     isFocusMode,
     onToggleFocusMode,
     canvasRef,
-    drawingPoints,
     imageRefs,
-    updateChatOverlay,
     cursorSize,
     setCursorSize,
     onNavigateImage,
-  } = useChatOverlay();
+  } = useChatOverlay(drawingPointsRef);
 
   return (
     <OverlayWindow className="flex">
@@ -55,7 +55,10 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
                   size="icon"
                   variant="ghost"
                   className="hover:bg-background/60"
-                  onClick={() => clearCanvas(canvasRef)}
+                  onClick={() => {
+                    clearCanvas(canvasRef);
+                    clearPoints(drawingPointsRef);
+                  }}
                 >
                   <Eraser className="size-5" />
                 </Button>
@@ -84,7 +87,10 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
                     size="icon"
                     variant="ghost"
                     className="hover:bg-background/60"
-                    onClick={() => updateChatOverlay(null)}
+                    onClick={() => {
+                      setSelectedImageIndex(null);
+                      clearPoints(drawingPointsRef);
+                    }}
                   >
                     <X className="size-5" />
                   </Button>
@@ -113,9 +119,9 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
                   <div className="relative">
                     <ImageMaskEditor
                       canvasRef={canvasRef}
+                      drawingPointsRef={drawingPointsRef}
                       image={imageRefs.current[selectedImageIndex!]}
                       cursorSize={cursorSize}
-                      drawingPoints={drawingPoints.current}
                     />
                   </div>
                 </div>
@@ -139,7 +145,7 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
               isFocusMode={isFocusMode}
               onToggleFocusMode={onToggleFocusMode}
               selectedImage={imageRefs.current[selectedImageIndex!]}
-              drawingPoints={drawingPoints}
+              drawingPointsRef={drawingPointsRef}
             />
           </div>
         </div>

@@ -1,9 +1,19 @@
 import { useChat } from "@/hooks/use-chat";
 import { useMessages } from "@/hooks/use-messages";
+import { clearPoints } from "@/lib/chat";
 import { clearCanvas } from "@/lib/utils";
-import { ElementRef, useCallback, useEffect, useRef, useState } from "react";
+import {
+  ElementRef,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
-export const useChatOverlay = () => {
+export const useChatOverlay = (
+  drawingPointsRef: MutableRefObject<[number, number][]>,
+) => {
   const scrollRef = useRef<ElementRef<"div">>(null);
 
   const { setSelectedImageIndex } = useChat();
@@ -13,23 +23,19 @@ export const useChatOverlay = () => {
   const [cursorSize, setCursorSize] = useState(25);
 
   const canvasRef = useRef<HTMLCanvasElement>();
-  const drawingPoints = useRef<Array<[number, number]>>([]);
   const imageRefs = useRef<HTMLImageElement[]>([]);
-
-  const updateChatOverlay = useCallback((selectedImageIndex: number | null) => {
-    setSelectedImageIndex(selectedImageIndex);
-  }, []);
 
   const onToggleFocusMode = useCallback(() => {
     if (isFocusMode) {
       clearCanvas(canvasRef);
     }
     setIsFocusMode(!isFocusMode);
+    clearPoints(drawingPointsRef);
   }, [isFocusMode]);
 
   const onNavigateImage = useCallback(
     (index: number) => {
-      updateChatOverlay(index);
+      setSelectedImageIndex(index);
       if (isFocusMode) onToggleFocusMode();
     },
     [isFocusMode],
@@ -38,7 +44,7 @@ export const useChatOverlay = () => {
   useEffect(() => {
     const handleClose = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        updateChatOverlay(null);
+        setSelectedImageIndex(null);
       }
     };
 
@@ -59,9 +65,7 @@ export const useChatOverlay = () => {
     isFocusMode,
     onToggleFocusMode,
     canvasRef,
-    drawingPoints,
     imageRefs,
-    updateChatOverlay,
     cursorSize,
     setCursorSize,
     onNavigateImage,

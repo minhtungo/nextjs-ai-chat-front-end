@@ -1,3 +1,4 @@
+import { addPoint } from "@/lib/chat";
 import {
   FC,
   MutableRefObject,
@@ -16,22 +17,22 @@ const MaskEditorDefaults = {
 
 interface MaskEditorProps {
   canvasRef: MutableRefObject<HTMLCanvasElement | undefined>;
+  drawingPointsRef: MutableRefObject<[number, number][]>;
   cursorSize?: any;
   image: HTMLImageElement | null;
   maskColor?: string;
   maskBlendMode?: string;
   maskOpacity?: number;
-  drawingPoints: Array<[number, number]>;
 }
 
 export const ImageMaskEditor: FC<MaskEditorProps> = ({
   image,
   canvasRef,
+  drawingPointsRef,
   cursorSize = MaskEditorDefaults.cursorSize,
   maskColor = MaskEditorDefaults.maskColor,
   maskBlendMode = MaskEditorDefaults.maskBlendMode,
   maskOpacity = MaskEditorDefaults.maskOpacity,
-  drawingPoints,
 }: MaskEditorProps) => {
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const maskCanvas = useRef<HTMLCanvasElement | null>(null);
@@ -78,13 +79,6 @@ export const ImageMaskEditor: FC<MaskEditorProps> = ({
       setSize({ x: image.offsetWidth, y: image.offsetHeight });
 
       context?.drawImage(image, 0, 0);
-
-      console.log(
-        "overlay image offset",
-        image.offsetWidth,
-        image.offsetHeight,
-      );
-      console.log("overlay image original", image.width, image.height);
     }
   }, [image, context]);
 
@@ -114,7 +108,10 @@ export const ImageMaskEditor: FC<MaskEditorProps> = ({
         maskContext.arc(x, y, cursorSize, 0, 360);
         maskContext.fill();
 
-        drawingPoints.push([x, y]);
+        addPoint({
+          drawingPointsRef,
+          newPoint: [x, y],
+        });
       }
     };
 

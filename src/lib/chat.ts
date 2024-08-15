@@ -24,7 +24,6 @@ export const createChatRoom = async ({
 };
 
 export const getMessageFiles = (files: MessageFile[]) => {
-  console.log("getMessagesfiles", files);
   const imagesWithPreview = files
     .filter((file) => file.type === "image")
     .map((file) => ({
@@ -93,12 +92,32 @@ export const createNewMessageStore = ({
 };
 
 type ConvexHull = {
-  drawingPoints: MutableRefObject<[number, number][]>;
+  drawingPointsRef: MutableRefObject<[number, number][]>;
   selectedImage: HTMLImageElement;
 };
 
-export const getConvexHull = ({ drawingPoints, selectedImage }: ConvexHull) => {
-  if (drawingPoints.current.length < 3) return [];
+export const addPoint = ({
+  drawingPointsRef,
+  newPoint,
+}: {
+  drawingPointsRef: MutableRefObject<[number, number][]>;
+  newPoint: [number, number];
+}) => {
+  drawingPointsRef.current.push(newPoint);
+};
+
+export const clearPoints = (
+  drawingPointsRef: MutableRefObject<[number, number][]>,
+) => {
+  drawingPointsRef.current = [];
+};
+
+export const getConvexHull = ({
+  drawingPointsRef,
+  selectedImage,
+}: ConvexHull) => {
+  console.log("iam inside", drawingPointsRef.current);
+  if (drawingPointsRef.current.length < 3) return [];
   const originalWidth = selectedImage?.naturalWidth;
   const originalHeight = selectedImage?.naturalHeight;
   const renderedWidth = selectedImage?.width;
@@ -107,30 +126,26 @@ export const getConvexHull = ({ drawingPoints, selectedImage }: ConvexHull) => {
   const scaleX = originalWidth / renderedWidth;
   const scaleY = originalHeight / renderedHeight;
 
-  console.log("scaleX", scaleX);
-  console.log("scaleY", scaleY);
-
-  const scaledPoints = drawingPoints.current.map(([x, y]) => [
+  const scaledPoints = drawingPointsRef.current.map(([x, y]) => [
     x * scaleX,
     y * scaleY,
   ]);
 
-  console.log("scaledPoints", scaledPoints);
-  console.log("originalPoints", drawingPoints.current);
+  console.log("originalPoints", drawingPointsRef.current);
 
-  const renderedHull = convexHull(drawingPoints.current) as Array<
+  const renderedHull = convexHull(drawingPointsRef.current) as Array<
     [number, number]
   >;
   const scaledHull = convexHull(scaledPoints) as Array<[number, number]>;
 
-  console.log("test get hull", {
-    renderedWidth,
-    renderedHeight,
-    renderedHull,
-    originalWidth,
-    originalHeight,
-    scaledHull,
-  });
+  // console.log("test get hull", {
+  //   renderedWidth,
+  //   renderedHeight,
+  //   renderedHull,
+  //   originalWidth,
+  //   originalHeight,
+  //   scaledHull,
+  // });
 
   return {
     renderedWidth,

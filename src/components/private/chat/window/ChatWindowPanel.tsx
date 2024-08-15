@@ -6,9 +6,9 @@ import PromptForm from "@/components/private/chat/PromptForm";
 import { Badge } from "@/components/ui/badge";
 import { useChat } from "@/hooks/use-chat";
 import { useSendMessage } from "@/hooks/use-send-message";
-import { getConvexHull } from "@/lib/chat";
 import { useSub } from "@/store/centrifuge";
 import { useMessageStore } from "@/store/message";
+import { getConvexHull } from "@/lib/chat";
 
 interface ChatWindowPanelProps {
   userId: string;
@@ -16,7 +16,7 @@ interface ChatWindowPanelProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   selectedImage: HTMLImageElement;
-  drawingPoints: MutableRefObject<[number, number][]>;
+  drawingPointsRef: MutableRefObject<[number, number][]>;
 }
 
 const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
@@ -25,7 +25,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
   isFocusMode,
   onToggleFocusMode,
   selectedImage,
-  drawingPoints,
+  drawingPointsRef,
 }) => {
   const { selectedImageIndex, images } = useChat();
 
@@ -46,7 +46,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
     const focusedImage = {
       url: images[selectedImageIndex!].url,
       annotation: getConvexHull({
-        drawingPoints,
+        drawingPointsRef,
         selectedImage,
       }),
     };

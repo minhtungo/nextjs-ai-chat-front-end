@@ -44,15 +44,13 @@ export const useSendMessage = ({
 
     const content = mathEquation || message;
 
-    console.log("content", message);
-
     if (!content || content.trim() === "") {
       console.log("content is empty");
       return;
     }
 
-    console.log(encode(content));
-    console.log(encodeChat(messages));
+    // console.log(encode(content));
+    // console.log(encodeChat(messages));
 
     const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
 
