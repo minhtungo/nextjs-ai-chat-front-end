@@ -156,12 +156,12 @@ export const hexToRgb = (color: string) => {
   return parts.map((part: string) => parseInt(part, 16));
 };
 
-export const match = <T, R>(value: T, cases: Record<string, R>) => {
-  for (const key in cases) {
-    if (value === key) {
-      return cases[key];
-    }
-  }
+export const match = <T extends string | number | symbol, V>(
+  value: T,
+  handlers: { [key in T]: V },
+): V => {
+  const handler = handlers[value];
+  return handler;
 };
 
 export const getImageDimensions = (file: File) => {

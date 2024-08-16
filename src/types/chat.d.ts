@@ -1,23 +1,8 @@
 import { Message } from "@/lib/definitions";
 
-type FileType = "image" | "document" | "pdf";
-
 export type NewMessage = {
   content: string;
   mathEquation: string;
-};
-
-export type AtomFile = {
-  id: string;
-  name: string;
-  type: FileType;
-  url?: string;
-  preview?: string;
-  thumbnail?: string;
-  size: number;
-  isUploading?: boolean;
-  originalWidth?: number;
-  originalHeight?: number;
 };
 
 export type CreateNewRoomResponse = {
@@ -38,19 +23,6 @@ export type ChatListItem = {
   subject: string;
   timestamp: number;
   last_active: number;
-};
-
-export type MessageFile = {
-  id: string;
-  name: string;
-  url?: string;
-  preview?: string;
-  type: "image" | "document" | "pdf";
-  thumbnail?: string;
-  isUploading?: boolean;
-  size: number;
-  originalWidth?: number;
-  originalHeight?: number;
 };
 
 export type MessageResponse = {
@@ -77,4 +49,11 @@ export type Chat = {
   subject: string;
   userId: string;
   messages: Message[];
+};
+
+export type InfiniteMessagePage = {
+  pageParams: number[];
+  pages: {
+    messages: Message[];
+  }[];
 };

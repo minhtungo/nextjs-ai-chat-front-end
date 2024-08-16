@@ -8,9 +8,10 @@ import { FC } from "react";
 interface EmptyChatProps {
   className?: string;
   userId: string;
+  chatId: string;
 }
 
-const EmptyChat: FC<EmptyChatProps> = ({ className, userId }) => {
+const EmptyChat: FC<EmptyChatProps> = ({ className, userId, chatId }) => {
   return (
     <MaxWidthWrapper
       className={cn(
@@ -22,7 +23,7 @@ const EmptyChat: FC<EmptyChatProps> = ({ className, userId }) => {
       <Typography variant="h3" tag="h2">
         How can I help you today?
       </Typography>
-      <PromptHints className="mt-4" userId={userId} />
+      <PromptHints className="mt-4" userId={userId} chatId={chatId} />
     </MaxWidthWrapper>
   );
 };

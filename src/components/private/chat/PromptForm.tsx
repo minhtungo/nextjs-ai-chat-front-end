@@ -12,9 +12,10 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import Spinner from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import DocPreview from "../chat/DocPreview";
-import UtilButtons from "./UtilButtons";
+
 import { useMessage } from "@/hooks/use-message";
+import UtilButtons from "@/components/private/chat/UtilButtons";
+import DocPreview from "@/components/private/chat/DocPreview";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,

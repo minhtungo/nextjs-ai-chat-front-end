@@ -1,8 +1,12 @@
 import { fetchAuth } from "@/lib/fetch";
+import { getQueryClient } from "@/lib/get-query-client";
+import { getMessagesQueryKey } from "@/lib/queryKey";
 import { nanoid } from "@/lib/utils";
-import { CreateNewRoomResponse, MessageFile } from "@/types/chat";
-import { MutableRefObject } from "react";
+import { CreateNewRoomResponse, InfiniteMessagePage } from "@/types/chat";
+import { FileAtom } from "@/types/file";
+import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
+import { MutableRefObject } from "react";
 
 export const createChatRoom = async ({
   subject,
@@ -23,7 +27,34 @@ export const createChatRoom = async ({
   return data;
 };
 
-export const getMessageFiles = (files: MessageFile[]) => {
+export const setOptimisticMessage = ({
+  chatId,
+  newMessage,
+}: {
+  chatId: string;
+  newMessage: MessageAtom;
+}) => {
+  const queryClient = getQueryClient();
+
+  queryClient.setQueryData(
+    getMessagesQueryKey(chatId),
+    (old: InfiniteMessagePage) => {
+      return {
+        ...old,
+        pages: old.pages.map((page, index) =>
+          index !== 0
+            ? page
+            : {
+                ...page,
+                messages: [...page.messages, newMessage],
+              },
+        ),
+      };
+    },
+  );
+};
+
+export const getMessageFiles = (files: FileAtom[]) => {
   const imagesWithPreview = files
     .filter((file) => file.type === "image")
     .map((file) => ({
@@ -53,14 +84,6 @@ export const getMessageFiles = (files: MessageFile[]) => {
   };
 };
 
-interface RoomData {
-  user: string[];
-  unseen: string;
-  message: string;
-  title: string;
-  subject: string;
-}
-
 export const createNewMessageStore = ({
   content,
   userId,
@@ -69,17 +92,9 @@ export const createNewMessageStore = ({
 }: {
   content: string;
   userId: string;
-  docs?: {
-    url: string | undefined;
-    name: string;
-    type: "image" | "document" | "pdf";
-  }[];
-  images?: {
-    url: string | undefined;
-    name: string;
-    type: "image" | "document" | "pdf";
-  }[];
-}) => {
+  docs?: FileAtom[];
+  images?: FileAtom[];
+}): MessageAtom => {
   return {
     id: nanoid(),
     content,

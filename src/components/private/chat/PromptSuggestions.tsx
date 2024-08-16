@@ -1,5 +1,6 @@
+import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
 import { useMessages } from "@/hooks/use-messages";
-import { createNewMessageStore } from "@/lib/chat";
+import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useSub } from "@/store/centrifuge";
 import { FC } from "react";
@@ -7,6 +8,7 @@ import { FC } from "react";
 interface PromptSuggestionProps {
   className?: string;
   userId: string;
+  chatId: string;
 }
 
 const promptSuggestion = [
@@ -24,16 +26,19 @@ const promptSuggestion = [
 const PromptSuggestions: FC<PromptSuggestionProps> = ({
   className,
   userId,
+  chatId,
 }) => {
-  const { messages, setMessages } = useMessages();
   const sub = useSub();
+
+  const { messages } = useInfiniteMessages(chatId);
 
   if (messages.length < 4) return null;
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });
 
-    setMessages((prev) => [...prev, newMessage]);
+    // setMessages((prev) => [...prev, newMessage]);
+    setOptimisticMessage({ chatId, newMessage });
 
     if (sub) {
       sub.publish({

@@ -1,8 +1,8 @@
 import { useMessage } from "@/hooks/use-message";
-import { useMessages } from "@/hooks/use-messages";
-import { createNewMessageStore } from "@/lib/chat";
+import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
+import { InfiniteMessagePage } from "@/types/chat";
 import { useQueryClient } from "@tanstack/react-query";
 import { Subscription } from "centrifuge";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
@@ -28,7 +28,6 @@ export const useSendMessage = ({
     setInTokenLimit,
   } = useMessage();
 
-  const { setMessages } = useMessages();
   const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
@@ -65,12 +64,15 @@ export const useSendMessage = ({
       images,
     });
 
-    setMessages((prev) => [...prev, newMessage]);
+    setOptimisticMessage({
+      chatId,
+      newMessage,
+    });
 
     if (sub) {
       sub.publish({
         input: {
-          submitContent,
+          content: submitContent,
           images: images.map(
             ({ name, type, originalWidth, originalHeight, url }) => ({
               url,
@@ -89,9 +91,9 @@ export const useSendMessage = ({
       return;
     }
 
-    queryClient.invalidateQueries({
-      queryKey: getMessagesQueryKey(chatId),
-    });
+    // queryClient.invalidateQueries({
+    //   queryKey: getMessagesQueryKey(chatId),
+    // });
 
     resetMessageState();
   };

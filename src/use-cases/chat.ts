@@ -4,7 +4,7 @@ import { Message } from "@/lib/definitions";
 import { fetchAuth } from "@/lib/fetch";
 import { getChatListQueryKey } from "@/lib/queryKey";
 import { nanoid } from "@/lib/utils";
-import { ChatRoom, MessageResponse, MessageStore } from "@/types/chat";
+import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 
 export const createChatUseCase = async ({

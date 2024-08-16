@@ -1,6 +1,7 @@
 import { uploadFileAction } from "@/actions/file";
 import { getImageDimensions, nanoid } from "@/lib/utils";
-import { AtomFile, MessageFile, NewMessage } from "@/types/chat";
+import { NewMessage } from "@/types/chat";
+import { FileAtom } from "@/types/file";
 import { atom } from "jotai";
 import { toast } from "sonner";
 
@@ -22,7 +23,7 @@ export const initialMessageAtom = atom(null, (get, set) => {
 
 export const pendingAtom = atom(false);
 
-export const filesAtom = atom<AtomFile[]>([]);
+export const filesAtom = atom<FileAtom[]>([]);
 
 export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
   if (!files || files.length === 0) {
@@ -37,7 +38,7 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
   console.log("totalFilesSize", totalFilesSize);
   console.log("totalFilesCount", totalFilesCount);
 
-  const validFiles = [] as MessageFile[];
+  const validFiles = [] as FileAtom[];
 
   for (let file of files) {
     console.log(

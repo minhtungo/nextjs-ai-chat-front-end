@@ -9,8 +9,6 @@ interface ImagePreviewsProps {
 }
 
 const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
-  console.log("ImagePreviews");
-
   const imagesQueries = useMessageImages(
     (images ?? []).map((image) => image.url!),
   );

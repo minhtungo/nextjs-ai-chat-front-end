@@ -18,6 +18,7 @@ interface ChatPanelProps {
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(`rooms:${chatId}`);
   const { resetMessageState, inTokenLimit } = useMessage();
+
   const { sendMessage } = useSendMessage({
     userId,
     sub,
@@ -37,7 +38,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
 
   return (
     <MaxWidthWrapper className="space-y-3 pt-3">
-      <PromptSuggestions className="mt-4" userId={userId} />
+      <PromptSuggestions className="mt-4" userId={userId} chatId={chatId} />
       <>
         {!inTokenLimit && (
           <Badge className="mb-3">
