@@ -1,6 +1,7 @@
+import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { useSub } from "@/store/centrifuge";
+import { useAtomValue } from "jotai";
 import { Lightbulb } from "lucide-react";
 import { FC } from "react";
 
@@ -27,7 +28,7 @@ const PromptHints: FC<PromptSuggestionProps> = ({
   userId,
   chatId,
 }) => {
-  const sub = useSub();
+  const sub = useAtomValue(currentSubscriptionAtom);
   // const { setMessages } = useMessages();
 
   const publishMessage = async (content: string) => {

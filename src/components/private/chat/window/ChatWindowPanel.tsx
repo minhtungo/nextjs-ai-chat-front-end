@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, FormEvent, MutableRefObject, useEffect } from "react";
+import { FC, FormEvent, MutableRefObject, useEffect, useMemo } from "react";
 
 import PromptForm from "@/components/private/chat/PromptForm";
 import { Badge } from "@/components/ui/badge";
@@ -8,7 +8,8 @@ import { useChat } from "@/hooks/use-chat";
 import { useMessage } from "@/hooks/use-message";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { getConvexHull } from "@/lib/chat";
-import { useSub } from "@/store/centrifuge";
+import { useAtomValue } from "jotai";
+import { currentSubscriptionAtom } from "@/atoms/subscription";
 
 interface ChatWindowPanelProps {
   userId: string;
@@ -31,7 +32,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
 
   const { resetMessageState } = useMessage();
 
-  const sub = useSub();
+  const sub = useAtomValue(currentSubscriptionAtom);
   const { sendMessage } = useSendMessage({ userId, sub, chatId });
 
   useEffect(() => {

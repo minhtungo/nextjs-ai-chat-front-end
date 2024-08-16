@@ -25,7 +25,7 @@ const ChatViewToggle = () => {
             size="sm"
             className="hidden gap-1 text-muted-foreground md:inline-flex"
             onClick={() => {
-              setSelectedImageIndex(0);
+              setSelectedImageIndex(images.length - 1);
             }}
           >
             <AppWindowMac className="size-5" />

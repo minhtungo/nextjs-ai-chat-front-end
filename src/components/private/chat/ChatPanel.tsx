@@ -3,12 +3,14 @@
 import { FC, FormEvent, useEffect } from "react";
 import PromptForm from "./PromptForm";
 
+import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
+import { currentSubscriptionAtom } from "@/atoms/subscription";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import { Badge } from "@/components/ui/badge";
-import { useSendMessage } from "@/hooks/use-send-message";
-import { useSubscription } from "@/store/centrifuge";
 import { useMessage } from "@/hooks/use-message";
+import { useSendMessage } from "@/hooks/use-send-message";
+import { useAtom, useAtomValue } from "jotai";
 
 interface ChatPanelProps {
   userId: string;
@@ -16,20 +18,25 @@ interface ChatPanelProps {
 }
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
-  const sub = useSubscription(`rooms:${chatId}`);
+  const centrifuge = useAtomValue(subscribedCentrifugeAtom);
+  const [currentSubscription, setupSubscription] = useAtom(
+    currentSubscriptionAtom,
+  );
   const { resetMessageState, inTokenLimit } = useMessage();
 
   const { sendMessage } = useSendMessage({
     userId,
-    sub,
+    sub: currentSubscription,
     chatId,
   });
 
   useEffect(() => {
+    if (!centrifuge) return;
+    setupSubscription(`rooms:${chatId}`);
     return () => {
       resetMessageState();
     };
-  }, [chatId]);
+  }, [chatId, centrifuge]);
 
   const onSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

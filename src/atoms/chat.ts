@@ -14,16 +14,11 @@ export const docsAtom = atom((get) =>
 export const selectedImageIndexAtom = atom<number | null>(null);
 
 export const selectedImageIndexFinderAtom = atom(null, (get, set, url) => {
-  console.log("inside", url);
   if (get(selectedImageIndexAtom) !== null) {
     return;
   }
-  console.log("below", url);
-
-  console.log("all images", get(imagesAtom));
 
   const index = get(imagesAtom).findIndex((image) => image.url === url);
-  console.log("index", index);
 
   set(selectedImageIndexAtom, index);
 });

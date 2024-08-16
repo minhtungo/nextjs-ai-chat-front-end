@@ -1,8 +1,9 @@
+import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
-import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { useSub } from "@/store/centrifuge";
+import { useAtomValue } from "jotai";
+
 import { FC } from "react";
 
 interface PromptSuggestionProps {
@@ -28,7 +29,7 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
   userId,
   chatId,
 }) => {
-  const sub = useSub();
+  const sub = useAtomValue(currentSubscriptionAtom);
 
   const { messages } = useInfiniteMessages(chatId);
 

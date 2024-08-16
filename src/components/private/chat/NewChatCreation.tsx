@@ -1,5 +1,6 @@
 "use client";
 
+import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
 import SubmitButton from "@/components/common/SubmitButton";
 import OptionsRadio from "@/components/private/chat/OptionsRadio";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateChat } from "@/data/mutations/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
-import { useCentrifuge } from "@/store/centrifuge";
+import { useAtom, useAtomValue } from "jotai";
 import { FC, useState } from "react";
 
 interface NewChatCreationProps {
@@ -15,7 +16,7 @@ interface NewChatCreationProps {
 }
 
 const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
-  const centrifuge = useCentrifuge();
+  useAtomValue(subscribedCentrifugeAtom);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSubject, setSelectedSubject] = useState<string | undefined>(

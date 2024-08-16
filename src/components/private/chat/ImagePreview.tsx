@@ -23,8 +23,6 @@ const ImagePreview: FC<ImagePreviewProps> = ({
 }) => {
   const { selectedImageIndex, updateImageIndex } = useChat();
 
-  console.log("url", url);
-
   return (
     <div
       className={cn(
@@ -53,15 +51,17 @@ const ImagePreview: FC<ImagePreviewProps> = ({
                 className="h-full w-full rounded-lg object-cover"
               />
             )}
-            <Image
-              src={src ?? ""}
-              alt={path}
-              fill
-              className={cn(
-                "h-full w-full rounded-lg object-cover transition-opacity duration-200 ease-in-out",
-                isLoading ? "opacity-0" : "opacity-100",
-              )}
-            />
+            {src && (
+              <Image
+                src={src ?? ""}
+                alt={path}
+                fill
+                className={cn(
+                  "h-full w-full rounded-lg object-cover transition-opacity duration-200 ease-in-out",
+                  isLoading ? "opacity-0" : "opacity-100",
+                )}
+              />
+            )}
           </>
         )}
         {src && selectedImageIndex === null && (
