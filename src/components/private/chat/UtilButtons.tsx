@@ -6,8 +6,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
-import { useMessageStore } from "@/store/message";
 import { Paperclip, Plus, Radical } from "lucide-react";
 import { Dispatch, FC, SetStateAction } from "react";
 
@@ -22,7 +22,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
   setShowMathKeyboard,
   className,
 }) => {
-  const { addFiles } = useMessageStore();
+  const { addFiles } = useMessage();
 
   return (
     <>

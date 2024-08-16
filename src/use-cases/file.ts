@@ -1,6 +1,5 @@
 import { fetchAuth } from "@/lib/fetch";
 import { ZSAError } from "zsa";
-import sharp from "sharp";
 
 type UploadFileResponse = {
   img_urls: [
@@ -20,16 +19,16 @@ export const uploadFileUseCase = async (
     const formData = new FormData();
     let thumbnail;
 
-    if (file.type.startsWith("image")) {
-      const buffer = await file.arrayBuffer();
+    // if (file.type.startsWith("image")) {
+    //   const buffer = await file.arrayBuffer();
 
-      const thumbnailBuffer = await sharp(Buffer.from(buffer))
-        .blur(1)
-        .resize(10)
-        .toBuffer();
+    //   const thumbnailBuffer = await sharp(Buffer.from(buffer))
+    //     .blur(1)
+    //     .resize(10)
+    //     .toBuffer();
 
-      thumbnail = thumbnailBuffer.toString("base64");
-    }
+    //   thumbnail = thumbnailBuffer.toString("base64");
+    // }
 
     formData.append("file", file);
     formData.append("name", file.name);
@@ -44,9 +43,9 @@ export const uploadFileUseCase = async (
     if (data.success) {
       return {
         ...data.data.data,
-        ...(thumbnail && {
-          thumbnail,
-        }),
+        // ...(thumbnail && {
+        //   thumbnail,
+        // }),
       };
     } else if (data.error) {
       throw new ZSAError("ERROR", "Failed to upload file");

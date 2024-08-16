@@ -1,15 +1,11 @@
+import { useMessage } from "@/hooks/use-message";
 import { useMessages } from "@/hooks/use-messages";
-import { createNewMessageStore, getMessageFiles } from "@/lib/chat";
-import { CHAT_TOKEN_LIMIT, MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
+import { createNewMessageStore } from "@/lib/chat";
+import { MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { getMessagesQueryKey } from "@/lib/queryKey";
-import { useMessageStore } from "@/store/message";
 import { useQueryClient } from "@tanstack/react-query";
 import { Subscription } from "centrifuge";
-import {
-  encode,
-  encodeChat,
-  isWithinTokenLimit,
-} from "gpt-tokenizer/model/gpt-4o";
+import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";
 
 interface useSendMessageProps {
@@ -24,17 +20,19 @@ export const useSendMessage = ({
   sub,
 }: useSendMessageProps) => {
   const {
-    messageStore: { files, mathEquation, message, isPending },
-    clearMessageStore,
-    isMessageWithinTokenLimit,
-    setIsMessageWithinTokenLimit,
-  } = useMessageStore();
+    message: { mathEquation, content },
+    pending,
+    images,
+    docs,
+    resetMessageState,
+    setInTokenLimit,
+  } = useMessage();
 
-  const { messages, setMessages } = useMessages();
+  const { setMessages } = useMessages();
   const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
-    if (isPending) return;
+    if (pending) return;
 
     // Blur focus on mobile
     if (window.innerWidth < 600) {
@@ -42,10 +40,9 @@ export const useSendMessage = ({
       e.target["message"]?.blur();
     }
 
-    const content = mathEquation || message;
+    const submitContent = mathEquation || content;
 
-    if (!content || content.trim() === "") {
-      console.log("content is empty");
+    if (!submitContent || submitContent.trim() === "") {
       return;
     }
 
@@ -54,20 +51,18 @@ export const useSendMessage = ({
 
     const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
 
-    setIsMessageWithinTokenLimit(withinMessageLimit);
+    setInTokenLimit(withinMessageLimit);
 
     if (!withinMessageLimit) {
       toast.error("You have exceeded the token limit");
       return;
     }
 
-    const { images, docs, imagesWithPreview } = getMessageFiles(files);
-
     const newMessage = createNewMessageStore({
-      content,
+      content: submitContent,
       userId,
       docs,
-      images: imagesWithPreview,
+      images,
     });
 
     setMessages((prev) => [...prev, newMessage]);
@@ -75,8 +70,16 @@ export const useSendMessage = ({
     if (sub) {
       sub.publish({
         input: {
-          content,
-          images,
+          submitContent,
+          images: images.map(
+            ({ name, type, originalWidth, originalHeight, url }) => ({
+              url,
+              type,
+              name,
+              originalWidth,
+              originalHeight,
+            }),
+          ),
           docs,
           ...(focusedImage ? { focusedImage } : {}),
         },
@@ -90,11 +93,10 @@ export const useSendMessage = ({
       queryKey: getMessagesQueryKey(chatId),
     });
 
-    clearMessageStore();
+    resetMessageState();
   };
 
   return {
     sendMessage,
-    isMessageWithinTokenLimit,
   };
 };

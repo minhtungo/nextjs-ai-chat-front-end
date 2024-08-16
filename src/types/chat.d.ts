@@ -3,10 +3,8 @@ import { Message } from "@/lib/definitions";
 type FileType = "image" | "document" | "pdf";
 
 export type NewMessage = {
-  message: string;
+  content: string;
   mathEquation: string;
-  files: AtomFile[];
-  isPending: boolean;
 };
 
 export type AtomFile = {

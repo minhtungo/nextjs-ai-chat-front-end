@@ -11,10 +11,10 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 
 import Spinner from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
-import { useMessageStore } from "@/store/message";
 import Image from "next/image";
 import DocPreview from "../chat/DocPreview";
 import UtilButtons from "./UtilButtons";
+import { useMessage } from "@/hooks/use-message";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -31,12 +31,14 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
-    messageStore: { files, message, isPending },
+    message: { content },
     setMessage,
     addFiles,
     removeFile,
-    isMessageWithinTokenLimit,
-  } = useMessageStore();
+    inTokenLimit,
+    files,
+    pending,
+  } = useMessage();
 
   useEffect(() => {
     if (inputRef.current) {
@@ -130,8 +132,10 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                   autoCorrect="off"
                   name="message"
                   rows={1}
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
+                  value={content}
+                  onChange={(e) =>
+                    setMessage((prev) => ({ ...prev, content: e.target.value }))
+                  }
                 />
               </div>
               <Button
@@ -139,11 +143,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 type="submit"
                 size="xs"
                 className="self-end rounded-full disabled:bg-primary"
-                disabled={
-                  message.trim() === "" ||
-                  isPending ||
-                  !isMessageWithinTokenLimit
-                }
+                disabled={content.trim() === "" || pending || !inTokenLimit}
               >
                 <ArrowUp className="size-3.5" />
                 <span className="sr-only">Send message</span>

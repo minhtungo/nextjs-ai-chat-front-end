@@ -1,4 +1,4 @@
-import { useMessageStore } from "@/store/message";
+import { useMessage } from "@/hooks/use-message";
 import { MathfieldElement } from "mathlive";
 import { FC, RefObject, useEffect, useMemo, useRef } from "react";
 
@@ -8,9 +8,9 @@ interface MathKeyboardProps {
 
 const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
   const {
-    messageStore: { mathEquation },
-    setMathEquation,
-  } = useMessageStore();
+    message: { mathEquation },
+    setMessage,
+  } = useMessage();
 
   const containerRef = useRef(null);
 
@@ -44,7 +44,7 @@ const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
       }
     };
     mf.oninput = (evt: any) => {
-      setMathEquation(evt.target.value);
+      setMessage((prev) => ({ ...prev, mathEquation: evt.target.value }));
     };
 
     window.mathVirtualKeyboard.container =
@@ -62,7 +62,7 @@ const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
     window.mathVirtualKeyboard.show();
 
     return () => {
-      setMathEquation("");
+      setMessage((prev) => ({ ...prev, mathEquation: "" }));
       window.mathVirtualKeyboard.hide();
     };
   }, []);

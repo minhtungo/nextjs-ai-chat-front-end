@@ -8,7 +8,7 @@ import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import { Badge } from "@/components/ui/badge";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { useSubscription } from "@/store/centrifuge";
-import { useMessageStore } from "@/store/message";
+import { useMessage } from "@/hooks/use-message";
 
 interface ChatPanelProps {
   userId: string;
@@ -17,8 +17,8 @@ interface ChatPanelProps {
 
 const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const sub = useSubscription(`rooms:${chatId}`);
-  const { clearMessageStore } = useMessageStore();
-  const { sendMessage, isMessageWithinTokenLimit } = useSendMessage({
+  const { resetMessageState, inTokenLimit } = useMessage();
+  const { sendMessage } = useSendMessage({
     userId,
     sub,
     chatId,
@@ -26,7 +26,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
 
   useEffect(() => {
     return () => {
-      clearMessageStore();
+      resetMessageState();
     };
   }, [chatId]);
 
@@ -39,7 +39,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
     <MaxWidthWrapper className="space-y-3 pt-3">
       <PromptSuggestions className="mt-4" userId={userId} />
       <>
-        {!isMessageWithinTokenLimit && (
+        {!inTokenLimit && (
           <Badge className="mb-3">
             <span className="text-xs">Exceeded token limit</span>
           </Badge>
