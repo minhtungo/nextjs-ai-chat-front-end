@@ -1,7 +1,9 @@
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
+import { useMessages } from "@/hooks/use-messages";
 import { usePreviews } from "@/hooks/use-previews";
 import { getMessagesQueryKey } from "@/lib/query-keys";
+import { useEffect } from "react";
 
 export const useInfiniteMessages = (chatId: string) => {
   const {
@@ -24,9 +26,15 @@ export const useInfiniteMessages = (chatId: string) => {
     }),
   });
 
-  console.log("data", data);
-
   const messages = usePreviews({ pages: data?.pages });
+
+  const { setMessages } = useMessages();
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      setMessages(messages);
+    }
+  }, [messages]);
 
   return {
     isLoading,

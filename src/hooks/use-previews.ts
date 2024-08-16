@@ -1,5 +1,5 @@
-import { InfiniteMessagePage } from "@/lib/chat";
 import { Message } from "@/lib/definitions";
+import { InfiniteMessagePage } from "@/types/chat";
 import { useMemo } from "react";
 
 type usePreviewsProps<T> = {

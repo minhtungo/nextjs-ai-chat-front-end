@@ -1,6 +1,27 @@
 import Momo from "@/components/icons/Momo";
 import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
 
+export const onBoardingSteps = [
+  {
+    label: "Personalize your learning experience",
+    value: "personalize",
+  },
+  {
+    label: "Select your goals",
+    value: "goals",
+  },
+  {
+    label: "Set your preferences",
+    value: "preferences",
+  },
+  {
+    label: "Finish",
+    value: "finish",
+  },
+];
+
+export type OnboardingStep = (typeof onBoardingSteps)[number];
+
 export const TOKEN_EXPIRATION_IN_MINUTES = 60;
 export const MESSAGE_TOKEN_LIMIT = 10;
 export const CHAT_TOKEN_LIMIT = 5000;

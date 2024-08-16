@@ -1,29 +1,6 @@
 import { MessageStore } from "@/types/chat";
 import { atom } from "jotai";
 
-// type FileAtom = {
-//   name: string;
-//   type: string;
-//   url?: string;
-//   originalHeight?: number;
-//   originalWidth?: number;
-//   thumbnail?: string;
-// };
-
-// type ChatAtom = {
-//   id: string | null;
-//   selectedImageIndex: number | null;
-//   messages: MessageStore[];
-// };
-
-// export const chatInitialState: ChatAtom = {
-//   id: "",
-//   selectedImageIndex: null,
-//   messages: [],
-// };
-
-// export const chatAtom = atom<ChatAtom>(chatInitialState);
-
 export const messagesAtom = atom<MessageStore[]>([]);
 
 export const imagesAtom = atom((get) =>
@@ -43,7 +20,7 @@ export const selectedImageIndexFinderAtom = atom(null, (get, set, url) => {
   }
   console.log("below", url);
 
-  console.log("images", get(imagesAtom));
+  console.log("all images", get(imagesAtom));
 
   const index = get(imagesAtom).findIndex((image) => image.url === url);
   console.log("index", index);

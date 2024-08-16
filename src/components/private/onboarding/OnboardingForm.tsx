@@ -72,7 +72,7 @@ const OnboardingForm: FC<OnboardingFormProps> = () => {
   };
 
   return (
-    <Card className="w-full" noBorderMobile>
+    <Card className="w-full max-w-7xl" noBorderMobile>
       {!isFinished ? (
         <>
           <Logo />
