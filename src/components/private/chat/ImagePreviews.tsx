@@ -2,10 +2,10 @@ import { FC } from "react";
 
 import ImagePreview from "@/components/private/chat/ImagePreview";
 import { useMessageImages } from "@/data/queries/use-message-images";
-import { AtomFile } from "@/types/chat";
+import { FileAtom } from "@/types/file";
 
 interface ImagePreviewsProps {
-  images: AtomFile[];
+  images: FileAtom[];
 }
 
 const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
@@ -18,8 +18,8 @@ const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
       {imagesQueries?.map(({ data, isLoading }, index) => {
         return (
           <ImagePreview
-            key={`${data?.path}-${index}`}
             src={data?.imageSrc}
+            key={`${data?.path}-${index}`}
             thumbnail={images[index].thumbnail}
             url={data?.url}
             preview={images[index].preview}

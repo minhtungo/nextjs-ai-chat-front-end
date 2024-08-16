@@ -5,6 +5,7 @@ import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 import { SUBJECTS } from "./constant";
+import { AccessToken } from "@/types/api";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -80,13 +81,6 @@ export const generateBreadcrumbs = (pathname: string) => {
   });
 
   return breadcrumbs;
-};
-
-export type AccessToken = {
-  jti: string;
-  iat: number;
-  exp: number;
-  [key: string]: any;
 };
 
 export const encodeToken = (data: AccessToken) => {

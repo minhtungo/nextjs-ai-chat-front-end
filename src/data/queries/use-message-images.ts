@@ -1,4 +1,4 @@
-import { getMessageImageQueryKey } from "@/lib/queryKey";
+import { getMessageImageQueryKey } from "@/lib/query-keys";
 import { getMessageImagesUseCase } from "@/use-cases/chat";
 import { useQueries } from "@tanstack/react-query";
 

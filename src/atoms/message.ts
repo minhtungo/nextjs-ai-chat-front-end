@@ -30,21 +30,12 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
     return;
   }
 
-  console.log("files", files);
-
   let totalFilesSize = get(filesAtom).reduce((acc, file) => acc + file.size, 0);
   let totalFilesCount = get(filesAtom).length;
-
-  console.log("totalFilesSize", totalFilesSize);
-  console.log("totalFilesCount", totalFilesCount);
 
   const validFiles = [] as FileAtom[];
 
   for (let file of files) {
-    console.log(
-      totalFilesCount + validFiles.length <= MAX_FILE_COUNT &&
-        totalFilesSize <= MAX_FILE_SIZE_MB,
-    );
     if (
       totalFilesCount + validFiles.length <= MAX_FILE_COUNT &&
       totalFilesSize <= MAX_FILE_SIZE_MB
@@ -81,8 +72,6 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
       );
       return;
     }
-
-    console.log("validFiles", validFiles);
   }
 
   set(filesAtom, (prev) => [...prev, ...validFiles]);
@@ -143,7 +132,7 @@ export const imagesAtom = atom((get) =>
 
 export const docsAtom = atom((get) =>
   get(filesAtom)
-    .filter((f) => f.type === "document")
+    .filter((f) => f.type !== "image")
     .map((f) => ({
       url: f.url,
       name: f.name,

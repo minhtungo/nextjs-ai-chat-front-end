@@ -1,6 +1,6 @@
-import { fetchAuth } from "@/lib/fetch";
-import { getQueryClient } from "@/lib/get-query-client";
-import { getMessagesQueryKey } from "@/lib/queryKey";
+import { fetchAuth } from "@/lib/api";
+import { getQueryClient } from "@/lib/query-client";
+import { getMessagesQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
 import { CreateNewRoomResponse, InfiniteMessagePage } from "@/types/chat";
 import { FileAtom } from "@/types/file";
@@ -131,7 +131,6 @@ export const getConvexHull = ({
   drawingPointsRef,
   selectedImage,
 }: ConvexHull) => {
-  console.log("iam inside", drawingPointsRef.current);
   if (drawingPointsRef.current.length < 3) return [];
   const originalWidth = selectedImage?.naturalWidth;
   const originalHeight = selectedImage?.naturalHeight;
@@ -146,21 +145,19 @@ export const getConvexHull = ({
     y * scaleY,
   ]);
 
-  console.log("originalPoints", drawingPointsRef.current);
-
   const renderedHull = convexHull(drawingPointsRef.current) as Array<
     [number, number]
   >;
   const scaledHull = convexHull(scaledPoints) as Array<[number, number]>;
 
-  // console.log("test get hull", {
-  //   renderedWidth,
-  //   renderedHeight,
-  //   renderedHull,
-  //   originalWidth,
-  //   originalHeight,
-  //   scaledHull,
-  // });
+  console.log("test get hull", {
+    renderedWidth,
+    renderedHeight,
+    renderedHull,
+    originalWidth,
+    originalHeight,
+    scaledHull,
+  });
 
   return {
     renderedWidth,

@@ -1,7 +1,7 @@
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
 import { usePreviews } from "@/hooks/use-previews";
-import { getMessagesQueryKey } from "@/lib/queryKey";
+import { getMessagesQueryKey } from "@/lib/query-keys";
 
 export const useInfiniteMessages = (chatId: string) => {
   const {

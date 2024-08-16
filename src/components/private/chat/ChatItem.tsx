@@ -8,7 +8,7 @@ import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { ChatRoom } from "@/types/chat";
 import Link from "next/link";
-import { FC, useRef, useState } from "react";
+import { FC, useState } from "react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
@@ -79,7 +79,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
           </Link>
           <div
             className={cn(
-              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-2 group-hover:flex",
+              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-3 group-hover:flex",
               (isActiveChat || isActive) && "flex",
             )}
           >

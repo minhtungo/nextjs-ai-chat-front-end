@@ -1,4 +1,4 @@
-import { fetchAuth } from "@/lib/fetch";
+import { fetchAuth } from "@/lib/api";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);

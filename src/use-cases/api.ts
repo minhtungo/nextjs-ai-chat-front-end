@@ -1,12 +1,8 @@
 import "server-only";
 import NodeCache from "node-cache";
 
-import {
-  AccessToken,
-  createToken,
-  decodeToken,
-  encodeToken,
-} from "@/lib/utils";
+import { createToken, decodeToken, encodeToken } from "@/lib/utils";
+import { AccessToken } from "@/types/api";
 
 const tokenCache = new NodeCache({ stdTTL: 3600 }); // Cache with 1-hour TTL
 

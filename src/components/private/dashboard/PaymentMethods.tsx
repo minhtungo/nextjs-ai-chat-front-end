@@ -19,8 +19,8 @@ const PaymentMethods: FC<PaymentMethodsProps> = () => {
   const t = useTranslations("common");
 
   return (
-    <Card noBorder>
-      <CardContent className="grid gap-6" noBorder>
+    <Card noBorderMobile>
+      <CardContent className="grid gap-6">
         <RadioGroup
           defaultValue={PAYMENT_METHODS[0].key}
           className="grid grid-cols-3 gap-4"
@@ -46,7 +46,7 @@ const PaymentMethods: FC<PaymentMethodsProps> = () => {
         </RadioGroup>
         {selectedPaymentMethod === "card" ? <CardPayment /> : <MoMoPayment />}
       </CardContent>
-      <CardFooter noBorder>
+      <CardFooter>
         <Button className="w-full">Continue</Button>
       </CardFooter>
     </Card>

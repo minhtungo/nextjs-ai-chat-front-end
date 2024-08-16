@@ -1,3 +1,5 @@
+import "server-only";
+
 import { db } from "@/lib/db";
 import {
   changeUserPasswordSchema,
@@ -68,6 +70,10 @@ type CreateUserProps = Omit<
   | "emailVerified"
   | "image"
   | "dateOfBirth"
+  | "isOnboarded"
+  | "academicLevel"
+  | "subjects"
+  | "goals"
 >;
 
 // Mutation

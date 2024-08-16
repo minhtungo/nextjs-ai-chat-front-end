@@ -1,4 +1,4 @@
-import { fetchAuth } from "@/lib/fetch";
+import { fetchAuth } from "@/lib/api";
 import { ZSAError } from "zsa";
 
 type UploadFileResponse = {

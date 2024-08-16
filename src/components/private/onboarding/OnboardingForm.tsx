@@ -1,6 +1,6 @@
 "use client";
 
-import { onboardingFormAction } from "@/actions/account";
+import { onboardingFormAction } from "@/actions/user";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
   Form,

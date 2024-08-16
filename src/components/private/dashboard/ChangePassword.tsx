@@ -1,6 +1,6 @@
 "use client";
 
-import { changeUserPasswordAction } from "@/actions/account";
+import { changeUserPasswordAction } from "@/actions/user";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import {
@@ -54,15 +54,15 @@ const ChangePassword = () => {
   };
 
   return (
-    <Card className="w-full" noBorder>
-      <CardHeader className="w-full" noBorder>
+    <Card className="w-full" noBorderMobile>
+      <CardHeader className="w-full">
         <Typography variant="h5" tag="h3">
           Đổi mật khẩu
         </Typography>
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4" noBorder>
+          <CardContent className="w-full space-y-4">
             <FormField
               control={form.control}
               name="password"
@@ -103,7 +103,7 @@ const ChangePassword = () => {
               )}
             />
           </CardContent>
-          <CardFooter noBorder>
+          <CardFooter>
             <SubmitButton isPending={isPending} size="sm">
               Đổi mật khẩu
             </SubmitButton>

@@ -1,5 +1,11 @@
 "use server";
 
+import {
+  changeUserPasswordSchema,
+  onboardingFormSchema,
+  twoFactorToggleSchema,
+  updateUserProfileSchema,
+} from "@/lib/definitions";
 import { authedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
@@ -7,12 +13,12 @@ import {
   toggleTwoFactorUseCase,
   updateUserProfileUseCase,
 } from "@/use-cases/user";
-import {
-  changeUserPasswordSchema,
-  onboardingFormSchema,
-  twoFactorToggleSchema,
-  updateUserProfileSchema,
-} from "../lib/definitions";
+
+import { cookies } from "next/headers";
+
+export const updatePreferredLang = (nextLocale: string) => {
+  cookies().set("preferredLang", nextLocale);
+};
 
 export const updateUserProfileAction = authedAction
   .input(updateUserProfileSchema)

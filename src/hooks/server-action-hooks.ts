@@ -1,4 +1,4 @@
-import { queryKeys } from "@/lib/queryKey";
+import { queryKeys } from "@/lib/query-keys";
 import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import {
   createServerActionsKeyFactory,

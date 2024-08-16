@@ -1,6 +1,6 @@
 "use server";
 
-import { CHAT_LIST_QUERY_KEY } from "@/lib/queryKey";
+import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
 import {

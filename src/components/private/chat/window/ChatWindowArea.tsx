@@ -32,6 +32,8 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
 
   const imagesQueries = useMessageImages((images ?? []).map(({ url }) => url!));
 
+  console.log("imagesQueries", selectedImageIndex);
+
   const {
     isFocusMode,
     onToggleFocusMode,
@@ -50,7 +52,6 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
             {isFocusMode && (
               <div className="flex gap-3">
                 <LineWidthSlider setLineWidth={setCursorSize} />
-
                 <Button
                   size="icon"
                   variant="ghost"

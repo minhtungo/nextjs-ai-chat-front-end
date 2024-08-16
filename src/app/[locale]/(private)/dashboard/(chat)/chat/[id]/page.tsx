@@ -1,7 +1,7 @@
 import Chat from "@/components/private/chat/Chat";
 import { getCurrentUser } from "@/lib/auth";
 
-import { getChatInfoQueryKey, getMessagesQueryKey } from "@/lib/queryKey";
+import { getChatInfoQueryKey, getMessagesQueryKey } from "@/lib/query-keys";
 import { getChatInfoUseCase, getMessagesUseCase } from "@/use-cases/chat";
 import {
   dehydrate,

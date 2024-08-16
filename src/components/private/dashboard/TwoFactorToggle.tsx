@@ -1,6 +1,6 @@
 "use client";
 
-import { toggleTwoFactorAction } from "@/actions/account";
+import { toggleTwoFactorAction } from "@/actions/user";
 import SubmitButton from "@/components/common/SubmitButton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -48,10 +48,10 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
   };
 
   return (
-    <Card className="w-full" noBorder>
+    <Card className="w-full" noBorderMobile>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4" noBorder>
+          <CardContent className="w-full space-y-4">
             <FormField
               control={form.control}
               name="isTwoFactorEnabled"
@@ -76,7 +76,7 @@ const TwoFactorToggle: FC<TwoFactorToggleProps> = ({ isTwoFactorEnabled }) => {
               )}
             />
           </CardContent>
-          <CardFooter noBorder>
+          <CardFooter>
             <SubmitButton isPending={isPending} size="sm">
               Lưu thay đổi
             </SubmitButton>

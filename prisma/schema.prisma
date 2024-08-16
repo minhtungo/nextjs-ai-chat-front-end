@@ -36,7 +36,6 @@ model User {
   plan       Plan    @default(free)
   dateOfBirth DateTime?
   academicLevel    String?
-  learningGoals String?
   subjects      String[]
   goals         String[]
   isOnboarded   Boolean  @default(false)

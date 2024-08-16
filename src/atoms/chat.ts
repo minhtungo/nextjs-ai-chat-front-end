@@ -41,7 +41,10 @@ export const selectedImageIndexFinderAtom = atom(null, (get, set, url) => {
   if (get(selectedImageIndexAtom) !== null) {
     return;
   }
-  console.log("inside", url);
+  console.log("below", url);
+
+  console.log("images", get(imagesAtom));
+
   const index = get(imagesAtom).findIndex((image) => image.url === url);
   console.log("index", index);
 

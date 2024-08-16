@@ -1,9 +1,6 @@
 import { useMessage } from "@/hooks/use-message";
 import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
-import { getMessagesQueryKey } from "@/lib/queryKey";
-import { InfiniteMessagePage } from "@/types/chat";
-import { useQueryClient } from "@tanstack/react-query";
 import { Subscription } from "centrifuge";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";
@@ -27,8 +24,6 @@ export const useSendMessage = ({
     resetMessageState,
     setInTokenLimit,
   } = useMessage();
-
-  const queryClient = useQueryClient();
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
     if (pending) return;

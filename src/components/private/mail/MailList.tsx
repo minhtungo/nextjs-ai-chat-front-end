@@ -3,16 +3,16 @@ import { ComponentProps } from "react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
-import { useMail } from "@/store/mail";
 import { type Mail } from "@prisma/client";
 import dayjs from "@/lib/dayjs";
+import { useMail } from "@/hooks/use-mail";
 
 interface MailListProps {
   items: Mail[];
 }
 
 export function MailList({ items }: MailListProps) {
-  const [mail, setMail] = useMail();
+  const { mail, setMail } = useMail();
   return (
     <ScrollArea className="h-screen">
       <div className="flex flex-col gap-2 p-4 pt-0">

@@ -1,7 +1,7 @@
 import authConfig from "@/auth/config";
-import { locales } from "@/lib/config";
 import NextAuth from "next-auth";
 import createIntlMiddleware from "next-intl/middleware";
+import { locales } from "@/lib/config";
 import { NextRequest } from "next/server";
 import {
   DEFAULT_LOGIN_REDIRECT,
@@ -9,7 +9,7 @@ import {
   authRoutes,
   publicRoutes,
   signInHref,
-} from "./lib/routes";
+} from "@/lib/routes";
 
 const { auth } = NextAuth(authConfig);
 

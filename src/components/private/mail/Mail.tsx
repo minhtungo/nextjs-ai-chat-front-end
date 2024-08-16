@@ -16,7 +16,7 @@ import { type Mail } from "@prisma/client";
 
 import { MailDisplay } from "./MailDisplay";
 import { MailList } from "./MailList";
-import { useGetMail } from "@/store/mail";
+import { useMail } from "@/hooks/use-mail";
 
 interface MailProps {
   mails: Mail[];
@@ -31,7 +31,7 @@ export function Mail({
   navCollapsedSize,
   defaultCollapsed,
 }: MailProps) {
-  const mail = useGetMail();
+  const { mail } = useMail();
 
   return (
     <TooltipProvider delayDuration={0}>

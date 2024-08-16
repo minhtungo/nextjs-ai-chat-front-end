@@ -23,6 +23,8 @@ const ImagePreview: FC<ImagePreviewProps> = ({
 }) => {
   const { selectedImageIndex, updateImageIndex } = useChat();
 
+  console.log("url", url);
+
   return (
     <div
       className={cn(

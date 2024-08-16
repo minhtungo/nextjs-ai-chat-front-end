@@ -1,14 +1,14 @@
+import authConfig from "@/auth/config";
+import { db } from "@/lib/db";
+import NextAuth from "next-auth";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import {
   deleteTwoFactorConfirmation,
   getTwoFactorConfirmationByUserId,
-} from "@/data/token";
+} from "@/data/auth";
 import { getUserById, updateNewGoogleUser } from "@/data/user";
-import { db } from "@/lib/db";
 import { authErrorHref, signInHref } from "@/lib/routes";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import { Languages, Plan, type UserRole } from "@prisma/client";
-import NextAuth from "next-auth";
-import authConfig from "./config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),

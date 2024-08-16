@@ -1,8 +1,8 @@
 import { createChatRoom } from "@/lib/chat";
 import { MESSAGES_LIMIT } from "@/lib/constant";
 import { Message } from "@/lib/definitions";
-import { fetchAuth } from "@/lib/fetch";
-import { getChatListQueryKey } from "@/lib/queryKey";
+import { fetchAuth } from "@/lib/api";
+import { getChatListQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
 import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";

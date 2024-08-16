@@ -5,7 +5,7 @@ import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import { getUserByEmail } from "@/data/user";
 import { comparePassword } from "@/lib/security";
-import { signInSchema } from "../lib/definitions";
+import { signInSchema } from "@/lib/definitions";
 
 const providers: Provider[] = [
   Credentials({
@@ -23,12 +23,13 @@ const providers: Provider[] = [
             password: false,
           },
         });
-        if (!user || !user.password) return;
+        if (!user || !user.password) return null;
+
         const passwordsMatch = await comparePassword(password, user.password);
 
         if (passwordsMatch) return user;
       }
-      return;
+      return null;
     },
   }),
   Google,

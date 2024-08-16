@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUserProfileAction } from "@/actions/account";
+import { updateUserProfileAction } from "@/actions/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import {
@@ -82,10 +82,10 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full max-w-3xl" noBorder>
+    <Card className="w-full max-w-3xl" noBorderMobile>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardContent className="w-full space-y-4" noBorder>
+          <CardContent className="w-full space-y-4">
             <div className="mb-6 w-fit">
               <Input
                 type="file"
@@ -212,7 +212,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               )}
             />
           </CardContent>
-          <CardFooter noBorder>
+          <CardFooter>
             <SubmitButton isPending={isPending} size="sm">
               Lưu thay đổi
             </SubmitButton>

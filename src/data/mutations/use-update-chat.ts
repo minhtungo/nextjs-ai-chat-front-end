@@ -1,7 +1,6 @@
 import { updateChatAction } from "@/actions/chat";
 import { useServerActionMutation } from "@/hooks/server-action-hooks";
-import { getQueryClient } from "@/lib/get-query-client";
-import { getChatInfoQueryKey } from "@/lib/queryKey";
+import { getQueryClient } from "@/lib/query-client";
 import { toast } from "sonner";
 
 const queryClient = getQueryClient();

@@ -9,7 +9,7 @@ import {
   getTwoFactorConfirmationByUserId,
   getTwoFactorTokenByEmail,
   getVerificationTokenByToken,
-} from "@/data/token";
+} from "@/data/auth";
 import {
   createUser,
   getUserByEmail,
@@ -27,12 +27,12 @@ import {
   sendTwoFactorTokenEmail,
   sendVerificationEmail,
 } from "@/lib/mail";
-import { comparePassword, saltAndHashPassword } from "@/lib/security";
+import { comparePassword, saltAndHashPassword } from "@/lib/auth";
 import {
   generatePasswordResetToken,
   generateTwoFactorToken,
   generateVerificationToken,
-} from "@/lib/tokens";
+} from "@/lib/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
 import { AuthError } from "next-auth";
 import { z } from "zod";

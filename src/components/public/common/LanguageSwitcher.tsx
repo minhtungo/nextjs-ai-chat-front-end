@@ -1,6 +1,6 @@
 "use client";
 
-import { updatePreferredLang } from "@/actions/utils";
+import { updatePreferredLang } from "@/actions/user";
 import {
   Select,
   SelectContent,
