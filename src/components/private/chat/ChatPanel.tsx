@@ -22,6 +22,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ userId, chatId }) => {
   const [currentSubscription, setupSubscription] = useAtom(
     currentSubscriptionAtom,
   );
+
   const { resetMessageState, inTokenLimit } = useMessage();
 
   const { sendMessage } = useSendMessage({

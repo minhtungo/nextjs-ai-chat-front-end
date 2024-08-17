@@ -14,8 +14,6 @@ import { useChat } from "@/hooks/use-chat";
 const ChatViewToggle = () => {
   const { setSelectedImageIndex, selectedImageIndex, images } = useChat();
 
-  console.log("test images", images);
-
   if (images.length === 0 || selectedImageIndex !== null) return null;
 
   return (

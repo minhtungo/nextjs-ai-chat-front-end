@@ -15,12 +15,14 @@ interface UtilButtonsProps {
   showMathKeyboard: boolean;
   setShowMathKeyboard: Dispatch<SetStateAction<boolean>>;
   className?: string;
+  disabled?: boolean;
 }
 
 const UtilButtons: FC<UtilButtonsProps> = ({
   showMathKeyboard,
   setShowMathKeyboard,
   className,
+  disabled,
 }) => {
   const { addFiles } = useMessage();
 
@@ -33,6 +35,7 @@ const UtilButtons: FC<UtilButtonsProps> = ({
             type="button"
             className={cn("bg-primary/50", className)}
             onClick={() => setShowMathKeyboard(!showMathKeyboard)}
+            disabled={disabled}
           >
             <Plus className="pointer-events-none size-3.5" />
           </Button>

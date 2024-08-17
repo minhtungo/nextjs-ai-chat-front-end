@@ -1,5 +1,6 @@
 "use client";
 
+import NewChatCreation from "@/components/private/chat/NewChatCreation";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,7 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import NewChatCreation from "./NewChatCreation";
 
 const CreateChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);

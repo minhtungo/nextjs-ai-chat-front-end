@@ -1,9 +1,10 @@
 import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
 import { Subscription } from "centrifuge";
-import { atom } from "jotai";
+import { atom, type Setter } from "jotai";
 import { toast } from "sonner";
 
 export const subscriptionAtom = atom<Subscription | null>(null);
+export const isSubscribedAtom = atom(false);
 
 export const currentSubscriptionAtom = atom(
   (get) => get(subscriptionAtom),
@@ -34,6 +35,7 @@ export const currentSubscriptionAtom = atom(
       await setupSubscriptionListeners({
         newSub,
         channel,
+        set,
       });
     }
 
@@ -50,18 +52,29 @@ export const currentSubscriptionAtom = atom(
 const setupSubscriptionListeners = async ({
   newSub,
   channel,
+  set,
 }: {
   newSub: Subscription;
   channel: string;
+  set: Setter;
 }) => {
   newSub.on("subscribed", (ctx) => {
     console.log("Successfully subscribed to channel:", channel);
+    set(isSubscribedAtom, true);
+    toast.success("Subscribed to the chat");
   });
 
-  newSub.on("unsubscribed", () =>
-    console.log("Unsubscribed from channel:", channel),
-  );
-  newSub.on("error", (ctx) => console.log("Subscription error:", ctx));
+  newSub.on("unsubscribed", () => {
+    console.log("Unsubscribed from channel:", channel);
+  });
+
+  newSub.on("subscribing", () => {
+    set(isSubscribedAtom, false);
+  });
+
+  newSub.on("error", (ctx) => {
+    console.log("Subscription error:", ctx);
+  });
 
   newSub.on("publication", (ctx) =>
     console.log("Received publication:", JSON.stringify(ctx.data)),

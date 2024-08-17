@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
-import "./dashboard.css";
+import "@/styles/dashboard.css";
 
 const getAuth = cache(async () => {
   return await auth();
@@ -34,7 +34,7 @@ export default async function DashBoardLayout({
           <div className="relative flex min-h-screen">{children}</div>
         </JoTaiProvider>
       </ReactQueryProvider>
-      <Toaster closeButton />
+      <Toaster closeButton position="top-right" />
     </SessionProvider>
   );
 }

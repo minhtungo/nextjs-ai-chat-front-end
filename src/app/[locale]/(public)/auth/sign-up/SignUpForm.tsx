@@ -9,7 +9,6 @@ import OAuthButtons from "@/components/auth/OAuthButtons";
 import CardWrapper from "@/components/common/CardWrapper";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -135,13 +134,9 @@ const SignUpForm = () => {
             <SubmitButton className="w-full" isPending={isPending}>
               {t("SignUp.cta")}
             </SubmitButton>
-            <Button
-              className="w-full"
-              variant="outline"
-              onClick={() => setIsSignUpByEmail(false)}
-            >
+            {/* <Button className="w-full" variant="outline">
               <span>{t("SignUp.action.goBack")}</span>
-            </Button>
+            </Button> */}
           </div>
         </form>
       </Form>

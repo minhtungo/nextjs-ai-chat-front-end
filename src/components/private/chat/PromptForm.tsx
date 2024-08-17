@@ -13,9 +13,11 @@ import Spinner from "@/components/common/Spinner";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-import { useMessage } from "@/hooks/use-message";
-import UtilButtons from "@/components/private/chat/UtilButtons";
 import DocPreview from "@/components/private/chat/DocPreview";
+import UtilButtons from "@/components/private/chat/UtilButtons";
+import { useMessage } from "@/hooks/use-message";
+import { useAtomValue } from "jotai";
+import { isSubscribedAtom } from "@/atoms/subscription";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -31,6 +33,8 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
+  const isSubscribed = useAtomValue(isSubscribedAtom);
+
   const {
     message: { content },
     setMessage,
@@ -40,6 +44,8 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
     files,
     pending,
   } = useMessage();
+
+  console.log("test file", files);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -52,7 +58,8 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
       {!showMathKeyboard ? (
         <div
           className={cn(
-            "relative overflow-hidden rounded-lg bg-accent/60",
+            "relative overflow-hidden rounded-lg bg-accent/50",
+            !isSubscribed && "cursor-not-allowed opacity-50",
             className,
           )}
           onDragOver={(e) => {
@@ -73,6 +80,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 showMathKeyboard={showMathKeyboard}
                 setShowMathKeyboard={setShowMathKeyboard}
                 className="self-end"
+                disabled={!isSubscribed}
               />
               <Label htmlFor="message" className="sr-only">
                 Message
@@ -83,7 +91,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                     {files.map(({ preview, name, type, isUploading, id }) => (
                       <div
                         className="relative overflow-visible rounded-lg"
-                        key={id}
+                        key={`${name}-${type}-${id}`}
                       >
                         {type === "image" ? (
                           <Image
@@ -126,7 +134,11 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                   }}
                   onKeyDown={onKeyDown}
                   placeholder="Message"
-                  className="max-h-48 min-h-0 w-full resize-none bg-transparent text-sm focus-within:outline-none"
+                  className={cn(
+                    "max-h-48 min-h-0 w-full resize-none bg-transparent text-sm focus-within:outline-none",
+                    !isSubscribed && "cursor-not-allowed",
+                  )}
+                  disabled={!isSubscribed}
                   autoFocus
                   spellCheck={false}
                   autoComplete="off"
@@ -144,7 +156,12 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 type="submit"
                 size="xs"
                 className="self-end rounded-full disabled:bg-primary"
-                disabled={content.trim() === "" || pending || !inTokenLimit}
+                disabled={
+                  content.trim() === "" ||
+                  pending ||
+                  !inTokenLimit ||
+                  !isSubscribed
+                }
               >
                 <ArrowUp className="size-3.5" />
                 <span className="sr-only">Send message</span>
