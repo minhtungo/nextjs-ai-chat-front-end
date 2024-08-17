@@ -1,23 +1,16 @@
 "use client";
 
-import { ArrowUp, ChevronDown, X } from "lucide-react";
+import { ArrowUp, ChevronDown } from "lucide-react";
 import { FC, FormEvent, useEffect, useRef, useState } from "react";
 import Textarea from "react-textarea-autosize";
 
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-
-import { useEnterSubmit } from "@/hooks/use-enter-submit";
-
-import Spinner from "@/components/common/Spinner";
-import { cn } from "@/lib/utils";
-import Image from "next/image";
-
-import DocPreview from "@/components/private/chat/DocPreview";
-import UtilButtons from "@/components/private/chat/UtilButtons";
-import { useMessage } from "@/hooks/use-message";
-import { useAtomValue } from "jotai";
 import { isSubscribedAtom } from "@/atoms/subscription";
+import UploadedFiles from "@/components/private/chat/UploadedFiles";
+import UtilButtons from "@/components/private/chat/UtilButtons";
+import { useEnterSubmit } from "@/hooks/use-enter-submit";
+import { useMessage } from "@/hooks/use-message";
+import { cn } from "@/lib/utils";
+import { useAtomValue } from "jotai";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -39,13 +32,9 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
     message: { content },
     setMessage,
     addFiles,
-    removeFile,
     inTokenLimit,
-    files,
     pending,
   } = useMessage();
-
-  console.log("test file", files);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -74,54 +63,21 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             }
           }}
         >
-          <div className="p-2">
+          <div className="p-1.5 px-2">
             <div className="flex w-full items-center gap-2 lg:gap-3">
-              <UtilButtons
-                showMathKeyboard={showMathKeyboard}
-                setShowMathKeyboard={setShowMathKeyboard}
-                className="self-end"
-                disabled={!isSubscribed}
-              />
-              <Label htmlFor="message" className="sr-only">
-                Message
-              </Label>
+              <div className="self-end">
+                <UtilButtons
+                  showMathKeyboard={showMathKeyboard}
+                  setShowMathKeyboard={setShowMathKeyboard}
+                  disabled={!isSubscribed}
+                  className="self-center"
+                />
+              </div>
+
+              <span className="sr-only">Message</span>
+
               <div className="flex w-full flex-1 flex-col items-start justify-center gap-y-3 overflow-hidden">
-                {files && files.length > 0 && (
-                  <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
-                    {files.map(({ preview, name, type, isUploading, id }) => (
-                      <div
-                        className="relative overflow-visible rounded-lg"
-                        key={`${name}-${type}-${id}`}
-                      >
-                        {type === "image" ? (
-                          <Image
-                            src={preview!}
-                            alt="Image"
-                            width={60}
-                            height={60}
-                            className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
-                          />
-                        ) : (
-                          <DocPreview name={name} type={type} />
-                        )}
-                        <button
-                          className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"
-                          onClick={() => {
-                            removeFile(id);
-                          }}
-                        >
-                          <X className="size-3" />
-                          <span className="sr-only">Remove attached file</span>
-                        </button>
-                        {isUploading && (
-                          <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-background/50 transition duration-300 ease-in-out">
-                            <Spinner className="size-3" />
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <UploadedFiles />
                 <Textarea
                   ref={inputRef}
                   tabIndex={0}
@@ -151,11 +107,9 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                   }
                 />
               </div>
-              <Button
-                variant="default"
+              <button
                 type="submit"
-                size="xs"
-                className="self-end rounded-full disabled:bg-primary"
+                className="flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:bg-accent disabled:text-foreground"
                 disabled={
                   content.trim() === "" ||
                   pending ||
@@ -163,16 +117,16 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                   !isSubscribed
                 }
               >
-                <ArrowUp className="size-3.5" />
+                <ArrowUp className="size-3" />
                 <span className="sr-only">Send message</span>
-              </Button>
+              </button>
             </div>
           </div>
         </div>
       ) : (
         <>
           <button
-            className="absolute -top-[10px] left-1/2 rounded-full bg-accent p-1"
+            className="absolute -top-[10px] left-1/2 size-5 rounded-full bg-accent p-1"
             onClick={() => setShowMathKeyboard(false)}
           >
             <ChevronDown className="size-3" />

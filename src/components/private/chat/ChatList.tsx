@@ -5,7 +5,9 @@ import ChatListHistory from "./ChatListHistory";
 const ChatList = () => {
   return (
     <Suspense fallback={<ChatSkeleton />}>
-      <ChatListHistory />
+      <div className="px-4">
+        <ChatListHistory />
+      </div>
     </Suspense>
   );
 };

@@ -33,11 +33,11 @@ const UtilButtons: FC<UtilButtonsProps> = ({
           <Button
             size="xs"
             type="button"
-            className={cn("bg-primary/50", className)}
+            className={cn("size-5 bg-primary/50", className)}
             onClick={() => setShowMathKeyboard(!showMathKeyboard)}
             disabled={disabled}
           >
-            <Plus className="pointer-events-none size-3.5" />
+            <Plus className="pointer-events-none size-3" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent

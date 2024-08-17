@@ -17,14 +17,14 @@ export default async function DashBoardLayout({
   return (
     <>
       <Sidebar>
-        <div className="space-y-4 px-4">
+        <div className="space-y-3 px-4">
           <Link href={PROTECTED_BASE_URL}>
             <Logo />
           </Link>
           <CreateChatButton />
         </div>
         <ScrollArea className="h-full flex-1">
-          <div className="px-4 py-2">
+          <div className="py-2">
             <ChatList />
           </div>
         </ScrollArea>

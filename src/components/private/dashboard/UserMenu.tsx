@@ -32,7 +32,7 @@ const UserMenu = () => {
           variant="outline"
           className="flex h-fit w-full items-center justify-between"
         >
-          <div className="flex items-center gap-x-1">
+          <div className="flex items-center gap-x-2">
             <UserAvatar user={user} />
             <span className="text-sm font-medium">{user.name}</span>
           </div>
