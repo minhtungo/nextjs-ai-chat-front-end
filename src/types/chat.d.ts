@@ -55,5 +55,5 @@ export type InfiniteMessagePage = {
   pageParams: number[];
   pages: {
     messages: Message[];
-  }[];
+  };
 };

@@ -38,7 +38,7 @@ const OptionsRadio: FC<OptionsRadioProps> = ({
         <RadioGroupItem
           value={item.value}
           key={`new-chat-subject-radio-${item.value}`}
-          className="rounded-lg border border-border/60 bg-accent/20 px-6 py-4 hover:border-primary/60 data-[state=checked]:border-primary"
+          className="rounded-lg border border-border/60 bg-accent/20 px-4 py-3 hover:border-primary/60 data-[state=checked]:border-primary"
         >
           <div className="w-full overflow-hidden text-ellipsis text-left">
             {item.label}

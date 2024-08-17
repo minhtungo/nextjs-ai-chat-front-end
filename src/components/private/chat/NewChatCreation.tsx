@@ -8,14 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useCreateChat } from "@/data/mutations/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
-import { useAtom, useAtomValue } from "jotai";
+import { cn } from "@/lib/utils";
+import { useAtomValue } from "jotai";
 import { FC, useState } from "react";
 
 interface NewChatCreationProps {
   toggleDialog?: (value: boolean) => void;
+  className?: string;
 }
 
-const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
+const NewChatCreation: FC<NewChatCreationProps> = ({
+  toggleDialog,
+  className,
+}) => {
   useAtomValue(subscribedCentrifugeAtom);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,7 +73,10 @@ const NewChatCreation: FC<NewChatCreationProps> = ({ toggleDialog }) => {
                     .includes(searchTerm.toLowerCase()),
               )}
               isPending={isPending}
-              className="grid w-full gap-3 text-sm sm:grid-cols-2"
+              className={cn(
+                "grid w-full gap-3 text-sm sm:grid-cols-2",
+                className,
+              )}
             />
           </TabsContent>
         ))}

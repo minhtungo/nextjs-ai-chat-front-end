@@ -14,6 +14,7 @@ import NewChatCreation from "./NewChatCreation";
 
 const CreateChatButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
@@ -24,7 +25,7 @@ const CreateChatButton = () => {
       </DialogTrigger>
       <DialogContent className="max-w-3xl">
         <DialogHeader>
-          <DialogTitle>Select a subject</DialogTitle>
+          <DialogTitle>Create a new chat</DialogTitle>
         </DialogHeader>
         <NewChatCreation toggleDialog={setIsOpen} />
       </DialogContent>
