@@ -10,6 +10,7 @@ import {
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { Languages, User } from "@prisma/client";
 import { z } from "zod";
+import { OnboardingSchema } from "@/components/private/onboarding/OnboardingForm";
 
 //Query
 export const getUserByEmail = async (
@@ -124,13 +125,15 @@ export const updateUserOnboarding = async ({
   values,
 }: {
   userId: string;
-  values: z.infer<typeof onboardingFormSchema>;
+  values: z.infer<typeof OnboardingSchema>;
 }) => {
   await db.user.update({
     where: { id: userId },
     data: {
       isOnboarded: true,
-      ...values,
+      subjects: values.academic.subjects,
+      academicLevel: values.academic.level,
+      goals: values.goals.goals,
     },
   });
 };

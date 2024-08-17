@@ -1,7 +1,14 @@
 "use client";
 
 import { onboardingFormAction } from "@/actions/user";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import Stepper from "@/components/common/Stepper";
+import SubmitButton from "@/components/common/SubmitButton";
+import MultipleSelect from "@/components/private/common/MultipleSelect";
+import {
+  MultiStepForm,
+  MultiStepFormContextProvider,
+} from "@/components/private/multistep-form/MultiStepForm";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,7 +17,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
+import MultipleSelector from "@/components/ui/multiple-selector";
+import {
+  MultiStepFormHeader,
+  MultiStepFormStep,
+} from "@/components/ui/multistep-form";
 import {
   Select,
   SelectContent,
@@ -18,47 +29,71 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { buttonVariants } from "@/components/ui/button";
-import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
 import Typography from "@/components/ui/typography";
-import { ACADEMIC_LEVELS, SUBJECTS } from "@/lib/constant";
-import { onboardingFormSchema } from "@/lib/definitions";
-import { cn } from "@/lib/utils";
+import { useMultiStepFormContext } from "@/hooks/use-multistep-form-context";
+import {
+  ACADEMIC_LEVELS,
+  GOAlS,
+  ONBOARDING_STEPS,
+  SUBJECTS,
+} from "@/lib/constant";
+import { onboardingSchema } from "@/lib/definitions";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, ChevronRight } from "lucide-react";
-import { User } from "next-auth";
-import Link from "next/link";
-import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import Logo from "@/components/common/Logo";
-import SubmitButton from "@/components/common/SubmitButton";
 
-interface OnboardingFormProps {
-  user: User;
-}
+type FormValues = z.infer<typeof onboardingSchema>;
 
-const OnboardingForm: FC<OnboardingFormProps> = () => {
-  const [subjects, setSubjects] = useState<Option[]>([]);
+const OnboardingFormHeader = () => {
+  return (
+    <MultiStepFormHeader className="mb-10 space-y-6">
+      <h2 className="text-xl font-medium">
+        Personalize your learning experience
+      </h2>
 
-  const { isPending, execute } = useServerAction(onboardingFormAction);
-  const [isFinished, setIsFinished] = useState(false);
+      <MultiStepFormContextProvider>
+        {({ currentStepIndex }) => (
+          <Stepper
+            steps={ONBOARDING_STEPS}
+            currentStepIndex={currentStepIndex}
+          />
+        )}
+      </MultiStepFormContextProvider>
+    </MultiStepFormHeader>
+  );
+};
 
-  const form = useForm<z.infer<typeof onboardingFormSchema>>({
-    resolver: zodResolver(onboardingFormSchema),
+const OnBoardingFormSteps = () => {
+  return (
+    <MultiStepFormStep name="academic">
+      <AcademicStep />
+    </MultiStepFormStep>
+  );
+};
+
+const OnboardingForm = () => {
+  const form = useForm<FormValues>({
+    resolver: zodResolver(onboardingSchema),
     defaultValues: {
-      academicLevel: undefined,
-      subjects: undefined,
+      academic: {
+        level: "",
+        subjects: [],
+      },
+      goals: {
+        goals: [],
+      },
     },
+    reValidateMode: "onBlur",
+    mode: "onBlur",
   });
 
-  const onSubmit = async (values: z.infer<typeof onboardingFormSchema>) => {
-    values.subjects = subjects?.map((subject) => subject.value) || [];
+  const { isPending, execute } = useServerAction(onboardingFormAction);
 
+  const onSubmit = async (values: FormValues) => {
     const [data, err] = await execute(values);
 
     if (err) {
@@ -67,95 +102,157 @@ const OnboardingForm: FC<OnboardingFormProps> = () => {
     }
 
     if (data.success) {
-      setIsFinished(true);
+      window.history.replaceState({}, "", PROTECTED_BASE_URL);
     }
   };
 
   return (
-    <Card className="w-full max-w-7xl" noBorderMobile>
-      {!isFinished ? (
-        <>
-          <Logo />
-          <Typography variant="h2" tag="h1" className="mb-6 mt-2">
-            Personalize your learning experience
-          </Typography>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <CardContent className="w-full space-y-4">
-                <FormField
-                  control={form.control}
-                  name="academicLevel"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Academic Level</FormLabel>
-                      <Select
-                        onValueChange={field.onChange}
-                        defaultValue={field.value}
-                      >
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select your academic level" />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {ACADEMIC_LEVELS.map((level) => (
-                            <SelectItem
-                              key={`user-grade-${level.value}`}
-                              value={level.value}
-                            >
-                              {level.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+    <MultiStepForm
+      className="space-y-10 p-8"
+      schema={onboardingSchema}
+      form={form}
+      onSubmit={onSubmit}
+      header={<OnboardingFormHeader />}
+    >
+      <MultiStepFormStep name="academic">
+        <AcademicStep />
+      </MultiStepFormStep>
+
+      <MultiStepFormStep name="goals">
+        <GoalsStep />
+      </MultiStepFormStep>
+
+      <MultiStepFormStep name="review">
+        <ReviewStep isPending={isPending} />
+      </MultiStepFormStep>
+    </MultiStepForm>
+  );
+};
+
+const AcademicStep = () => {
+  const { form, nextStep, isStepValid } = useMultiStepFormContext();
+
+  return (
+    <Form {...form}>
+      <div className="space-y-6">
+        <FormField
+          name="academic.level"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Level</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select your academic level" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {ACADEMIC_LEVELS.map((level) => (
+                    <SelectItem
+                      key={`user-grade-${level.value}`}
+                      value={level.value}
+                    >
+                      {level.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="academic.subjects"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Subjects</FormLabel>
+              <FormControl>
+                <MultipleSelector
+                  defaultOptions={SUBJECTS}
+                  onChange={(options) =>
+                    field.onChange(options.map((option) => option.value))
+                  }
+                  placeholder="Select subjects"
+                  hidePlaceholderWhenSelected
+                  hideClearAllButton
+                  emptyIndicator={
+                    <Typography className="text-muted-foreground">
+                      no results found.
+                    </Typography>
+                  }
                 />
-                <div className="space-y-2">
-                  <Label>Subjects</Label>
-                  <MultipleSelector
-                    defaultOptions={SUBJECTS}
-                    value={subjects}
-                    onChange={setSubjects}
-                    placeholder="Select subjects"
-                    hidePlaceholderWhenSelected
-                    hideClearAllButton
-                    emptyIndicator={
-                      <Typography className="text-muted-foreground">
-                        no results found.
-                      </Typography>
-                    }
-                  />
-                </div>
-              </CardContent>
-              <CardFooter>
-                <SubmitButton
-                  className="w-full"
-                  isPending={isPending}
-                  size="sm"
-                >
-                  Lưu thay đổi
-                </SubmitButton>
-              </CardFooter>
-            </form>
-          </Form>
-        </>
-      ) : (
-        <div className="flex flex-col items-center justify-center gap-y-6 text-center">
-          <CheckCircle className="size-10 text-green-500" />
-          <Typography variant="h4" tag="h1" className="">
-            You're all set! You can now start using the app.🎉
-          </Typography>
-          <Link
-            className={cn(buttonVariants({ variant: "outline" }), "mt-4")}
-            href={PROTECTED_BASE_URL}
-          >
-            Continue to dashboard <ChevronRight className="size-4" />
-          </Link>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-end">
+          <Button onClick={nextStep} disabled={!isStepValid()}>
+            Next
+          </Button>
         </div>
-      )}
-    </Card>
+      </div>
+    </Form>
+  );
+};
+
+const GoalsStep = () => {
+  const { form, prevStep, nextStep, isStepValid } = useMultiStepFormContext();
+
+  return (
+    <Form {...form}>
+      <div className="space-y-6">
+        <FormField
+          name="goals.goals"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Goals</FormLabel>
+              <FormControl>
+                <MultipleSelect
+                  defaultOptions={GOAlS}
+                  onChange={(goals) => {
+                    field.onChange(goals.map((option) => option.value));
+                  }}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <div className="flex justify-end gap-x-2">
+          <Button type={"button"} variant={"outline"} onClick={prevStep}>
+            Back
+          </Button>
+          <Button onClick={nextStep} disabled={!isStepValid()}>
+            Next
+          </Button>
+        </div>
+      </div>
+    </Form>
+  );
+};
+
+const ReviewStep = ({ isPending }: { isPending: boolean }) => {
+  const { prevStep } = useMultiStepFormContext();
+
+  return (
+    <div className="flex flex-col items-center justify-center gap-y-6 text-center">
+      <CheckCircle className="size-10 text-green-500" />
+      <Typography variant="h4" tag="h1" className="">
+        You're all set! You can now start using the app.🎉
+      </Typography>
+      <div className="mt-4 flex items-center gap-2">
+        <Button type={"button"} variant={"outline"} onClick={prevStep}>
+          Back
+        </Button>
+        <SubmitButton type="submit" isPending={isPending}>
+          Finish <ChevronRight className="size-4" />
+        </SubmitButton>
+      </div>
+    </div>
   );
 };
 

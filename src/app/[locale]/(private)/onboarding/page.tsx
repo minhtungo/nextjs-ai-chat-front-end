@@ -13,10 +13,9 @@ const OnboardingPage = async () => {
   // }
 
   return (
-    <div className="flex min-h-[100dvh] w-screen flex-col items-center justify-center">
-      <div className="max-w-xl">
-        <OnboardingForm user={user} />
-      </div>
+    <div className="flex h-screen w-full items-center justify-center overflow-hidden">
+      {/* <OnboardingForm user={user} /> */}
+      <OnboardingForm />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { signOut } from "@/actions/auth";
+
 import {
   changeUserPassword,
   getUserById,
@@ -8,16 +9,14 @@ import {
 } from "@/data/user";
 import {
   changeUserPasswordSchema,
-  onboardingFormSchema,
+  onboardingSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
 import { PROTECTED_BASE_URL } from "@/lib/routes";
-import { encodeData } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { v4 as uuid } from "uuid";
 
 export const updateUserProfileUseCase = async (
   userID: string,
@@ -35,7 +34,7 @@ export const updateUserProfileUseCase = async (
 
 export const onboardingFormUseCase = async (
   userId: string,
-  values: z.infer<typeof onboardingFormSchema>,
+  values: z.infer<typeof onboardingSchema>,
 ) => {
   try {
     await updateUserOnboarding({ userId, values });

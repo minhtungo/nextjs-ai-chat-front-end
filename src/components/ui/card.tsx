@@ -14,7 +14,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
       className={cn(
         "rounded-lg border bg-card p-6 pb-0 text-card-foreground shadow",
         noBorderMobile &&
-          "border-transparent p-0 shadow-none sm:border-border sm:p-6 sm:pb-0 sm:shadow",
+          "border-transparent p-4 shadow-none sm:border-border sm:p-6 sm:pb-0 sm:shadow",
         size === "sm" && "p-4 pb-0",
         className,
       )}

@@ -2,7 +2,7 @@
 
 import {
   changeUserPasswordSchema,
-  onboardingFormSchema,
+  onboardingSchema,
   twoFactorToggleSchema,
   updateUserProfileSchema,
 } from "@/lib/definitions";
@@ -27,9 +27,9 @@ export const updateUserProfileAction = authedAction
   });
 
 export const onboardingFormAction = authedAction
-  .input(onboardingFormSchema)
-  .handler(async ({ input, ctx: { user } }) => {
-    return await onboardingFormUseCase(user.id!, input);
+  .input(onboardingSchema)
+  .handler(async ({ input: values, ctx: { user } }) => {
+    return await onboardingFormUseCase(user.id!, values);
   });
 
 export const toggleTwoFactorAction = authedAction

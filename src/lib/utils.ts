@@ -6,6 +6,7 @@ import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 import { SUBJECTS } from "./constant";
 import { AccessToken } from "@/types/api";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -179,3 +180,14 @@ export const clearCanvas = (
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
+
+/**
+ * @name createStepSchema
+ * @description Create a schema for a multi-step form
+ * @param steps
+ */
+export function createStepSchema<T extends Record<string, z.ZodType>>(
+  steps: T,
+) {
+  return z.object(steps);
+}

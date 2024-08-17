@@ -1,18 +1,14 @@
 import Momo from "@/components/icons/Momo";
 import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
 
-export const onBoardingSteps = [
+export const ONBOARDING_STEPS = [
   {
-    label: "Personalize your learning experience",
-    value: "personalize",
+    label: "Academic",
+    value: "academic",
   },
   {
-    label: "Select your goals",
+    label: "Goals",
     value: "goals",
-  },
-  {
-    label: "Set your preferences",
-    value: "preferences",
   },
   {
     label: "Finish",
@@ -20,7 +16,7 @@ export const onBoardingSteps = [
   },
 ];
 
-export type OnboardingStep = (typeof onBoardingSteps)[number];
+export type OnboardingStep = (typeof ONBOARDING_STEPS)[number];
 
 export const TOKEN_EXPIRATION_IN_MINUTES = 60;
 export const MESSAGE_TOKEN_LIMIT = 10;

@@ -1,5 +1,6 @@
 import { object, string, optional, boolean, z, number, array } from "zod";
 import { passwordRegex } from "./regex";
+import { createStepSchema } from "@/lib/utils";
 
 export const signInSchema = object({
   email: string({ required_error: "auth.error.email" })
@@ -56,9 +57,14 @@ export const updateUserProfileSchema = object({
   language: z.enum(["vi", "en"]).default("vi"),
 });
 
-export const onboardingFormSchema = object({
-  academicLevel: string().optional(),
-  subjects: z.array(z.string()).optional(),
+export const onboardingSchema = createStepSchema({
+  academic: z.object({
+    level: z.string(),
+    subjects: z.array(z.string()),
+  }),
+  goals: z.object({
+    goals: z.array(z.string()),
+  }),
 });
 
 export const twoFactorToggleSchema = object({
