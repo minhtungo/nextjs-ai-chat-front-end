@@ -20,7 +20,9 @@ const BillingPage = async () => {
 
   return (
     <>
-      <PageTitle title="Billing" />
+      <Typography variant="h5" tag="h3" className="mb-4">
+        Plans
+      </Typography>
       <Plans currentPlan={user.plan} />
       <Separator className="my-8" />
       <Typography variant="h5" tag="h3" className="mb-4">

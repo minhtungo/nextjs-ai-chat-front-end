@@ -11,7 +11,7 @@ const UserInfo: FC<UserInfoProps> = async ({ className }) => {
     <Suspense
       fallback={
         <div className="px-4">
-          <Skeleton className="h-7 w-full" />
+          <Skeleton className="h-8 w-full" />
         </div>
       }
     >
