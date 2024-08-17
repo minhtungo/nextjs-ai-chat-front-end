@@ -1,12 +1,12 @@
 import ContentBox from "@/components/common/ContentBox";
+import SectionTitle from "@/components/public/common/SectionTitle";
 import Section from "@/components/public/home/Section";
 import { FEATURES } from "@/lib/constant";
-import SectionTitleWrapper from "@/components/public/common/SectionTitleWrapper";
 
 const Features = () => {
   return (
     <Section>
-      <SectionTitleWrapper
+      <SectionTitle
         title="Everything you need for successful online learning"
         subtitle="Unified platform"
       />

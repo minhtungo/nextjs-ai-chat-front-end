@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/styles/globals.css";
 import Providers from "@/components/providers";
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
+import "@/styles/globals.css";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));

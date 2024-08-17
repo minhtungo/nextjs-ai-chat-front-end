@@ -2,13 +2,13 @@ import { FC } from "react";
 import { cn } from "@/lib/utils";
 import Typography from "@/components/ui/typography";
 
-interface SectionTitleWrapperProps {
+interface SectionTitleProps {
   title: string;
   subtitle?: string;
   className?: string;
 }
 
-const SectionTitleWrapper: FC<SectionTitleWrapperProps> = ({
+const SectionTitle: FC<SectionTitleProps> = ({
   title,
   subtitle,
   className,
@@ -32,4 +32,4 @@ const SectionTitleWrapper: FC<SectionTitleWrapperProps> = ({
   );
 };
 
-export default SectionTitleWrapper;
+export default SectionTitle;

@@ -1,15 +1,12 @@
 import Section from "@/components/public/home/Section";
 import { buttonVariants } from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
 import { signUpHref } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { FC } from "react";
-import Typography from "@/components/ui/typography";
 import ThemeImage from "./ThemeImage";
 
-interface HeroProps {}
-
-const Hero: FC<HeroProps> = () => {
+const Hero = () => {
   const t = useTranslations("public.Hero");
   return (
     <Section>

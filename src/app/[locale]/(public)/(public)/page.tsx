@@ -7,7 +7,7 @@ import Features from "@/components/public/home/Features";
 import IntroBlock from "@/components/public/home/IntroBlock";
 import FAQ from "@/components/public/common/FAQ";
 import PricingSection from "@/components/public/common/PricingSection";
-import SectionTitleWrapper from "@/components/public/common/SectionTitleWrapper";
+import SectionTitle from "@/components/public/common/SectionTitle";
 
 export async function generateMetadata({
   params: { locale },
@@ -32,7 +32,7 @@ export default function Home({
       <Hero />
       <Features />
       <Section>
-        <SectionTitleWrapper
+        <SectionTitle
           subtitle="All-in-One Learning Platform"
           title="Everything you need to get better grades"
         />
@@ -51,7 +51,7 @@ export default function Home({
         </div>
       </Section>
       <Section className="mx-auto max-w-5xl">
-        <SectionTitleWrapper
+        <SectionTitle
           subtitle="Pricing Plans"
           title="We provide affordable pricing and flexible payment options."
         />
