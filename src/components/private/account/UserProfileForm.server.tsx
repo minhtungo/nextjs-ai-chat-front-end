@@ -1,15 +1,14 @@
 import { getUserById } from "@/data/user";
-import { User } from "next-auth";
-import { FC } from "react";
+import { getCurrentUser } from "@/lib/auth";
 import UserProfileForm from "./UserProfileForm.client";
 
-interface UserProfileFormServerProps {
-  currentUser: User;
-}
+const UserProfileFormServer = async () => {
+  const currentUser = await getCurrentUser();
 
-const UserProfileFormServer: FC<UserProfileFormServerProps> = async ({
-  currentUser,
-}) => {
+  if (!currentUser) {
+    throw new Error("Unauthorized");
+  }
+
   const user = await getUserById(currentUser.id!, {
     include: {
       settings: true,

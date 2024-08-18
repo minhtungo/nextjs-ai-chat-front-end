@@ -25,7 +25,9 @@ export default async function DashBoardLayout({
       </Sidebar>
       <MainArea>
         <Header />
-        <ScrollAreaContainer className="py-4">{children}</ScrollAreaContainer>
+        <ScrollAreaContainer className="pb-4 pt-6 sm:pt-8">
+          {children}
+        </ScrollAreaContainer>
       </MainArea>
     </>
   );

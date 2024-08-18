@@ -73,7 +73,7 @@ const FeedbackForm = () => {
         {data && data.message && (
           <FormSuccess message={t(data.message as any)} />
         )}
-        <SubmitButton className="w-full" isPending={isPending} size="sm">
+        <SubmitButton isPending={isPending} className="ml-auto mt-6">
           {t("submitLabel")}
         </SubmitButton>
       </form>

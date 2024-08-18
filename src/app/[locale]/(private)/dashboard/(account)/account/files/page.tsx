@@ -1,4 +1,4 @@
-import PageTitle from "@/components/private/common/PageTitle";
+import FilesLibrary from "@/components/private/files/FilesLibrary";
 import { getCurrentUser } from "@/lib/auth";
 import { Metadata } from "next";
 
@@ -15,11 +15,7 @@ const FilesPage = async () => {
 
   // const assets = await getUserUploadedFilesUseCase(user.id!);
 
-  return (
-    <>
-      <PageTitle title="Files" />
-    </>
-  );
+  return <FilesLibrary />;
 };
 
 export default FilesPage;

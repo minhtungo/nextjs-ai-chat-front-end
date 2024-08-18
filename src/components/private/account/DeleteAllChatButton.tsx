@@ -30,7 +30,7 @@ const DeleteAllChatButton = () => {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive">Delete All Chats</Button>
+        <Button variant="destructive">Delete All</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

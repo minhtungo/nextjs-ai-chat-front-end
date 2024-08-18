@@ -1,6 +1,7 @@
 import Facebook from "@/components/icons/Facebook";
 import {
   CreditCard,
+  Folder,
   MessageSquareMore,
   ShieldCheck,
   UserRound,
@@ -67,7 +68,7 @@ export const DASHBOARD_LINKS = [
     icon: <UserRound className="size-[18px]" />,
   },
   {
-    title: "Billing",
+    title: "Subscription",
     href: `${PROTECTED_BASE_URL}/account/billing`,
     icon: <CreditCard className="size-[18px]" />,
   },
@@ -75,6 +76,11 @@ export const DASHBOARD_LINKS = [
     title: "Security",
     href: `${PROTECTED_BASE_URL}/account/security`,
     icon: <ShieldCheck className="size-[18px]" />,
+  },
+  {
+    title: "Files",
+    href: `${PROTECTED_BASE_URL}/account/files`,
+    icon: <Folder className="size-[18px]" />,
   },
   {
     title: "Support",

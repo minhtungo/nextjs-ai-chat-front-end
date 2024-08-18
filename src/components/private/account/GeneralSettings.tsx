@@ -1,16 +1,15 @@
-import { User } from "next-auth";
-import { FC } from "react";
-import DeleteAllChatButton from "./DeleteAllChatButton";
+import DeleteAllChatButton from "@/components/private/account/DeleteAllChatButton";
+import { Card } from "@/components/ui/card";
 
-interface GeneralSettingsProps {
-  user: User;
-}
-
-const GeneralSettings: FC<GeneralSettingsProps> = ({ user }) => {
+const GeneralSettings = () => {
   return (
-    <div className="space-y-4">
+    <Card
+      className="flex w-full max-w-3xl items-center justify-between pb-4 sm:pb-6"
+      noBorderMobile
+    >
+      <span className="text-base font-medium">Delete all chats</span>
       <DeleteAllChatButton />
-    </div>
+    </Card>
   );
 };
 

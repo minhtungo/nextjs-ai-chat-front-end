@@ -20,7 +20,6 @@ const SecurityPage = async () => {
 
   return (
     <>
-      <PageTitle title="Security" />
       {!user.isOauth && (
         <TwoFactorToggle isTwoFactorEnabled={user?.isTwoFactorEnabled} />
       )}
