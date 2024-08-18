@@ -1,8 +1,14 @@
 import Section from "@/components/public/home/Section";
 import PageTitle from "@/components/public/common/PageTitle";
 import ContactUsForm from "@/components/public/ContactForm";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const ContactUsPage = async () => {
+const ContactUsPage = ({
+  params: { locale },
+}: {
+  params: { locale: string };
+}) => {
+  unstable_setRequestLocale(locale);
   return (
     <Section>
       <PageTitle
