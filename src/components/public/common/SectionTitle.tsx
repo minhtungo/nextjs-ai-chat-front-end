@@ -30,12 +30,7 @@ const SectionTitle: FC<SectionTitleProps> = ({
         {title}
       </h2>
       {title && (
-        <Typography
-          variant="h2"
-          tag="p"
-          className="font-normal"
-          data-aos="fade-up"
-        >
+        <Typography variant="h2" tag="p" data-aos="fade-up">
           {description}
         </Typography>
       )}

@@ -5,8 +5,8 @@ import { forwardRef, HTMLAttributes } from "react";
 export const TypographyVariants = cva("", {
   variants: {
     variant: {
-      h1: "scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl",
-      h2: "scroll-m-20 text-2xl sm:text-3xl font-semibold tracking-tight",
+      h1: "scroll-m-20 text-3xl font-semibold tracking-tight lg:text-4xl",
+      h2: "scroll-m-20 text-2xl sm:text-3xl font-medium tracking-tight",
       h3: "scroll-m-20 text-xl sm:text-2xl font-medium tracking-tight",
       h4: "scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-base sm:text-lg font-normal",

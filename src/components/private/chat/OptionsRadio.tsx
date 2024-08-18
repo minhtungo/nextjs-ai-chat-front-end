@@ -1,7 +1,6 @@
 "use client";
 
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { TSubject } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 import { FC, useRef } from "react";
 
@@ -38,7 +37,7 @@ const OptionsRadio: FC<OptionsRadioProps> = ({
         <RadioGroupItem
           value={item.value}
           key={`new-chat-subject-radio-${item.value}`}
-          className="rounded-lg border border-border/60 bg-accent/20 px-4 py-3 hover:border-primary/60 data-[state=checked]:border-primary"
+          className="rounded-lg border border-border bg-accent/20 px-4 py-3 hover:border-primary/60 data-[state=checked]:border-primary"
         >
           <div className="w-full overflow-hidden text-ellipsis text-left">
             {item.label}

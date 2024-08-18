@@ -51,16 +51,12 @@ export const NAV_LINKS = [
 
 export const FOOTER_LINKS = [
   {
-    title: "About.title",
-    href: "/about",
+    title: "Privacy Policy",
+    href: "/privacy-policy",
   },
   {
-    title: "Pricing.title",
-    href: "/pricing",
-  },
-  {
-    title: "ContactUs.title",
-    href: "/contact-us",
+    title: "Terms",
+    href: "/terms",
   },
 ];
 

@@ -22,21 +22,21 @@ const Footer: FC<FooterProps> = ({ className }) => {
             </Link>
           </div>
           <LanguageSwitcher showIcon />
-          {/* <ul className="flex items-center gap-x-8 gap-y-4 text-sm">
-            {FOOTER_LINKS.map(({ title, href }) => (
-              <li
-                key={`footer-${title}`}
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Link href={href}>{t(title)}</Link>
-              </li>
-            ))}
-          </ul> */}
         </div>
         <div className="flex w-full flex-col items-center justify-between gap-y-4 sm:flex-row">
           <div className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
+          <ul className="flex items-center gap-x-4 gap-y-4 text-sm">
+            {FOOTER_LINKS.map(({ title, href }) => (
+              <li
+                key={`footer-${title}`}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Link href={href}>{title}</Link>
+              </li>
+            ))}
+          </ul>
           <div className="flex gap-x-5">
             {SOCIAL_LINKS.map(({ title, href, icon }) => (
               <Link key={`social-${title}`} href={href}>

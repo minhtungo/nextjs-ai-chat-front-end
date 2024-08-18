@@ -7,7 +7,7 @@ interface ChatSkeletonProps {
 
 const ChatSkeleton: FC<ChatSkeletonProps> = ({ length = 5 }) => {
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-1.5 px-4">
       {Array.from({ length }).map((_, i) => (
         <Skeleton key={`${i}-chat-skeleton`} className="h-10 w-full shrink-0" />
       ))}

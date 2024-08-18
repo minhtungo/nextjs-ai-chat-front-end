@@ -191,3 +191,53 @@ export function createStepSchema<T extends Record<string, z.ZodType>>(
 ) {
   return z.object(steps);
 }
+
+type MetadataProps = {
+  title?: string;
+  description?: string;
+  canonical: string;
+  ogImage?: string;
+};
+
+const defaultMetadata = {
+  title: "Lumi - AI Tutor Platform",
+  description:
+    "Lumi is an AI tutoring platform that provides personalized and interactive learning experiences for students to enhance their learning and understanding of various subjects.",
+};
+
+export const constructMetadata = ({
+  title,
+  description = defaultMetadata.description,
+  canonical = "/",
+  ogImage = "/images/og-image.png",
+}: MetadataProps) => {
+  return {
+    metadataBase: new URL("https://asklumi.ai/"),
+    title: title ? `${title} - Lumi` : defaultMetadata.title,
+    description,
+    keywords: ["ai tutor", "ai"],
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      title,
+      description,
+      type: "website",
+      url: canonical,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "OG Image",
+        },
+      ],
+    },
+    // --- will add this once we get the logo ---
+    // icons: {
+    //   icon: "/icon.png",
+    //   shortcut: "/icon.png",
+    //   apple: "/icon.png",
+    // },
+  };
+};
