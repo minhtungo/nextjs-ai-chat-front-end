@@ -1,5 +1,6 @@
 "use client"; // Error components must be Client Components
 
+import OverlayWindow from "@/components/common/OverlayWindow";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import Link from "next/link";
@@ -18,7 +19,10 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-y-3 text-center">
+    <OverlayWindow
+      containerClassName="bg-background"
+      className="flex h-full w-full flex-col items-center justify-center gap-y-3 text-center"
+    >
       <Typography variant="h3">Opps, Something went wrong!</Typography>
       <Typography className="max-w-xl text-muted-foreground">
         {error.message}
@@ -47,6 +51,6 @@ export default function Error({
           Contact Us
         </Link>
       </div>
-    </div>
+    </OverlayWindow>
   );
 }

@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Card } from "@/components/ui/card";
 
 interface ContentBoxProps {
   title: string;
@@ -9,12 +8,12 @@ interface ContentBoxProps {
 
 const ContentBox: FC<ContentBoxProps> = ({ title, description, icon }) => {
   return (
-    <div className="relative pl-16">
+    <div className="relative pl-16" data-aos="fade-up">
       <dt className="text-base font-semibold leading-7">
         <h3>{title}</h3>
-        <Card className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center">
+        <div className="absolute left-0 top-0 flex size-10 items-center justify-center rounded-lg border text-primary shadow">
           {icon}
-        </Card>
+        </div>
       </dt>
       <dd className="mt-2 text-base leading-7 text-muted-foreground">
         {description}

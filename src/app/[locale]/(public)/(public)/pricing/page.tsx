@@ -1,10 +1,9 @@
+import FAQs from "@/components/public/common/FAQs";
+import PageTitle from "@/components/public/common/PageTitle";
+import PricingSection from "@/components/public/common/PricingSection";
 import Section from "@/components/public/home/Section";
-import Typography from "@/components/ui/typography";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import FAQ from "@/components/public/common/FAQ";
-import PricingSection from "@/components/public/common/PricingSection";
-import PageTitle from "@/components/public/common/PageTitle";
 
 export async function generateMetadata({
   params: { locale },
@@ -29,16 +28,11 @@ export default function PricingPage({
 
   return (
     <>
-      <Section>
+      <Section className="mx-auto mb-10 max-w-4xl sm:mb-14">
         <PageTitle title={t("title")} description={t("subtitle")} />
         <PricingSection />
       </Section>
-      <Section className="mx-auto max-w-4xl">
-        <Typography variant="h3" tag="h2" className="mb-8">
-          Câu hỏi thường gặp
-        </Typography>
-        <FAQ />
-      </Section>
+      <FAQs className="mb-10 sm:mb-14" />
     </>
   );
 }

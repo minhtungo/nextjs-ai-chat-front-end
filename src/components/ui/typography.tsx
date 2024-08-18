@@ -7,7 +7,7 @@ export const TypographyVariants = cva("", {
     variant: {
       h1: "scroll-m-20 text-3xl font-bold tracking-tight lg:text-4xl",
       h2: "scroll-m-20 text-2xl sm:text-3xl font-semibold tracking-tight",
-      h3: "scroll-m-20 text-xl sm:text-2xl font-semibold tracking-tight",
+      h3: "scroll-m-20 text-xl sm:text-2xl font-medium tracking-tight",
       h4: "scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-base sm:text-lg font-normal",
       h6: "text-base font-semibold",
@@ -15,7 +15,7 @@ export const TypographyVariants = cva("", {
       div: "[&>p:not(:first-child)]:mt-6",
     },
     size: {
-      sm: "!text-sm !sm:text-base",
+      sm: "text-sm sm:text-base",
     },
   },
   defaultVariants: {

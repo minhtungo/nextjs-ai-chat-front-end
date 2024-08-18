@@ -7,11 +7,12 @@ const Features = () => {
   return (
     <Section>
       <SectionTitle
-        title="Everything you need for successful online learning"
-        subtitle="Unified platform"
+        title="Unified platform"
+        description="Everything you need for successful online learning"
+        variant="center"
       />
-      <div className="mx-auto max-w-6xl">
-        <dl className="grid gap-x-8 gap-y-10 lg:grid-cols-2 lg:gap-y-14">
+      <div className="mx-auto max-w-5xl">
+        <dl className="grid gap-x-8 gap-y-8 lg:grid-cols-2 lg:gap-y-14">
           {FEATURES.map((feature) => (
             <ContentBox
               key={feature.title}

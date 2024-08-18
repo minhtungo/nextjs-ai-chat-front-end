@@ -1,15 +1,13 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import Providers from "@/components/providers";
 import { locales } from "@/lib/config";
-import { unstable_setRequestLocale } from "next-intl/server";
 import "@/styles/globals.css";
+import { GeistSans } from "geist/font/sans";
+import type { Metadata } from "next";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -29,8 +27,12 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
 
   return (
-    <html suppressHydrationWarning lang={locale}>
-      <body className={inter.className}>
+    <html
+      suppressHydrationWarning
+      lang={locale}
+      className={GeistSans.className}
+    >
+      <body>
         <Providers>{children}</Providers>
       </body>
     </html>

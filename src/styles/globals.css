@@ -10,8 +10,13 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
+
+    /* --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%; */
+
+    --primary: 197 71% 30%;
+    --primary-foreground: 210 40% 98%;
+
     --secondary: 240 4.8% 95.9%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
@@ -39,8 +44,12 @@
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
+
+    /* --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%; */
+    --primary: 197 71% 73%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
@@ -67,27 +76,5 @@
   }
   body {
     @apply bg-background text-foreground;
-  }
-}
-
-@layer utilities {
-  .card-wrapper {
-    @apply relative overflow-hidden;
-  }
-
-  /* Gradient */
-  .card-wrapper::before {
-    background: conic-gradient(
-      rgba(244, 114, 182, 0.4) 0deg,
-      rgba(192, 132, 252, 0.4) 0deg,
-      transparent 100deg
-    );
-
-    @apply absolute left-[-25%] top-[-25%] h-[120%] w-[150%] animate-border-spin content-[''];
-  }
-
-  /* Body */
-  .card-content {
-    @apply relative h-[calc(100%-2px)] w-[calc(100%-2px)];
   }
 }

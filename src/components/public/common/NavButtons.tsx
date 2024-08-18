@@ -14,7 +14,6 @@ const NavButtons = async () => {
       {user ? (
         <>
           <SignOutButton title={t("SignOut.title")} />
-
           <Link
             href={PROTECTED_BASE_URL}
             className={buttonVariants({
@@ -27,22 +26,21 @@ const NavButtons = async () => {
       ) : (
         <>
           <Link
+            href={signInHref}
+            className={buttonVariants({
+              size: "sm",
+              variant: "ghost",
+            })}
+          >
+            {t("SignIn.title")}
+          </Link>
+          <Link
             href={signUpHref}
             className={buttonVariants({
-              variant: "ghost",
               size: "sm",
             })}
           >
             {t("SignUp.title")}
-          </Link>
-
-          <Link
-            href={signInHref}
-            className={buttonVariants({
-              size: "sm",
-            })}
-          >
-            {t("SignIn.title")}
           </Link>
         </>
       )}

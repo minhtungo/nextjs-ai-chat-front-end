@@ -14,15 +14,15 @@ const Footer: FC<FooterProps> = ({ className }) => {
   const t = useTranslations("common.Navbar");
   return (
     <footer className={className}>
-      <MaxWidthWrapper className="space-y-6 border-t border-border/40 py-6">
-        <div className="flex flex-col flex-wrap items-center justify-between gap-4 sm:flex-row">
+      <MaxWidthWrapper className="space-y-6 pb-6">
+        <div className="flex flex-col flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-6 sm:flex-row">
           <div className="space-y-4 text-center sm:text-left">
             <Link href="/">
               <Logo />
             </Link>
-            <LanguageSwitcher showIcon />
           </div>
-          <ul className="flex items-center gap-x-8 gap-y-4 text-sm">
+          <LanguageSwitcher showIcon />
+          {/* <ul className="flex items-center gap-x-8 gap-y-4 text-sm">
             {FOOTER_LINKS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}
@@ -31,9 +31,9 @@ const Footer: FC<FooterProps> = ({ className }) => {
                 <Link href={href}>{t(title)}</Link>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
-        <div className="flex w-full flex-col items-center justify-between gap-y-4 border-t border-border/40 pt-6 sm:flex-row">
+        <div className="flex w-full flex-col items-center justify-between gap-y-4 sm:flex-row">
           <div className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>

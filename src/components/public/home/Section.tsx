@@ -7,7 +7,7 @@ interface SectionProps {
 }
 
 const Section: FC<SectionProps> = ({ children, className }) => {
-  return <div className={cn("py-10 sm:py-14", className)}>{children}</div>;
+  return <div className={cn("py-12 sm:py-16", className)}>{children}</div>;
 };
 
 export default Section;

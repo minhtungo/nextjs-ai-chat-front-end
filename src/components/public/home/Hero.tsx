@@ -1,36 +1,30 @@
 import Section from "@/components/public/home/Section";
+import ThemeImage from "@/components/public/home/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import { signUpHref } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import ThemeImage from "./ThemeImage";
 
 const Hero = () => {
   const t = useTranslations("public.Hero");
   return (
-    <Section>
-      <div className="mb-12 flex flex-col items-center justify-center text-center sm:mb-16">
-        <div className="card-wrapper z-0 mx-auto mb-4 max-w-fit rounded-full p-[2px] shadow-md ring-1 ring-inset ring-border">
-          <div className="flex items-center justify-center space-x-2 overflow-hidden rounded-full bg-card px-6 py-2 backdrop-blur transition-all">
-            <p className="text-sm font-semibold text-card-foreground">
-              {t("noti")}
-            </p>
-          </div>
-        </div>
-        <Typography variant="h1" className="max-w-4xl">
-          {t("title")}
-        </Typography>
-        <p className="mb-6 mt-5 max-w-prose text-muted-foreground sm:text-lg">
+    <Section className="mt-10">
+      <div className="mx-auto mb-12 flex max-w-3xl flex-col items-center justify-center text-pretty text-center sm:mb-16">
+        <Typography variant="h1">{t("title")}</Typography>
+        <p
+          className="mb-6 mt-5 w-full max-w-prose text-muted-foreground sm:w-3/4 sm:text-lg"
+          data-aos="fade-up"
+        >
           {t("subtitle")}
         </p>
-
         <Link
           className={buttonVariants({
             variant: "default",
-            size: "lg",
           })}
           href={signUpHref}
+          data-aos="fade-up"
+          data-aos-delay="200"
         >
           {t("cta")}
         </Link>
@@ -50,24 +44,16 @@ const Hero = () => {
             />
           </div>
 
-          <div>
-            <div className="mx-auto">
-              <div className="mt-12 sm:mt-20">
-                <div className="card-wrapper l z-0 rounded-2xl p-1 ring-1 ring-inset ring-border">
-                  <div className="card-content z-10 rounded-2xl bg-background">
-                    <ThemeImage
-                      srcLight="/images/hero.png"
-                      srcDark="/images/hero-dark.png"
-                      width={1920}
-                      height={925}
-                      fetchPriority="high"
-                      alt="Product Preview"
-                      className="rounded-2xl"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="b mx-auto mt-12 rounded-2xl bg-muted/50 p-1.5 ring-1 ring-inset ring-border sm:mt-20">
+            <ThemeImage
+              srcLight="/images/hero.png"
+              srcDark="/images/hero-dark.png"
+              width={1920}
+              height={925}
+              fetchPriority="high"
+              alt="Product Preview"
+              className="rounded-2xl"
+            />
           </div>
 
           <div
@@ -89,3 +75,13 @@ const Hero = () => {
 };
 
 export default Hero;
+
+{
+  /* <div className="card-wrapper z-0 mx-auto mb-4 max-w-fit rounded-full p-[2px] shadow-md ring-1 ring-inset ring-border">
+          <div className="flex items-center justify-center space-x-2 overflow-hidden rounded-full bg-card px-6 py-2 backdrop-blur transition-all">
+            <p className="text-sm font-semibold text-card-foreground">
+              {t("noti")}
+            </p>
+          </div>
+        </div> */
+}

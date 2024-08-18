@@ -4,28 +4,40 @@ import Typography from "@/components/ui/typography";
 
 interface SectionTitleProps {
   title: string;
-  subtitle?: string;
+  description?: string;
   className?: string;
+  variant?: "default" | "center";
 }
 
 const SectionTitle: FC<SectionTitleProps> = ({
   title,
-  subtitle,
+  description,
   className,
+  variant = "default",
 }) => {
   return (
     <div
       className={cn(
-        "mx-auto mb-12 text-left lg:mb-16 lg:max-w-2xl lg:text-center",
+        "mb-4 whitespace-pre-line",
+        variant === "center" &&
+          "mx-auto mb-12 text-left lg:mb-16 lg:max-w-2xl lg:text-center",
         className,
       )}
     >
-      <Typography className="text-base font-semibold text-accent-foreground">
-        {subtitle}
-      </Typography>
+      <h2
+        className="mb-1 text-base font-medium leading-relaxed text-primary"
+        data-aos="fade-up"
+      >
+        {title}
+      </h2>
       {title && (
-        <Typography variant="h2" className="mt-2 font-normal">
-          {title}
+        <Typography
+          variant="h2"
+          tag="p"
+          className="font-normal"
+          data-aos="fade-up"
+        >
+          {description}
         </Typography>
       )}
     </div>
