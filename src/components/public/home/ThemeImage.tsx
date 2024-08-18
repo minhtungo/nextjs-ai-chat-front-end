@@ -17,11 +17,14 @@ const ThemeImage: FC<Props> = (props) => {
         {...rest}
         src={srcLight}
         className={cn("dark:hidden", className)}
+        fetchPriority="high"
         alt={alt}
       />
       <Image
         {...rest}
         src={srcDark}
+        priority={true}
+        fetchPriority="high"
         className={cn("hidden dark:block", className)}
         alt={alt}
       />

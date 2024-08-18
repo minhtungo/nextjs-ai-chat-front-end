@@ -50,7 +50,6 @@ const Hero = () => {
               srcDark="/images/hero-dark.png"
               width={1920}
               height={925}
-              fetchPriority="high"
               alt="Product Preview"
               className="rounded-2xl"
             />
