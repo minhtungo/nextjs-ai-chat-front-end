@@ -28,7 +28,7 @@ export default function PricingPage({
 
   return (
     <>
-      <Section className="mx-auto mb-10 max-w-4xl sm:mb-14">
+      <Section className="mx-auto max-w-5xl">
         <PageTitle title={t("title")} description={t("subtitle")} />
         <PricingSection />
       </Section>
