@@ -44,7 +44,7 @@ const Hero = () => {
             />
           </div>
 
-          <div className="b mx-auto mt-12 rounded-2xl bg-muted/50 p-1.5 ring-1 ring-inset ring-border sm:mt-20">
+          <div className="mx-auto mt-12 rounded-2xl bg-muted/50 p-1.5 ring-1 ring-inset ring-border sm:mt-20">
             <ThemeImage
               srcLight="/images/hero.png"
               srcDark="/images/hero-dark.png"
