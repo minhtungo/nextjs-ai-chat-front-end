@@ -97,7 +97,7 @@ const SignInForm = () => {
                       <FormLabel>{t("SignIn.fields.password.label")}</FormLabel>
                       <Link
                         href={forgotPasswordHref}
-                        className="ml-auto inline-block text-sm text-muted-foreground hover:underline"
+                        className="ml-auto inline-block text-[13px] text-muted-foreground hover:underline"
                       >
                         {t("SignIn.fields.password.action")}
                       </Link>

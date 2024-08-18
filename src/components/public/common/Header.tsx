@@ -25,7 +25,7 @@ const Header = () => {
             </div>
 
             <NavLinks />
-            <div className="flex items-center justify-end space-x-1.5">
+            <div className="flex items-center space-x-2">
               <ThemeToggle />
               <Separator orientation="vertical" className="h-6" />
               <Suspense>

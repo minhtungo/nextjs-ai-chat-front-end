@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const CTA = () => {
   return (
-    <Section className="mx-auto max-w-4xl text-center">
+    <Section className="mx-auto max-w-4xl sm:text-center">
       <Typography variant="h2" className="mb-4" data-aos="fade-up">
         Get better grades with AI Tutor
       </Typography>
       <Typography
         variant="p"
-        className="mb-6 text-muted-foreground"
+        className="mb-8 text-muted-foreground"
         data-aos="fade-up"
       >
         Our mission is to empower students to achieve their academic goals with
@@ -23,7 +23,9 @@ const CTA = () => {
       </Typography>
 
       <Link
-        className={cn(buttonVariants({ variant: "default" }))}
+        className={cn(
+          buttonVariants({ variant: "default", className: "w-full sm:w-auto" }),
+        )}
         href={signUpHref}
         data-aos="fade-up"
       >

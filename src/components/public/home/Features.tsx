@@ -9,7 +9,6 @@ const Features = () => {
       <SectionTitle
         title="Unified platform"
         description="Everything you need for successful online learning"
-        variant="center"
       />
       <div className="mx-auto max-w-5xl">
         <dl className="grid gap-x-8 gap-y-8 lg:grid-cols-2 lg:gap-y-14">

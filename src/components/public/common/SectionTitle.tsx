@@ -6,7 +6,7 @@ interface SectionTitleProps {
   title: string;
   description?: string;
   className?: string;
-  variant?: "default" | "center";
+  variant?: "default" | "left";
 }
 
 const SectionTitle: FC<SectionTitleProps> = ({
@@ -18,9 +18,8 @@ const SectionTitle: FC<SectionTitleProps> = ({
   return (
     <div
       className={cn(
-        "mb-4 whitespace-pre-line",
-        variant === "center" &&
-          "mx-auto mb-12 text-left lg:mb-16 lg:max-w-2xl lg:text-center",
+        "mx-auto mb-10 whitespace-pre-line text-left sm:mb-16 lg:max-w-2xl lg:text-center",
+        variant === "left" && "mb-4",
         className,
       )}
     >

@@ -11,7 +11,10 @@ interface PageTitleProps {
 const PageTitle: FC<PageTitleProps> = ({ title, description, className }) => {
   return (
     <div
-      className={cn("mx-auto mb-10 max-w-2xl space-y-2 text-center", className)}
+      className={cn(
+        "mx-auto mb-10 max-w-xl space-y-2 text-pretty text-center",
+        className,
+      )}
     >
       <Typography variant="h2" tag="h1">
         {title}

@@ -9,7 +9,6 @@ const Intros = () => {
       <SectionTitle
         title="AI-Powered Learning"
         description="Everything you need to get better grades"
-        variant="center"
       />
       <div className="grid gap-y-16 lg:gap-y-24">
         {INTRO_BLOCKS.map((intro, index) => (
