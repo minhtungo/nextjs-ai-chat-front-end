@@ -9,7 +9,15 @@ import {
 import Instagram from "../components/icons/Instagram";
 import Discord from "../components/icons/Discord";
 
-export const publicRoutes = ["/", "/pricing", "/about", "/test", "/contact-us"];
+export const publicRoutes = [
+  "/",
+  "/pricing",
+  "/about",
+  "/test",
+  "/contact-us",
+  "/privacy-policy",
+  "/terms",
+];
 
 export const apiAuthPrefix = "/api";
 
