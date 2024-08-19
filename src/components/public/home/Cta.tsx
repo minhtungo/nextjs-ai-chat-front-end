@@ -7,13 +7,13 @@ import Link from "next/link";
 
 const CTA = () => {
   return (
-    <Section className="mx-auto max-w-4xl sm:text-center">
+    <Section className="mx-auto max-w-5xl sm:text-center">
       <Typography variant="h2" className="mb-4" data-aos="fade-up">
         Get better grades with AI Tutor
       </Typography>
       <Typography
         variant="p"
-        className="mb-8 text-muted-foreground"
+        className="mb-8 text-lg text-muted-foreground"
         data-aos="fade-up"
       >
         Our mission is to empower students to achieve their academic goals with

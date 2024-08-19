@@ -16,13 +16,13 @@ const NavLinks: FC<NavLinksProps> = ({ className }) => {
   const t = useTranslations("common.Navbar");
 
   return (
-    <nav className={cn("hidden sm:block", className)}>
-      <ul className="flex gap-x-6">
+    <nav className={cn("hidden md:block", className)}>
+      <ul className="flex gap-x-10">
         {NAV_LINKS.map(({ title, href }) => (
           <li
             key={`${title}-desktop-menu-link`}
             className={cn(
-              "text-base hover:text-primary",
+              "text-[15px] hover:text-primary",
               pathname === href && "text-primary",
             )}
           >

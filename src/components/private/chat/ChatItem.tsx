@@ -63,11 +63,10 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
             href={`${PROTECTED_BASE_URL}/chat/${chat.id}`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              "flex items-center justify-start overflow-hidden px-4 py-2 text-muted-foreground",
-              (isActive || isActiveChat) && "text-foreground",
+              "flex items-center justify-start overflow-hidden px-4 py-2 font-normal text-foreground/80 hover:text-foreground/80",
             )}
           >
-            <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap capitalize">
+            <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap text-[15px] capitalize">
               {chat.title}
               <div
                 className={cn(

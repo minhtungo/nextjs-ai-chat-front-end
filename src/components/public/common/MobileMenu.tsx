@@ -17,8 +17,11 @@ const MobileMenu = () => {
             <ul className="flex flex-col gap-1">
               {NAV_LINKS.map(({ title, href }) => (
                 <SheetClose key={`${title}-mobile-menu-item`} asChild>
-                  <li className="border-t border-border py-2.5 font-medium first:border-none">
-                    <Link className="inline-block w-full" href={href}>
+                  <li className="border-t border-border font-normal first:border-none">
+                    <Link
+                      className="inline-block w-full py-3 hover:text-primary"
+                      href={href}
+                    >
                       {t(title)}
                     </Link>
                   </li>
@@ -26,25 +29,19 @@ const MobileMenu = () => {
               ))}
             </ul>
           </nav>
-          <SheetFooter className="mt-4 gap-1.5 py-4">
+          <SheetFooter className="mt-4 gap-2 py-4">
             <SheetClose asChild>
               <Link
                 href={signUpHref}
                 className={buttonVariants({
                   variant: "ghost",
-                  size: "sm",
                 })}
               >
                 {t("SignUp.title")}
               </Link>
             </SheetClose>
             <SheetClose asChild>
-              <Link
-                href={signInHref}
-                className={buttonVariants({
-                  size: "sm",
-                })}
-              >
+              <Link href={signInHref} className={buttonVariants({})}>
                 {t("SignIn.title")}
               </Link>
             </SheetClose>

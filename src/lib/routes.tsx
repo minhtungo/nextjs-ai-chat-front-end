@@ -130,22 +130,16 @@ export const SOCIAL_LINKS = [
   {
     title: "Facebook",
     href: "#",
-    icon: (
-      <Facebook className="size-5 text-muted-foreground hover:text-accent-foreground" />
-    ),
+    icon: <Facebook className="size-5" />,
   },
   {
     title: "Instagram",
     href: "#",
-    icon: (
-      <Instagram className="size-5 text-muted-foreground hover:text-accent-foreground" />
-    ),
+    icon: <Instagram className="size-5" />,
   },
   {
     title: "Discord",
     href: "#",
-    icon: (
-      <Discord className="size-5 text-muted-foreground hover:text-accent-foreground" />
-    ),
+    icon: <Discord className="size-5" />,
   },
 ];

@@ -11,11 +11,8 @@ export const TypographyVariants = cva("", {
       h4: "scroll-m-20 text-lg sm:text-xl font-semibold tracking-tight",
       h5: "scroll-m-20 text-base sm:text-lg font-normal",
       h6: "text-base font-semibold",
-      p: "leading-7 text-base sm:text-lg",
+      p: "leading-7 text-base",
       div: "[&>p:not(:first-child)]:mt-6",
-    },
-    size: {
-      sm: "text-sm sm:text-base",
     },
   },
   defaultVariants: {
@@ -30,11 +27,11 @@ interface TypographyProps
 }
 
 const Typography = forwardRef<HTMLHeadingElement, TypographyProps>(
-  ({ className, variant = "p", tag, children, size, ...props }, ref) => {
+  ({ className, variant = "p", tag, children, ...props }, ref) => {
     const Tag = tag ? tag : variant;
     return (
       <Tag
-        className={cn(TypographyVariants({ variant, size }), className)}
+        className={cn(TypographyVariants({ variant }), className)}
         ref={ref}
         {...props}
       >

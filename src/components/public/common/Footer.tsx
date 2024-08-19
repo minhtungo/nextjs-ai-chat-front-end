@@ -23,15 +23,15 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </div>
           <LanguageSwitcher showIcon />
         </div>
-        <div className="flex w-full flex-col items-center justify-between gap-y-4 sm:flex-row">
-          <div className="text-xs text-muted-foreground">
+        <div className="flex w-full flex-col items-center justify-between gap-y-4 text-sm sm:flex-row">
+          <div className="text-muted-foreground">
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
           <ul className="flex items-center gap-x-4 gap-y-4 text-sm">
             {FOOTER_LINKS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-primary"
               >
                 <Link href={href}>{title}</Link>
               </li>
@@ -39,7 +39,11 @@ const Footer: FC<FooterProps> = ({ className }) => {
           </ul>
           <div className="flex gap-x-5">
             {SOCIAL_LINKS.map(({ title, href, icon }) => (
-              <Link key={`social-${title}`} href={href}>
+              <Link
+                key={`social-footer-${title}`}
+                href={href}
+                className="text-muted-foreground hover:text-primary"
+              >
                 {icon}
               </Link>
             ))}

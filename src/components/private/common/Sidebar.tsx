@@ -1,9 +1,16 @@
+"use client";
+
+import { useMediaQuery } from "@/hooks/use-media.query";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 
 export interface SidebarProps extends React.ComponentProps<"div"> {}
 
 const Sidebar: FC<SidebarProps> = ({ className, children }) => {
+  const isMobile = useMediaQuery("(max-width: 640px)");
+  console.log("isMobile", isMobile);
+  if (isMobile) return null;
+
   return (
     <aside
       className={cn(

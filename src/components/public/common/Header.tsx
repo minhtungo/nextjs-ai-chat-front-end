@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <header className="sticky inset-x-0 top-0 z-50">
-      <nav className="relative h-14 w-full border-b border-border/40 bg-card/80 backdrop-blur-sm transition-opacity">
+      <nav className="relative h-14 w-full border-b border-border/80 bg-card/80 backdrop-blur-sm transition-opacity">
         <MaxWidthWrapper>
           <div className="flex h-14 items-center justify-between">
             <div className="w-2/12">

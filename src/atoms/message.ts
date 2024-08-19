@@ -1,12 +1,14 @@
 import { uploadFileAction } from "@/actions/file";
+import {
+  MAX_UPLOAD_FILE_COUNT,
+  MAX_UPLOAD_FILE_SIZE,
+  MAX_UPLOAD_FILE_SIZE_IN_MB,
+} from "@/app-config";
 import { getImageDimensions, nanoid } from "@/lib/utils";
 import { NewMessage } from "@/types/chat";
 import { FileAtom } from "@/types/file";
 import { atom } from "jotai";
 import { toast } from "sonner";
-
-const MAX_FILE_SIZE_MB = 10 * 1024 * 1024;
-const MAX_FILE_COUNT = 10;
 
 const initialMessageState: NewMessage = {
   content: "",
@@ -37,8 +39,8 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
 
   for (let file of files) {
     if (
-      totalFilesCount + validFiles.length <= MAX_FILE_COUNT &&
-      totalFilesSize <= MAX_FILE_SIZE_MB
+      totalFilesCount + validFiles.length <= MAX_UPLOAD_FILE_COUNT &&
+      totalFilesSize <= MAX_UPLOAD_FILE_SIZE
     ) {
       console.log("inside file", file);
       let originalWidth = undefined;
@@ -68,7 +70,7 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
       });
     } else {
       toast.error(
-        `You can only upload ${MAX_FILE_COUNT} files and ${MAX_FILE_SIZE_MB}MB of files at a time.`,
+        `You can only upload ${MAX_UPLOAD_FILE_COUNT} files and ${MAX_UPLOAD_FILE_SIZE_IN_MB}MB of files at a time.`,
       );
       return;
     }

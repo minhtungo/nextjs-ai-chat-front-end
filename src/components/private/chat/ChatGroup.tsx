@@ -34,12 +34,12 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
       >
         <div className="flex items-center gap-x-1.5">
           {isOpen ? (
-            <FolderOpen className="size-4" />
+            <FolderOpen className="size-[18px]" />
           ) : (
-            <Folder className="size-4" />
+            <Folder className="size-[18px]" />
           )}
           <span
-            className={cn("whitespace-nowrap text-left text-sm capitalize")}
+            className={cn("whitespace-nowrap text-left text-[15px] capitalize")}
           >
             {subject}
           </span>
@@ -49,7 +49,7 @@ const ChatGroup: FC<SidebarItemProps> = ({ subject, chats }) => {
           <ChevronRight className="size-4 shrink-0 transition-transform duration-200" />
         </div>
       </CollapsibleTrigger>
-      <CollapsibleContent className="mt-1.5">
+      <CollapsibleContent className="mt-2">
         <ol className="space-y-1">
           {chats
             .toSorted((a: any, b: any) => b.last_active - a.last_active)

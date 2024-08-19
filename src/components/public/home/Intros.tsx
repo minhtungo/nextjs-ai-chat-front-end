@@ -10,7 +10,7 @@ const Intros = () => {
         title="AI-Powered Learning"
         description="Everything you need to get better grades"
       />
-      <div className="grid gap-y-16 lg:gap-y-24">
+      <div className="grid gap-y-10 sm:gap-y-16 lg:gap-y-24">
         {INTRO_BLOCKS.map((intro, index) => (
           <IntroBlock key={`intro-${intro.title}-${index}`} intro={intro} />
         ))}

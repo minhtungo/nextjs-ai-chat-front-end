@@ -33,7 +33,10 @@ const ThemeToggle: FC<ThemeToggleProps> = ({
       variant={variant}
       size="icon"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className={cn("!size-7 transition-all sm:!size-8", className)}
+      className={cn(
+        "!size-7 text-muted-foreground transition-all sm:!size-8 sm:text-foreground",
+        className,
+      )}
     >
       {theme === "dark" ? (
         <Moon className="absolute size-[18px] rotate-90 scale-0 dark:rotate-0 dark:scale-100" />

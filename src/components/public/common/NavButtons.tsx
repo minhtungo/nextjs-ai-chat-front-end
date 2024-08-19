@@ -18,6 +18,7 @@ const NavButtons = async () => {
             href={PROTECTED_BASE_URL}
             className={buttonVariants({
               size: "sm",
+              className: "!text-sm",
             })}
           >
             {t("Dashboard.title")}
@@ -38,6 +39,7 @@ const NavButtons = async () => {
             href={signUpHref}
             className={buttonVariants({
               size: "sm",
+              className: "!text-sm",
             })}
           >
             {t("SignUp.title")}

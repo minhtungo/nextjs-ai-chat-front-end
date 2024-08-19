@@ -13,6 +13,7 @@ const SignOutButton: FC<SignOutButtonProps> = ({ title }) => {
     <Button
       size="sm"
       variant="ghost"
+      className="!text-sm"
       onClick={async () => {
         await signOut();
       }}
