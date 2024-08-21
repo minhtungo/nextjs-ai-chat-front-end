@@ -35,7 +35,6 @@
   },
   "public": {
     "Hero": {
-      "noti": "Lumi is ready",
       "title": "Your AI copilot for goal-based learning",
       "subtitle": "Use advanced AI technology to provide personalized tutoring, helping you study effectively and achieve higher results.",
       "cta": "Get Started"
