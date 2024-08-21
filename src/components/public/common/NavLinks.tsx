@@ -17,12 +17,12 @@ const NavLinks: FC<NavLinksProps> = ({ className }) => {
 
   return (
     <nav className={cn("hidden md:block", className)}>
-      <ul className="flex gap-x-10">
+      <ul className="flex gap-x-12">
         {NAV_LINKS.map(({ title, href }) => (
           <li
             key={`${title}-desktop-menu-link`}
             className={cn(
-              "text-[15px] hover:text-primary",
+              "text-sm hover:text-primary",
               pathname === href && "text-primary",
             )}
           >

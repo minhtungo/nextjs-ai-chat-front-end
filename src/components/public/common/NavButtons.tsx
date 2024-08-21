@@ -18,7 +18,6 @@ const NavButtons = async () => {
             href={PROTECTED_BASE_URL}
             className={buttonVariants({
               size: "sm",
-              className: "!text-sm",
             })}
           >
             {t("Dashboard.title")}
@@ -26,20 +25,13 @@ const NavButtons = async () => {
         </>
       ) : (
         <>
-          <Link
-            href={signInHref}
-            className={buttonVariants({
-              size: "sm",
-              variant: "ghost",
-            })}
-          >
+          <Link href={signInHref} className="mr-3 text-sm hover:text-primary">
             {t("SignIn.title")}
           </Link>
           <Link
             href={signUpHref}
             className={buttonVariants({
               size: "sm",
-              className: "!text-sm",
             })}
           >
             {t("SignUp.title")}

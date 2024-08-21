@@ -21,9 +21,8 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3 !text-[13px]",
-        md: "h-9 rounded-md px-2 py-1 text-sm",
-        lg: "h-11 rounded-md px-8 text-base",
+        sm: "py-2 px-3",
+        lg: "h-11 px-8",
         icon: "h-8 w-8 lg:h-9 lg:w-9",
         avatar: "h-6 w-6",
         xs: "h-7 w-7",

@@ -11,7 +11,7 @@ import {
 import { locales } from "@/lib/config";
 import { usePathname, useRouter } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-import { Globe } from "lucide-react";
+import { Globe, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
@@ -48,7 +48,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
 
   return (
     <div className="flex items-center gap-x-2">
-      {showIcon && <Globe className="size-5 text-muted-foreground" />}
+      {/* {showIcon && <Globe className="size-5 text-muted-foreground" />} */}
       <Select
         defaultValue={locale}
         disabled={isPending}
@@ -56,11 +56,12 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
       >
         <SelectTrigger
           className={cn(
-            "h-8 w-fit border-none px-0 text-foreground shadow-none",
+            "w-fit border-none px-0 text-foreground shadow-none",
             className,
           )}
         >
-          <SelectValue placeholder={t("label")} />
+          {/* <SelectValue placeholder={t("label")} /> */}
+          {showIcon && <Languages className="size-[18px]" />}
         </SelectTrigger>
         <SelectContent className="min-w-0">
           {locales.map((cur) => (

@@ -9,6 +9,7 @@ import NavButtons from "@/components/public/common/NavButtons";
 import NavLinks from "@/components/public/common/NavLinks";
 import ThemeToggle from "@/components/public/common/ThemeToggle";
 import { Separator } from "@/components/ui/separator";
+import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
 
 const Header = () => {
   const t = useTranslations("common.Navbar");
@@ -25,12 +26,17 @@ const Header = () => {
             </div>
 
             <NavLinks />
-            <div className="flex items-center space-x-2">
-              <ThemeToggle />
-              <Separator orientation="vertical" className="h-6" />
+            <div className="flex items-center space-x-3">
+              {/* <ThemeToggle /> */}
               <Suspense>
                 <NavButtons />
               </Suspense>
+              <Separator
+                orientation="vertical"
+                className="hidden h-6 md:block"
+              />
+              <LanguageSwitcher showIcon />
+              <Separator orientation="vertical" className="h-6 md:hidden" />
               <MobileMenu />
             </div>
           </div>
