@@ -1,6 +1,5 @@
 "use client";
 
-import { updateUserProfileAction } from "@/actions/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import {
@@ -21,11 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { updateUserAction } from "@/actions/user";
 import SubmitButton from "@/components/common/SubmitButton";
-import { Option } from "@/components/ui/multiple-selector";
 import { ACADEMIC_LEVELS } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
-import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pencil } from "lucide-react";
@@ -35,39 +33,37 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import { LANGUAGES } from "@/app-config";
 
 interface UserProfileFormProps {
   user: UserProfileProps;
 }
 
 const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
-  const [subjects, setSubjects] = useState<Option[]>(
-    user.subjects?.length > 0
-      ? user.subjects?.map((subject) => {
-          return {
-            value: subject,
-            label: getSubjectLabelFromValue(subject),
-          };
-        })
-      : [],
-  );
+  // const [subjects, setSubjects] = useState<Option[]>(
+  //   user.subjects?.length > 0
+  //     ? user.subjects?.map((subject) => {
+  //         return {
+  //           value: subject,
+  //           label: getSubjectLabelFromValue(subject),
+  //         };
+  //       })
+  //     : [],
+  // );
   const [file, setFile] = useState<File | undefined>(undefined);
 
-  const { isPending, execute } = useServerAction(updateUserProfileAction);
+  const { isPending, execute } = useServerAction(updateUserAction);
   const { update } = useSession();
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
       name: user.name! || undefined,
-      language: user.settings?.preferredLang.toLowerCase() as any,
       image: user.image || undefined,
       academicLevel: user.academicLevel || undefined,
     },
   });
 
   const onSubmit = async (values: z.infer<typeof updateUserProfileSchema>) => {
-    values.subjects = subjects?.map((subject) => subject.value) || [];
+    // values.subjects = subjects?.map((subject) => subject.value) || [];
 
     const [_, err] = await execute(values);
 
@@ -182,38 +178,8 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                 }
               />
             </div> */}
-            <FormField
-              control={form.control}
-              name="language"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Language</FormLabel>
-                  <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select a language" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {LANGUAGES.map((language) => (
-                        <SelectItem
-                          key={`user-preferred-${language}`}
-                          value={language.locale}
-                        >
-                          {language.title}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </CardContent>
-          <CardFooter className="justify-end">
+          <CardFooter className="justify-end pt-3">
             <SubmitButton isPending={isPending} size="sm">
               Lưu thay đổi
             </SubmitButton>

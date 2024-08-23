@@ -3,15 +3,15 @@
 import {
   changeUserPasswordSchema,
   onboardingSchema,
-  twoFactorToggleSchema,
   updateUserProfileSchema,
+  updateUserSettingsSchema,
 } from "@/lib/definitions";
 import { authedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
   onboardingFormUseCase,
-  toggleTwoFactorUseCase,
-  updateUserProfileUseCase,
+  updateUserSettingsUseCase,
+  updateUserUseCase,
 } from "@/use-cases/user";
 
 import { cookies } from "next/headers";
@@ -20,10 +20,16 @@ export const updatePreferredLang = (nextLocale: string) => {
   cookies().set("preferredLang", nextLocale);
 };
 
-export const updateUserProfileAction = authedAction
+export const updateUserAction = authedAction
   .input(updateUserProfileSchema)
   .handler(async ({ input, ctx: { user } }) => {
-    await updateUserProfileUseCase(user.id!, input);
+    await updateUserUseCase(user.id!, input);
+  });
+
+export const updateUserSettingsAction = authedAction
+  .input(updateUserSettingsSchema)
+  .handler(async ({ input, ctx: { user } }) => {
+    await updateUserSettingsUseCase(user.id!, input);
   });
 
 export const onboardingFormAction = authedAction
@@ -32,11 +38,11 @@ export const onboardingFormAction = authedAction
     return await onboardingFormUseCase(user.id!, values);
   });
 
-export const toggleTwoFactorAction = authedAction
-  .input(twoFactorToggleSchema)
-  .handler(async ({ input, ctx: { user } }) => {
-    await toggleTwoFactorUseCase(user.id!, input);
-  });
+// export const toggleTwoFactorAction = authedAction
+//   .input(twoFactorToggleSchema)
+//   .handler(async ({ input, ctx: { user } }) => {
+//     await toggleTwoFactorUseCase(user.id!, input);
+//   });
 
 export const changeUserPasswordAction = authedAction
   .input(changeUserPasswordSchema)

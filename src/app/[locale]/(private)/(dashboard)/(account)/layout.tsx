@@ -25,7 +25,7 @@ export default async function DashBoardLayout({
       </Sidebar>
       <MainArea>
         <AccountHeader />
-        <ScrollAreaContainer className="pb-4 pt-6 sm:pt-8">
+        <ScrollAreaContainer className="max-w-5xl pb-4 pt-6 sm:pt-8">
           {children}
         </ScrollAreaContainer>
       </MainArea>

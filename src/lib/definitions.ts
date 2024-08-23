@@ -54,7 +54,6 @@ export const updateUserProfileSchema = object({
   image: string().optional(),
   academicLevel: string().optional(),
   subjects: z.array(z.string()).optional(),
-  language: z.enum(["vi", "en"]).default("vi"),
 });
 
 export const onboardingSchema = createStepSchema({
@@ -67,8 +66,9 @@ export const onboardingSchema = createStepSchema({
   }),
 });
 
-export const twoFactorToggleSchema = object({
+export const updateUserSettingsSchema = object({
   isTwoFactorEnabled: boolean(),
+  preferredLang: string().optional().default("vi"),
 });
 
 export const changeUserPasswordSchema = object({

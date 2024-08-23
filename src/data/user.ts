@@ -1,16 +1,10 @@
 import "server-only";
 
 import { db } from "@/lib/db";
-import {
-  changeUserPasswordSchema,
-  onboardingFormSchema,
-  twoFactorToggleSchema,
-  updateUserProfileSchema,
-} from "@/lib/definitions";
+import { changeUserPasswordSchema, onboardingSchema } from "@/lib/definitions";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
-import { Languages, User } from "@prisma/client";
+import { User, UserSettings } from "@prisma/client";
 import { z } from "zod";
-import { OnboardingSchema } from "@/components/private/onboarding/OnboardingForm";
 
 //Query
 export const getUserByEmail = async (
@@ -101,21 +95,11 @@ export const updateNewGoogleUser = async (id: string) => {
   });
 };
 
-export const updateUserProfile = async (
-  userID: string,
-  values: z.infer<typeof updateUserProfileSchema>,
-) => {
-  const { language, ...rest } = values;
-
+export const updateUser = async (userID: string, values: Partial<User>) => {
   await db.user.update({
     where: { id: userID },
     data: {
-      ...rest,
-      settings: {
-        update: {
-          preferredLang: language.toUpperCase() as Languages,
-        },
-      },
+      ...values,
     },
   });
 };
@@ -125,7 +109,7 @@ export const updateUserOnboarding = async ({
   values,
 }: {
   userId: string;
-  values: z.infer<typeof OnboardingSchema>;
+  values: z.infer<typeof onboardingSchema>;
 }) => {
   await db.user.update({
     where: { id: userId },
@@ -145,11 +129,23 @@ export const updateUserEmailVerification = async (id: string) => {
   });
 };
 
-export const toggleTwoFactor = async (
+// export const toggleTwoFactor = async (
+//   userID: string,
+//   values: z.infer<typeof twoFactorToggleSchema>,
+// ) => {
+//   await db.user.update({
+//     where: { id: userID },
+//     data: {
+//       ...values,
+//     },
+//   });
+// };
+
+export const updateUserSettings = async (
   userID: string,
-  values: z.infer<typeof twoFactorToggleSchema>,
+  values: Partial<UserSettings>,
 ) => {
-  await db.user.update({
+  await db.userSettings.update({
     where: { id: userID },
     data: {
       ...values,

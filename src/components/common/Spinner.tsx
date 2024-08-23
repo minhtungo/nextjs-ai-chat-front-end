@@ -9,7 +9,7 @@ const Spinner: FC<SpinnerProps> = ({ className }) => {
   return (
     <div
       className={cn(
-        "text-brand size.3.5 inline-block animate-spin rounded-full border-[2px] border-current border-t-transparent",
+        "text-brand inline-block size-4 animate-spin rounded-full border-[2px] border-current border-t-transparent",
         className,
       )}
       role="status"

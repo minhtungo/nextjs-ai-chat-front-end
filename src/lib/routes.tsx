@@ -48,11 +48,7 @@ export const ACCOUNT_URLS = [
     href: `${accountUrl}/subscription`,
     icon: <CreditCard className="size-[18px]" />,
   },
-  {
-    title: "Security",
-    href: `${accountUrl}/security`,
-    icon: <ShieldCheck className="size-[18px]" />,
-  },
+
   {
     title: "Files",
     href: `${accountUrl}/files`,

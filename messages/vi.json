@@ -164,7 +164,7 @@
           "placeholder": ""
         },
         "confirmPassword": {
-          "label": "Xác nhận mật khẩu mới",
+          "label": "Xác nhận mật khẩu",
           "placeholder": ""
         }
       }
