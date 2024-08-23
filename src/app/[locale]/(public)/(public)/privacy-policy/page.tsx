@@ -1,5 +1,5 @@
 import PageTitle from "@/components/public/common/PageTitle";
-import Section from "@/components/public/home/Section";
+import Section from "@/components/public/common/Section";
 import PrivacyPolicy from "@/components/public/PrivacyPolicy";
 import { constructMetadata } from "@/lib/utils";
 import { Metadata } from "next";

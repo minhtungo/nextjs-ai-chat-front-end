@@ -1,6 +1,6 @@
+import { MESSAGE_TOKEN_LIMIT } from "@/app-config";
 import { useMessage } from "@/hooks/use-message";
 import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
-import { MESSAGE_TOKEN_LIMIT } from "@/lib/constant";
 import { Subscription } from "centrifuge";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";

@@ -23,7 +23,7 @@ import {
 
 import SubmitButton from "@/components/common/SubmitButton";
 import { Option } from "@/components/ui/multiple-selector";
-import { ACADEMIC_LEVELS, LANGUAGES } from "@/lib/constant";
+import { ACADEMIC_LEVELS } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
@@ -35,6 +35,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { LANGUAGES } from "@/app-config";
 
 interface UserProfileFormProps {
   user: UserProfileProps;

@@ -1,7 +1,7 @@
+import { chatUrl, signInUrl, signUpUrl } from "@/app-config";
 import SignOutButton from "@/components/private/common/SignOutButton";
 import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";
-import { PROTECTED_BASE_URL, signInHref, signUpHref } from "@/lib/routes";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ const NavButtons = async () => {
         <>
           <SignOutButton title={t("SignOut.title")} />
           <Link
-            href={PROTECTED_BASE_URL}
+            href={chatUrl}
             className={buttonVariants({
               size: "sm",
             })}
@@ -25,11 +25,11 @@ const NavButtons = async () => {
         </>
       ) : (
         <>
-          <Link href={signInHref} className="mr-3 text-sm hover:text-primary">
+          <Link href={signInUrl} className="mr-3 text-sm hover:text-primary">
             {t("SignIn.title")}
           </Link>
           <Link
-            href={signUpHref}
+            href={signUpUrl}
             className={buttonVariants({
               size: "sm",
             })}

@@ -1,9 +1,9 @@
-import FAQs from "@/components/public/common/FAQs";
-import CTA from "@/components/public/home/Cta";
-import Features from "@/components/public/home/Features";
-import Hero from "@/components/public/home/Hero";
-import Intros from "@/components/public/home/Intros";
+import FAQs from "@/components/public/FAQs";
+import CTA from "@/components/public/Cta";
+import Features from "@/components/providers/Features";
+import Hero from "@/components/public/Hero";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import Intros from "@/components/public/Intros";
 
 export async function generateMetadata({
   params: { locale },

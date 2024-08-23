@@ -1,5 +1,6 @@
 "use server";
 
+import { afterLoginUrl } from "@/app-config";
 import { signOut as naSignOut, signIn } from "@/auth";
 import {
   forgotPasswordSchema,
@@ -7,8 +8,6 @@ import {
   signInSchema,
   signUpSchema,
 } from "@/lib/definitions";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
-import { authedAction } from "@/lib/safe-actions";
 import {
   forgotPasswordUseCase,
   setNewPasswordUseCase,
@@ -21,13 +20,13 @@ import { createServerAction } from "zsa";
 
 export const signInWithGoogle = async (redirectURL: string | null) => {
   await signIn("google", {
-    redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
+    redirectTo: redirectURL || afterLoginUrl,
   });
 };
 
 export const signInWithFacebook = async (redirectURL: string | null) => {
   await signIn("facebook", {
-    redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
+    redirectTo: redirectURL || afterLoginUrl,
   });
 };
 

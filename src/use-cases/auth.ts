@@ -27,16 +27,18 @@ import {
   sendTwoFactorTokenEmail,
   sendVerificationEmail,
 } from "@/lib/mail";
-import { comparePassword, saltAndHashPassword } from "@/lib/auth";
-import {
-  generatePasswordResetToken,
-  generateTwoFactorToken,
-  generateVerificationToken,
-} from "@/lib/auth";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/routes";
+
 import { AuthError } from "next-auth";
 import { z } from "zod";
 import { ZSAError } from "zsa";
+import { afterLoginUrl } from "@/app-config";
+import {
+  comparePassword,
+  generatePasswordResetToken,
+  generateTwoFactorToken,
+  generateVerificationToken,
+  saltAndHashPassword,
+} from "@/lib/security";
 
 export const signInWithCredentialsUseCase = async ({
   values,
@@ -114,7 +116,7 @@ export const signInWithCredentialsUseCase = async ({
     await signIn("credentials", {
       email,
       password,
-      redirectTo: redirectURL || DEFAULT_LOGIN_REDIRECT,
+      redirectTo: redirectURL || afterLoginUrl,
     });
   } catch (error) {
     if (error instanceof AuthError) {

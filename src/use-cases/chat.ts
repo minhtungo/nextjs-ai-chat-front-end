@@ -1,11 +1,12 @@
 import { createChatRoom } from "@/lib/chat";
-import { MESSAGES_LIMIT } from "@/lib/constant";
+
 import { Message } from "@/lib/definitions";
 import { fetchAuth } from "@/lib/api";
 import { getChatListQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
 import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
+import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
 
 export const createChatUseCase = async ({
   subject,
@@ -38,7 +39,7 @@ export const getChatInfoUseCase = async ({
 }): Promise<{ chat: ChatRoom }> => {
   console.log("-----------ChatInfo useCase Called");
   const response = await fetchAuth({
-    path: `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
+    path: `/chat/info/${chatId}?limit=${FETCHED_MESSAGES_LIMIT}`,
   });
 
   if (response.error) {
@@ -101,7 +102,7 @@ export const getMessagesUseCase = async ({
   console.log("-----------Messages useCase Called");
 
   const query = new URLSearchParams({
-    limit: MESSAGES_LIMIT.toString(),
+    limit: FETCHED_MESSAGES_LIMIT.toString(),
     ...(offset && { offset: offset.toString() }),
   });
 

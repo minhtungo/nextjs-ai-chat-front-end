@@ -3,15 +3,18 @@ import { EmailResetPassword } from "@/components/email/EmailResetPassword";
 import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
 import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
 import EmailUserFeedback from "@/components/email/EmailUserFeedback";
-import { emailVerificationHref, resetPasswordHref } from "@/lib/routes";
 import { Resend } from "resend";
-import { ADMIN_EMAIL } from "./constant";
 import { formatDate } from "./utils";
+import {
+  ADMIN_EMAIL,
+  emailVerificationUrl,
+  resetPasswordUrl,
+} from "@/app-config";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const emailConfirmationLink = `${process.env.NEXT_PUBLIC_BASE_URL}${emailVerificationHref}?token=${token}`;
+  const emailConfirmationLink = `${process.env.NEXT_PUBLIC_BASE_URL}${emailVerificationUrl}?token=${token}`;
 
   await resend.emails.send({
     from: ADMIN_EMAIL,
@@ -23,7 +26,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${resetPasswordHref}?token=${token}`;
+  const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${resetPasswordUrl}?token=${token}`;
 
   await resend.emails.send({
     from: ADMIN_EMAIL,

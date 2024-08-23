@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import ScrollAreaContainer from "../common/ScrollAreaContainer";
 import MessageHistory from "./MessageHistory";
-import { MESSAGES_LIMIT } from "@/lib/constant";
+import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chatId: string;
@@ -42,7 +42,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const { ref: bottomRef, inView: isBottom } = useInView();
 
   useEffect(() => {
-    if (inView && hasNextPage && messages.length >= MESSAGES_LIMIT) {
+    if (inView && hasNextPage && messages.length >= FETCHED_MESSAGES_LIMIT) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);

@@ -1,4 +1,3 @@
-import { DASHBOARD_LINKS } from "@/lib/routes";
 import { type ClassValue, clsx } from "clsx";
 import jwt from "jsonwebtoken";
 import { customAlphabet } from "nanoid";
@@ -7,6 +6,7 @@ import { v4 as uuid } from "uuid";
 import { SUBJECTS } from "./constant";
 import { AccessToken } from "@/types/api";
 import { z } from "zod";
+import { ACCOUNT_URLS } from "@/lib/routes";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -72,7 +72,7 @@ export const generateBreadcrumbs = (pathname: string) => {
   let currentPath = "";
   pathSegments.forEach((segment) => {
     currentPath += `/${segment}`;
-    const match = DASHBOARD_LINKS.find((link) => link.href === currentPath);
+    const match = ACCOUNT_URLS.find((link) => link.href === currentPath);
     if (match) {
       breadcrumbs.push({
         title: match.title,

@@ -1,5 +1,5 @@
 import Momo from "@/components/icons/Momo";
-import { BarChart, Bot, CreditCard, Group, RefreshCcw } from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 export const ONBOARDING_STEPS = [
   {
@@ -17,10 +17,6 @@ export const ONBOARDING_STEPS = [
 ];
 
 export type OnboardingStep = (typeof ONBOARDING_STEPS)[number];
-
-export const TOKEN_EXPIRATION_IN_MINUTES = 60;
-export const MESSAGE_TOKEN_LIMIT = 10;
-export const CHAT_TOKEN_LIMIT = 5000;
 
 export const GOAlS = [
   {
@@ -48,102 +44,6 @@ export const GOAlS = [
     value: "strengthen-analytical-and-logical-thinking",
   },
 ];
-
-export const FEATURES = [
-  {
-    title: "Interactive AI Tutoring",
-    description:
-      "Experience personalized learning with our AI-powered tutoring system that adapts to your pace and style.",
-    icon: <Bot className="size-4" />,
-  },
-  {
-    title: "Dynamic Exercise Generator",
-    description:
-      "Benefit from an infinite pool of exercises generated dynamically to match your learning progress.",
-    icon: <RefreshCcw className="size-4" />,
-  },
-  {
-    title: "Real-Time Study Groups",
-    description:
-      "Join live study sessions with peers, share resources, and solve problems together in real-time.",
-    icon: <Group className="size-4" />,
-  },
-  {
-    title: "Progress Tracking",
-    description:
-      "Track your learning journey with detailed analytics on your progress and performance metrics.",
-    icon: <BarChart className="size-4" />,
-  },
-];
-
-export const MESSAGES_LIMIT = 25;
-
-export const INTRO_BLOCKS = [
-  {
-    title: "Empower Your Learning Journey with AI Tutor",
-    description: `Unlock the full potential of your studies with our AI-powered tutor. Whether you're struggling with complex subjects or just need a guiding hand, our AI tutor is here to help. 
-    
-    Designed to foster critical thinking and problem-solving skills, our platform doesn't just give you answers—it leads you to them.
-`,
-    imageSrc: "/images/hero-dark.png",
-    width: 1792,
-    height: 1024,
-    isOrderEven: false,
-  },
-  {
-    title: "Personalized Learning Paths",
-    description: `Tailor your study experience with customized content that aligns with your academic level and goals.
-    
-    Our AI tutor adapts to your pace and style, ensuring a seamless learning journey that maximizes your progress.
-`,
-    imageSrc: "/images/hero-dark.png",
-    width: 1792,
-    height: 1024,
-    isOrderEven: true,
-  },
-];
-
-export type TIntroBlock = (typeof INTRO_BLOCKS)[number];
-
-export const ADMIN_EMAIL = "onboarding@resend.dev";
-
-export const EXPIRY_PERIOD = 1800 * 1000;
-
-export const PRICING_PLANS = [
-  {
-    title: "plan.free.title",
-    value: "free",
-    cta: "plan.free.cta",
-    price: 0,
-    duration: "plan.free.duration",
-    features: [
-      {
-        title: "plan.free.features.1.title",
-      },
-      {
-        title: "plan.free.features.2.title",
-      },
-    ],
-  },
-  {
-    title: "plan.pro.title",
-    value: "pro",
-    cta: "plan.pro.cta",
-    price: 10,
-    isFeatured: true,
-    duration: "plan.free.duration",
-    features: [
-      {
-        title: "plan.pro.features.1.title",
-      },
-      {
-        title: "plan.pro.features.2.title",
-      },
-    ],
-  },
-];
-
-export type PricingPlan = (typeof PRICING_PLANS)[number];
 
 export const SUBJECTS_BY_LEVEL = [
   {
@@ -227,59 +127,15 @@ export const ACADEMIC_LEVELS = [
   },
 ];
 
-export const LANGUAGES = [
-  {
-    title: "Tiếng việt",
-    locale: "vi",
-  },
-  {
-    title: "English",
-    locale: "en",
-  },
-];
-
-export const FAQs = [
-  {
-    title: "What is AI?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-  {
-    title: "What is AI Tutor?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-  {
-    title: "How does AI Tutor work?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-  {
-    title: "What are the benefits of using AI Tutor?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-  {
-    title: "What levels and subjects can Lumi help with?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-  {
-    title: "What sets Lumi apart from other AI learning tools?",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!",
-  },
-];
-
 export const PAYMENT_METHODS = [
   {
     title: "Card",
-    icon: <CreditCard className="h-5 w-5" />,
+    icon: <CreditCard className="size-5" />,
     key: "card",
   },
   {
     title: "MoMo",
-    icon: <Momo className="h-5 w-5" />,
+    icon: <Momo className="size-5" />,
     key: "momo",
   },
 ];

@@ -7,11 +7,11 @@ import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
 import BackButton from "@/components/private/common/BackButton";
 import Typography from "@/components/ui/typography";
-import { signInHref } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useServerAction } from "zsa-react";
+import { signInUrl } from "@/app-config";
 
 const VerificationForm = () => {
   const searchParams = useSearchParams();
@@ -59,7 +59,7 @@ const VerificationForm = () => {
       {data && data.message && (
         <BackButton
           variant="outline"
-          href={signInHref}
+          href={signInUrl}
           label="Sign in"
           className="mt-4"
         />

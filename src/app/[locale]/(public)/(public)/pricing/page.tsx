@@ -1,7 +1,7 @@
-import FAQs from "@/components/public/common/FAQs";
+import FAQs from "@/components/public/FAQs";
 import PageTitle from "@/components/public/common/PageTitle";
-import PricingSection from "@/components/public/common/PricingSection";
-import Section from "@/components/public/home/Section";
+import PricingSection from "@/components/public/PricingSection";
+import Section from "@/components/public/common/Section";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 

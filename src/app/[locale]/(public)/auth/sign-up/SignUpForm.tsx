@@ -19,13 +19,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signUpSchema } from "@/lib/definitions";
-import { signInHref } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { signInUrl } from "@/app-config";
 
 const SignUpForm = () => {
   const { data, error, isPending, execute } = useServerAction(
@@ -143,7 +143,7 @@ const SignUpForm = () => {
 
       <div className="mt-6 text-center text-sm">
         {t("SignUp.action.title")}{" "}
-        <Link href={signInHref} className="underline">
+        <Link href={signInUrl} className="underline">
           {t("SignUp.action.link")}
         </Link>
       </div>

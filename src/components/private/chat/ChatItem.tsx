@@ -4,12 +4,12 @@ import Spinner from "@/components/common/Spinner";
 import EditChatTitle from "@/components/private/chat/EditChatTitle";
 import { buttonVariants } from "@/components/ui/button";
 import { useUpdateChat } from "@/data/mutations/use-update-chat";
-import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { ChatRoom } from "@/types/chat";
 import Link from "next/link";
 import { FC, useState } from "react";
 import ChatActions from "./ChatActions";
+import { chatUrl } from "@/app-config";
 
 interface ChatItemProps {
   chat: ChatRoom;
@@ -60,7 +60,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
       ) : (
         <>
           <Link
-            href={`${PROTECTED_BASE_URL}/chat/${chat.id}`}
+            href={`${chatUrl}/${chat.id}`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
               "flex items-center justify-start overflow-hidden px-4 py-2 font-normal text-foreground/80 hover:text-foreground/80",

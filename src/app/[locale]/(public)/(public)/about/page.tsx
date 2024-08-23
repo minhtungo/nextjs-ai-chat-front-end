@@ -3,7 +3,7 @@ import parse from "html-react-parser";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { sanitize } from "isomorphic-dompurify";
-import Section from "@/components/public/home/Section";
+import Section from "@/components/public/common/Section";
 import PageTitle from "@/components/public/common/PageTitle";
 
 export async function generateMetadata({

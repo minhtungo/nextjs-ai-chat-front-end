@@ -1,12 +1,12 @@
 "use server";
 
-import { TOKEN_EXPIRATION_IN_MINUTES } from "@/lib/constant";
+import { TOKEN_EXPIRATION } from "@/app-config";
 import { authedAction } from "@/lib/safe-actions";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 
 const getTokenExpiration = () => {
-  return Math.floor(Date.now() / 1000) + 60 * TOKEN_EXPIRATION_IN_MINUTES;
+  return Math.floor(Date.now() / 1000) + TOKEN_EXPIRATION;
 };
 
 export const getConnectionTokenAction = authedAction.handler(

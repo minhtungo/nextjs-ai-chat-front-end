@@ -1,4 +1,4 @@
-import Section from "@/components/public/home/Section";
+import Section from "@/components/public/common/Section";
 import PageTitle from "@/components/public/common/PageTitle";
 import ContactUsForm from "@/components/public/ContactForm";
 import { unstable_setRequestLocale } from "next-intl/server";

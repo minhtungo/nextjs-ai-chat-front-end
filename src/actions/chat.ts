@@ -1,7 +1,7 @@
 "use server";
 
+import { chatUrl } from "@/app-config";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
-import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { authedAction } from "@/lib/safe-actions";
 import {
   createChatUseCase,
@@ -64,7 +64,7 @@ export const createChatAction = authedAction
     }
 
     if (chat) {
-      redirect(`${PROTECTED_BASE_URL}/chat/${chat.id}`);
+      redirect(`${chatUrl}/${chat.id}`);
     }
   });
 
@@ -118,7 +118,7 @@ export const removeChatsAction = authedAction
     });
     revalidateTag(CHAT_LIST_QUERY_KEY);
     if (currentChatId && currentChatId === chats[0]) {
-      redirect(PROTECTED_BASE_URL);
+      redirect(chatUrl);
     }
   });
 

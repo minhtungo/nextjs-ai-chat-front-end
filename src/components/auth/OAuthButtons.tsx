@@ -1,8 +1,12 @@
+import { signInWithFacebook, signInWithGoogle } from "@/actions/auth";
+import { afterLoginUrl } from "@/app-config";
+import Facebook from "@/components/icons/Facebook";
+import Google from "@/components/icons/Google";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { FC } from "react";
-import FacebookLogin from "./FacebookLogin";
-import GoogleLogin from "./GoogleLogin";
 
 interface OAuthButtonsProps {
   hideAlternative?: boolean;
@@ -16,7 +20,7 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ hideAlternative }) => {
   return (
     <>
       <div className="grid gap-3 sm:grid-cols-2">
-        <GoogleLogin label={t("google")} redirectURL={redirectURL} />
+        <GoogleLogin label={t("google")} redirectURL={redirectURL!} />
         <FacebookLogin label={t("facebook")} redirectURL={redirectURL} />
       </div>
       {!hideAlternative && (
@@ -32,6 +36,46 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ hideAlternative }) => {
         </div>
       )}
     </>
+  );
+};
+
+interface AuthButtonProps {
+  className?: string;
+  label: string;
+  redirectURL: string | null;
+}
+
+const FacebookLogin: FC<AuthButtonProps> = ({
+  className,
+  label,
+  redirectURL = afterLoginUrl,
+}) => {
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      className={cn("w-full", className)}
+      onClick={async () => await signInWithFacebook(redirectURL)}
+    >
+      <Facebook className="size-4 sm:size-5" /> <span>{label}</span>
+    </Button>
+  );
+};
+
+const GoogleLogin: FC<AuthButtonProps> = ({
+  className,
+  label,
+  redirectURL = afterLoginUrl,
+}) => {
+  return (
+    <Button
+      type="button"
+      variant="outline"
+      className={cn("w-full", className)}
+      onClick={async () => await signInWithGoogle(redirectURL)}
+    >
+      <Google className="size-4 sm:size-5" /> <span>{label}</span>
+    </Button>
   );
 };
 

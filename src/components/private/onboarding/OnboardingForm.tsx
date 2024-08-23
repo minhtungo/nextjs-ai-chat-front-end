@@ -1,6 +1,7 @@
 "use client";
 
 import { onboardingFormAction } from "@/actions/user";
+import { chatUrl } from "@/app-config";
 import Stepper from "@/components/common/Stepper";
 import SubmitButton from "@/components/common/SubmitButton";
 import MultipleSelect from "@/components/private/common/MultipleSelect";
@@ -38,7 +39,6 @@ import {
   SUBJECTS,
 } from "@/lib/constant";
 import { onboardingSchema } from "@/lib/definitions";
-import { PROTECTED_BASE_URL } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -102,7 +102,7 @@ const OnboardingForm = () => {
     }
 
     if (data.success) {
-      window.history.replaceState({}, "", PROTECTED_BASE_URL);
+      window.history.replaceState({}, "", chatUrl);
     }
   };
 

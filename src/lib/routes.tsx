@@ -1,4 +1,8 @@
 import Facebook from "@/components/icons/Facebook";
+
+import { accountUrl, adminUrl } from "@/app-config";
+import Discord from "@/components/icons/Discord";
+import Instagram from "@/components/icons/Instagram";
 import {
   CreditCard,
   Folder,
@@ -6,44 +10,8 @@ import {
   ShieldCheck,
   UserRound,
 } from "lucide-react";
-import Instagram from "../components/icons/Instagram";
-import Discord from "../components/icons/Discord";
 
-export const publicRoutes = [
-  "/",
-  "/pricing",
-  "/about",
-  "/test",
-  "/contact-us",
-  "/privacy-policy",
-  "/terms",
-];
-
-export const apiAuthPrefix = "/api";
-
-export const DEFAULT_LOGIN_REDIRECT = "/dashboard";
-
-export const signInHref = "/auth/sign-in";
-export const signUpHref = "/auth/sign-up";
-export const forgotPasswordHref = "/auth/forgot-password";
-export const authErrorHref = "/auth/error";
-export const emailVerificationHref = "/auth/verification";
-export const resetPasswordHref = "/auth/reset-password";
-
-export const authRoutes = [
-  signInHref,
-  signUpHref,
-  authErrorHref,
-  emailVerificationHref,
-  forgotPasswordHref,
-  resetPasswordHref,
-];
-
-export const onboardingHref = "/onboarding";
-
-export const PROTECTED_BASE_URL = "/dashboard";
-
-export const NAV_LINKS = [
+export const HEADER_URLS = [
   {
     title: "About.title",
     href: "/about",
@@ -58,7 +26,7 @@ export const NAV_LINKS = [
   },
 ];
 
-export const FOOTER_LINKS = [
+export const FOOTER_URLS = [
   {
     title: "Privacy Policy",
     href: "/privacy-policy",
@@ -69,60 +37,60 @@ export const FOOTER_LINKS = [
   },
 ];
 
-export const DASHBOARD_LINKS = [
+export const ACCOUNT_URLS = [
   {
     title: "Account",
-    href: `${PROTECTED_BASE_URL}/account`,
+    href: `${accountUrl}`,
     icon: <UserRound className="size-[18px]" />,
   },
   {
     title: "Subscription",
-    href: `${PROTECTED_BASE_URL}/account/billing`,
+    href: `${accountUrl}/subscription`,
     icon: <CreditCard className="size-[18px]" />,
   },
   {
     title: "Security",
-    href: `${PROTECTED_BASE_URL}/account/security`,
+    href: `${accountUrl}/security`,
     icon: <ShieldCheck className="size-[18px]" />,
   },
   {
     title: "Files",
-    href: `${PROTECTED_BASE_URL}/account/files`,
+    href: `${accountUrl}/files`,
     icon: <Folder className="size-[18px]" />,
   },
   {
     title: "Support",
-    href: `${PROTECTED_BASE_URL}/account/support`,
+    href: `${accountUrl}/support`,
     icon: <MessageSquareMore className="size-[18px]" />,
   },
 ];
 
-export const USER_DASHBOARD_LINKS = [
+export const CHAT_MENU_URLS = [
   {
     title: "Account",
-    href: `${PROTECTED_BASE_URL}/account`,
+    href: `${accountUrl}`,
     icon: <UserRound className="size-4" />,
   },
   {
-    title: "Billing",
-    href: `${PROTECTED_BASE_URL}/account/billing`,
+    title: "Subscription",
+    href: `${accountUrl}/subscription`,
     icon: <CreditCard className="size-4" />,
   },
   {
     title: "Support",
-    href: `${PROTECTED_BASE_URL}/account/support`,
+    href: `${accountUrl}/support`,
     icon: <MessageSquareMore className="size-4" />,
   },
 ];
 
-export const ADMIN_DASHBOARD_LINKS = [
+export const ADMIN_URLS = [
   {
     title: "Overview",
-    href: `${PROTECTED_BASE_URL}/admin`,
+    href: `${adminUrl}`,
   },
   {
     title: "Mail",
-    href: `${PROTECTED_BASE_URL}/admin/mail`,
+    href: `${adminUrl}/mail`,
   },
 ];
 

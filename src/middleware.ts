@@ -4,12 +4,12 @@ import createIntlMiddleware from "next-intl/middleware";
 import { locales } from "@/lib/config";
 import { NextRequest } from "next/server";
 import {
-  DEFAULT_LOGIN_REDIRECT,
+  afterLoginUrl,
   apiAuthPrefix,
   authRoutes,
   publicRoutes,
-  signInHref,
-} from "@/lib/routes";
+  signInUrl,
+} from "@/app-config";
 
 const { auth } = NextAuth(authConfig);
 
@@ -31,7 +31,7 @@ const authMiddleware = auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
-  // const isOnboardingRoute = nextUrl.pathname.startsWith(onboardingHref);
+  // const isOnboardingRoute = nextUrl.pathname.startsWith(onboardingUrl);
 
   if (isApiAuthRoute) {
     return;
@@ -39,7 +39,7 @@ const authMiddleware = auth((req) => {
 
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+      return Response.redirect(new URL(afterLoginUrl, nextUrl));
     }
     return intlMiddleware(req);
   }
@@ -51,20 +51,20 @@ const authMiddleware = auth((req) => {
     }
     const encodedRedirectURL = encodeURIComponent(redirectURL);
     return Response.redirect(
-      new URL(`${signInHref}?redirect=${encodedRedirectURL}`, nextUrl),
+      new URL(`${signInUrl}?redirect=${encodedRedirectURL}`, nextUrl),
     );
   }
 
   // if (isOnboardingRoute) {
   //   if (isOnboarded) {
-  //     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+  //     return Response.redirect(new URL(afterLoginUrl, nextUrl));
   //   }
   //   return intlMiddleware(req);
   // }
 
   if (isLoggedIn) {
     // if (!isOnboarded) {
-    //   return Response.redirect(new URL(onboardingHref, nextUrl));
+    //   return Response.redirect(new URL(onboardingUrl, nextUrl));
     // }
     return intlMiddleware(req);
   }
@@ -95,11 +95,11 @@ export const config = {
 // import authConfig from "@/auth/config";
 // import NextAuth from "next-auth";
 // import {
-//   DEFAULT_LOGIN_REDIRECT,
+//   afterLoginUrl,
 //   apiAuthPrefix,
 //   authRoutes,
 //   publicRoutes,
-//   signInHref,
+//   signInUrl,
 // } from "./routes";
 
 // const { auth } = NextAuth(authConfig);
@@ -117,12 +117,12 @@ export const config = {
 //   }
 //   if (isAuthRoute) {
 //     if (isLoggedIn) {
-//       return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+//       return Response.redirect(new URL(afterLoginUrl, nextUrl));
 //     }
 //     return null;
 //   }
 //   if (isPublicRoute && isLoggedIn) {
-//     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
+//     return Response.redirect(new URL(afterLoginUrl, nextUrl));
 //   }
 //   if (!isLoggedIn && !isPublicRoute) {
 //     let redirectURL = nextUrl.pathname;
@@ -131,7 +131,7 @@ export const config = {
 //     }
 //     const encodedRedirectURL = encodeURIComponent(redirectURL);
 //     return Response.redirect(
-//       new URL(`${signInHref}?redirect=${encodedRedirectURL}`, nextUrl),
+//       new URL(`${signInUrl}?redirect=${encodedRedirectURL}`, nextUrl),
 //     );
 //   }
 //   return null;

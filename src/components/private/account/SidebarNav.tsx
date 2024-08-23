@@ -2,7 +2,7 @@
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { DASHBOARD_LINKS } from "@/lib/routes";
+import { ACCOUNT_URLS } from "@/lib/routes";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FC } from "react";
@@ -15,7 +15,7 @@ const SidebarNav: FC<SidebarNavProps> = ({ className }) => {
   const pathname = usePathname();
   return (
     <nav className={cn("grid gap-y-1.5", className)}>
-      {DASHBOARD_LINKS.map(({ href, title, icon }) => (
+      {ACCOUNT_URLS.map(({ href, title, icon }) => (
         <Link
           className={cn(
             buttonVariants({ variant: "ghost" }),

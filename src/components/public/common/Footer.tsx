@@ -1,8 +1,7 @@
 import Logo from "@/components/common/Logo";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
 import ThemeToggle from "@/components/public/common/ThemeToggle";
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/routes";
+import { FOOTER_URLS, SOCIAL_LINKS } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { FC } from "react";
@@ -30,7 +29,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
           <ul className="flex items-center gap-x-4 gap-y-4 text-sm">
-            {FOOTER_LINKS.map(({ title, href }) => (
+            {FOOTER_URLS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}
                 className="text-muted-foreground hover:text-primary"

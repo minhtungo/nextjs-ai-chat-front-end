@@ -7,15 +7,15 @@ import {
   getTwoFactorConfirmationByUserId,
 } from "@/data/auth";
 import { getUserById, updateNewGoogleUser } from "@/data/user";
-import { authErrorHref, signInHref } from "@/lib/routes";
 import { Languages, Plan, type UserRole } from "@prisma/client";
+import { authErrorUrl, signInUrl } from "@/app-config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   pages: {
-    signIn: signInHref,
-    error: authErrorHref,
+    signIn: signInUrl,
+    error: authErrorUrl,
   },
   secret: process.env.AUTH_SECRET,
   // jwt: {

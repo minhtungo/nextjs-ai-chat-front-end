@@ -1,6 +1,6 @@
 "use client";
 
-import { NAV_LINKS } from "@/lib/routes";
+import { HEADER_URLS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -18,7 +18,7 @@ const NavLinks: FC<NavLinksProps> = ({ className }) => {
   return (
     <nav className={cn("hidden md:block", className)}>
       <ul className="flex gap-x-12">
-        {NAV_LINKS.map(({ title, href }) => (
+        {HEADER_URLS.map(({ title, href }) => (
           <li
             key={`${title}-desktop-menu-link`}
             className={cn(

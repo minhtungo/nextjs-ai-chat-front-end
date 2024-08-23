@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signInSchema } from "@/lib/definitions";
-import { forgotPasswordHref, signUpHref } from "@/lib/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -26,6 +25,7 @@ import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { forgotPasswordUrl, signUpUrl } from "@/app-config";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -96,7 +96,7 @@ const SignInForm = () => {
                     <div className="flex items-center">
                       <FormLabel>{t("SignIn.fields.password.label")}</FormLabel>
                       <Link
-                        href={forgotPasswordHref}
+                        href={forgotPasswordUrl}
                         className="ml-auto inline-block text-[13px] text-muted-foreground hover:underline"
                       >
                         {t("SignIn.fields.password.action")}
@@ -145,7 +145,7 @@ const SignInForm = () => {
       </Form>
       <div className="mt-6 text-center text-sm">
         {t("SignIn.action.title")}{" "}
-        <Link href={signUpHref} className="underline">
+        <Link href={signUpUrl} className="underline">
           {t("SignIn.action.link")}
         </Link>
       </div>
