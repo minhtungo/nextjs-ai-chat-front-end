@@ -30,6 +30,7 @@ export const publicRoutes = [
   "/contact-us",
   "/privacy-policy",
   "/terms",
+  "/chat",
 ];
 
 export const authRoutes = [

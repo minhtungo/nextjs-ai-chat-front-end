@@ -8,15 +8,14 @@ export const FEATURES = [
     icon: <Bot className="size-4" />,
   },
   {
-    title: "Dynamic Exercise Generator",
+    title: "Deep learning, no answers",
     description:
-      "Benefit from an infinite pool of exercises generated dynamically to match your learning progress.",
+      "Unlike ChatGPT, Lumi never gives you the answer. It’s built to help you learn.",
     icon: <RefreshCcw className="size-4" />,
   },
   {
-    title: "Real-Time Study Groups",
-    description:
-      "Join live study sessions with peers, share resources, and solve problems together in real-time.",
+    title: "Real-Time Study",
+    description: "Write and debate with guided prompts and immediate feedback.",
     icon: <Group className="size-4" />,
   },
   {
@@ -32,7 +31,7 @@ export const INTRO_BLOCKS = [
     title: "Empower Your Learning Journey with AI Tutor",
     description: `Unlock the full potential of your studies with our AI-powered tutor. Whether you're struggling with complex subjects or just need a guiding hand, our AI tutor is here to help. 
     
-    Designed to foster critical thinking and problem-solving skills, our platform doesn't just give you answers—it leads you to them.
+   Use advanced AI technology to provide personalized tutoring, helping you study effectively and achieve higher results.
 `,
     imageSrc: "/images/hero-dark.png",
     width: 1792,
@@ -40,10 +39,8 @@ export const INTRO_BLOCKS = [
     isOrderEven: false,
   },
   {
-    title: "Personalized Learning Paths",
-    description: `Tailor your study experience with customized content that aligns with your academic level and goals.
-    
-    Our AI tutor adapts to your pace and style, ensuring a seamless learning journey that maximizes your progress.
+    title: "Build your brain power",
+    description: `Lumi challenges you to think critically and solve problems without giving you direct answers. Learn new skills anytime, whether it's algebra, SQL, or essay writing..
 `,
     imageSrc: "/images/hero-dark.png",
     width: 1792,

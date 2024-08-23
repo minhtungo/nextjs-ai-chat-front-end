@@ -1,19 +1,34 @@
 import NewChatCreation from "@/components/private/chat/NewChatCreation";
 import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
 import Typography from "@/components/ui/typography";
+import { getCurrentUser } from "@/lib/auth";
 import { User } from "next-auth";
-import { FC } from "react";
+import { FC, Suspense, use } from "react";
 
-interface NewChatWelcomeProps {
-  user: User;
-}
+interface NewChatWelcomeProps {}
 
-const NewChatWelcome: FC<NewChatWelcomeProps> = ({ user }) => {
+const ChatWelcomeGreeting = ({
+  userPromise,
+}: {
+  userPromise: Promise<User | undefined>;
+}) => {
+  const user = use(userPromise);
+
+  return (
+    <Typography tag="h1" variant="h3" className="mb-6">
+      Welcome back, {user?.name}!
+    </Typography>
+  );
+};
+
+const NewChatWelcome: FC<NewChatWelcomeProps> = () => {
+  const user = getCurrentUser();
+
   return (
     <ScrollAreaContainer>
-      <Typography tag="h1" variant="h3" className="mb-6">
-        Welcome to Lumi, {user.name}!
-      </Typography>
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <ChatWelcomeGreeting userPromise={user} />
+      </Suspense>
       <NewChatCreation />
     </ScrollAreaContainer>
   );

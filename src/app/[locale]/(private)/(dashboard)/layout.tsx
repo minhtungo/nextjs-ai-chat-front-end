@@ -5,22 +5,22 @@ import { SessionProvider } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { cache } from "react";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
-import "@/styles/dashboard.css";
+import "@/styles/chat.css";
 
 const getAuth = cache(async () => {
   return await auth();
 });
 
-export default async function DashBoardLayout({
+export default async function PrivateLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   const session = await getAuth();
 
-  if (!session?.user.isOnboarded) {
-    redirect("/onboarding");
-  }
+  // if (!session?.user.isOnboarded) {
+  //   redirect("/onboarding");
+  // }
 
   if (session && session.user) {
     session.user = {

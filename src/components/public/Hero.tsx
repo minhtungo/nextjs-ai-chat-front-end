@@ -1,4 +1,4 @@
-import { signUpUrl } from "@/app-config";
+import { chatUrl, signUpUrl } from "@/app-config";
 import Section from "@/components/public/common/Section";
 import ThemeImage from "@/components/public/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";
@@ -22,7 +22,7 @@ const Hero = () => {
         </p>
         <Link
           className={buttonVariants()}
-          href={signUpUrl}
+          href={chatUrl}
           data-aos="fade-up"
           data-aos-delay="200"
         >

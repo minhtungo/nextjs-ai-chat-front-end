@@ -9,7 +9,7 @@ const CTA = () => {
   return (
     <Section className="mx-auto max-w-5xl sm:text-center">
       <Typography variant="h2" className="mb-4" data-aos="fade-up">
-        Get better grades with AI Tutor
+        Discover a new way to learn with AI Tutor
       </Typography>
       <Typography
         variant="p"

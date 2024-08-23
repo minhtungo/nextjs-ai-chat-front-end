@@ -46,6 +46,7 @@ const authMiddleware = auth((req) => {
 
   if (!isLoggedIn && !isPublicRoute && !isAuthRoute) {
     let redirectURL = nextUrl.pathname;
+    console.log("redirectURL", redirectURL);
     if (nextUrl.search) {
       redirectURL += nextUrl.search;
     }
