@@ -17,7 +17,7 @@ export default async function DashBoardLayout({
   return (
     <>
       <Sidebar>
-        <div className="space-y-3 px-4">
+        <div className="space-y-3 px-4 pt-4">
           <Link href={PROTECTED_BASE_URL}>
             <Logo />
           </Link>
@@ -29,7 +29,9 @@ export default async function DashBoardLayout({
           </div>
         </ScrollArea>
         <div className="w-full px-4">
-          <UserMenu />
+          <div className="border-t py-1.5">
+            <UserMenu />
+          </div>
         </div>
       </Sidebar>
       <MainArea>

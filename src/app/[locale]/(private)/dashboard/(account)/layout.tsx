@@ -15,11 +15,11 @@ export default async function DashBoardLayout({
   return (
     <>
       <Sidebar>
-        <UserInfo className="mb-3 px-4" />
+        <UserInfo className="mb-3 px-4 pt-4" />
         <ScrollArea className="h-full flex-1">
           <SidebarNav className="px-4" />
         </ScrollArea>
-        <div className="w-full px-4">
+        <div className="w-full px-4 py-1.5">
           <GoBackButton className="w-full justify-start" />
         </div>
       </Sidebar>

@@ -2,8 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import React, { FC } from "react";
-import Spinner from "./Spinner";
 import { Button, ButtonProps } from "@/components/ui/button";
+import Spinner from "@/components/common/Spinner";
 
 interface SubmitButtonProps extends ButtonProps {
   className?: string;

@@ -1,14 +1,16 @@
 import DeleteAllChatButton from "@/components/private/account/DeleteAllChatButton";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 const GeneralSettings = () => {
   return (
-    <Card
-      className="flex w-full max-w-3xl items-center justify-between pb-4 sm:pb-6"
-      noBorderMobile
-    >
-      <span className="text-base font-medium">Delete all chats</span>
-      <DeleteAllChatButton />
+    <Card noBorderMobile>
+      <CardContent>
+        <CardTitle className="mb-6">General Settings</CardTitle>
+        <div className="flex w-full items-center justify-between">
+          <span className="text-base font-medium">Delete all chats</span>
+          <DeleteAllChatButton />
+        </div>
+      </CardContent>
     </Card>
   );
 };

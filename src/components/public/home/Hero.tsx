@@ -3,7 +3,7 @@ import ThemeImage from "@/components/public/home/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import { signUpHref } from "@/lib/routes";
-import { ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -28,7 +28,7 @@ const Hero = () => {
           data-aos-delay="200"
         >
           {t("cta")}
-          <ChevronRight className="size-3.5" />
+          <ArrowRight className="size-3.5" />
         </Link>
       </div>
       <div className="relative isolate">

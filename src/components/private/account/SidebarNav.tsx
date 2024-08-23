@@ -20,7 +20,7 @@ const SidebarNav: FC<SidebarNavProps> = ({ className }) => {
           className={cn(
             buttonVariants({ variant: "ghost" }),
             "justify-start px-3",
-            pathname === href && "bg-accent text-primary",
+            pathname === href && "bg-accent text-foreground",
           )}
           href={href}
           key={`${title}-sidebar-nav-item`}

@@ -26,6 +26,7 @@ const buttonVariants = cva(
         icon: "h-8 w-8 lg:h-9 lg:w-9",
         avatar: "h-6 w-6",
         xs: "h-7 w-7",
+        manual: "",
       },
     },
     defaultVariants: {

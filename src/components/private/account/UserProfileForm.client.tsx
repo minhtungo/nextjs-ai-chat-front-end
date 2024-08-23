@@ -2,7 +2,7 @@
 
 import { updateUserProfileAction } from "@/actions/user";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -22,9 +22,8 @@ import {
 } from "@/components/ui/select";
 
 import SubmitButton from "@/components/common/SubmitButton";
-import MultipleSelector, { Option } from "@/components/ui/multiple-selector";
-import Typography from "@/components/ui/typography";
-import { ACADEMIC_LEVELS, LANGUAGES, SUBJECTS } from "@/lib/constant";
+import { Option } from "@/components/ui/multiple-selector";
+import { ACADEMIC_LEVELS, LANGUAGES } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { getSubjectLabelFromValue } from "@/lib/utils";
 import { UserProfileProps } from "@/types/user";
@@ -82,7 +81,8 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
   };
 
   return (
-    <Card className="w-full max-w-3xl" noBorderMobile>
+    <Card className="w-full" noBorderMobile>
+      <CardTitle className="mb-6">Profile</CardTitle>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardContent className="w-full space-y-4">
@@ -165,7 +165,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                 </FormItem>
               )}
             />
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label>Subjects</Label>
               <MultipleSelector
                 defaultOptions={SUBJECTS}
@@ -180,7 +180,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
                   </Typography>
                 }
               />
-            </div>
+            </div> */}
             <FormField
               control={form.control}
               name="language"
@@ -212,7 +212,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               )}
             />
           </CardContent>
-          <CardFooter>
+          <CardFooter className="justify-end">
             <SubmitButton isPending={isPending} size="sm">
               Lưu thay đổi
             </SubmitButton>
