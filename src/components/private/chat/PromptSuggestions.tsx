@@ -1,5 +1,5 @@
 import { currentSubscriptionAtom } from "@/atoms/subscription";
-import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
+import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
@@ -9,7 +9,6 @@ import { FC } from "react";
 interface PromptSuggestionProps {
   className?: string;
   userId: string;
-  chatId: string;
 }
 
 const promptSuggestion = [
@@ -27,19 +26,17 @@ const promptSuggestion = [
 const PromptSuggestions: FC<PromptSuggestionProps> = ({
   className,
   userId,
-  chatId,
 }) => {
   const sub = useAtomValue(currentSubscriptionAtom);
-
-  const { messages } = useInfiniteMessages(chatId);
+  const { messages, setMessages } = useMessages();
 
   if (messages.length < 4) return null;
 
   const publishMessage = async (content: string) => {
     const newMessage = createNewMessageStore({ content, userId });
 
-    // setMessages((prev) => [...prev, newMessage]);
-    setOptimisticMessage({ chatId, newMessage });
+    setMessages((prev) => [...prev, newMessage]);
+    // setOptimisticMessage({ chatId, newMessage });
 
     if (sub) {
       sub.publish({

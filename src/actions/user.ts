@@ -6,7 +6,7 @@ import {
   updateUserProfileSchema,
   updateUserSettingsSchema,
 } from "@/lib/definitions";
-import { authedAction } from "@/lib/safe-actions";
+import { authenticatedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
   onboardingFormUseCase,
@@ -20,31 +20,31 @@ export const updatePreferredLang = (nextLocale: string) => {
   cookies().set("preferredLang", nextLocale);
 };
 
-export const updateUserAction = authedAction
+export const updateUserAction = authenticatedAction
   .input(updateUserProfileSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserUseCase(user.id!, input);
   });
 
-export const updateUserSettingsAction = authedAction
+export const updateUserSettingsAction = authenticatedAction
   .input(updateUserSettingsSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserSettingsUseCase(user.id!, input);
   });
 
-export const onboardingFormAction = authedAction
+export const onboardingFormAction = authenticatedAction
   .input(onboardingSchema)
   .handler(async ({ input: values, ctx: { user } }) => {
     return await onboardingFormUseCase(user.id!, values);
   });
 
-// export const toggleTwoFactorAction = authedAction
+// export const toggleTwoFactorAction = authenticatedAction
 //   .input(twoFactorToggleSchema)
 //   .handler(async ({ input, ctx: { user } }) => {
 //     await toggleTwoFactorUseCase(user.id!, input);
 //   });
 
-export const changeUserPasswordAction = authedAction
+export const changeUserPasswordAction = authenticatedAction
   .input(changeUserPasswordSchema)
   .handler(async ({ input, ctx: { user } }) => {
     if (user.isOauth) {

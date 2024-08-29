@@ -1,21 +1,18 @@
 import { MESSAGE_TOKEN_LIMIT } from "@/app-config";
+import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useMessage } from "@/hooks/use-message";
-import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
-import { Subscription } from "centrifuge";
+import { useMessages } from "@/hooks/use-messages";
+import { createNewMessageStore } from "@/lib/chat";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
+import { useAtomValue } from "jotai";
 import { toast } from "sonner";
+import { getCookie } from "cookies-next";
 
 interface useSendMessageProps {
   userId: string;
-  chatId: string;
-  sub: Subscription | null;
 }
 
-export const useSendMessage = ({
-  userId,
-  chatId,
-  sub,
-}: useSendMessageProps) => {
+export const useSendMessage = ({ userId }: useSendMessageProps) => {
   const {
     message: { mathEquation, content },
     pending,
@@ -24,6 +21,10 @@ export const useSendMessage = ({
     resetMessageState,
     setInTokenLimit,
   } = useMessage();
+
+  const { setMessages, messages } = useMessages();
+
+  const currentSubscription = useAtomValue(currentSubscriptionAtom);
 
   const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
     if (pending) return;
@@ -54,18 +55,22 @@ export const useSendMessage = ({
 
     const newMessage = createNewMessageStore({
       content: submitContent,
-      userId,
+      userId: userId ?? getCookie("guestId") ?? "",
       docs,
       images,
     });
 
-    setOptimisticMessage({
-      chatId,
-      newMessage,
-    });
+    // setOptimisticMessage({
+    //   chatId,
+    //   newMessage,
+    // });
 
-    if (sub) {
-      sub.publish({
+    setMessages((currentMessages) => [...currentMessages, newMessage]);
+
+    console.log("sendMessage", messages);
+
+    if (currentSubscription) {
+      currentSubscription.publish({
         input: {
           content: submitContent,
           images: images.map(

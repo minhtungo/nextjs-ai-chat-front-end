@@ -8,24 +8,13 @@ import { ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
 
-export const createChatUseCase = async ({
-  subject,
-  title,
-}: {
-  subject: string;
-  title: string;
-}) => {
+export const createChatUseCase = async () => {
   try {
-    const data = await createChatRoom({
-      subject,
-      title,
-    });
+    const data = await createChatRoom();
 
     return {
-      id: data.roomid,
-      userId: data.uid,
-      title,
-      subject,
+      ...data,
+      id: data.roomid!,
     };
   } catch (error) {
     throw new ZSAError("ERROR", "error.generalError");
@@ -93,10 +82,10 @@ export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
 };
 
 export const getMessagesUseCase = async ({
-  roomId,
+  chatId,
   query: { offset },
 }: {
-  roomId: string;
+  chatId: string;
   query: { offset?: number };
 }) => {
   console.log("-----------Messages useCase Called");
@@ -107,7 +96,7 @@ export const getMessagesUseCase = async ({
   });
 
   const response = await fetchAuth({
-    path: `/chat/rooms/${roomId}/messages?${query.toString()}`,
+    path: `/chat/rooms/${chatId}/messages?${query.toString()}`,
     method: "GET",
   });
 
@@ -115,7 +104,7 @@ export const getMessagesUseCase = async ({
     throw new Error(`Failed to get messages: ${response.error}`);
   }
 
-  const messages: Message[] = response.data.result.data.history
+  const messages: Message[] = response?.data?.result?.data?.history
     .toReversed()
     .map((item: MessageResponse) => ({
       id: nanoid(),
@@ -141,16 +130,16 @@ export const getMessagesUseCase = async ({
 };
 
 export const updateChatUseCase = async ({
-  roomId,
+  chatId,
   title,
   subject,
 }: {
-  roomId: string;
+  chatId: string;
   title?: string;
   subject?: string;
 }) => {
   const response = await fetchAuth({
-    path: `/chat/update/${roomId}`,
+    path: `/chat/update/${chatId}`,
     method: "PUT",
     body: {
       ...(title && { title }),

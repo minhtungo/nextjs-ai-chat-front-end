@@ -1,7 +1,7 @@
 "use server";
 
 import { TOKEN_EXPIRATION } from "@/app-config";
-import { authedAction } from "@/lib/safe-actions";
+import { authenticatedAction } from "@/lib/safe-actions";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 
@@ -9,9 +9,10 @@ const getTokenExpiration = () => {
   return Math.floor(Date.now() / 1000) + TOKEN_EXPIRATION;
 };
 
-export const getConnectionTokenAction = authedAction.handler(
+export const getConnectionTokenAction = authenticatedAction.handler(
   async ({ ctx: { user } }) => {
     const CENTRIFUGO_TOKEN_SECRET = process.env.CENTRIFUGO_TOKEN_SECRET;
+
     if (!CENTRIFUGO_TOKEN_SECRET) {
       throw new Error("CENTRIFUGO_TOKEN_SECRET is not set");
     }
@@ -27,7 +28,7 @@ export const getConnectionTokenAction = authedAction.handler(
   },
 );
 
-export const getSubscriptionTokenAction = authedAction
+export const getSubscriptionTokenAction = authenticatedAction
   .input(z.object({ channel: z.string() }))
   .handler(async ({ input: { channel }, ctx: { user } }) => {
     const CENTRIFUGO_TOKEN_SECRET = process.env.CENTRIFUGO_TOKEN_SECRET;
@@ -47,7 +48,7 @@ export const getSubscriptionTokenAction = authedAction
     return { token: signedToken };
   });
 
-export const getPublishMessageTokenAction = authedAction
+export const getPublishMessageTokenAction = authenticatedAction
   .input(z.object({ channel: z.string(), message: z.string() }))
   .output(z.object({ token: z.string() }))
   .handler(async ({ input: { channel, message }, ctx: { user } }) => {

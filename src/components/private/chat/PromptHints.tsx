@@ -1,5 +1,8 @@
+"use client";
+
 import { currentSubscriptionAtom } from "@/atoms/subscription";
-import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
+import { useMessages } from "@/hooks/use-messages";
+import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
 import { Lightbulb } from "lucide-react";
@@ -8,7 +11,6 @@ import { FC } from "react";
 interface PromptSuggestionProps {
   className?: string;
   userId: string;
-  chatId: string;
 }
 
 const promptSuggestion = [
@@ -23,22 +25,21 @@ const promptSuggestion = [
   },
 ];
 
-const PromptHints: FC<PromptSuggestionProps> = ({
-  className,
-  userId,
-  chatId,
-}) => {
-  const sub = useAtomValue(currentSubscriptionAtom);
-  // const { setMessages } = useMessages();
+const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
+  const currentSubscription = useAtomValue(currentSubscriptionAtom);
+  const { setMessages } = useMessages();
 
   const publishMessage = async (content: string) => {
-    const newMessage = createNewMessageStore({ content, userId });
+    const newMessage = createNewMessageStore({
+      content,
+      userId,
+    });
 
-    // setMessages((prev) => [...prev, newMessage]);
-    setOptimisticMessage({ chatId, newMessage });
+    setMessages((prev) => [...prev, newMessage]);
+    // setOptimisticMessage({ chatId, newMessage });
 
-    if (sub) {
-      sub.publish({
+    if (currentSubscription) {
+      currentSubscription.publish({
         input: {
           content,
         },

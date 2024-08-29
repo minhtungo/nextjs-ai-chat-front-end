@@ -5,13 +5,12 @@ import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { FC } from "react";
 
-interface EmptyChatProps {
+interface EmptyChatScreenProps {
   className?: string;
   userId: string;
-  chatId: string;
 }
 
-const EmptyChat: FC<EmptyChatProps> = ({ className, userId, chatId }) => {
+const EmptyChatScreen: FC<EmptyChatScreenProps> = ({ className, userId }) => {
   return (
     <MaxWidthWrapper
       className={cn(
@@ -23,9 +22,9 @@ const EmptyChat: FC<EmptyChatProps> = ({ className, userId, chatId }) => {
       <Typography variant="h3" tag="h2">
         How can I help you today?
       </Typography>
-      <PromptHints className="mt-4" userId={userId} chatId={chatId} />
+      <PromptHints className="mt-4" userId={userId} />
     </MaxWidthWrapper>
   );
 };
 
-export default EmptyChat;
+export default EmptyChatScreen;

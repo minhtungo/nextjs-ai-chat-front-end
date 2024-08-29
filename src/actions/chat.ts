@@ -2,7 +2,7 @@
 
 import { chatUrl } from "@/app-config";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
-import { authedAction } from "@/lib/safe-actions";
+import { authenticatedAction, chatAction } from "@/lib/safe-actions";
 import {
   createChatUseCase,
   getChatInfoUseCase,
@@ -12,12 +12,13 @@ import {
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
+import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { ZSAError } from "zsa";
+import { createServerAction, ZSAError } from "zsa";
 
-export const getChatInfoAction = authedAction
+export const getChatInfoAction = authenticatedAction
   .input(
     z.object({
       chatId: z.string(),
@@ -35,75 +36,58 @@ export const getChatInfoAction = authedAction
     }
   });
 
-export const getChatListAction = authedAction.handler(
+export const getChatListAction = authenticatedAction.handler(
   async ({ ctx: { user } }) => {
     const chats = await getChatListUseCase();
     return { chats };
   },
 );
 
-export const createChatAction = authedAction
+export const createChatAction = chatAction.handler(async () => {
+  try {
+    const chat = await createChatUseCase();
+
+    return chat;
+  } catch (error) {
+    throw new ZSAError("ERROR", error);
+  }
+});
+
+export const getMessagesAction = chatAction
   .input(
     z.object({
-      subject: z.string(),
-    }),
-  )
-  .handler(async ({ input: { subject }, ctx: { user } }) => {
-    let chat;
-    try {
-      chat = await createChatUseCase({
-        subject,
-        title: subject,
-      });
-
-      // return {
-      //   id: room.id,
-      // };
-    } catch (error) {
-      throw new ZSAError("ERROR", error);
-    }
-
-    if (chat) {
-      redirect(`${chatUrl}/${chat.id}`);
-    }
-  });
-
-export const getMessagesAction = authedAction
-  .input(
-    z.object({
-      roomId: z.string(),
+      chatId: z.string(),
       query: z.object({
         offset: z.number().optional(),
       }),
     }),
   )
-  .handler(async ({ input: { roomId, query } }) => {
+  .handler(async ({ input: { chatId, query } }) => {
     console.log("-----------Messages Action Called");
-    const messages = await getMessagesUseCase({
-      roomId: roomId,
+    return await getMessagesUseCase({
+      chatId,
       query,
     });
-    return messages;
   });
 
-export const updateChatAction = authedAction
+export const updateChatAction = authenticatedAction
   .input(
     z.object({
-      roomId: z.string(),
+      chatId: z.string(),
       title: z.string().optional(),
       subject: z.string().optional(),
     }),
   )
-  .handler(async ({ input: { roomId, title, subject }, ctx: { user } }) => {
+  .handler(async ({ input: { chatId, title, subject }, ctx: { user } }) => {
     await updateChatUseCase({
-      roomId,
+      chatId,
       title,
       subject,
     });
     revalidateTag(CHAT_LIST_QUERY_KEY);
   });
 
-export const removeChatsAction = authedAction
+export const removeChatsAction = authenticatedAction
   .input(
     z.object({
       chats: z.array(z.string()).default([]),
@@ -122,7 +106,7 @@ export const removeChatsAction = authedAction
     }
   });
 
-export const getMessageImagesAction = authedAction
+export const getMessageImagesAction = authenticatedAction
   .input(
     z.object({
       url: z.string(),

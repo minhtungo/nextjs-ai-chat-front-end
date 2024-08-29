@@ -1,41 +1,57 @@
 "import server";
 
-import { createServerActionProcedure } from "zsa";
-import { getCurrentUser } from "./auth";
 import { getUserRole } from "@/data/user";
+import { getCurrentUser } from "@/lib/auth";
+import { assertAuthenticated } from "@/lib/session";
+import { createServerActionProcedure } from "zsa";
+import { v4 as uuid } from "uuid";
+import { cookies } from "next/headers";
 
-export const authedProcedure = createServerActionProcedure().handler(
+export const authenticatedProcedure = createServerActionProcedure().handler(
   async () => {
-    try {
-      const user = await getCurrentUser();
-
-      if (!user) {
-        throw new Error("User not authenticated");
-      }
-      return { user };
-    } catch {
-      throw new Error("User not authenticated");
-    }
+    const user = await assertAuthenticated();
+    return { user };
   },
 );
 
-const isAdminProcedure = createServerActionProcedure(authedProcedure).handler(
-  async ({ ctx: { user } }) => {
-    const role = await getUserRole(user.id!);
+export const chatProcedure = createServerActionProcedure().handler(async () => {
+  const user = await getCurrentUser();
 
-    if (!role || role.role !== "ADMIN") {
-      throw new Error("User is not an admin");
-    }
+  return { user };
 
-    return {
-      user: {
-        id: user.id,
-        email: user.email,
-        role,
-      },
-    };
-  },
-);
+  // if (!user) {
+  //   user = {
+  //     id: cookies().set()`guest-${uuid()}`,
+  //   } as any;
+  // }
 
-export const authedAction = authedProcedure.createServerAction();
+  // cookies().set("userId", user?.id!);
+
+  // return {
+  //   user,
+  // };
+});
+
+const isAdminProcedure = createServerActionProcedure(
+  authenticatedProcedure,
+).handler(async ({ ctx: { user } }) => {
+  const role = await getUserRole(user.id!);
+
+  if (!role || role.role !== "ADMIN") {
+    throw new Error("User is not an admin");
+  }
+
+  return {
+    user: {
+      id: user.id,
+      email: user.email,
+      role,
+    },
+  };
+});
+
+export const authenticatedAction = authenticatedProcedure.createServerAction();
+
 export const isAdminAction = isAdminProcedure.createServerAction();
+
+export const chatAction = chatProcedure.createServerAction();

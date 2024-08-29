@@ -9,13 +9,23 @@ export const subscribedCentrifugeAtom = atom(
   (get) => get(centrifugeAtom),
   async (get, set) => {
     const currentCentrifuge = get(centrifugeAtom);
+
     console.log("----subscribedCentrifugeAtom", currentCentrifuge);
+
     if (currentCentrifuge) {
       return;
     }
+
     console.log("----subscribedCentrifugeAtom below if", currentCentrifuge);
 
-    const [data] = await getTokenAction();
+    const [data, error] = await getTokenAction();
+
+    console.log("connectToCentrifugeAction", data);
+
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
 
     const newCentrifuge = new Centrifuge(process.env.NEXT_PUBLIC_WS_ENDPOINT!, {
       data: data?.token,
@@ -27,9 +37,9 @@ export const subscribedCentrifugeAtom = atom(
       // toast.success("Connected to the server");
     });
 
-    // newCentrifuge.on("connecting", (ctx) => {
-    //   toast.info("Connecting to the server...");
-    // });
+    newCentrifuge.on("connecting", (ctx) => {
+      toast.info("Connecting to the server...");
+    });
 
     newCentrifuge.on("error", (ctx) => {
       console.error("Centrifuge error:", ctx.error);

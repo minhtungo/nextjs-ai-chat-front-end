@@ -35,7 +35,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
     }
 
     updateChat({
-      roomId: chat.id!,
+      chatId: chat.id!,
       title: newTitle,
     });
 

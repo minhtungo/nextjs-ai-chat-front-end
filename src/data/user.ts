@@ -1,5 +1,3 @@
-import "server-only";
-
 import { db } from "@/lib/db";
 import { changeUserPasswordSchema, onboardingSchema } from "@/lib/definitions";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";

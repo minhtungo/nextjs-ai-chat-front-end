@@ -29,12 +29,8 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId, userId }) => {
   return (
     <>
       {selectedImageIndex !== null && (
-        <ChatWindowArea chatId={chatId} userId={userId}>
-          <ChatHistory
-            chatId={chatId}
-            userId={userId}
-            messageClassName="py-4"
-          />
+        <ChatWindowArea userId={userId}>
+          <ChatHistory chatId={chatId} messageClassName="py-4" />
         </ChatWindowArea>
       )}
     </>

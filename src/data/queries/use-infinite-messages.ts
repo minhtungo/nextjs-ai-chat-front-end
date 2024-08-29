@@ -1,50 +1,36 @@
+"use client";
+
 import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
-import { useMessages } from "@/hooks/use-messages";
-import { usePreviews } from "@/hooks/use-previews";
+import { Message } from "@/lib/definitions";
 import { getMessagesQueryKey } from "@/lib/query-keys";
-import { useEffect } from "react";
 
-export const useInfiniteMessages = (chatId: string) => {
-  const {
-    isLoading,
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isFetching,
-  } = useServerActionInfiniteQuery(getMessagesAction, {
+export const useInfiniteMessages = ({
+  chatId,
+  userId,
+  initialMessages = [],
+}: {
+  chatId: string;
+  userId: string;
+  initialMessages?: Message[];
+}) => {
+  return useServerActionInfiniteQuery(getMessagesAction, {
+    queryKey: getMessagesQueryKey(chatId || ""),
+    // initialData: {
+    //   messages: initialMessages || [],
+    // },
     initialPageParam: 0,
-    queryKey: getMessagesQueryKey(chatId),
     getNextPageParam: (lastPage) =>
-      lastPage.messages[0]?.timestamp || undefined,
+      (lastPage?.messages?.length > 0 && lastPage?.messages[0]?.timestamp) ||
+      undefined,
     input: ({ pageParam }) => ({
-      roomId: chatId,
+      chatId,
       query: {
         ...(pageParam !== 0 && { offset: pageParam }),
       },
     }),
+    enabled: !userId?.includes("guest"),
   });
-
-  const messages = usePreviews({ pages: data?.pages });
-
-  const { setMessages } = useMessages();
-
-  useEffect(() => {
-    if (messages.length > 0) {
-      setMessages(messages);
-    }
-  }, [messages]);
-
-  return {
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isFetching,
-    data,
-    messages,
-  };
 };
 
 // const loadedPagesRef = useRef(new Set<number>());

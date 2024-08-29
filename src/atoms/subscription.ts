@@ -18,6 +18,7 @@ export const currentSubscriptionAtom = atom(
       toast.error("Please connect to the centrifuge network");
       return;
     }
+
     console.log("Current SubscriptionAtom below IF", channel);
 
     if (currentSub) {
@@ -32,12 +33,13 @@ export const currentSubscriptionAtom = atom(
 
     if (!newSub) {
       newSub = centrifuge.newSubscription(channel, {});
-      await setupSubscriptionListeners({
-        newSub,
-        channel,
-        set,
-      });
     }
+
+    await setupSubscriptionListeners({
+      newSub,
+      channel,
+      set,
+    });
 
     newSub.subscribe();
     set(subscriptionAtom, newSub);
@@ -69,6 +71,7 @@ const setupSubscriptionListeners = async ({
   });
 
   newSub.on("subscribing", () => {
+    console.log("Subscribing to channel:", channel);
     set(isSubscribedAtom, false);
   });
 

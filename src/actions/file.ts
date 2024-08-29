@@ -11,11 +11,11 @@ const ACCEPTED_IMAGE_TYPES = [
   "pdf",
 ];
 
-import { authedAction } from "@/lib/safe-actions";
+import { authenticatedAction } from "@/lib/safe-actions";
 import { uploadFileUseCase } from "@/use-cases/file";
 import { z } from "zod";
 
-export const uploadFileAction = authedAction
+export const uploadFileAction = authenticatedAction
   .input(
     z.object({
       file: z

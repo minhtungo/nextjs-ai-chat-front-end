@@ -1,18 +1,30 @@
 "use server";
 
-import { authedAction } from "@/lib/safe-actions";
+import { chatAction } from "@/lib/safe-actions";
 import { getTokenUseCase } from "@/use-cases/api";
+import { getCookie, setCookie } from "cookies-next";
+import { cookies } from "next/headers";
+import { v4 as uuid } from "uuid";
 
-export const getTokenAction = authedAction.handler(
-  async ({ ctx: { user } }) => {
-    try {
-      const token = await getTokenUseCase({
-        userId: user.id!,
-      });
+export const getTokenAction = chatAction.handler(async ({ ctx: { user } }) => {
+  let userId;
 
-      return token;
-    } catch (error) {
-      throw new Error("Error fetching token");
+  if (!user) {
+    if (getCookie("userId", { cookies })) {
+      userId = getCookie("userId", { cookies });
+    } else {
+      userId = `guest-${uuid()}`;
+      setCookie("userId", userId, { cookies });
     }
-  },
-);
+  } else {
+    userId = user.id;
+  }
+
+  console.log("getTokenAction userId", userId);
+
+  const token = await getTokenUseCase({
+    userId: userId!,
+  });
+
+  return token;
+});

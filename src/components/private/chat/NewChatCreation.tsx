@@ -34,9 +34,9 @@ const NewChatCreation: FC<NewChatCreationProps> = ({
     if (!selectedSubject) {
       return;
     }
-    createChat({
-      subject: selectedSubject,
-    });
+    // createChat({
+    //   subject: selectedSubject,
+    // });
   };
 
   return (

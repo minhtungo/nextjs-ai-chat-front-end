@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, FormEvent, MutableRefObject, useEffect, useMemo } from "react";
+import { FC, FormEvent, MutableRefObject, useEffect } from "react";
 
 import PromptForm from "@/components/private/chat/PromptForm";
 import { Badge } from "@/components/ui/badge";
@@ -8,12 +8,9 @@ import { useChat } from "@/hooks/use-chat";
 import { useMessage } from "@/hooks/use-message";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { getConvexHull } from "@/lib/chat";
-import { useAtomValue } from "jotai";
-import { currentSubscriptionAtom } from "@/atoms/subscription";
 
 interface ChatWindowPanelProps {
-  userId: string;
-  chatId: string;
+  userId?: string;
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   selectedImage: HTMLImageElement;
@@ -22,7 +19,6 @@ interface ChatWindowPanelProps {
 
 const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
   userId,
-  chatId,
   isFocusMode,
   onToggleFocusMode,
   selectedImage,
@@ -32,8 +28,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
 
   const { resetMessageState } = useMessage();
 
-  const sub = useAtomValue(currentSubscriptionAtom);
-  const { sendMessage } = useSendMessage({ userId, sub, chatId });
+  const { sendMessage } = useSendMessage({ userId });
 
   useEffect(() => {
     return () => {

@@ -6,21 +6,16 @@ import { CreateNewRoomResponse, InfiniteMessagePage } from "@/types/chat";
 import { FileAtom } from "@/types/file";
 import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
+import { getCookie } from "cookies-next";
 import { MutableRefObject } from "react";
 
-export const createChatRoom = async ({
-  subject,
-  title,
-}: {
-  subject: string;
-  title: string;
-}): Promise<CreateNewRoomResponse> => {
+export const createChatRoom = async (): Promise<CreateNewRoomResponse> => {
   const { data } = await fetchAuth({
     path: "/chat/create-room",
     method: "POST",
     body: {
-      subject,
-      title,
+      subject: "General",
+      title: "New Chat",
     },
   });
 
@@ -61,7 +56,6 @@ export const getMessageFiles = (files: FileAtom[]) => {
       url: file.url,
       name: file.name,
       type: file.type,
-      thumbnail: file.thumbnail,
       preview: file.preview,
       originalWidth: file.originalWidth,
       originalHeight: file.originalHeight,
@@ -99,7 +93,7 @@ export const createNewMessageStore = ({
     id: nanoid(),
     content,
     role: "user",
-    userId,
+    userId: userId || getCookie("guestId") || "",
     ...(docs && { docs }),
     ...(images && { images }),
     timestamp: new Date().getTime(),

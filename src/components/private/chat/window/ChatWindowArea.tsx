@@ -17,16 +17,11 @@ import { useChat } from "@/hooks/use-chat";
 import { clearPoints } from "@/lib/chat";
 
 interface ChatWindowAreaProps {
-  userId: string;
-  chatId: string;
+  userId?: string;
   children: React.ReactNode;
 }
 
-const ChatWindowArea: FC<ChatWindowAreaProps> = ({
-  userId,
-  chatId,
-  children,
-}) => {
+const ChatWindowArea: FC<ChatWindowAreaProps> = ({ userId, children }) => {
   const { selectedImageIndex, images, setSelectedImageIndex } = useChat();
   const drawingPointsRef = useRef<Array<[number, number]>>([]);
 
@@ -142,7 +137,6 @@ const ChatWindowArea: FC<ChatWindowAreaProps> = ({
           <div className="mb-3 px-4">
             <ChatWindowPanel
               userId={userId!}
-              chatId={chatId}
               isFocusMode={isFocusMode}
               onToggleFocusMode={onToggleFocusMode}
               selectedImage={imageRefs.current[selectedImageIndex!]}

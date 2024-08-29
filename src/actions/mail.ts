@@ -1,11 +1,11 @@
 "use server";
 
 import { contactUsFormSchema, feedbackFormSchema } from "@/lib/definitions";
-import { authedAction } from "@/lib/safe-actions";
+import { authenticatedAction } from "@/lib/safe-actions";
 import { sendUserMailUseCase } from "@/use-cases/mail";
 import { sanitize } from "isomorphic-dompurify";
 
-export const sendUserMailAction = authedAction
+export const sendUserMailAction = authenticatedAction
   .input(feedbackFormSchema)
   .handler(async ({ input: { subject, content }, ctx: { user } }) => {
     await sendUserMailUseCase({
@@ -21,7 +21,7 @@ export const sendUserMailAction = authedAction
     };
   });
 
-export const sendContactUsFormAction = authedAction
+export const sendContactUsFormAction = authenticatedAction
   .input(contactUsFormSchema)
   .handler(
     async ({ input: { name, email, phoneNumber, message }, ctx: { user } }) => {

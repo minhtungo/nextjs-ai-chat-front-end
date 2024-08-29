@@ -4,13 +4,11 @@ import { ArrowUp, ChevronDown } from "lucide-react";
 import { FC, FormEvent, useEffect, useRef, useState } from "react";
 import Textarea from "react-textarea-autosize";
 
-import { isSubscribedAtom } from "@/atoms/subscription";
 import UploadedFiles from "@/components/private/chat/UploadedFiles";
 import UtilButtons from "@/components/private/chat/UtilButtons";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
-import { useAtomValue } from "jotai";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -26,7 +24,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const isSubscribed = useAtomValue(isSubscribedAtom);
+  // const isSubscribed = useAtomValue(isSubscribedAtom);
 
   const {
     message: { content },
@@ -48,7 +46,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
         <div
           className={cn(
             "relative overflow-hidden rounded-lg bg-accent/50",
-            !isSubscribed && "cursor-not-allowed opacity-50",
             className,
           )}
           onDragOver={(e) => {
@@ -69,7 +66,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                 <UtilButtons
                   showMathKeyboard={showMathKeyboard}
                   setShowMathKeyboard={setShowMathKeyboard}
-                  disabled={!isSubscribed}
                   className="self-center"
                 />
               </div>
@@ -92,9 +88,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
                   placeholder="Message"
                   className={cn(
                     "max-h-48 min-h-0 w-full resize-none bg-transparent text-sm focus-within:outline-none",
-                    !isSubscribed && "cursor-not-allowed",
                   )}
-                  disabled={!isSubscribed}
                   autoFocus
                   spellCheck={false}
                   autoComplete="off"
@@ -110,12 +104,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
               <button
                 type="submit"
                 className="flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:bg-accent disabled:text-foreground"
-                disabled={
-                  content.trim() === "" ||
-                  pending ||
-                  !inTokenLimit ||
-                  !isSubscribed
-                }
+                disabled={content.trim() === "" || pending || !inTokenLimit}
               >
                 <ArrowUp className="size-3" />
                 <span className="sr-only">Send message</span>

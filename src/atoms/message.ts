@@ -129,6 +129,7 @@ export const imagesAtom = atom((get) =>
       preview: f.preview,
       originalWidth: f.originalWidth,
       originalHeight: f.originalHeight,
+      size: f.size,
     })),
 );
 

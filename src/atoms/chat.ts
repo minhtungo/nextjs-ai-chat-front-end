@@ -1,14 +1,16 @@
 import { MessageStore } from "@/types/chat";
 import { atom } from "jotai";
 
+export const guestIdAtom = atom<string>("");
+
 export const messagesAtom = atom<MessageStore[]>([]);
 
 export const imagesAtom = atom((get) =>
-  get(messagesAtom).flatMap((msg) => msg.images ?? []),
+  get(messagesAtom).flatMap((msg) => msg?.images ?? []),
 );
 
 export const docsAtom = atom((get) =>
-  get(messagesAtom).flatMap((msg) => msg.docs ?? []),
+  get(messagesAtom).flatMap((msg) => msg?.docs ?? []),
 );
 
 export const selectedImageIndexAtom = atom<number | null>(null);
