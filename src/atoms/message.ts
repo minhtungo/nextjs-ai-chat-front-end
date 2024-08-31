@@ -32,7 +32,10 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
     return;
   }
 
-  let totalFilesSize = get(filesAtom).reduce((acc, file) => acc + file.size, 0);
+  let totalFilesSize = get(filesAtom).reduce(
+    (acc, file) => acc + file.size!,
+    0,
+  );
   let totalFilesCount = get(filesAtom).length;
 
   const validFiles = [] as FileAtom[];

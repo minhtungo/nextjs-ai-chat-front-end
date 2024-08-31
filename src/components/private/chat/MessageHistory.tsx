@@ -3,7 +3,7 @@
 import BotMessage from "@/components/private/chat/BotMessage";
 import { useMessages } from "@/hooks/use-messages";
 import { cn } from "@/lib/utils";
-import React, { FC, memo } from "react";
+import React, { FC } from "react";
 import UserMessage from "./UserMessage";
 
 interface MessageHistoryProps {
