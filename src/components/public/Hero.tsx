@@ -1,4 +1,5 @@
-import { chatUrl, signUpUrl } from "@/app-config";
+import { chatUrl } from "@/app-config";
+import { BorderBeam } from "@/components/public/common/BorderBeam";
 import Section from "@/components/public/common/Section";
 import ThemeImage from "@/components/public/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";
@@ -30,8 +31,8 @@ const Hero = () => {
           <ArrowRight className="size-3.5" />
         </Link>
       </div>
-      <div className="relative isolate">
-        <div className="mx-auto mt-12 rounded-2xl bg-muted/30 p-[2px] ring-1 ring-inset ring-border sm:mt-20 sm:p-1.5">
+      <div className="relative isolate mt-12">
+        <div className="rounded-2xl bg-muted/30 p-[2px] ring-1 ring-inset ring-border sm:mt-20 sm:p-1.5">
           <ThemeImage
             srcLight="/images/hero.png"
             srcDark="/images/hero-dark.png"
@@ -40,6 +41,7 @@ const Hero = () => {
             alt="Product Preview"
             className="rounded-2xl shadow"
           />
+          <BorderBeam size={300} />
         </div>
       </div>
     </Section>
