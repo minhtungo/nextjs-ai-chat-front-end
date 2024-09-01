@@ -17,7 +17,7 @@ interface FAQsProps {
 const FAQs: FC<FAQsProps> = ({ className }) => {
   return (
     <Section className={cn("mx-auto max-w-5xl", className)}>
-      <Typography variant="h2" tag="h3" className="mb-8" data-aos="fade-up">
+      <Typography variant="h3" className="mb-8" data-aos="fade-up">
         Câu hỏi thường gặp
       </Typography>
       <Accordion type="multiple" data-aos="fade-up">

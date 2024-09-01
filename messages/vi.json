@@ -57,10 +57,13 @@
           "cta": "Bắt đầu",
           "features": {
             "1": {
-              "title": "10 messages / hour"
+              "title": "3 messages per hour"
             },
             "2": {
               "title": "1 image upload / hour"
+            },
+            "3": {
+              "title": "Basic model"
             }
           }
         },
@@ -70,10 +73,13 @@
           "cta": "Bắt đầu",
           "features": {
             "1": {
-              "title": "10 messages / hour"
+              "title": "50 messages per hour"
             },
             "2": {
-              "title": "1 image upload / hour"
+              "title": "10 image upload / hour"
+            },
+            "3": {
+              "title": "Advanced models"
             }
           }
         },
@@ -265,8 +271,8 @@
       "SignOut": {
         "title": "Đăng xuất"
       },
-      "Dashboard": {
-        "title": "Dashboard"
+      "Chat": {
+        "title": "Chat"
       },
       "ContactUs": {
         "title": "Liên hệ"

@@ -31,15 +31,15 @@ const Hero = () => {
           <ArrowRight className="size-3.5" />
         </Link>
       </div>
-      <div className="relative isolate mt-12">
-        <div className="rounded-2xl bg-muted/30 p-[2px] ring-1 ring-inset ring-border sm:mt-20 sm:p-1.5">
+      <div className="relative mt-12">
+        <div className="rounded-2xl border bg-background before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:bg-gradient-to-b before:from-cyan-500 before:opacity-5 before:[filter:blur(180px)] sm:mt-20">
           <ThemeImage
             srcLight="/images/hero.png"
             srcDark="/images/hero-dark.png"
             width={1920}
             height={925}
             alt="Product Preview"
-            className="rounded-2xl shadow"
+            className="relative rounded-2xl shadow"
           />
           <BorderBeam size={300} />
         </div>

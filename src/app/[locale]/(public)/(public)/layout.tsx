@@ -1,7 +1,7 @@
 import AOSWrapper from "@/components/common/AOS";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import Footer from "@/components/public/common/Footer";
-import Header from "@/components/public/common/Header";
+import PublicHeader from "@/components/public/common/PublicHeader";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function ChildPublicLayout({
@@ -14,7 +14,7 @@ export default function ChildPublicLayout({
   unstable_setRequestLocale(locale);
   return (
     <AOSWrapper>
-      <Header />
+      <PublicHeader />
       <MaxWidthWrapper tag="main">{children}</MaxWidthWrapper>
       <Footer />
     </AOSWrapper>

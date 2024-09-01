@@ -36,11 +36,9 @@ const PricingSection = () => {
               </Typography>
             </CardHeader>
             <CardContent>
-              <p className="mb-4 flex items-center gap-1.5">
-                <span className="text-3xl font-semibold">${price}</span>
-                <span className="text-sm font-semibold text-muted-foreground">
-                  / {t(duration as any)}
-                </span>
+              <p className="mb-4 flex items-center gap-1.5 font-semibold">
+                <span className="text-3xl">${price}</span>
+                <span className="text-sm">/ {t(duration as any)}</span>
               </p>
               <Link
                 className={cn(
@@ -55,7 +53,7 @@ const PricingSection = () => {
               </Link>
             </CardContent>
             <CardFooter>
-              <ul className="flex flex-col gap-y-2 text-sm sm:text-base">
+              <ul className="flex flex-col gap-y-2 text-sm">
                 {features.map((feature) => (
                   <li
                     key={`${t(feature.title as any)}-feature`}

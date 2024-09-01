@@ -4,14 +4,13 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import Logo from "@/components/common/Logo";
+import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
 import MobileMenu from "@/components/public/common/MobileMenu";
 import NavButtons from "@/components/public/common/NavButtons";
 import NavLinks from "@/components/public/common/NavLinks";
-import ThemeToggle from "@/components/public/common/ThemeToggle";
 import { Separator } from "@/components/ui/separator";
-import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
 
-const Header = () => {
+const PublicHeader = () => {
   const t = useTranslations("common.Navbar");
 
   return (
@@ -46,4 +45,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default PublicHeader;

@@ -12,6 +12,9 @@ export const PRICING_PLANS = [
       {
         title: "plan.free.features.2.title",
       },
+      {
+        title: "plan.free.features.3.title",
+      },
     ],
   },
   {
@@ -27,6 +30,9 @@ export const PRICING_PLANS = [
       },
       {
         title: "plan.pro.features.2.title",
+      },
+      {
+        title: "plan.pro.features.3.title",
       },
     ],
   },

@@ -20,7 +20,7 @@ const NavButtons = async () => {
               size: "sm",
             })}
           >
-            {t("Dashboard.title")}
+            {t("Chat.title")}
           </Link>
         </>
       ) : (
