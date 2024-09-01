@@ -1,12 +1,16 @@
 import { chatUrl } from "@/app-config";
 import Logo from "@/components/common/Logo";
 import ChatList from "@/components/private/chat/ChatList";
-import CreateChatButton from "@/components/private/chat/CreateChatButton";
 import ChatDropdownMenu from "@/components/private/common/ChatDropdownMenu";
 import Sidebar from "@/components/private/common/Sidebar";
+import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
+import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCurrentUser } from "@/lib/auth";
+import { cn } from "@/lib/utils";
+import { Plus } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const ChatSidebar = async () => {
   const user = await getCurrentUser();
@@ -19,12 +23,24 @@ const ChatSidebar = async () => {
         <Link href={chatUrl}>
           <Logo />
         </Link>
-        <CreateChatButton />
+        {/* <CreateChatButton /> */}
+        <Link
+          className={cn(
+            buttonVariants({
+              size: "sm",
+            }),
+            "w-full justify-start",
+          )}
+          href={chatUrl}
+        >
+          <Plus className="size-4" />
+          New Chat
+        </Link>
       </div>
       <ScrollArea className="h-full flex-1">
-        <div className="py-2">
-          <ChatList />
-        </div>
+        <Suspense fallback={<ChatSkeleton />}>
+          <ChatList className="py-2" />
+        </Suspense>
       </ScrollArea>
       <div className="w-full px-4">
         <div className="border-t py-1.5">

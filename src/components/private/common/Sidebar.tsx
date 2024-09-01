@@ -14,7 +14,7 @@ const Sidebar: FC<SidebarProps> = ({ className, children }) => {
   return (
     <aside
       className={cn(
-        "z-30 hidden h-full min-h-screen flex-col gap-y-3 border-r bg-card duration-300 ease-in-out lg:flex lg:w-[300px]",
+        "z-30 hidden h-screen flex-col gap-y-3 overflow-y-auto border-r bg-card duration-300 ease-in-out lg:flex lg:w-[300px]",
         className,
       )}
     >

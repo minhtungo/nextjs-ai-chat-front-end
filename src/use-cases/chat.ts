@@ -4,7 +4,7 @@ import { Message } from "@/lib/definitions";
 import { fetchAuth } from "@/lib/api";
 import { getChatListQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
-import { ChatRoom, MessageResponse } from "@/types/chat";
+import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
 import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
 
@@ -58,7 +58,7 @@ export const getChatInfoUseCase = async ({
   return { chat };
 };
 
-export const getChatListUseCase = async (): Promise<ChatRoom[]> => {
+export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
   const response = await fetchAuth({
     path: "/chat/list-rooms",
     method: "GET",

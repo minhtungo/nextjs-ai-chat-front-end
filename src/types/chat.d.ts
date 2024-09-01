@@ -19,6 +19,7 @@ export type ChatRoom = {
 
 export type ChatListItem = {
   id: string;
+  userId: string;
   title: string;
   subject: string;
   timestamp: number;

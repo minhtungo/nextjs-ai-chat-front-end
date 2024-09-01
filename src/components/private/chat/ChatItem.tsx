@@ -1,22 +1,24 @@
 "use client";
 
+import { chatUrl } from "@/app-config";
 import Spinner from "@/components/common/Spinner";
 import EditChatTitle from "@/components/private/chat/EditChatTitle";
 import { buttonVariants } from "@/components/ui/button";
 import { useUpdateChat } from "@/data/mutations/use-update-chat";
 import { cn } from "@/lib/utils";
-import { ChatRoom } from "@/types/chat";
+import { ChatListItem } from "@/types/chat";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { FC, useState } from "react";
 import ChatActions from "./ChatActions";
-import { chatUrl } from "@/app-config";
 
 interface ChatItemProps {
-  chat: ChatRoom;
-  currentChatId: string;
+  chat: ChatListItem;
 }
 
-const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
+const ChatItem: FC<ChatItemProps> = ({ chat }) => {
+  const { id: currentChatId } = useParams<{ id: string }>();
+
   const [isActive, setIsActive] = useState(currentChatId === chat.id);
   const [newTitle, setNewTitle] = useState("");
 
@@ -63,10 +65,10 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
             href={`${chatUrl}/${chat.id}`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              "flex items-center justify-start overflow-hidden px-4 py-2 font-normal text-foreground/80 hover:text-foreground/80",
+              "flex items-center justify-start overflow-hidden p-2 font-normal text-foreground/80 hover:text-foreground/80",
             )}
           >
-            <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap text-[15px] capitalize">
+            <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap text-sm capitalize">
               {chat.title}
               <div
                 className={cn(
@@ -78,7 +80,7 @@ const ChatItem: FC<ChatItemProps> = ({ chat, currentChatId }) => {
           </Link>
           <div
             className={cn(
-              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-3 group-hover:flex",
+              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-2 group-hover:flex",
               (isActiveChat || isActive) && "flex",
             )}
           >

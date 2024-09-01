@@ -7,6 +7,8 @@ import { SUBJECTS } from "./constant";
 import { AccessToken } from "@/types/api";
 import { z } from "zod";
 import { ACCOUNT_URLS } from "@/lib/routes";
+import dayjs from "@/lib/dayjs";
+import { ChatListItem, ChatRoom } from "@/types/chat";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -240,4 +242,67 @@ export const constructMetadata = ({
     //   apple: "/icon.png",
     // },
   };
+};
+
+export const groupChatsByDate = (
+  chats: ChatListItem[],
+): {
+  label: string;
+  chats: ChatListItem[];
+}[] => {
+  const groupedChats = {
+    today: [] as ChatListItem[],
+    yesterday: [] as ChatListItem[],
+    previous7Days: [] as ChatListItem[],
+    previous30Days: [] as ChatListItem[],
+  };
+
+  chats
+    .toSorted((a: any, b: any) => b.last_active - a.last_active)
+    .forEach((chat) => {
+      const lastActiveDate = dayjs(chat.last_active * 1000); // Convert from seconds to milliseconds
+
+      if (lastActiveDate.isToday()) {
+        groupedChats.today.push(chat);
+      } else if (lastActiveDate.isYesterday()) {
+        groupedChats.yesterday.push(chat);
+      } else if (
+        lastActiveDate.isBetween(
+          dayjs().subtract(7, "day"),
+          dayjs(),
+          null,
+          "[]",
+        )
+      ) {
+        groupedChats.previous7Days.push(chat);
+      } else if (
+        lastActiveDate.isBetween(
+          dayjs().subtract(30, "day"),
+          dayjs(),
+          null,
+          "[]",
+        )
+      ) {
+        groupedChats.previous30Days.push(chat);
+      }
+    });
+
+  return [
+    {
+      label: "Today",
+      chats: groupedChats.today,
+    },
+    {
+      label: "Yesterday",
+      chats: groupedChats.yesterday,
+    },
+    {
+      label: "Last 7 Days",
+      chats: groupedChats.previous7Days,
+    },
+    {
+      label: "Last 30 Days",
+      chats: groupedChats.previous30Days,
+    },
+  ];
 };

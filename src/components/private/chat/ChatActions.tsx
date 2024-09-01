@@ -14,12 +14,12 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRemoveChats } from "@/data/mutations/use-remove-chats";
-import { ChatRoom } from "@/types/chat";
+import { ChatListItem } from "@/types/chat";
 import { Ellipsis, Pencil, Trash } from "lucide-react";
 import { FC, useState } from "react";
 
 interface ChatActionsProps {
-  chat: ChatRoom;
+  chat: ChatListItem;
   setIsActive: (value: boolean) => void;
   onUpdateTitle: () => void;
   currentChatId: string;
