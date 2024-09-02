@@ -8,7 +8,7 @@ import dynamic from "next/dynamic";
 import { FC } from "react";
 
 interface ChatWindowProps {
-  chatId: string;
+  chatId?: string;
   userId: string;
 }
 
@@ -30,7 +30,11 @@ const ChatWindow: FC<ChatWindowProps> = ({ chatId, userId }) => {
     <>
       {selectedImageIndex !== null && (
         <ChatWindowArea userId={userId}>
-          <ChatHistory chatId={chatId} messageClassName="py-4" />
+          <ChatHistory
+            chatId={chatId}
+            userId={userId}
+            messageClassName="py-4"
+          />
         </ChatWindowArea>
       )}
     </>

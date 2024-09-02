@@ -12,11 +12,10 @@ import {
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
-import { getCookie } from "cookies-next";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { createServerAction, ZSAError } from "zsa";
+import { ZSAError } from "zsa";
 
 export const getChatInfoAction = authenticatedAction
   .input(
@@ -56,7 +55,7 @@ export const createChatAction = chatAction.handler(async () => {
 export const getMessagesAction = chatAction
   .input(
     z.object({
-      chatId: z.string(),
+      chatId: z.string().optional(),
       query: z.object({
         offset: z.number().optional(),
       }),

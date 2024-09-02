@@ -6,7 +6,6 @@ import { CreateNewRoomResponse, InfiniteMessagePage } from "@/types/chat";
 import { FileAtom } from "@/types/file";
 import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
-import { getCookie } from "cookies-next";
 import { MutableRefObject } from "react";
 
 export const createChatRoom = async (): Promise<CreateNewRoomResponse> => {
@@ -93,7 +92,7 @@ export const createNewMessageStore = ({
     id: nanoid(),
     content,
     role: "user",
-    userId: userId || getCookie("guestId") || "",
+    userId,
     ...(docs && { docs }),
     ...(images && { images }),
     timestamp: new Date().getTime(),

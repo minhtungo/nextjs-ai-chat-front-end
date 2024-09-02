@@ -10,7 +10,7 @@ import { useSendMessage } from "@/hooks/use-send-message";
 import { getConvexHull } from "@/lib/chat";
 
 interface ChatWindowPanelProps {
-  userId?: string;
+  userId: string;
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
   selectedImage: HTMLImageElement;
@@ -28,7 +28,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
 
   const { resetMessageState } = useMessage();
 
-  const { sendMessage } = useSendMessage({ userId });
+  const { sendMessage } = useSendMessage(userId);
 
   useEffect(() => {
     return () => {
@@ -36,9 +36,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
     };
   }, []);
 
-  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const onSubmitMessage = async () => {
     const focusedImage = {
       url: images[selectedImageIndex!].url,
       annotation: getConvexHull({
@@ -47,7 +45,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
       }),
     };
 
-    sendMessage({ focusedImage });
+    sendMessage(focusedImage);
 
     onToggleFocusMode();
   };
@@ -59,7 +57,7 @@ const ChatWindowPanel: FC<ChatWindowPanelProps> = ({
           Focus on selection
         </Badge>
       )}
-      <PromptForm onSubmit={onSubmit} />
+      <PromptForm onSubmit={onSubmitMessage} />
     </>
   );
 };

@@ -1,17 +1,12 @@
-import { createChatAction } from "@/actions/chat";
+import { getChatUserIdAction } from "@/actions/api";
 import Chat from "@/components/private/chat/Chat";
-import { getCurrentUser } from "@/lib/auth";
 
 const ChatIndexPage = async () => {
-  // const [user, [chat]] = await Promise.all([
-  //   getCurrentUser(),
-  //   createChatAction(),
-  // ]);
+  const [data] = await getChatUserIdAction();
 
-  return (
-    // <Chat user={user} userId={user?.id ?? chat?.uid!} chatId={chat?.id!} />
-    <></>
-  );
+  console.log("*****************ChatIndexPage", data);
+
+  return <Chat userId={data?.id!} />;
 };
 
 export default ChatIndexPage;

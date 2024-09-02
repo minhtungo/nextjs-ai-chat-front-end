@@ -1,14 +1,14 @@
+import dayjs from "@/lib/dayjs";
+import { ACCOUNT_URLS } from "@/lib/routes";
+import { AccessToken } from "@/types/api";
+import { ChatListItem } from "@/types/chat";
 import { type ClassValue, clsx } from "clsx";
 import jwt from "jsonwebtoken";
 import { customAlphabet } from "nanoid";
 import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
-import { SUBJECTS } from "./constant";
-import { AccessToken } from "@/types/api";
 import { z } from "zod";
-import { ACCOUNT_URLS } from "@/lib/routes";
-import dayjs from "@/lib/dayjs";
-import { ChatListItem, ChatRoom } from "@/types/chat";
+import { SUBJECTS } from "./constant";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -305,4 +305,8 @@ export const groupChatsByDate = (
       chats: groupedChats.previous30Days,
     },
   ];
+};
+
+export const isGuestUser = (userId: string) => {
+  return userId.includes("guest");
 };

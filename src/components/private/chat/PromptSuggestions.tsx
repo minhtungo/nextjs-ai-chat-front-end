@@ -1,6 +1,6 @@
 import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useMessages } from "@/hooks/use-messages";
-import { createNewMessageStore, setOptimisticMessage } from "@/lib/chat";
+import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
 

@@ -1,9 +1,8 @@
 "use client";
 
-import { accountUrl } from "@/app-config";
 import ThemeSwitch from "@/components/private/common/ThemeSwitch";
 import UserAvatar from "@/components/private/common/UserAvatar";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { CHAT_MENU_URLS } from "@/lib/routes";
-import { EllipsisVertical, LogOut, Rocket, ShieldCheck } from "lucide-react";
+import { EllipsisVertical, LogOut, ShieldCheck } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -53,7 +52,7 @@ const ChatDropdownMenu = () => {
             </div>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        {/* <DropdownMenuSeparator />
         <div className="mt-2 flex items-center justify-between px-2 text-sm">
           <span className="font-medium capitalize">{user.plan} Plan</span>
           <Link
@@ -67,7 +66,7 @@ const ChatDropdownMenu = () => {
             <Rocket className="size-3" />
             <span>Upgrade</span>
           </Link>
-        </div>
+        </div> */}
         <DropdownMenuSeparator />
         {CHAT_MENU_URLS.map(({ title, href, icon }) => (
           <DropdownMenuItem asChild key={`${title}-user-dashboard-item`}>

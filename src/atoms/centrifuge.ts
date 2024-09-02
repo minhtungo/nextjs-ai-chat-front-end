@@ -20,7 +20,7 @@ export const subscribedCentrifugeAtom = atom(
 
     const [data, error] = await getTokenAction();
 
-    console.log("connectToCentrifugeAction", data);
+    console.log("*****************connectToCentrifugeAction", data);
 
     if (error) {
       toast.error(error.message);

@@ -26,7 +26,7 @@ import { ACADEMIC_LEVELS } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Pencil } from "lucide-react";
+import { Camera, Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -98,7 +98,7 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
               <label htmlFor="attach-profile-image" className="cursor-pointer">
                 <Avatar className="size-16 border sm:size-24">
                   <div className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-card/60 opacity-0 transition duration-300 ease-in-out hover:opacity-100">
-                    <Pencil className="size-4" />
+                    <Camera className="size-4" />
                   </div>
                   <AvatarImage
                     src={

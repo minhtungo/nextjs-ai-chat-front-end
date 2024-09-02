@@ -41,7 +41,14 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   }, []);
 
   return (
-    <form className="relative" ref={formRef} onSubmit={onSubmit}>
+    <form
+      className="relative"
+      ref={formRef}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(e);
+      }}
+    >
       {!showMathKeyboard ? (
         <div
           className={cn(

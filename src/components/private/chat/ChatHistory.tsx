@@ -16,7 +16,7 @@ import MessageHistory from "./MessageHistory";
 import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
-  chatId: string;
+  chatId?: string;
   userId: string;
   className?: string;
   messageClassName?: string;

@@ -4,21 +4,19 @@ import { getMessagesAction } from "@/actions/chat";
 import { useServerActionInfiniteQuery } from "@/hooks/server-action-hooks";
 import { Message } from "@/lib/definitions";
 import { getMessagesQueryKey } from "@/lib/query-keys";
+import { isGuestUser } from "@/lib/utils";
 
 export const useInfiniteMessages = ({
   chatId,
   userId,
   initialMessages = [],
 }: {
-  chatId: string;
+  chatId?: string;
   userId: string;
   initialMessages?: Message[];
 }) => {
   return useServerActionInfiniteQuery(getMessagesAction, {
     queryKey: getMessagesQueryKey(chatId || ""),
-    // initialData: {
-    //   messages: initialMessages || [],
-    // },
     initialPageParam: 0,
     getNextPageParam: (lastPage) =>
       (lastPage?.messages?.length > 0 && lastPage?.messages[0]?.timestamp) ||
@@ -29,7 +27,7 @@ export const useInfiniteMessages = ({
         ...(pageParam !== 0 && { offset: pageParam }),
       },
     }),
-    enabled: !userId?.includes("guest"),
+    enabled: !isGuestUser(userId),
   });
 };
 

@@ -27,14 +27,7 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     redirect(`/`);
   }
 
-  return (
-    <Chat
-      user={user}
-      userId={user.id!}
-      chatId={id}
-      initialMessages={chat.messages}
-    />
-  );
+  return <Chat userId={user.id!} chatId={id} initialMessages={chat.messages} />;
 };
 
 export default ChatPage;

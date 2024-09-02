@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, FormEvent, useEffect } from "react";
+import { FC, useEffect } from "react";
 
 import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
 import { currentSubscriptionAtom } from "@/atoms/subscription";
@@ -10,10 +10,11 @@ import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import { Badge } from "@/components/ui/badge";
 import { useMessage } from "@/hooks/use-message";
 import { useSendMessage } from "@/hooks/use-send-message";
+import { isGuestUser } from "@/lib/utils";
 import { useAtomValue, useSetAtom } from "jotai";
 
 interface ChatPanelProps {
-  chatId: string;
+  chatId?: string;
   userId: string;
 }
 
@@ -23,22 +24,20 @@ const ChatPanel: FC<ChatPanelProps> = ({ chatId, userId }) => {
 
   const { resetMessageState, inTokenLimit } = useMessage();
 
-  const { sendMessage } = useSendMessage({
-    userId,
-  });
+  const { sendMessage } = useSendMessage(userId);
 
   useEffect(() => {
-    if (!centrifuge) return;
+    if (!centrifuge || !chatId || isGuestUser(userId)) return;
 
     setupSubscription(`rooms:${chatId}`);
+
     return () => {
       resetMessageState();
     };
   }, [chatId, centrifuge]);
 
-  const onSubmitMessage = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    sendMessage({});
+  const onSubmitMessage = () => {
+    sendMessage();
   };
 
   return (

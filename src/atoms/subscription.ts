@@ -43,6 +43,8 @@ export const currentSubscriptionAtom = atom(
 
     newSub.subscribe();
     set(subscriptionAtom, newSub);
+
+    return newSub;
   },
 );
 

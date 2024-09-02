@@ -1,18 +1,15 @@
+import { createChatAction } from "@/actions/chat";
 import { MESSAGE_TOKEN_LIMIT } from "@/app-config";
 import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useMessage } from "@/hooks/use-message";
 import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore } from "@/lib/chat";
+import { isGuestUser } from "@/lib/utils";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { toast } from "sonner";
-import { getCookie } from "cookies-next";
 
-interface useSendMessageProps {
-  userId: string;
-}
-
-export const useSendMessage = ({ userId }: useSendMessageProps) => {
+export const useSendMessage = (userId: string) => {
   const {
     message: { mathEquation, content },
     pending,
@@ -22,12 +19,25 @@ export const useSendMessage = ({ userId }: useSendMessageProps) => {
     setInTokenLimit,
   } = useMessage();
 
-  const { setMessages, messages } = useMessages();
+  const { messages, setMessages } = useMessages();
 
-  const currentSubscription = useAtomValue(currentSubscriptionAtom);
+  const [currentSubscription, setupSubscription] = useAtom(
+    currentSubscriptionAtom,
+  );
 
-  const sendMessage = async ({ focusedImage }: { focusedImage?: any }) => {
+  const sendMessage = async (focusedImage?: any) => {
     if (pending) return;
+    let newSub;
+    if (isGuestUser(userId) && messages.length === 0) {
+      const [newRoom, error] = await createChatAction();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      newSub = await setupSubscription(`rooms:${newRoom?.id}`);
+    }
 
     // Blur focus on mobile
     if (window.innerWidth < 600) {
@@ -55,38 +65,28 @@ export const useSendMessage = ({ userId }: useSendMessageProps) => {
 
     const newMessage = createNewMessageStore({
       content: submitContent,
-      userId: userId ?? getCookie("guestId") ?? "",
+      userId,
       docs,
       images,
     });
 
-    // setOptimisticMessage({
-    //   chatId,
-    //   newMessage,
-    // });
-
     setMessages((currentMessages) => [...currentMessages, newMessage]);
 
-    console.log("sendMessage", messages);
+    const sub = currentSubscription || newSub;
 
-    if (currentSubscription) {
-      currentSubscription.publish({
+    if (sub) {
+      sub.publish({
         input: {
           content: submitContent,
-          images: images.map(
-            ({ name, type, originalWidth, originalHeight, url }) => ({
-              url,
-              type,
-              name,
-              originalWidth,
-              originalHeight,
-            }),
-          ),
+          images: images.map((image) => ({
+            ...image,
+          })),
           docs,
           ...(focusedImage ? { focusedImage } : {}),
         },
       });
     } else {
+      console.log("-----------------error");
       toast.error("Error connecting to the server. Please try again later.");
       return;
     }

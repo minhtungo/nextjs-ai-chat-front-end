@@ -85,7 +85,7 @@ export const getMessagesUseCase = async ({
   chatId,
   query: { offset },
 }: {
-  chatId: string;
+  chatId?: string;
   query: { offset?: number };
 }) => {
   console.log("-----------Messages useCase Called");
