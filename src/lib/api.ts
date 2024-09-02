@@ -1,4 +1,5 @@
 import { getTokenAction } from "@/actions/api";
+import { env } from "@/env";
 
 interface FetchAuthProps {
   baseUrl?: string;
@@ -12,7 +13,7 @@ interface FetchAuthProps {
 }
 
 export const fetchAuth = async ({
-  baseUrl = process.env.NEXT_PUBLIC_CHAT_SERVER_URL,
+  baseUrl = env.NEXT_PUBLIC_CHAT_SERVER_URL,
   path,
   method = "GET",
   body,

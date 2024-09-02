@@ -1,11 +1,12 @@
 import { fetchAuth } from "@/lib/api";
+import { env } from "@/env";
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const path = searchParams.get("path");
 
   const response = await fetchAuth({
-    baseUrl: process.env.ASSET_SERVER_URL,
+    baseUrl: env.ASSET_SERVER_URL,
     path: path!,
     responseType: "blob",
   });
@@ -39,7 +40,7 @@ export async function GET(req: Request) {
 //   console.log("params", params);
 
 //   const response = await fetchAuth({
-//     baseUrl: process.env.NEXT_PUBLIC_ASSET_SERVER_URL,
+//     baseUrl: env.NEXT_PUBLIC_ASSET_SERVER_URL,
 //     path: path!,
 //     responseType: "blob",
 //   });

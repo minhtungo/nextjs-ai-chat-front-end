@@ -10,11 +10,12 @@ import {
   emailVerificationUrl,
   resetPasswordUrl,
 } from "@/app-config";
+import { env } from "@/env";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(env.RESEND_API_KEY);
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const emailConfirmationLink = `${process.env.NEXT_PUBLIC_BASE_URL}${emailVerificationUrl}?token=${token}`;
+  const emailConfirmationLink = `${env.NEXT_PUBLIC_BASE_URL}${emailVerificationUrl}?token=${token}`;
 
   await resend.emails.send({
     from: ADMIN_EMAIL,
@@ -26,7 +27,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 };
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const resetPasswordLink = `${process.env.NEXT_PUBLIC_BASE_URL}${resetPasswordUrl}?token=${token}`;
+  const resetPasswordLink = `${env.NEXT_PUBLIC_BASE_URL}${resetPasswordUrl}?token=${token}`;
 
   await resend.emails.send({
     from: ADMIN_EMAIL,

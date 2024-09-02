@@ -4,6 +4,7 @@ import { TOKEN_EXPIRATION } from "@/app-config";
 import { authenticatedAction } from "@/lib/safe-actions";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
+import { env } from "@/env";
 
 const getTokenExpiration = () => {
   return Math.floor(Date.now() / 1000) + TOKEN_EXPIRATION;
@@ -11,7 +12,7 @@ const getTokenExpiration = () => {
 
 export const getConnectionTokenAction = authenticatedAction.handler(
   async ({ ctx: { user } }) => {
-    const CENTRIFUGO_TOKEN_SECRET = process.env.CENTRIFUGO_TOKEN_SECRET;
+    const CENTRIFUGO_TOKEN_SECRET = env.CENTRIFUGO_TOKEN_SECRET;
 
     if (!CENTRIFUGO_TOKEN_SECRET) {
       throw new Error("CENTRIFUGO_TOKEN_SECRET is not set");
@@ -31,7 +32,7 @@ export const getConnectionTokenAction = authenticatedAction.handler(
 export const getSubscriptionTokenAction = authenticatedAction
   .input(z.object({ channel: z.string() }))
   .handler(async ({ input: { channel }, ctx: { user } }) => {
-    const CENTRIFUGO_TOKEN_SECRET = process.env.CENTRIFUGO_TOKEN_SECRET;
+    const CENTRIFUGO_TOKEN_SECRET = env.CENTRIFUGO_TOKEN_SECRET;
     if (!CENTRIFUGO_TOKEN_SECRET) {
       throw new Error("CENTRIFUGO_TOKEN_SECRET is not set");
     }
@@ -41,7 +42,7 @@ export const getSubscriptionTokenAction = authenticatedAction
       exp: getTokenExpiration(),
     };
 
-    const signedToken = jwt.sign(token, process.env.CENTRIFUGO_TOKEN_SECRET!, {
+    const signedToken = jwt.sign(token, env.CENTRIFUGO_TOKEN_SECRET!, {
       algorithm: "HS256",
     });
 
@@ -52,7 +53,7 @@ export const getPublishMessageTokenAction = authenticatedAction
   .input(z.object({ channel: z.string(), message: z.string() }))
   .output(z.object({ token: z.string() }))
   .handler(async ({ input: { channel, message }, ctx: { user } }) => {
-    const CENTRIFUGO_TOKEN_SECRET = process.env.CENTRIFUGO_TOKEN_SECRET;
+    const CENTRIFUGO_TOKEN_SECRET = env.CENTRIFUGO_TOKEN_SECRET;
 
     if (!CENTRIFUGO_TOKEN_SECRET) {
       throw new Error("CENTRIFUGO_TOKEN_SECRET is not set");
@@ -65,7 +66,7 @@ export const getPublishMessageTokenAction = authenticatedAction
       timestamp: Date.now(),
     };
 
-    const signedToken = jwt.sign(token, process.env.CENTRIFUGO_TOKEN_SECRET!, {
+    const signedToken = jwt.sign(token, env.CENTRIFUGO_TOKEN_SECRET!, {
       algorithm: "HS256",
     });
 

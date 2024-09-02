@@ -9,6 +9,7 @@ import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
 import { SUBJECTS } from "./constant";
+import { env } from "@/env";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -87,13 +88,13 @@ export const generateBreadcrumbs = (pathname: string) => {
 };
 
 export const encodeToken = (data: AccessToken) => {
-  return jwt.sign(data, process.env.JWT_SECRET!, {
+  return jwt.sign(data, env.JWT_SECRET!, {
     algorithm: "HS256",
   });
 };
 
 export const decodeToken = (token: string) => {
-  return jwt.verify(token, process.env.JWT_SECRET!, {
+  return jwt.verify(token, env.JWT_SECRET!, {
     algorithms: ["HS256"],
   });
 };

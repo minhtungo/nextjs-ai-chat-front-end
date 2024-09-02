@@ -1,13 +1,11 @@
 import { headers } from "next/headers";
 import { toast } from "sonner";
+import { env } from "@/env";
 
 export const getChatUserIdUseCase = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/userId`,
-    {
-      headers: headers(),
-    },
-  );
+  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/userId`, {
+    headers: headers(),
+  });
 
   const { data } = await response.json();
 
@@ -22,12 +20,9 @@ export const getChatUserIdUseCase = async () => {
 };
 
 export const getChatTokenUseCase = async () => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/chat/token`,
-    {
-      headers: headers(),
-    },
-  );
+  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/token`, {
+    headers: headers(),
+  });
 
   const { data } = await response.json();
 

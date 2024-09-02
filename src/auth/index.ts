@@ -9,6 +9,7 @@ import {
 import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { Languages, Plan, type UserRole } from "@prisma/client";
 import { authErrorUrl, signInUrl } from "@/app-config";
+import { env } from "@/env";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -17,7 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: signInUrl,
     error: authErrorUrl,
   },
-  secret: process.env.AUTH_SECRET,
+  secret: env.AUTH_SECRET,
   // jwt: {
   //   encode: async ({ secret, token }) => {
   //     if (!secret) {

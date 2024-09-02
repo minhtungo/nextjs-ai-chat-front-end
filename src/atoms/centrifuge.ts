@@ -2,6 +2,7 @@ import { getTokenAction } from "@/actions/api";
 import { Centrifuge } from "centrifuge";
 import { atom } from "jotai";
 import { toast } from "sonner";
+import { env } from "@/env";
 
 export const centrifugeAtom = atom<Centrifuge | null>(null);
 
@@ -27,7 +28,7 @@ export const subscribedCentrifugeAtom = atom(
       return;
     }
 
-    const newCentrifuge = new Centrifuge(process.env.NEXT_PUBLIC_WS_ENDPOINT!, {
+    const newCentrifuge = new Centrifuge(env.NEXT_PUBLIC_WS_ENDPOINT!, {
       data: data?.token,
       debug: true,
     });
