@@ -88,7 +88,7 @@ export const getMessagesUseCase = async ({
   chatId?: string;
   query: { offset?: number };
 }) => {
-  console.log("-----------Messages useCase Called");
+  console.log("-----------getMessagesUseCase Called");
 
   const query = new URLSearchParams({
     limit: FETCHED_MESSAGES_LIMIT.toString(),

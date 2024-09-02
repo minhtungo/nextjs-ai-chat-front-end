@@ -3,11 +3,8 @@ import DocPreview from "@/components/private/chat/DocPreview";
 import { useMessage } from "@/hooks/use-message";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { FC } from "react";
 
-interface UploadedFilesProps {}
-
-const UploadedFiles: FC<UploadedFilesProps> = () => {
+const UploadedFiles = () => {
   const { removeFile, files } = useMessage();
   console.log("files", files);
   return (

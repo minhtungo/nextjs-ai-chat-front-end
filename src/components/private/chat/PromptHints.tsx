@@ -50,7 +50,7 @@ const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
   return (
     <div
       className={cn(
-        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3 md:max-w-[75%]",
+        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3 lg:max-w-[75%]",
         className,
       )}
     >

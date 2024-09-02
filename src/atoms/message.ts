@@ -118,7 +118,7 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
   );
 });
 
-export const fileRemovalAtom = atom(null, async (_, set, fileId: string) => {
+export const fileRemovalAtom = atom(null, async (_, set, fileId?: string) => {
   set(filesAtom, (prev) => prev.filter((f) => f.id !== fileId));
 });
 

@@ -88,7 +88,6 @@ export const getUserUploadedFilesUseCase = async (userId: string) => {
       assets: data.data,
     };
   } else if (data.error) {
-    console.log(data.error);
     console.log("Failed to get user uploaded files: " + data.error);
   }
 };

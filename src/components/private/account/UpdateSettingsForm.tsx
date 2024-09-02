@@ -48,7 +48,6 @@ const UpdateSettingsForm: FC<UpdateSettingsFormProps> = ({ user }) => {
   });
 
   const onSubmit = async (values: z.infer<typeof updateUserSettingsSchema>) => {
-    console.log("values", values);
     const [_, err] = await execute(values);
 
     if (err) {

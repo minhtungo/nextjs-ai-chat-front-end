@@ -1,10 +1,10 @@
 "use client";
 
 import BotMessage from "@/components/private/chat/BotMessage";
+import UserMessage from "@/components/private/chat/UserMessage";
 import { useMessages } from "@/hooks/use-messages";
 import { cn } from "@/lib/utils";
 import React, { FC } from "react";
-import UserMessage from "./UserMessage";
 
 interface MessageHistoryProps {
   className?: string;

@@ -20,8 +20,6 @@ const ChatList: FC<ChatListProps> = async ({ className }) => {
 
   const groupedChats = groupChatsByDate(chats);
 
-  console.log("groupedChats", groupedChats[1].chats);
-
   return (
     <div className={cn("px-4", className)}>
       <ol className="space-y-4">

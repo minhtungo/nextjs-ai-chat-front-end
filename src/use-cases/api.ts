@@ -6,8 +6,11 @@ import { AccessToken } from "@/types/api";
 
 const tokenCache = new NodeCache({ stdTTL: 3600 }); // Cache with 1-hour TTL
 
-export const getTokenUseCase = async ({ userId }: { userId: string }) => {
+export const getTokenUseCase = async ({ userId }: { userId?: string }) => {
   try {
+    if (!userId) {
+      throw new Error("Something went wrong! Please try again later.");
+    }
     const cachedToken = tokenCache.get("accessToken") as string;
     if (cachedToken) {
       const decodedToken = decodeToken(cachedToken) as AccessToken;

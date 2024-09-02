@@ -24,7 +24,7 @@ export const getChatInfoAction = authenticatedAction
     }),
   )
   .handler(async ({ input: { chatId }, ctx: { user } }) => {
-    console.log("-----------chatInfo action Called");
+    console.log("-----------getChatInfo action Called");
     try {
       const chat = await getChatInfoUseCase({
         chatId,
@@ -62,7 +62,7 @@ export const getMessagesAction = chatAction
     }),
   )
   .handler(async ({ input: { chatId, query } }) => {
-    console.log("-----------Messages Action Called");
+    console.log("-----------getMessagesAction Called");
     return await getMessagesUseCase({
       chatId,
       query,

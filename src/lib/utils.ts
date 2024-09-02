@@ -310,3 +310,7 @@ export const groupChatsByDate = (
 export const isGuestUser = (userId: string) => {
   return userId.includes("guest");
 };
+
+export const isNotUndefinedOrEmptyArray = (arr: any[]) => {
+  return !(arr.length === 0 || (arr.length === 1 && arr[0] === undefined));
+};

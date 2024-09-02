@@ -10,7 +10,7 @@ import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
 import { useMessages } from "@/hooks/use-messages";
 import { usePreviews } from "@/hooks/use-previews";
 import { Message } from "@/lib/definitions";
-import { cn } from "@/lib/utils";
+import { cn, isNotUndefinedOrEmptyArray } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import MessageHistory from "./MessageHistory";
 import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
@@ -73,7 +73,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
 
   return (
     <>
-      {messages && messages.length > 0 ? (
+      {isNotUndefinedOrEmptyArray(messages) ? (
         <ScrollAreaContainer
           className={cn("flex h-full w-full flex-col", className)}
         >

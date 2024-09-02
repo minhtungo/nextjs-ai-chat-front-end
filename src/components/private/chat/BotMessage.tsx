@@ -15,10 +15,9 @@ import remarkMath from "remark-math";
 
 import { MemoizedReactMarkdown } from "@/components/markdown";
 import { Card } from "@/components/ui/card";
-import { StreamableValue } from "ai/rsc";
 
 interface BotMessageProps {
-  content: string | StreamableValue<string>;
+  content: string;
 }
 
 const BotMessage: FC<BotMessageProps> = ({ content }) => {

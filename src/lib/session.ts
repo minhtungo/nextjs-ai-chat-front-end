@@ -1,8 +1,9 @@
 import "server-only";
 import { getCurrentUser } from "@/lib/auth";
 import { AuthenticationError } from "@/lib/error";
-import { User } from "next-auth";
 import { getCookie, setCookie } from "cookies-next";
+import { User } from "next-auth";
+import { cookies } from "next/headers";
 import { v4 as uuid } from "uuid";
 
 export const assertAuthenticated = async () => {
@@ -13,7 +14,7 @@ export const assertAuthenticated = async () => {
   return user;
 };
 
-export const getChatUserId = (user: User | undefined, cookies: any) => {
+export const getChatUserId = async (user: User | undefined) => {
   let userId;
 
   if (!user) {
@@ -27,5 +28,5 @@ export const getChatUserId = (user: User | undefined, cookies: any) => {
     userId = user.id;
   }
 
-  return userId as string;
+  return userId;
 };

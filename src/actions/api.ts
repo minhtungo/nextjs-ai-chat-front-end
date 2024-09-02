@@ -28,24 +28,3 @@ export const getTokenAction = chatAction.handler(async ({ ctx: { user } }) => {
 
   return token;
 });
-
-export const getChatUserIdAction = chatAction.handler(({ ctx: { user } }) => {
-  let userId;
-
-  if (!user) {
-    if (getCookie("userId", { cookies })) {
-      userId = getCookie("userId", { cookies });
-    } else {
-      userId = `guest-${uuid()}`;
-      setCookie("userId", userId, { cookies });
-    }
-  } else {
-    userId = user.id;
-  }
-
-  console.log("**************getChatUserIdAction userId", userId);
-
-  return {
-    id: userId,
-  };
-});

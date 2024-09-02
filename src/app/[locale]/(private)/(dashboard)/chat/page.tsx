@@ -1,12 +1,16 @@
-import { getChatUserIdAction } from "@/actions/api";
 import Chat from "@/components/private/chat/Chat";
+import { getChatUserIdUseCase } from "@/use-cases/session";
 
 const ChatIndexPage = async () => {
-  const [data] = await getChatUserIdAction();
+  const userId = await getChatUserIdUseCase();
 
-  console.log("*****************ChatIndexPage", data);
+  console.log("*****************ChatIndexPage", userId);
 
-  return <Chat userId={data?.id!} />;
+  if (!userId) {
+    throw new Error("Something went wrong! Please try again later.");
+  }
+
+  return <Chat userId={userId} />;
 };
 
 export default ChatIndexPage;
