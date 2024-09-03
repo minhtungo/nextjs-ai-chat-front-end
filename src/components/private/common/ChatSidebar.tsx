@@ -6,15 +6,17 @@ import Sidebar from "@/components/private/common/Sidebar";
 import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { getCurrentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
+import { User } from "next-auth";
 import Link from "next/link";
-import { Suspense } from "react";
+import { FC, Suspense } from "react";
 
-const ChatSidebar = async () => {
-  const user = await getCurrentUser();
+interface ChatSidebarProps {
+  user: User | undefined;
+}
 
+const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
   if (!user) return null;
 
   return (

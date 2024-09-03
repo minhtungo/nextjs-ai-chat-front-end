@@ -19,7 +19,7 @@ const EmptyChatScreen: FC<EmptyChatScreenProps> = ({ className, userId }) => {
       )}
     >
       <BotAvatar />
-      <Typography variant="h3" tag="h2">
+      <Typography variant="h4" tag="h2" className="text-center">
         How can I help you today?
       </Typography>
       <PromptHints className="mt-4" userId={userId} />

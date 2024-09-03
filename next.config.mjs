@@ -7,6 +7,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  experimental: {
+    serverComponentsExternalPackages: ["pino", "pino-pretty"],
+  },
   output: "standalone",
   swcMinify: true,
   // async rewrites() {

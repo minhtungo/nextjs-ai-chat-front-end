@@ -12,7 +12,7 @@ const ChatList: FC<ChatListProps> = async ({ className }) => {
 
   if (!chats || chats.length === 0) {
     return (
-      <div className="mt-2 text-sm text-muted-foreground">
+      <div className="px-4 text-sm text-muted-foreground">
         You have no chats yet.
       </div>
     );

@@ -1,11 +1,10 @@
 import { auth } from "@/auth";
 import JoTaiProvider from "@/components/providers/JotaiProvider";
-import { Toaster } from "@/components/ui/sonner";
-import { SessionProvider } from "next-auth/react";
-import { redirect } from "next/navigation";
-import { cache } from "react";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
+import { Toaster } from "@/components/ui/sonner";
 import "@/styles/chat.css";
+import { SessionProvider } from "next-auth/react";
+import { cache } from "react";
 
 const getAuth = cache(async () => {
   return await auth();

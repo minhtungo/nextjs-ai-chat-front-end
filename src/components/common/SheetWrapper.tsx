@@ -14,7 +14,7 @@ import { Menu } from "lucide-react";
 
 interface SheetWrapperProps {
   className?: string;
-  trigger?: React.ReactNode;
+  triggerIcon?: React.ReactNode;
   triggerClassName?: string;
   wrapperClassName?: string;
   footerClassName?: string;
@@ -27,24 +27,23 @@ interface SheetWrapperProps {
 const SheetWrapper: FC<SheetWrapperProps> = ({
   className,
   triggerClassName,
+  triggerIcon,
   wrapperClassName,
   footerClassName,
   content,
   footer,
   title,
   side,
-  trigger,
 }) => {
   return (
     <Sheet>
       <SheetTrigger className={cn(triggerClassName)}>
-        {trigger || <Menu className="size-5 text-muted-foreground sm:size-6" />}
+        {triggerIcon || (
+          <Menu className="size-5 text-muted-foreground sm:size-6" />
+        )}
       </SheetTrigger>
-      <SheetContent
-        className={cn("h-full w-full", wrapperClassName)}
-        side={side}
-      >
-        <Link href="/" className="absolute left-4 top-4">
+      <SheetContent className={cn("h-full", wrapperClassName)} side={side}>
+        <Link href="/">
           <Logo />
         </Link>
         <div className="relative flex h-screen w-full flex-1 flex-col">
