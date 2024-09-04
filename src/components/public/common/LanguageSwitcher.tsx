@@ -6,12 +6,11 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import { locales } from "@/lib/config";
 import { usePathname, useRouter } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-import { Globe, Languages } from "lucide-react";
+import { Globe } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { FC, useTransition } from "react";
@@ -59,9 +58,12 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
             "w-fit border-none px-0 text-foreground shadow-none",
             className,
           )}
+          noIndicator
         >
           {/* <SelectValue placeholder={t("label")} /> */}
-          {showIcon && <Languages className="size-[18px]" />}
+          {showIcon && (
+            <Globe className="size-[18px] text-muted-foreground hover:text-foreground" />
+          )}
         </SelectTrigger>
         <SelectContent className="min-w-0">
           {locales.map((cur) => (

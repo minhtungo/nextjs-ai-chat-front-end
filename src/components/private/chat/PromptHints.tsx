@@ -21,7 +21,7 @@ const promptSuggestion = [
     content: "How do I work with variables in equations?",
   },
   {
-    content: "What is the difference between linear and quadratic equations?",
+    content: "How do I work with variables in equations?",
   },
 ];
 
@@ -50,19 +50,18 @@ const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
   return (
     <div
       className={cn(
-        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3 lg:max-w-[75%]",
+        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3 lg:max-w-[85%]",
         className,
       )}
     >
       {promptSuggestion.map(({ content }) => (
         <button
           key={`${content}-prompt-hint`}
-          className="rounded-lg border bg-card px-4 py-3 text-left shadow-sm hover:bg-accent"
+          className="flex rounded-lg border bg-card px-4 py-3 text-left align-baseline shadow-sm hover:bg-accent"
           onClick={() => {
             publishMessage(content);
           }}
         >
-          <Lightbulb className="mb-2 size-4 text-primary" />
           <p>{content}</p>
         </button>
       ))}

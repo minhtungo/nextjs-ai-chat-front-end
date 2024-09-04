@@ -10,7 +10,7 @@ const NavButtons = async () => {
   const user = await getCurrentUser();
 
   return (
-    <div className="hidden items-center space-x-3 capitalize md:flex">
+    <div className="hidden items-center gap-x-2 capitalize md:flex">
       {user ? (
         <>
           <SignOutButton title={t("SignOut.title")} />

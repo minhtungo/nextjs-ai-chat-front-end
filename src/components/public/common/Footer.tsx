@@ -1,6 +1,6 @@
 import Logo from "@/components/common/Logo";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import ThemeToggle from "@/components/public/common/ThemeToggle";
+import ThemeSwitcher from "@/components/private/common/ThemeSwitcher";
 import { FOOTER_URLS, SOCIAL_LINKS } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
             </Link>
           </div>
           {/* <LanguageSwitcher showIcon /> */}
-          <ThemeToggle />
+          <ThemeSwitcher />
         </div>
         <div className="flex w-full flex-col items-center justify-between gap-y-4 text-sm sm:flex-row">
           <div className="text-muted-foreground">

@@ -11,8 +11,15 @@ import {
 } from "@/components/ui/sheet";
 import { PanelLeftOpen, SquarePen } from "lucide-react";
 import { chatUrl } from "@/app-config";
+import { User } from "next-auth";
+import { FC, Suspense } from "react";
+import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 
-const ChatMobileMenu = () => {
+interface ChatMobileMenuProps {
+  user: User | undefined;
+}
+
+const ChatMobileMenu: FC<ChatMobileMenuProps> = ({ user }) => {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden">
@@ -34,7 +41,15 @@ const ChatMobileMenu = () => {
           </Link>
         </div>
         <ScrollArea className="flex h-full w-full flex-1 flex-col py-2">
-          <ChatList />
+          {user ? (
+            <Suspense fallback={<ChatSkeleton />}>
+              <ChatList className="py-2" />
+            </Suspense>
+          ) : (
+            <p className="px-4 text-sm text-muted-foreground">
+              You must be logged in to view the chat history
+            </p>
+          )}
         </ScrollArea>
         <div className="mb-2 px-4">
           <ChatDropdownMenu />

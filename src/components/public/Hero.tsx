@@ -38,10 +38,10 @@ const Hero = () => {
             srcDark="/images/hero-dark.png"
             width={1920}
             height={925}
-            alt="Product Preview"
+            alt="Chat Preview"
             className="relative rounded-2xl shadow"
           />
-          <BorderBeam size={300} />
+          <BorderBeam />
         </div>
       </div>
     </Section>
