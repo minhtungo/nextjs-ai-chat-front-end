@@ -1,7 +1,8 @@
 "use server";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
-const ACCEPTED_IMAGE_TYPES = [
+const ACCEPTED_TYPES = [
+  "image",
   "image/jpeg",
   "image/jpg",
   "image/png",
@@ -22,7 +23,7 @@ export const uploadFileAction = authenticatedAction
         .any()
         .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
         .refine(
-          (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+          (file) => !ACCEPTED_TYPES.includes(file.type),
           "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
         ),
     }),
@@ -31,6 +32,7 @@ export const uploadFileAction = authenticatedAction
     },
   )
   .handler(async ({ input: { file }, ctx }) => {
+    console.log("--------------here");
     const response = await uploadFileUseCase(file, ctx.user.id!);
     return response;
   });

@@ -5,7 +5,6 @@ import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
-import { Lightbulb } from "lucide-react";
 import { FC } from "react";
 
 interface PromptSuggestionProps {
@@ -21,7 +20,7 @@ const promptSuggestion = [
     content: "How do I work with variables in equations?",
   },
   {
-    content: "How do I work with variables in equations?",
+    content: "How do I work with variables in equations 2?",
   },
 ];
 

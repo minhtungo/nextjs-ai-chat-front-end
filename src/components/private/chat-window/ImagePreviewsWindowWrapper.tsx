@@ -2,18 +2,18 @@
 
 import OverlayWindow from "@/components/common/OverlayWindow";
 import Spinner from "@/components/common/Spinner";
-import ChatHistory from "@/components/private/chat/ChatHistory";
+
 import { useChat } from "@/hooks/use-chat";
 import dynamic from "next/dynamic";
 import { FC } from "react";
 
-interface ChatWindowProps {
+interface ImagePreviewsWindowWrapperProps {
   chatId?: string;
   userId: string;
 }
 
-const ChatWindowArea = dynamic(
-  () => import("@/components/private/chat/window/ChatWindowArea"),
+const ImagePreviewsWindow = dynamic(
+  () => import("@/components/private/chat-window/ImagePreviewsWindow"),
   {
     loading: () => (
       <OverlayWindow className="flex h-full w-full items-center justify-center">
@@ -23,22 +23,19 @@ const ChatWindowArea = dynamic(
   },
 );
 
-const ChatWindow: FC<ChatWindowProps> = ({ chatId, userId }) => {
+const ImagePreviewsWindowWrapper: FC<ImagePreviewsWindowWrapperProps> = ({
+  chatId,
+  userId,
+}) => {
   const { selectedImageIndex } = useChat();
 
   return (
     <>
       {selectedImageIndex !== null && (
-        <ChatWindowArea userId={userId}>
-          <ChatHistory
-            chatId={chatId}
-            userId={userId}
-            messageClassName="py-4"
-          />
-        </ChatWindowArea>
+        <ImagePreviewsWindow userId={userId} chatId={chatId} />
       )}
     </>
   );
 };
 
-export default ChatWindow;
+export default ImagePreviewsWindowWrapper;

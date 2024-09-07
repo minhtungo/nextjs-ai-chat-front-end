@@ -9,12 +9,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Redo, ThumbsDown, ThumbsUp } from "lucide-react";
+import { Bot, Redo, ThumbsDown, ThumbsUp } from "lucide-react";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
 import { MemoizedReactMarkdown } from "@/components/markdown";
 import { Card } from "@/components/ui/card";
+import { MessageStore } from "@/types/chat";
+import BotAvatar from "@/components/private/chat/BotAvatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface BotMessageProps {
   content: string;
@@ -24,10 +27,15 @@ const BotMessage: FC<BotMessageProps> = ({ content }) => {
   // const text = useStreamableText(content);
 
   return (
-    <div className="space-y-1.5">
-      <Card className="bg-primary-muted break-words p-2 sm:px-3 sm:py-2">
+    <div className="w-full space-y-1.5">
+      <div className="flex flex-1 gap-3 break-words">
+        <Avatar className="size-8">
+          <AvatarFallback>
+            <Bot className="size-4" />
+          </AvatarFallback>
+        </Avatar>
         <MemoizedReactMarkdown
-          className="prose dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 break-words"
+          className="break-words"
           remarkPlugins={[remarkGfm, remarkMath]}
           components={{
             p({ children }) {
@@ -35,9 +43,9 @@ const BotMessage: FC<BotMessageProps> = ({ content }) => {
             },
           }}
         >
-          {content as string}
+          {content}
         </MemoizedReactMarkdown>
-      </Card>
+      </div>
       <TooltipProvider delayDuration={100}>
         <div className="flex items-center gap-[2px] text-muted-foreground">
           <Tooltip>

@@ -6,7 +6,6 @@ import { FC } from "react";
 
 interface ImagePreviewProps {
   src: string | undefined;
-  thumbnail: string | undefined;
   preview: string | undefined;
   path: string;
   isLoading: boolean;
@@ -18,7 +17,6 @@ const ImagePreview: FC<ImagePreviewProps> = ({
   path,
   preview,
   isLoading,
-  thumbnail,
   url,
 }) => {
   const { selectedImageIndex, updateImageIndex } = useChat();
@@ -41,16 +39,6 @@ const ImagePreview: FC<ImagePreviewProps> = ({
           />
         ) : (
           <>
-            {thumbnail && (
-              <Image
-                sizes="10px"
-                fill
-                priority
-                src={`data:image/webp;base64,${thumbnail}`}
-                alt={path}
-                className="h-full w-full rounded-lg object-cover"
-              />
-            )}
             {src && (
               <Image
                 src={src ?? ""}

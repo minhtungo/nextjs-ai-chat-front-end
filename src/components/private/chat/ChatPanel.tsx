@@ -24,7 +24,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ chatId, userId }) => {
 
   const { resetMessageState, inTokenLimit } = useMessage();
 
-  const { sendMessage } = useSendMessage(userId);
+  const { sendMessage } = useSendMessage(userId, chatId);
 
   useEffect(() => {
     if (!centrifuge || !chatId || isGuestUser(userId)) return;

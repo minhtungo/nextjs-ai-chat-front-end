@@ -10,8 +10,11 @@ export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
   pages,
 }: usePreviewsProps<T>): Message[] => {
   const messages = useMemo(() => {
-    if (!pages) return [];
-    const messages = pages.toReversed().flatMap((page) => page.messages);
+    if (!pages || pages.length === 0) return [];
+    console.log("pages", pages);
+    const messages = pages
+      .toReversed()
+      .flatMap((page) => (Array.isArray(page?.messages) ? page.messages : []));
     return messages;
   }, [pages]);
 

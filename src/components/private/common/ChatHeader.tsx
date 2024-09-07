@@ -58,7 +58,7 @@ const ChatHeader: FC<ChatHeaderProps> = async ({ user }) => {
         )}
         {user?.plan === "free" ? <UpgradeButton /> : null}
         <ChatViewToggle />
-        {user && <NewChatButton />}
+        {user && <NewChatButton className="ml-1 lg:hidden" />}
       </div>
     </div>
   );

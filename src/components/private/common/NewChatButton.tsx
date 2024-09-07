@@ -1,11 +1,17 @@
 import { chatUrl } from "@/app-config";
+import { cn } from "@/lib/utils";
 import { SquarePen } from "lucide-react";
 import Link from "next/link";
+import { FC } from "react";
 
-const NewChatButton = () => {
+interface NewChatButtonProps {
+  className?: string;
+}
+
+const NewChatButton: FC<NewChatButtonProps> = ({ className }) => {
   return (
-    <Link href={chatUrl} className="ml-1 lg:hidden">
-      <SquarePen className="size-5 text-muted-foreground hover:text-foreground" />
+    <Link href={chatUrl} className={cn(className)}>
+      <SquarePen className="size-4 text-muted-foreground hover:text-foreground sm:size-[18px]" />
     </Link>
   );
 };

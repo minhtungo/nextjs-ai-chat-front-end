@@ -92,6 +92,8 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
 
         const [data, error] = await uploadFileAction(formData);
 
+        console.log("data", data);
+
         if (error) {
           throw new Error(error.message);
         }
@@ -107,7 +109,7 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
           ),
         );
       } catch (error) {
-        toast.error(`Upload failed for ${file.name}`);
+        toast.error(`Upload failed for ${file.name}: ${error}`);
         set(filesAtom, (prev) =>
           prev.filter((f) => f.id !== validFiles[index].id),
         );

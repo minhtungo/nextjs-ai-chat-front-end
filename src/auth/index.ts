@@ -10,6 +10,7 @@ import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { Languages, Plan, type UserRole } from "@prisma/client";
 import { authErrorUrl, signInUrl } from "@/app-config";
 import { env } from "@/env";
+import { setCookie } from "cookies-next";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -65,6 +66,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         await deleteTwoFactorConfirmation(twoFactorConfirmation.id);
       }
+
+      setCookie("userId", existingUser.id);
 
       return true;
     },

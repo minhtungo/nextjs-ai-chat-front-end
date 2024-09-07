@@ -20,7 +20,6 @@ const ImagePreviews: FC<ImagePreviewsProps> = ({ images }) => {
           <ImagePreview
             src={data?.imageSrc}
             key={`${data?.path}-${index}`}
-            thumbnail={images[index].thumbnail}
             url={data?.url}
             preview={images[index].preview}
             path={data?.path!}

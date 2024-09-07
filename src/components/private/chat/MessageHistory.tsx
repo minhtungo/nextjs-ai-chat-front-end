@@ -16,12 +16,13 @@ const MessageHistory: FC<MessageHistoryProps> = ({ className }) => {
 
   return (
     <div className={cn("w-full space-y-4", className)}>
+      <BotMessage content="Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you? Hello, how can I help you?" />
       {messages.map((message) => (
         <React.Fragment key={`${message.id}-${message.timestamp}`}>
           {message?.userId ? (
             <UserMessage message={message} />
           ) : (
-            <BotMessage content={message.content} />
+            <BotMessage content={message?.content} />
           )}
         </React.Fragment>
       ))}

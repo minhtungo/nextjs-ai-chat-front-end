@@ -5,15 +5,18 @@ import { ElementRef, FC, useEffect, useRef } from "react";
 import Spinner from "@/components/common/Spinner";
 
 import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
+import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
 import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
 import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
+import { useChat } from "@/hooks/use-chat";
 import { useMessages } from "@/hooks/use-messages";
 import { usePreviews } from "@/hooks/use-previews";
 import { Message } from "@/lib/definitions";
 import { cn, isNotUndefinedOrEmptyArray } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import MessageHistory from "./MessageHistory";
-import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
+
+
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chatId?: string;
@@ -38,6 +41,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
     });
 
   const fetchedMessages = usePreviews({ pages: data?.pages });
+  const { docs } = useChat();
 
   const { messages, setMessages } = useMessages();
 

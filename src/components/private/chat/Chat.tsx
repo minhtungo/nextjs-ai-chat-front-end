@@ -4,11 +4,12 @@ import { FC, useEffect } from "react";
 
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatPanel from "@/components/private/chat/ChatPanel";
-import ChatWindow from "@/components/private/chat/window/ChatWindow";
 import { useMessages } from "@/hooks/use-messages";
 import { Message } from "@/lib/definitions";
 import { isGuestUser } from "@/lib/utils";
 import { useParams } from "next/navigation";
+import { useChat } from "@/hooks/use-chat";
+import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePreviewsWindowWrapper";
 
 interface ChatProps extends React.ComponentProps<"div"> {
   userId: string;
@@ -19,6 +20,9 @@ interface ChatProps extends React.ComponentProps<"div"> {
 const Chat: FC<ChatProps> = ({ userId, chatId, initialMessages }) => {
   const { id } = useParams<{ id: string }>();
   const { messages } = useMessages();
+  const { docs } = useChat();
+
+  console.log("docs", docs);
 
   useEffect(() => {
     if (!isGuestUser(userId)) {
@@ -36,7 +40,7 @@ const Chat: FC<ChatProps> = ({ userId, chatId, initialMessages }) => {
         initialMessages={initialMessages}
       />
       <ChatPanel chatId={chatId} userId={userId} />
-      <ChatWindow chatId={chatId} userId={userId} />
+      <ImagePreviewsWindowWrapper chatId={chatId} userId={userId} />
       {/* <ChatSubscribing /> */}
     </>
   );

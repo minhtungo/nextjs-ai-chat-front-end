@@ -1,4 +1,5 @@
 import createNextIntlPlugin from "next-intl/plugin";
+import { config } from "process";
 
 const withNextIntl = createNextIntlPlugin();
 
@@ -10,16 +11,11 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["pino", "pino-pretty"],
   },
-  output: "standalone",
-  swcMinify: true,
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: "/api/:path*",
-  //       destination: "http://localhost:5000/api/:path*",
-  //     },
-  //   ];
-  // },
+  transpilePackages: ["react-pdf-highlighter"],
+  webpack: (config) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
   images: {
     remotePatterns: [
       {
@@ -43,3 +39,12 @@ const nextConfig = {
 };
 
 export default withNextIntl(nextConfig);
+
+// async rewrites() {
+//   return [
+//     {
+//       source: "/api/:path*",
+//       destination: "http://localhost:5000/api/:path*",
+//     },
+//   ];
+// },

@@ -5,11 +5,15 @@ import { useMessage } from "@/hooks/use-message";
 import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore } from "@/lib/chat";
 import { isGuestUser } from "@/lib/utils";
+import { Subscription } from "centrifuge";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { useAtom } from "jotai";
 import { toast } from "sonner";
 
-export const useSendMessage = (userId: string) => {
+export const useSendMessage = (
+  userId: string,
+  currentChatId: string | undefined,
+) => {
   const {
     message: { mathEquation, content },
     pending,
@@ -27,17 +31,8 @@ export const useSendMessage = (userId: string) => {
 
   const sendMessage = async (focusedImage?: any) => {
     if (pending) return;
-    let newSub;
-    if (isGuestUser(userId) && messages.length === 0) {
-      const [newRoom, error] = await createChatAction();
 
-      if (error) {
-        toast.error(error.message);
-        return;
-      }
-
-      newSub = await setupSubscription(`rooms:${newRoom?.id}`);
-    }
+    let newSub: Subscription | undefined;
 
     // Blur focus on mobile
     if (window.innerWidth < 600) {
@@ -70,32 +65,45 @@ export const useSendMessage = (userId: string) => {
       images,
     });
 
+    const input = {
+      content: submitContent,
+      images: images.map((image) => ({
+        ...image,
+      })),
+      docs,
+      ...(focusedImage ? { focusedImage } : {}),
+    };
+
     setMessages((currentMessages) => [...currentMessages, newMessage]);
 
-    const sub = currentSubscription || newSub;
+    resetMessageState();
 
-    if (sub) {
-      sub.publish({
-        input: {
-          content: submitContent,
-          images: images.map((image) => ({
-            ...image,
-          })),
-          docs,
-          ...(focusedImage ? { focusedImage } : {}),
-        },
+    if (!currentChatId && messages.length === 0) {
+      const [newRoom, error] = await createChatAction();
+
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+
+      newSub = await setupSubscription(`rooms:${newRoom?.id}`);
+
+      newSub?.on("subscribed", () => {
+        newSub?.publish({
+          input,
+        });
       });
-    } else {
-      console.log("-----------------error");
-      toast.error("Error connecting to the server. Please try again later.");
-      return;
+
+      if (!isGuestUser(userId)) {
+        window.history.replaceState({}, "", `/chat/${newRoom?.id}`);
+      }
     }
 
-    // queryClient.invalidateQueries({
-    //   queryKey: getMessagesQueryKey(chatId),
-    // });
-
-    resetMessageState();
+    if (currentSubscription) {
+      currentSubscription.publish({
+        input,
+      });
+    }
   };
 
   return {

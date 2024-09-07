@@ -1,8 +1,10 @@
-import { chatUrl, signInUrl } from "@/app-config";
+import { chatUrl } from "@/app-config";
 import Logo from "@/components/common/Logo";
 import ChatList from "@/components/private/chat/ChatList";
 import ChatDropdownMenu from "@/components/private/common/ChatDropdownMenu";
+import NewChatButton from "@/components/private/common/NewChatButton";
 import Sidebar from "@/components/private/common/Sidebar";
+import SignInPrompt from "@/components/private/common/SignInPrompt";
 import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -19,34 +21,17 @@ interface ChatSidebarProps {
 const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
   return (
     <Sidebar>
-      <div className="space-y-3 px-4 pt-4">
+      <div className="flex items-center justify-between px-4 pt-4">
         <Link href={chatUrl}>
           <Logo />
         </Link>
-        {user && (
-          <Link
-            className={cn(
-              buttonVariants({
-                size: "sm",
-              }),
-              "w-full justify-start",
-            )}
-            href={chatUrl}
-          >
-            <Plus className="size-4" />
-            New Chat
-          </Link>
-        )}
+        <NewChatButton />
       </div>
       <ScrollArea className="h-full flex-1">
-        {user ? (
+        {user && (
           <Suspense fallback={<ChatSkeleton />}>
             <ChatList className="py-2" />
           </Suspense>
-        ) : (
-          <p className="px-4 text-sm text-muted-foreground">
-            You must be logged in to view the chat history
-          </p>
         )}
       </ScrollArea>
       <div className="w-full px-4 pb-4">
@@ -55,19 +40,7 @@ const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
             <ChatDropdownMenu />
           </div>
         ) : (
-          <div>
-            <Link
-              className={cn(
-                buttonVariants({
-                  size: "sm",
-                }),
-                "w-full justify-start",
-              )}
-              href={signInUrl}
-            >
-              Login
-            </Link>
-          </div>
+          <SignInPrompt />
         )}
       </div>
     </Sidebar>
