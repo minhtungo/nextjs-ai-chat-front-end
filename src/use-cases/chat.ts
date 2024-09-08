@@ -176,20 +176,3 @@ export const removeChatsUseCase = async ({
     throw Error(`Failed to remove chat: ${response.error}`);
   }
 };
-
-export const getMessageImagesUseCase = async ({ url }: { url: string }) => {
-  try {
-    const path = new URL(url).pathname;
-    const response = await fetch(`/api/chat/image?path=${path}`);
-
-    const blob = await response.blob();
-
-    return {
-      imageSrc: URL.createObjectURL(blob),
-      path,
-      url,
-    };
-  } catch (error) {
-    throw new Error("Failed to fetch image");
-  }
-};

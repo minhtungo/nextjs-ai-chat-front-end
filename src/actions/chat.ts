@@ -7,7 +7,6 @@ import {
   createChatUseCase,
   getChatInfoUseCase,
   getChatListUseCase,
-  getMessageImagesUseCase,
   getMessagesUseCase,
   removeChatsUseCase,
   updateChatUseCase,
@@ -103,17 +102,4 @@ export const removeChatsAction = authenticatedAction
     if (currentChatId && currentChatId === chats[0]) {
       redirect(chatUrl);
     }
-  });
-
-export const getMessageImagesAction = authenticatedAction
-  .input(
-    z.object({
-      url: z.string(),
-    }),
-  )
-  .handler(async ({ input: { url } }) => {
-    const image = await getMessageImagesUseCase({
-      url,
-    });
-    return { image };
   });

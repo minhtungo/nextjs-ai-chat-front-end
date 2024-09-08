@@ -4,8 +4,6 @@ import { getUserRole } from "@/data/user";
 import { getCurrentUser } from "@/lib/auth";
 import { assertAuthenticated } from "@/lib/session";
 import { createServerActionProcedure } from "zsa";
-import { v4 as uuid } from "uuid";
-import { cookies } from "next/headers";
 
 export const authenticatedProcedure = createServerActionProcedure().handler(
   async () => {

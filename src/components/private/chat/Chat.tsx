@@ -2,11 +2,11 @@
 
 import { FC } from "react";
 
+import DocPreviewWindowWrapper from "@/components/private/chat-window/DocPreviewWindowWrapper";
 import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePreviewsWindowWrapper";
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatPanel from "@/components/private/chat/ChatPanel";
 import { Message } from "@/lib/definitions";
-import DocPreviewWindowWrapper from "@/components/private/chat-window/DocPreviewWindowWrapper";
 
 interface ChatProps extends React.ComponentProps<"div"> {
   userId: string;

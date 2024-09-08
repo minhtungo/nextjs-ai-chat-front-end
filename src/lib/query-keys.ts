@@ -7,16 +7,10 @@ export const getMessagesQueryKey = (id: string) => [MESSAGES_QUERY_KEY, id];
 
 export const getChatListQueryKey = () => [CHAT_LIST_QUERY_KEY];
 
-export const getMessageImageQueryKey = (path: string) => [
-  MESSAGE_IMAGE_QUERY_KEY,
-  path,
-];
-
 export const getChatInfoQueryKey = (id: string) => [CHAT_INFO_QUERY_KEY, id];
 
 export const queryKeys = {
   getMessagesQueryKey,
   getChatListQueryKey,
-  getMessageImageQueryKey,
   getChatInfoQueryKey,
 };

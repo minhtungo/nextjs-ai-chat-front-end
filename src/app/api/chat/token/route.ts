@@ -6,9 +6,12 @@ export const GET = auth(async (req) => {
   const user = req?.auth?.user;
 
   const userId = await getChatUserId(user);
+
   const token = await getTokenUseCase({
     userId,
   });
+
+  console.log("****************getChatToken Api UserId", userId, token);
 
   return Response.json(
     {

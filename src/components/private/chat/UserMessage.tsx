@@ -1,7 +1,7 @@
 import { FC } from "react";
 
 import DocPreview from "@/components/private/chat/DocPreview";
-import ImagePreviews from "@/components/private/chat/ImagePreviews";
+import ImagePreview from "@/components/private/chat/ImagePreview";
 import { Card } from "@/components/ui/card";
 import { MessageStore } from "@/types/chat";
 
@@ -17,7 +17,9 @@ const UserMessage: FC<UserMessageProps> = ({
       <div className="flex w-full flex-col items-end gap-y-3 text-sm leading-7 empty:hidden">
         {images && images.length > 0 && (
           <div className="flex max-w-[70%] flex-row flex-wrap items-center justify-end gap-2">
-            <ImagePreviews images={images} />
+            {images.map(({ name, url }) => (
+              <ImagePreview key={`${name}-image`} url={url} name={name} />
+            ))}
           </div>
         )}
         {docs && docs.length > 0 && (

@@ -1,7 +1,6 @@
 import ChatWindowWrapper from "@/components/private/chat-window/ChatWindowWrapper";
 import { ImageMaskEditor } from "@/components/private/chat/ImageMaskEditor";
 import { Button } from "@/components/ui/button";
-import { useMessageImages } from "@/data/queries/use-message-images";
 import { useChat } from "@/hooks/use-chat";
 import { useChatOverlay } from "@/hooks/use-chat-overlay";
 import { clearCanvas } from "@/lib/utils";
@@ -27,7 +26,6 @@ const ImagePreviewsWindow: FC<ImagePreviewsWindowProps> = ({
   const { selectedImageIndex, images, setSelectedImageIndex } = useChat();
   const drawingPointsRef = useRef<Array<[number, number]>>([]);
   const { sendMessage } = useSendMessage(userId, chatId);
-  const imagesQueries = useMessageImages((images ?? []).map(({ url }) => url!));
 
   const {
     isFocusMode,
@@ -114,9 +112,9 @@ const ImagePreviewsWindow: FC<ImagePreviewsWindowProps> = ({
         </div>
         <div className="p-4">
           <div className="relative mx-auto w-fit">
-            {imagesQueries[selectedImageIndex!]?.data && (
+            {images[selectedImageIndex!] && (
               <Image
-                src={imagesQueries[selectedImageIndex!]?.data?.imageSrc!}
+                src={images[selectedImageIndex!].url}
                 ref={(el) => {
                   if (el && imageRefs.current) {
                     imageRefs.current[selectedImageIndex!] = el;

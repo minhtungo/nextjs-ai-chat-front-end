@@ -27,7 +27,7 @@ export default function Error({
       <Typography className="max-w-xl text-muted-foreground">
         {error.message}
       </Typography>
-      <div className="flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap gap-3">
         <Link className={buttonVariants({ variant: "outline" })} href="/">
           Go Home
         </Link>
