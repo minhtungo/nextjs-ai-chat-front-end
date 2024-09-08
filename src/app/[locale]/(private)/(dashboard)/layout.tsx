@@ -26,6 +26,7 @@ export default async function PrivateLayout({
       ...session.user,
     };
   }
+
   return (
     <SessionProvider session={session}>
       <ReactQueryProvider>

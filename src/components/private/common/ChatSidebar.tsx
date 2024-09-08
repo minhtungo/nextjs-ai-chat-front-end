@@ -4,6 +4,7 @@ import ChatList from "@/components/private/chat/ChatList";
 import ChatDropdownMenu from "@/components/private/common/ChatDropdownMenu";
 import NewChatButton from "@/components/private/common/NewChatButton";
 import Sidebar from "@/components/private/common/Sidebar";
+import SidebarWithToggle from "@/components/private/common/SidebarWithToggle";
 import SignInPrompt from "@/components/private/common/SignInPrompt";
 import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -17,7 +18,11 @@ interface ChatSidebarProps {
 
 const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
   return (
-    <Sidebar className="peer/chat flex-col gap-y-3 lg:flex" type="chat">
+    <SidebarWithToggle
+      type="chat"
+      side="left"
+      className="peer/chat flex-col gap-y-3 lg:flex"
+    >
       <div className="flex items-center justify-between px-4 pt-4">
         <Link href={chatUrl}>
           <Logo />
@@ -34,7 +39,7 @@ const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
       <div className="w-full px-4 pb-3">
         {user ? <ChatDropdownMenu /> : <SignInPrompt />}
       </div>
-    </Sidebar>
+    </SidebarWithToggle>
   );
 };
 

@@ -17,7 +17,7 @@ interface ChatHeaderProps {
 
 const ChatHeader: FC<ChatHeaderProps> = async ({ user }) => {
   return (
-    <div className="sticky top-0 z-50 flex h-14 w-full items-center justify-between gap-4 border-b px-4 lg:px-6">
+    <header className="sticky top-0 z-50 flex h-14 w-full items-center justify-between gap-4 border-b px-4 lg:px-6">
       {user ? (
         <>
           <ChatHeaderTitle className="hidden lg:block" />
@@ -58,7 +58,7 @@ const ChatHeader: FC<ChatHeaderProps> = async ({ user }) => {
         {user?.plan === "free" ? <UpgradeButton /> : null}
         {user && <NewChatButton className="ml-1 lg:hidden" />}
       </div>
-    </div>
+    </header>
   );
 };
 

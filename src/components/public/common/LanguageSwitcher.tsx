@@ -55,7 +55,7 @@ const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
       >
         <SelectTrigger
           className={cn(
-            "w-fit border-none px-0 text-foreground shadow-none",
+            "w-fit border-none bg-transparent px-0 text-foreground shadow-none",
             className,
           )}
           noIndicator

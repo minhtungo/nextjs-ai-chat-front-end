@@ -1,5 +1,6 @@
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import AuthHeader from "@/components/public/common/AuthHeader";
+import Footer from "@/components/public/common/Footer";
 import { locales } from "@/lib/config";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -25,6 +26,7 @@ export default function AuthLayout({
       >
         {children}
       </MaxWidthWrapper>
+      <Footer />
     </>
   );
 }

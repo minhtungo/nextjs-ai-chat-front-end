@@ -1,9 +1,9 @@
 "use client";
 
 import AttachFilePreview from "@/components/private/chat/AttachFilePreview";
-import Sidebar from "@/components/private/common/Sidebar";
-import { useChat } from "@/hooks/use-chat";
+import SidebarWithToggle from "@/components/private/common/SidebarWithToggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useChat } from "@/hooks/use-chat";
 import { type User } from "next-auth";
 import { FC } from "react";
 
@@ -14,10 +14,8 @@ interface AttachmentsSidebarProps {
 const AttachmentsSidebar: FC<AttachmentsSidebarProps> = ({ user }) => {
   const { docs, images } = useChat();
 
-  console.log("AttachmentsSidebar docs", docs);
-
   return (
-    <Sidebar
+    <SidebarWithToggle
       className="peer/attachments flex-col gap-y-2 py-4 lg:flex lg:w-[250px]"
       type="attachments"
       side="right"
@@ -64,7 +62,7 @@ const AttachmentsSidebar: FC<AttachmentsSidebarProps> = ({ user }) => {
           </p>
         )}
       </ScrollArea>
-    </Sidebar>
+    </SidebarWithToggle>
   );
 };
 

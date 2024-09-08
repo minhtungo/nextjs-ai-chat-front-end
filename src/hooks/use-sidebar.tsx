@@ -2,11 +2,14 @@
 
 import { createContext, useContext, useEffect, useState } from "react";
 
-const LOCAL_STORAGE_KEY = "sidebar";
+const CHAT_SIDEBAR_KEY = "chat-sidebar";
+const ATTACHMENTS_SIDEBAR_KEY = "attachments-sidebar";
 
 interface SidebarContext {
-  isSidebarOpen: boolean;
-  toggleSidebar: () => void;
+  isChatSidebarOpen: boolean;
+  toggleChatSidebar: () => void;
+  isAttachmentsSidebarOpen: boolean;
+  toggleAttachmentsSidebar: () => void;
   isLoading: boolean;
 }
 
@@ -25,21 +28,38 @@ interface SidebarProviderProps {
 }
 
 export function SidebarProvider({ children }: SidebarProviderProps) {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [isChatSidebarOpen, setChatSidebarOpen] = useState(true);
+  const [isAttachmentsSidebarOpen, setAttachmentsSidebarOpen] = useState(true);
+
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    const value = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if (value) {
-      setSidebarOpen(JSON.parse(value));
+    const chatValue = localStorage.getItem(CHAT_SIDEBAR_KEY);
+    const attachmentsValue = localStorage.getItem(ATTACHMENTS_SIDEBAR_KEY);
+
+    if (chatValue) {
+      setChatSidebarOpen(JSON.parse(chatValue));
     }
+
+    if (attachmentsValue) {
+      setAttachmentsSidebarOpen(JSON.parse(attachmentsValue));
+    }
+
     setLoading(false);
   }, []);
 
-  const toggleSidebar = () => {
-    setSidebarOpen((value) => {
+  const toggleChatSidebar = () => {
+    setChatSidebarOpen((value) => {
       const newState = !value;
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState));
+      localStorage.setItem(CHAT_SIDEBAR_KEY, JSON.stringify(newState));
+      return newState;
+    });
+  };
+
+  const toggleAttachmentsSidebar = () => {
+    setAttachmentsSidebarOpen((value) => {
+      const newState = !value;
+      localStorage.setItem(ATTACHMENTS_SIDEBAR_KEY, JSON.stringify(newState));
       return newState;
     });
   };
@@ -50,7 +70,13 @@ export function SidebarProvider({ children }: SidebarProviderProps) {
 
   return (
     <SidebarContext.Provider
-      value={{ isSidebarOpen, toggleSidebar, isLoading }}
+      value={{
+        isChatSidebarOpen,
+        toggleChatSidebar,
+        isAttachmentsSidebarOpen,
+        toggleAttachmentsSidebar,
+        isLoading,
+      }}
     >
       {children}
     </SidebarContext.Provider>

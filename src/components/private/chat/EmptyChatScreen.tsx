@@ -14,7 +14,7 @@ const EmptyChatScreen: FC<EmptyChatScreenProps> = ({ className, userId }) => {
   return (
     <MaxWidthWrapper
       className={cn(
-        "flex w-full flex-col items-center justify-center gap-2",
+        "flex w-full max-w-5xl flex-col items-center justify-center gap-2",
         className,
       )}
     >

@@ -17,7 +17,7 @@ const DocPreview: FC<DocPreviewProps> = ({ name, type }) => {
         <div className="inline-block overflow-hidden text-ellipsis whitespace-nowrap text-sm font-semibold">
           {name}
         </div>
-        <div className="text-xs capitalize text-muted-foreground">{type}</div>
+        <div className="text-xs uppercase text-muted-foreground">{type}</div>
       </div>
     </Card>
   );

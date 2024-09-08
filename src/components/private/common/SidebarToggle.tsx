@@ -9,13 +9,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 interface SidebarToggleProps {
   className?: string;
   side: "left" | "right" | null;
   type: "chat" | "attachments";
   isSidebarOpen: boolean;
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const SidebarToggle: FC<SidebarToggleProps> = ({
@@ -23,8 +23,9 @@ const SidebarToggle: FC<SidebarToggleProps> = ({
   className,
   type,
   isSidebarOpen,
-  setIsSidebarOpen,
 }) => {
+  const { toggleAttachmentsSidebar, toggleChatSidebar } = useSidebar();
+
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
@@ -34,7 +35,13 @@ const SidebarToggle: FC<SidebarToggleProps> = ({
               "hidden rounded-full bg-accent p-1 lg:flex",
               className,
             )}
-            onClick={() => setIsSidebarOpen((prev) => !prev)}
+            onClick={() => {
+              if (type === "chat") {
+                toggleChatSidebar();
+              } else {
+                toggleAttachmentsSidebar();
+              }
+            }}
           >
             {isSidebarOpen ? (
               <>

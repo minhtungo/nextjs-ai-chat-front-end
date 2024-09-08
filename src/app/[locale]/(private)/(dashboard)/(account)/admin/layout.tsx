@@ -9,7 +9,7 @@ export default async function AdminDashBoardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ScrollAreaContainer className="max-w-7xl">
+    <ScrollAreaContainer className="max-w-5xl">
       <Typography variant="h2" tag="h1" className="mb-3">
         Admin Dashboard
       </Typography>

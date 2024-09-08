@@ -11,9 +11,9 @@ export default async function AccountLayout({
   return (
     <>
       <AccountSidebar />
-      <MainArea>
+      <MainArea className="pl-[300px]">
         <AccountHeader />
-        <ScrollAreaContainer className="max-w-5xl pb-4 pt-6 sm:pt-8">
+        <ScrollAreaContainer className="relative max-w-5xl py-6">
           {children}
         </ScrollAreaContainer>
       </MainArea>
