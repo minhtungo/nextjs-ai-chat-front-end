@@ -46,9 +46,6 @@ export const useSendMessage = (
       return;
     }
 
-    // console.log(encode(content));
-    // console.log(encodeChat(messages));
-
     const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
 
     setInTokenLimit(withinMessageLimit);

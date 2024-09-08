@@ -34,6 +34,7 @@ const AttachmentsSidebar: FC<AttachmentsSidebarProps> = ({ user }) => {
                   key={`${url}-${name}`}
                   name={name}
                   type={type}
+                  url={url}
                 />
               ))}
             </div>

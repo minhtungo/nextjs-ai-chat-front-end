@@ -1,6 +1,5 @@
 import { signInUrl, signUpUrl } from "@/app-config";
 import Logo from "@/components/common/Logo";
-import ChatViewToggle from "@/components/private/chat/ChatViewToggle";
 import ChatHeaderTitle from "@/components/private/common/ChatHeaderTitle";
 import ChatMobileMenu from "@/components/private/common/ChatMobileMenu";
 import NewChatButton from "@/components/private/common/NewChatButton";

@@ -6,6 +6,7 @@ import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePr
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatPanel from "@/components/private/chat/ChatPanel";
 import { Message } from "@/lib/definitions";
+import DocPreviewWindowWrapper from "@/components/private/chat-window/DocPreviewWindowWrapper";
 
 interface ChatProps extends React.ComponentProps<"div"> {
   userId: string;
@@ -23,6 +24,7 @@ const Chat: FC<ChatProps> = ({ userId, chatId, initialMessages }) => {
       />
       <ChatPanel chatId={chatId} userId={userId} />
       <ImagePreviewsWindowWrapper chatId={chatId} userId={userId} />
+      <DocPreviewWindowWrapper userId={userId} chatId={chatId} />
       {/* <ChatSubscribing /> */}
     </>
   );

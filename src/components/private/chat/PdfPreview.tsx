@@ -4,16 +4,18 @@ import { FC, useCallback } from "react";
 import { useState } from "react";
 import { Document, Page } from "react-pdf";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface PdfPreviewProps {
   url?: string;
+  className?: string;
 }
 
 const highlightPattern = (text: string, pattern: string) => {
   return text.replace(pattern, (value) => `<mark>${value}</mark>`);
 };
 
-const PdfPreview: FC<PdfPreviewProps> = ({ url = "/test.pdf" }) => {
+const PdfPreview: FC<PdfPreviewProps> = ({ className, url = "/test.pdf" }) => {
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
 
@@ -41,7 +43,7 @@ const PdfPreview: FC<PdfPreviewProps> = ({ url = "/test.pdf" }) => {
   };
 
   return (
-    <div className="h-full w-full space-y-4">
+    <div className={cn("space-y-4", className)}>
       <Document
         file={url}
         onLoadSuccess={onDocumentLoadSuccess}
@@ -54,7 +56,6 @@ const PdfPreview: FC<PdfPreviewProps> = ({ url = "/test.pdf" }) => {
           inputRef={(ref) => console.log(ref)}
         />
       </Document>
-      {selectedText}
       {/* <div>
         <label htmlFor="search">Search:</label>
         <input

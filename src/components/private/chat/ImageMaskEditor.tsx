@@ -10,8 +10,8 @@ import {
 
 const MaskEditorDefaults = {
   cursorSize: 10,
-  maskOpacity: 0.75,
-  maskColor: "#ffffff",
+  maskOpacity: 0.35,
+  maskColor: "#4d4dff",
   maskBlendMode: "normal",
 };
 

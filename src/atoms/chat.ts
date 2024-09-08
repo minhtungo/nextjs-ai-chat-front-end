@@ -15,12 +15,17 @@ export const docsAtom = atom((get) =>
 
 export const selectedImageIndexAtom = atom<number | null>(null);
 
-export const selectedImageIndexFinderAtom = atom(null, (get, set, url) => {
-  if (get(selectedImageIndexAtom) !== null) {
-    return;
-  }
+export const selectedImageIndexFinderAtom = atom(
+  null,
+  (get, set, url: string) => {
+    if (get(selectedImageIndexAtom) !== null) {
+      return;
+    }
 
-  const index = get(imagesAtom).findIndex((image) => image.url === url);
+    const index = get(imagesAtom).findIndex((image) => image.url === url);
 
-  set(selectedImageIndexAtom, index);
-});
+    set(selectedImageIndexAtom, index);
+  },
+);
+
+export const selectedDocPreview = atom<string | null>(null);

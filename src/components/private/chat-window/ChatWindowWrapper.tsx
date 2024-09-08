@@ -40,7 +40,7 @@ const ChatWindowWrapper: FC<ChatWindowWrapperProps> = ({
 
   return (
     <OverlayWindow className="flex">
-      <div className="flex-grow overflow-auto">{children}</div>
+      <div className="flex-grow overflow-hidden">{children}</div>
       <div className="relative w-[450px] shrink-0 bg-background">
         <div className="relative flex h-screen flex-col">
           <ChatHistory
