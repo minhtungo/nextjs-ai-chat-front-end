@@ -12,11 +12,9 @@ interface UserMessageProps {
 const UserMessage: FC<UserMessageProps> = ({
   message: { content, images, docs, id },
 }) => {
-  console.log("UserMessage", images, docs);
-
   return (
     <>
-      <div className="flex w-full flex-col items-end gap-y-3 empty:hidden">
+      <div className="flex w-full flex-col items-end gap-y-3 text-sm leading-7 empty:hidden">
         {images && images.length > 0 && (
           <div className="flex max-w-[70%] flex-row flex-wrap items-center justify-end gap-2">
             <ImagePreviews images={images} />

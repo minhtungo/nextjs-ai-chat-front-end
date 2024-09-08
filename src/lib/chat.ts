@@ -1,8 +1,6 @@
 import { fetchAuth } from "@/lib/api";
-import { getQueryClient } from "@/lib/query-client";
-import { getMessagesQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
-import { CreateNewRoomResponse, InfiniteMessagePage } from "@/types/chat";
+import { CreateNewRoomResponse } from "@/types/chat";
 import { FileAtom } from "@/types/file";
 import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
@@ -19,33 +17,6 @@ export const createChatRoom = async (): Promise<CreateNewRoomResponse> => {
   });
 
   return data;
-};
-
-export const setOptimisticMessage = ({
-  chatId,
-  newMessage,
-}: {
-  chatId: string;
-  newMessage: MessageAtom;
-}) => {
-  const queryClient = getQueryClient();
-
-  queryClient.setQueryData(
-    getMessagesQueryKey(chatId),
-    (old: InfiniteMessagePage) => {
-      return {
-        ...old,
-        pages: old.pages.map((page, index) =>
-          index !== 0
-            ? page
-            : {
-                ...page,
-                messages: [...page.messages, newMessage],
-              },
-        ),
-      };
-    },
-  );
 };
 
 export const getMessageFiles = (files: FileAtom[]) => {

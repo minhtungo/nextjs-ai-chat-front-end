@@ -2,21 +2,29 @@
 
 import { cn } from "@/lib/utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { FC } from "react";
+import { Dispatch, FC, SetStateAction } from "react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useSidebar } from "@/hooks/use-sidebar";
 
 interface SidebarToggleProps {
   className?: string;
+  side: "left" | "right" | null;
+  type: "chat" | "attachments";
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const SidebarToggle: FC<SidebarToggleProps> = ({ className }) => {
-  const { toggleSidebar, isSidebarOpen } = useSidebar();
+const SidebarToggle: FC<SidebarToggleProps> = ({
+  side,
+  className,
+  type,
+  isSidebarOpen,
+  setIsSidebarOpen,
+}) => {
   return (
     <TooltipProvider delayDuration={100}>
       <Tooltip>
@@ -26,18 +34,30 @@ const SidebarToggle: FC<SidebarToggleProps> = ({ className }) => {
               "hidden rounded-full bg-accent p-1 lg:flex",
               className,
             )}
-            onClick={toggleSidebar}
+            onClick={() => setIsSidebarOpen((prev) => !prev)}
           >
             {isSidebarOpen ? (
-              <ChevronLeft className="size-4" />
+              <>
+                {side === "left" ? (
+                  <ChevronLeft className="size-4" />
+                ) : (
+                  <ChevronRight className="size-4" />
+                )}
+              </>
             ) : (
-              <ChevronRight className="size-4" />
+              <>
+                {side === "left" ? (
+                  <ChevronRight className="size-4" />
+                ) : (
+                  <ChevronLeft className="size-4" />
+                )}
+              </>
             )}
-            <span className="sr-only">Toggle Sidebar</span>
+            <span className="sr-only">Toggle {type} Sidebar</span>
           </button>
         </TooltipTrigger>
         <TooltipContent>
-          <p>Toggle sidebar</p>
+          <p>Toggle {type} sidebar</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

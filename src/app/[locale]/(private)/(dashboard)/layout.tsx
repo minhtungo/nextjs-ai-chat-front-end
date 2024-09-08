@@ -30,7 +30,9 @@ export default async function PrivateLayout({
     <SessionProvider session={session}>
       <ReactQueryProvider>
         <JoTaiProvider>
-          <div className="relative flex min-h-screen">{children}</div>
+          <div className="relative flex min-h-screen overflow-hidden">
+            {children}
+          </div>
         </JoTaiProvider>
       </ReactQueryProvider>
       <Toaster closeButton position="top-right" />

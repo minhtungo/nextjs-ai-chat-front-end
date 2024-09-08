@@ -10,6 +10,8 @@ const ACCEPTED_TYPES = [
   "doc",
   "docx",
   "pdf",
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
 ];
 
 import { authenticatedAction } from "@/lib/safe-actions";
@@ -23,7 +25,7 @@ export const uploadFileAction = authenticatedAction
         .any()
         .refine((file) => file?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
         .refine(
-          (file) => !ACCEPTED_TYPES.includes(file.type),
+          (file) => ACCEPTED_TYPES.includes(file.type),
           "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
         ),
     }),

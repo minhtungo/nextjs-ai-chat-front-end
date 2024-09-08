@@ -1,12 +1,19 @@
+import { cn } from "@/lib/utils";
 import { FC } from "react";
 
 interface MainAreaProps {
   children: React.ReactNode;
+  className?: string;
 }
 
-const MainArea: FC<MainAreaProps> = ({ children }) => {
+const MainArea: FC<MainAreaProps> = ({ className, children }) => {
   return (
-    <main className="relative flex h-screen w-full flex-1 flex-col overflow-auto">
+    <main
+      className={cn(
+        "relative flex h-screen w-full flex-1 flex-col overflow-auto",
+        className,
+      )}
+    >
       {children}
     </main>
   );

@@ -36,7 +36,6 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
     const newMessage = createNewMessageStore({ content, userId });
 
     setMessages((prev) => [...prev, newMessage]);
-    // setOptimisticMessage({ chatId, newMessage });
 
     if (sub) {
       sub.publish({

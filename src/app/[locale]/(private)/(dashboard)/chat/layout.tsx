@@ -1,3 +1,4 @@
+import AttachmentsSidebar from "@/components/private/common/AttachmentsSidebar";
 import ChatHeader from "@/components/private/common/ChatHeader";
 import ChatSidebar from "@/components/private/common/ChatSidebar";
 import MainArea from "@/components/private/common/MainArea";
@@ -13,7 +14,8 @@ export default async function ChatLayout({
   return (
     <>
       <ChatSidebar user={user} />
-      <MainArea>
+      <AttachmentsSidebar user={user} />
+      <MainArea className="pl-0 pr-0 transition-all duration-300 ease-in-out peer-[[data-state=open]]/attachments:lg:pr-[250px] peer-[[data-state=open]]/chat:lg:pl-[300px]">
         <ChatHeader user={user} />
         <div className="relative flex h-full w-full flex-1 flex-col overflow-hidden pb-3 pt-6">
           {children}

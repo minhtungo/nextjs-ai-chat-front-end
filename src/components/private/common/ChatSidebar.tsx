@@ -6,10 +6,7 @@ import NewChatButton from "@/components/private/common/NewChatButton";
 import Sidebar from "@/components/private/common/Sidebar";
 import SignInPrompt from "@/components/private/common/SignInPrompt";
 import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
-import { buttonVariants } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { cn } from "@/lib/utils";
-import { Plus } from "lucide-react";
 import { User } from "next-auth";
 import Link from "next/link";
 import { FC, Suspense } from "react";
@@ -20,28 +17,22 @@ interface ChatSidebarProps {
 
 const ChatSidebar: FC<ChatSidebarProps> = async ({ user }) => {
   return (
-    <Sidebar>
+    <Sidebar className="peer/chat flex-col gap-y-3 lg:flex" type="chat">
       <div className="flex items-center justify-between px-4 pt-4">
         <Link href={chatUrl}>
           <Logo />
         </Link>
         <NewChatButton />
       </div>
-      <ScrollArea className="h-full flex-1">
+      <ScrollArea className="h-full flex-1 py-2">
         {user && (
           <Suspense fallback={<ChatSkeleton />}>
-            <ChatList className="py-2" />
+            <ChatList />
           </Suspense>
         )}
       </ScrollArea>
-      <div className="w-full px-4 pb-4">
-        {user ? (
-          <div className="border-t pt-2">
-            <ChatDropdownMenu />
-          </div>
-        ) : (
-          <SignInPrompt />
-        )}
+      <div className="w-full px-4 pb-3">
+        {user ? <ChatDropdownMenu /> : <SignInPrompt />}
       </div>
     </Sidebar>
   );

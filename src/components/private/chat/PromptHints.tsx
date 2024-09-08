@@ -35,7 +35,6 @@ const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
     });
 
     setMessages((prev) => [...prev, newMessage]);
-    // setOptimisticMessage({ chatId, newMessage });
 
     if (currentSubscription) {
       currentSubscription.publish({

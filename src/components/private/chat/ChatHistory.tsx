@@ -8,15 +8,14 @@ import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
 import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
 import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
 import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
-import { useChat } from "@/hooks/use-chat";
 import { useMessages } from "@/hooks/use-messages";
 import { usePreviews } from "@/hooks/use-previews";
 import { Message } from "@/lib/definitions";
-import { cn, isNotUndefinedOrEmptyArray } from "@/lib/utils";
+import { cn, isGuestUser, isNotUndefinedOrEmptyArray } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
-import MessageHistory from "./MessageHistory";
-
-
+import MessageHistory from "@/components/private/chat/MessageHistory";
+import { useParams } from "next/navigation";
+import LoadingOverlay from "@/components/private/common/LoadingOverlay";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chatId?: string;
@@ -33,7 +32,7 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   messageClassName,
   initialMessages,
 }) => {
-  const { isFetchingNextPage, data, fetchNextPage, hasNextPage } =
+  const { data, isFetchingNextPage, isLoading, fetchNextPage, hasNextPage } =
     useInfiniteMessages({
       chatId,
       userId,
@@ -41,15 +40,10 @@ const ChatHistory: FC<ChatHistoryProps> = ({
     });
 
   const fetchedMessages = usePreviews({ pages: data?.pages });
-  const { docs } = useChat();
 
   const { messages, setMessages } = useMessages();
 
-  useEffect(() => {
-    if (fetchedMessages.length > 0) {
-      setMessages(fetchedMessages);
-    }
-  }, [fetchedMessages]);
+  const { id } = useParams<{ id: string }>();
 
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.1,
@@ -58,6 +52,20 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   const { ref: bottomRef, inView: isBottom } = useInView();
 
   const scrollRef = useRef<ElementRef<"div">>(null);
+
+  useEffect(() => {
+    if (!isGuestUser(userId)) {
+      if (chatId && !id && messages.length === 1) {
+        window.history.replaceState({}, "", `/chat/${chatId}`);
+      }
+    }
+  }, [id, messages, userId]);
+
+  useEffect(() => {
+    if (fetchedMessages.length > 0) {
+      setMessages(fetchedMessages);
+    }
+  }, [fetchedMessages]);
 
   useEffect(() => {
     if (
@@ -74,6 +82,13 @@ const ChatHistory: FC<ChatHistoryProps> = ({
       scrollRef?.current?.scrollIntoView({ block: "end" });
     }
   }, [isBottom, fetchedMessages]);
+
+  if (isLoading)
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spinner className="size-5 sm:size-6" />
+      </div>
+    );
 
   return (
     <>

@@ -1,15 +1,11 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
+import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePreviewsWindowWrapper";
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatPanel from "@/components/private/chat/ChatPanel";
-import { useMessages } from "@/hooks/use-messages";
 import { Message } from "@/lib/definitions";
-import { isGuestUser } from "@/lib/utils";
-import { useParams } from "next/navigation";
-import { useChat } from "@/hooks/use-chat";
-import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePreviewsWindowWrapper";
 
 interface ChatProps extends React.ComponentProps<"div"> {
   userId: string;
@@ -18,20 +14,6 @@ interface ChatProps extends React.ComponentProps<"div"> {
 }
 
 const Chat: FC<ChatProps> = ({ userId, chatId, initialMessages }) => {
-  const { id } = useParams<{ id: string }>();
-  const { messages } = useMessages();
-  const { docs } = useChat();
-
-  console.log("docs", docs);
-
-  useEffect(() => {
-    if (!isGuestUser(userId)) {
-      if (chatId && !id && messages.length === 1) {
-        window.history.replaceState({}, "", `/chat/${chatId}`);
-      }
-    }
-  }, [id, messages, userId]);
-
   return (
     <>
       <ChatHistory

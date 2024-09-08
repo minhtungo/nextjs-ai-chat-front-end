@@ -41,7 +41,7 @@ const ChatPanel: FC<ChatPanelProps> = ({ chatId, userId }) => {
   };
 
   return (
-    <MaxWidthWrapper className="space-y-3 pt-3">
+    <MaxWidthWrapper className="max-w-5xl space-y-3 pt-3">
       <PromptSuggestions className="mt-4" userId={userId} />
       {!inTokenLimit && (
         <Badge className="mb-3">
