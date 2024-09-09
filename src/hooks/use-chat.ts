@@ -2,7 +2,8 @@ import {
   docsAtom,
   guestIdAtom,
   imagesAtom,
-  selectedDocPreview,
+  selectedDocIndexFinderAtom,
+  selectedDocIndexAtom,
   selectedImageIndexAtom,
   selectedImageIndexFinderAtom,
 } from "@/atoms/chat";
@@ -18,7 +19,8 @@ export const useChat = () => {
     selectedImageIndex: useAtomValue(selectedImageIndexAtom),
     setSelectedImageIndex: useSetAtom(selectedImageIndexAtom),
     updateImageIndex: useSetAtom(selectedImageIndexFinderAtom),
-    selectedDocPreview: useAtomValue(selectedDocPreview),
-    setSelectedDocPreview: useSetAtom(selectedDocPreview),
+    updateDocIndex: useSetAtom(selectedDocIndexFinderAtom),
+    selectedDocIndex: useAtomValue(selectedDocIndexAtom),
+    setSelectedDocIndex: useSetAtom(selectedDocIndexAtom),
   };
 };

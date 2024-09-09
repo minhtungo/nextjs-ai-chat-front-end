@@ -28,4 +28,17 @@ export const selectedImageIndexFinderAtom = atom(
   },
 );
 
-export const selectedDocPreview = atom<string | null>(null);
+export const selectedDocIndexAtom = atom<number | null>(null);
+
+export const selectedDocIndexFinderAtom = atom(
+  null,
+  (get, set, url: string) => {
+    if (get(selectedDocIndexAtom) !== null) {
+      return;
+    }
+
+    const index = get(docsAtom).findIndex((doc) => doc.url === url);
+
+    set(selectedDocIndexAtom, index);
+  },
+);

@@ -18,7 +18,7 @@ const AttachFilePreview: FC<AttachFilePreviewProps> = ({
   url,
   className,
 }) => {
-  const { setSelectedDocPreview, updateImageIndex } = useChat();
+  const { updateDocIndex, updateImageIndex } = useChat();
   return (
     <div
       className={cn(
@@ -27,7 +27,7 @@ const AttachFilePreview: FC<AttachFilePreviewProps> = ({
       )}
       onClick={() => {
         if (type !== "image") {
-          setSelectedDocPreview(url);
+          updateDocIndex(url);
         } else {
           updateImageIndex(url);
         }

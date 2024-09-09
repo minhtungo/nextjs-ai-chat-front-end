@@ -10,7 +10,6 @@ import {
 import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { useRemoveChats } from "@/data/mutations/use-remove-chats";
@@ -48,16 +47,14 @@ const ChatActions: FC<ChatActionsProps> = ({
   return (
     <>
       <DropdownMenu modal={false} onOpenChange={setIsActive}>
-        <TooltipProvider delayDuration={100}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <DropdownMenuTrigger className="bg-accent">
-                <Ellipsis className="size-4" />
-              </DropdownMenuTrigger>
-            </TooltipTrigger>
-            <TooltipContent>Options</TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DropdownMenuTrigger className="bg-accent">
+              <Ellipsis className="size-4" />
+            </DropdownMenuTrigger>
+          </TooltipTrigger>
+          <TooltipContent>Options</TooltipContent>
+        </Tooltip>
         <DropdownMenuContent>
           <DropdownMenuItem onClick={onUpdateTitle}>
             <Pencil className="size-4" />

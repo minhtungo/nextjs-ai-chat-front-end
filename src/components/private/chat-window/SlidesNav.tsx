@@ -23,7 +23,7 @@ const SlidesNav: FC<SlidesNavProps> = ({
       >
         <ChevronLeft className="size-4" />
       </button>
-      Image {selectedIndex! + 1} of {total}
+      {selectedIndex! + 1} of {total}
       <button
         className="p-2 text-muted-foreground hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50"
         onClick={() => {

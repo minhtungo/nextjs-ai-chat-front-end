@@ -1,11 +1,17 @@
 import ChatWindowWrapper from "@/components/private/chat-window/ChatWindowWrapper";
+import SlidesNav from "@/components/private/chat-window/SlidesNav";
 import PdfPreview from "@/components/private/chat/PdfPreview";
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/hooks/use-chat";
 import { useSendMessage } from "@/hooks/use-send-message";
-import { X } from "lucide-react";
-import { FC } from "react";
+import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
+import { FC, useState } from "react";
 import { pdfjs } from "react-pdf";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -18,17 +24,14 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 interface DocPreviewWindowProps {
   userId: string;
   chatId?: string;
-  url: string;
 }
 
-const DocPreviewWindow: FC<DocPreviewWindowProps> = ({
-  userId,
-  chatId,
-  url,
-}) => {
-  console.log("DocPreviewWindow", url);
+const DocPreviewWindow: FC<DocPreviewWindowProps> = ({ userId, chatId }) => {
   const { sendMessage } = useSendMessage(userId, chatId);
-  const { setSelectedDocPreview } = useChat();
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [numPages, setNumPages] = useState<number | null>(null);
+
+  const { setSelectedDocIndex, selectedDocIndex, docs } = useChat();
 
   const onSubmitMessage = async () => {
     sendMessage();
@@ -41,22 +44,86 @@ const DocPreviewWindow: FC<DocPreviewWindowProps> = ({
       chatId={chatId}
     >
       <div className="flex h-full w-full flex-col justify-between gap-3">
-        <div className="flex h-14 w-full items-center gap-3 px-4">
-          <div className="ml-auto flex gap-2">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="hover:bg-background/60"
-              onClick={() => {
-                setSelectedDocPreview(null);
-              }}
+        <div className="flex h-14 w-full items-center justify-between gap-3 px-4 text-sm">
+          <div className="flex items-center gap-x-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-background/60"
+                >
+                  <ZoomIn className="size-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Zoom In</p>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-background/60"
+                >
+                  <ZoomOut className="size-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Zoom Out</p>
+              </TooltipContent>
+            </Tooltip>
+            <button
+              disabled={pageNumber <= 1}
+              className="disabled:text-muted-foreground"
+              onClick={() => setPageNumber((cur) => cur - 1)}
             >
-              <X className="size-5" />
-            </Button>
+              <ChevronLeft className="size-4 text-muted-foreground hover:text-foreground" />
+            </button>
+            <span>
+              {pageNumber} / {numPages}
+            </span>
+            <button
+              disabled={pageNumber >= numPages!}
+              onClick={() => setPageNumber((cur) => cur + 1)}
+            >
+              <ChevronRight className="size-4 text-muted-foreground hover:text-foreground" />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-background/60"
+                  onClick={() => {
+                    setSelectedDocIndex(null);
+                  }}
+                >
+                  <X className="size-5" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Close</p>
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
-
-        <PdfPreview className="flex-1" />
+        <PdfPreview
+          url={docs[selectedDocIndex!].url}
+          name={docs[selectedDocIndex!].name}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          setNumPages={setNumPages}
+        />
+        <SlidesNav
+          onNavigate={setSelectedDocIndex}
+          selectedIndex={selectedDocIndex!}
+          total={docs.length}
+        />
       </div>
     </ChatWindowWrapper>
   );

@@ -25,7 +25,6 @@ const Chat: FC<ChatProps> = ({ userId, chatId, initialMessages }) => {
       <ChatPanel chatId={chatId} userId={userId} />
       <ImagePreviewsWindowWrapper chatId={chatId} userId={userId} />
       <DocPreviewWindowWrapper userId={userId} chatId={chatId} />
-      {/* <ChatSubscribing /> */}
     </>
   );
 };

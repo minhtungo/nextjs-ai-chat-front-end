@@ -24,16 +24,12 @@ const DocPreviewWindowWrapper: FC<DocPreviewWindowWrapperProps> = ({
   userId,
   chatId,
 }) => {
-  const { selectedDocPreview } = useChat();
+  const { selectedDocIndex } = useChat();
 
   return (
     <>
-      {selectedDocPreview !== null && (
-        <DocPreviewWindow
-          userId={userId}
-          chatId={chatId}
-          url={selectedDocPreview}
-        />
+      {selectedDocIndex !== null && (
+        <DocPreviewWindow userId={userId} chatId={chatId} />
       )}
     </>
   );

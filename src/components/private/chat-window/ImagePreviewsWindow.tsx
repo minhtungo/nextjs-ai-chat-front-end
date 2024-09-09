@@ -123,7 +123,7 @@ const ImagePreviewsWindow: FC<ImagePreviewsWindowProps> = ({
                 width={1024}
                 height={1024}
                 className="h-auto max-h-[100vh] w-fit max-w-full"
-                alt="Image"
+                alt={images[selectedImageIndex!].name}
               />
             )}
             {isFocusMode && (

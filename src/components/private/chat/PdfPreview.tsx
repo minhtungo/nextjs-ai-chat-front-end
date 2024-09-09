@@ -1,23 +1,31 @@
 "use client";
 
-import { FC, useCallback } from "react";
-import { useState } from "react";
-import { Document, Page } from "react-pdf";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SetStateAction } from "jotai";
+import { Dispatch, FC, useCallback, useState } from "react";
+import { Document, Page } from "react-pdf";
 
 interface PdfPreviewProps {
-  url?: string;
   className?: string;
+  url: string;
+  name: string;
+  pageNumber: number;
+  setPageNumber: Dispatch<SetStateAction<number>>;
+  setNumPages: Dispatch<SetStateAction<number | null>>;
 }
 
 const highlightPattern = (text: string, pattern: string) => {
   return text.replace(pattern, (value) => `<mark>${value}</mark>`);
 };
 
-const PdfPreview: FC<PdfPreviewProps> = ({ className, url = "/test.pdf" }) => {
-  const [numPages, setNumPages] = useState<number | null>(null);
-  const [pageNumber, setPageNumber] = useState<number>(1);
+const PdfPreview: FC<PdfPreviewProps> = ({
+  className,
+  url = "/test.pdf",
+  pageNumber,
+  setPageNumber,
+  setNumPages,
+}) => {
+  const testUrl = "/test.pdf";
 
   const [searchText, setSearchText] = useState("");
   const [selectedText, setSelectedText] = useState("");
@@ -45,7 +53,7 @@ const PdfPreview: FC<PdfPreviewProps> = ({ className, url = "/test.pdf" }) => {
   return (
     <div className={cn("space-y-4", className)}>
       <Document
-        file={url}
+        file={testUrl}
         onLoadSuccess={onDocumentLoadSuccess}
         onMouseUp={handleMouseUp}
         className="mx-auto w-fit"
@@ -65,24 +73,6 @@ const PdfPreview: FC<PdfPreviewProps> = ({ className, url = "/test.pdf" }) => {
           onChange={(e) => setSearchText(e.target.value)}
         />
       </div> */}
-      <div className="mx-auto flex items-center justify-center gap-x-2 text-sm">
-        <button
-          disabled={pageNumber <= 1}
-          className="disabled:text-muted-foreground"
-          onClick={() => setPageNumber((cur) => cur - 1)}
-        >
-          <ChevronLeft className="size-4 text-muted-foreground hover:text-foreground" />
-        </button>
-        <span>
-          {pageNumber} / {numPages}
-        </span>
-        <button
-          disabled={pageNumber >= numPages!}
-          onClick={() => setPageNumber((cur) => cur + 1)}
-        >
-          <ChevronRight className="size-4 text-muted-foreground hover:text-foreground" />
-        </button>
-      </div>
     </div>
   );
 };
