@@ -2,15 +2,15 @@ import { createChatRoom } from "@/lib/chat";
 
 import { Message } from "@/lib/definitions";
 import { fetchAuth } from "@/lib/api";
-import { getChatListQueryKey } from "@/lib/query-keys";
+import { CHAT_LIST_QUERY_KEY, getChatListQueryKey } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
 import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
-import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
+import { MESSAGES_LIMIT } from "@/app-config";
 
-export const createChatUseCase = async () => {
+export const createChatUseCase = async (title: string) => {
   try {
-    const data = await createChatRoom();
+    const data = await createChatRoom(title);
 
     return {
       ...data,
@@ -21,14 +21,10 @@ export const createChatUseCase = async () => {
   }
 };
 
-export const getChatInfoUseCase = async ({
-  chatId,
-}: {
-  chatId: string;
-}): Promise<{ chat: ChatRoom }> => {
+export const getChatInfoUseCase = async (chatId: string): Promise<ChatRoom> => {
   console.log("-----------ChatInfo useCase Called");
   const response = await fetchAuth({
-    path: `/chat/info/${chatId}?limit=${FETCHED_MESSAGES_LIMIT}`,
+    path: `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
   });
 
   if (response.error) {
@@ -55,14 +51,14 @@ export const getChatInfoUseCase = async ({
     })),
   };
 
-  return { chat };
+  return chat;
 };
 
 export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
   const response = await fetchAuth({
     path: "/chat/list-rooms",
     method: "GET",
-    tags: getChatListQueryKey(),
+    tags: [CHAT_LIST_QUERY_KEY],
   });
 
   if (response.error) {
@@ -91,7 +87,7 @@ export const getMessagesUseCase = async ({
   console.log("-----------getMessagesUseCase Called");
 
   const query = new URLSearchParams({
-    limit: FETCHED_MESSAGES_LIMIT.toString(),
+    limit: MESSAGES_LIMIT.toString(),
     ...(offset && { offset: offset.toString() }),
   });
 
@@ -126,7 +122,7 @@ export const getMessagesUseCase = async ({
       userId: item.userid,
     }));
 
-  return { messages };
+  return messages;
 };
 
 export const updateChatUseCase = async ({

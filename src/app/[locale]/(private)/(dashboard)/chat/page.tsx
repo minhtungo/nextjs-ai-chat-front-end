@@ -1,4 +1,4 @@
-import Chat from "@/components/private/chat/Chat";
+import ChatArea from "@/components/private/chat/ChatArea";
 import { getChatUserIdUseCase } from "@/use-cases/session";
 
 const ChatIndexPage = async () => {
@@ -8,7 +8,7 @@ const ChatIndexPage = async () => {
     throw new Error("Something went wrong! Please try again later.");
   }
 
-  return <Chat userId={userId} />;
+  return <ChatArea userId={userId} />;
 };
 
 export default ChatIndexPage;

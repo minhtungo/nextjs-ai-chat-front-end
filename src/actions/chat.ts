@@ -5,7 +5,6 @@ import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { authenticatedAction, chatAction } from "@/lib/safe-actions";
 import {
   createChatUseCase,
-  getChatInfoUseCase,
   getChatListUseCase,
   getMessagesUseCase,
   removeChatsUseCase,
@@ -16,56 +15,16 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
 
-export const getChatInfoAction = authenticatedAction
-  .input(
-    z.object({
-      chatId: z.string(),
-    }),
-  )
-  .handler(async ({ input: { chatId }, ctx: { user } }) => {
-    console.log("-----------getChatInfo action Called");
+export const createChatAction = chatAction
+  .input(z.string())
+  .handler(async ({ input: title }) => {
     try {
-      const chat = await getChatInfoUseCase({
-        chatId,
-      });
+      const chat = await createChatUseCase(title);
+
       return chat;
     } catch (error) {
       throw new ZSAError("ERROR", error);
     }
-  });
-
-export const getChatListAction = authenticatedAction.handler(
-  async ({ ctx: { user } }) => {
-    const chats = await getChatListUseCase();
-    return { chats };
-  },
-);
-
-export const createChatAction = chatAction.handler(async () => {
-  try {
-    const chat = await createChatUseCase();
-
-    return chat;
-  } catch (error) {
-    throw new ZSAError("ERROR", error);
-  }
-});
-
-export const getMessagesAction = chatAction
-  .input(
-    z.object({
-      chatId: z.string().optional(),
-      query: z.object({
-        offset: z.number().optional(),
-      }),
-    }),
-  )
-  .handler(async ({ input: { chatId, query } }) => {
-    console.log("-----------getMessagesAction Called");
-    return await getMessagesUseCase({
-      chatId,
-      query,
-    });
   });
 
 export const updateChatAction = authenticatedAction
@@ -82,7 +41,6 @@ export const updateChatAction = authenticatedAction
       title,
       subject,
     });
-    revalidateTag(CHAT_LIST_QUERY_KEY);
   });
 
 export const removeChatsAction = authenticatedAction

@@ -76,7 +76,9 @@ export const useSendMessage = (
     resetMessageState();
 
     if (!currentChatId && messages.length === 0) {
-      const [newRoom, error] = await createChatAction();
+      const [newRoom, error] = await createChatAction(
+        submitContent.substring(0, 50),
+      );
 
       if (error) {
         toast.error(error.message);

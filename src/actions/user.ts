@@ -38,12 +38,6 @@ export const onboardingFormAction = authenticatedAction
     return await onboardingFormUseCase(user.id!, values);
   });
 
-// export const toggleTwoFactorAction = authenticatedAction
-//   .input(twoFactorToggleSchema)
-//   .handler(async ({ input, ctx: { user } }) => {
-//     await toggleTwoFactorUseCase(user.id!, input);
-//   });
-
 export const changeUserPasswordAction = authenticatedAction
   .input(changeUserPasswordSchema)
   .handler(async ({ input, ctx: { user } }) => {

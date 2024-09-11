@@ -19,14 +19,12 @@ import { FC, useState } from "react";
 
 interface ChatActionsProps {
   chat: ChatListItem;
-  setIsActive: (value: boolean) => void;
   onUpdateTitle: () => void;
   currentChatId: string;
 }
 
 const ChatActions: FC<ChatActionsProps> = ({
   chat,
-  setIsActive,
   onUpdateTitle,
   currentChatId,
 }) => {
@@ -46,7 +44,7 @@ const ChatActions: FC<ChatActionsProps> = ({
 
   return (
     <>
-      <DropdownMenu modal={false} onOpenChange={setIsActive}>
+      <DropdownMenu modal={false}>
         <Tooltip>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger className="bg-accent">

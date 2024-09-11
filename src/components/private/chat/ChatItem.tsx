@@ -1,15 +1,16 @@
 "use client";
 
+import { updateChatAction } from "@/actions/chat";
 import { chatUrl } from "@/app-config";
-import Spinner from "@/components/common/Spinner";
 import EditChatTitle from "@/components/private/chat/EditChatTitle";
 import { buttonVariants } from "@/components/ui/button";
-import { useUpdateChat } from "@/data/mutations/use-update-chat";
 import { cn } from "@/lib/utils";
 import { ChatListItem } from "@/types/chat";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FC, useState } from "react";
+import { toast } from "sonner";
+import { useServerAction } from "zsa-react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
@@ -17,46 +18,48 @@ interface ChatItemProps {
 }
 
 const ChatItem: FC<ChatItemProps> = ({ chat }) => {
+  const router = useRouter();
   const { id: currentChatId } = useParams<{ id: string }>();
 
-  const [isActive, setIsActive] = useState(currentChatId === chat.id);
-  const [newTitle, setNewTitle] = useState("");
+  const [title, setTitle] = useState(chat.title);
+  const [isEditing, setIsEditing] = useState(false);
 
-  const { mutate: updateChat, isPending } = useUpdateChat();
+  const { execute: updateChat } = useServerAction(updateChatAction, {
+    onError: ({ err }) => {
+      toast.error(err.message);
+    },
+    onSuccess: () => {
+      router.refresh();
+    },
+  });
 
-  const isActiveChat = currentChatId === chat.id;
-
-  const toggleUpdateTitle = () => {
-    setNewTitle(chat.title);
-  };
-
-  const onTitleChange = async () => {
-    if (newTitle === chat.title) {
-      setNewTitle("");
+  const onUpdateTitle = async () => {
+    if (title === chat.title) {
+      setIsEditing(false);
       return;
     }
 
     updateChat({
       chatId: chat.id!,
-      title: newTitle,
+      title,
     });
 
-    setNewTitle("");
+    setIsEditing(false);
   };
 
   return (
     <li
       className={cn(
         "group relative w-full overflow-hidden rounded-lg hover:bg-accent",
-        (isActiveChat || isActive) && "bg-accent",
+        currentChatId === chat.id && "bg-accent",
       )}
     >
-      {newTitle ? (
+      {isEditing ? (
         <div className="border-1 z-10 h-full w-full rounded-lg border-ring bg-card">
           <EditChatTitle
-            newTitle={newTitle}
-            onTitleChange={onTitleChange}
-            setNewTitle={setNewTitle}
+            title={title}
+            setTitle={setTitle}
+            onUpdateTitle={onUpdateTitle}
           />
         </div>
       ) : (
@@ -65,35 +68,28 @@ const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             href={`${chatUrl}/${chat.id}`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
-              "flex items-center justify-start overflow-hidden p-2 font-normal text-foreground/80 hover:text-foreground/80",
+              "relative flex w-full items-center justify-start overflow-hidden whitespace-nowrap p-2 text-sm font-normal capitalize text-foreground/80 hover:text-foreground/80",
             )}
           >
-            <div className="relative w-full flex-1 overflow-hidden whitespace-nowrap text-sm capitalize">
-              {chat.title}
-              <div
-                className={cn(
-                  "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
-                  isActiveChat && "w-9 from-accent/90",
-                )}
-              />
-            </div>
+            {title}
+            <div
+              className={cn(
+                "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
+                currentChatId === chat.id && "w-9 from-accent/90",
+              )}
+            />
           </Link>
           <div
             className={cn(
-              "absolute bottom-0 right-0 top-0 hidden items-center bg-accent pr-2 group-hover:flex",
-              (isActiveChat || isActive) && "flex",
+              "absolute bottom-0 right-0 top-0 flex items-center bg-accent pr-2 opacity-0 group-hover:opacity-100",
+              currentChatId === chat.id && "opacity-100",
             )}
           >
-            {isPending ? (
-              <Spinner className="size-3" />
-            ) : (
-              <ChatActions
-                chat={chat}
-                setIsActive={setIsActive}
-                currentChatId={currentChatId}
-                onUpdateTitle={toggleUpdateTitle}
-              />
-            )}
+            <ChatActions
+              chat={chat}
+              currentChatId={currentChatId}
+              onUpdateTitle={() => setIsEditing(true)}
+            />
           </div>
         </>
       )}

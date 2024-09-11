@@ -1,22 +1,29 @@
 import { fetchAuth } from "@/lib/api";
+import { Message } from "@/lib/definitions";
+import { ApiResponseType } from "@/lib/response";
 import { nanoid } from "@/lib/utils";
 import { CreateNewRoomResponse } from "@/types/chat";
 import { FileAtom } from "@/types/file";
 import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
 import { MutableRefObject } from "react";
+import { toast } from "sonner";
 
-export const createChatRoom = async (): Promise<CreateNewRoomResponse> => {
-  const { data } = await fetchAuth({
-    path: "/chat/create-room",
-    method: "POST",
-    body: {
-      subject: "General",
-      title: "New Chat",
-    },
-  });
+export const getChatMessages = async (
+  chatId: string,
+  offset?: number,
+): Promise<{ messages: Message[] } | undefined> => {
+  console.log("getChatMessages", chatId, offset);
+  const response = await fetch(`/api/chat/${chatId}/messages?offset=${offset}`);
+  const data = (await response.json()) as ApiResponseType;
 
-  return data;
+  console.log("getChatMessages", data);
+
+  if (data.success) {
+    return data.data;
+  } else {
+    toast.error("Error getting chat messages");
+  }
 };
 
 export const getMessageFiles = (files: FileAtom[]) => {
@@ -46,6 +53,21 @@ export const getMessageFiles = (files: FileAtom[]) => {
     imagesWithPreview,
     docs,
   };
+};
+
+export const createChatRoom = async (
+  title: string,
+): Promise<CreateNewRoomResponse> => {
+  const { data } = await fetchAuth({
+    path: "/chat/create-room",
+    method: "POST",
+    body: {
+      subject: "General",
+      title,
+    },
+  });
+
+  return data;
 };
 
 export const createNewMessageStore = ({

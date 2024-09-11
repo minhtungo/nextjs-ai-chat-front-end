@@ -4,18 +4,17 @@ import { ElementRef, FC, useEffect, useRef } from "react";
 
 import Spinner from "@/components/common/Spinner";
 
-import { FETCHED_MESSAGES_LIMIT } from "@/app-config";
+import { MESSAGES_LIMIT } from "@/app-config";
 import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
+import MessageHistory from "@/components/private/chat/MessageHistory";
 import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
 import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
 import { useMessages } from "@/hooks/use-messages";
 import { usePreviews } from "@/hooks/use-previews";
 import { Message } from "@/lib/definitions";
 import { cn, isGuestUser, isNotUndefinedOrEmptyArray } from "@/lib/utils";
-import { useInView } from "react-intersection-observer";
-import MessageHistory from "@/components/private/chat/MessageHistory";
 import { useParams } from "next/navigation";
-import LoadingOverlay from "@/components/private/common/LoadingOverlay";
+import { useInView } from "react-intersection-observer";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chatId?: string;
@@ -68,11 +67,14 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   }, [fetchedMessages]);
 
   useEffect(() => {
-    if (
-      inView &&
-      hasNextPage &&
-      fetchedMessages.length >= FETCHED_MESSAGES_LIMIT
-    ) {
+    console.log("useEffect chatId");
+    if (!chatId) {
+      setMessages([]);
+    }
+  }, [chatId]);
+
+  useEffect(() => {
+    if (inView && hasNextPage && fetchedMessages.length >= MESSAGES_LIMIT) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);

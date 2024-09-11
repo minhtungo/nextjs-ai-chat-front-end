@@ -1,7 +1,8 @@
-import Link from "next/link";
+import { chatUrl } from "@/app-config";
 import Logo from "@/components/common/Logo";
 import ChatList from "@/components/private/chat/ChatList";
 import ChatDropdownMenu from "@/components/private/common/ChatDropdownMenu";
+import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
@@ -9,17 +10,16 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { isGuestUser } from "@/lib/utils";
 import { PanelLeftOpen, SquarePen } from "lucide-react";
-import { chatUrl } from "@/app-config";
-import { User } from "next-auth";
+import Link from "next/link";
 import { FC, Suspense } from "react";
-import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 
 interface ChatMobileMenuProps {
-  user: User | undefined;
+  userId: string;
 }
 
-const ChatMobileMenu: FC<ChatMobileMenuProps> = ({ user }) => {
+const ChatMobileMenu: FC<ChatMobileMenuProps> = ({ userId }) => {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden">
@@ -41,7 +41,7 @@ const ChatMobileMenu: FC<ChatMobileMenuProps> = ({ user }) => {
           </Link>
         </div>
         <ScrollArea className="flex h-full w-full flex-1 flex-col py-2">
-          {user ? (
+          {!isGuestUser(userId) ? (
             <Suspense fallback={<ChatSkeleton />}>
               <ChatList className="py-2" />
             </Suspense>

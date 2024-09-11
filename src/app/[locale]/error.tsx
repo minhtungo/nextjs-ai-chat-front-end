@@ -28,10 +28,14 @@ export default function Error({
         {error.message}
       </Typography>
       <div className="mt-6 flex flex-wrap gap-3">
-        <Link className={buttonVariants({ variant: "outline" })} href="/">
+        <Link
+          className={buttonVariants({ variant: "outline", size: "sm" })}
+          href="/"
+        >
           Go Home
         </Link>
         <Button
+          size="sm"
           onClick={
             // Attempt to recover by trying to re-render the segment
             () => reset()

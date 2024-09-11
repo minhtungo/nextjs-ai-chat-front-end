@@ -1,5 +1,6 @@
 import { chatUrl, signInUrl } from "@/app-config";
 import Chat from "@/components/private/chat/Chat";
+import ChatArea from "@/components/private/chat/ChatArea";
 import { getCurrentUser } from "@/lib/auth";
 import { getMessagesUseCase } from "@/use-cases/chat";
 import { redirect } from "next/navigation";
@@ -18,16 +19,12 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
     redirect(`/${signInUrl}?redirect=${chatUrl}/${id}`);
   }
 
-  const chat = await getMessagesUseCase({
+  const messages = await getMessagesUseCase({
     chatId: id,
     query: {},
   });
 
-  if (!chat) {
-    redirect(`/`);
-  }
-
-  return <Chat userId={user.id!} chatId={id} initialMessages={chat.messages} />;
+  return <ChatArea userId={user.id!} chatId={id} initialMessages={messages} />;
 };
 
 export default ChatPage;
