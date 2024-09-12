@@ -7,8 +7,6 @@ import { StatusCodes } from "http-status-codes";
 export const GET = auth(async (req, { params }) => {
   const user = req?.auth?.user;
 
-  console.log("running--------------");
-
   if (!user) {
     return Response.json(
       ApiResponse.failure("Unauthorized", null, StatusCodes.UNAUTHORIZED),

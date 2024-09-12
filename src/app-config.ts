@@ -55,4 +55,4 @@ export const TOKEN_EXPIRATION = TOKEN_EXPIRATION_IN_MINUTES * 60;
 
 export const MESSAGE_TOKEN_LIMIT = 10;
 
-export const MESSAGES_LIMIT = 25;
+export const MESSAGES_LIMIT = 20;

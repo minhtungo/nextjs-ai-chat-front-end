@@ -28,10 +28,18 @@ export const subscribedCentrifugeAtom = atom(
       return;
     }
 
-    const newCentrifuge = new Centrifuge(env.NEXT_PUBLIC_WS_ENDPOINT!, {
-      data: data?.token,
-      debug: true,
-    });
+    const newCentrifuge = new Centrifuge(
+      [
+        {
+          transport: "websocket",
+          endpoint: env.NEXT_PUBLIC_WS_ENDPOINT,
+        },
+      ],
+      {
+        data: data?.token,
+        debug: true,
+      },
+    );
 
     newCentrifuge.on("connected", (ctx) => {
       console.log("Centrifuge connected:", ctx);

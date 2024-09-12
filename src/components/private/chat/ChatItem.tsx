@@ -1,57 +1,43 @@
 "use client";
 
-import { updateChatAction } from "@/actions/chat";
 import { chatUrl } from "@/app-config";
+import DeleteChatAlert from "@/components/private/chat/DeleteChatAlert";
 import EditChatTitle from "@/components/private/chat/EditChatTitle";
 import { buttonVariants } from "@/components/ui/button";
+import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { useDeleteChats } from "@/hooks/use-delete-chats";
+import { useUpdateChatTitle } from "@/hooks/use-update-chat-title";
 import { cn } from "@/lib/utils";
-import { ChatListItem } from "@/types/chat";
+import { Pencil, Trash } from "lucide-react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { FC, useState } from "react";
-import { toast } from "sonner";
-import { useServerAction } from "zsa-react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {
-  chat: ChatListItem;
+  chatId: string;
+  title: string;
 }
 
-const ChatItem: FC<ChatItemProps> = ({ chat }) => {
-  const router = useRouter();
+const ChatItem: FC<ChatItemProps> = ({ chatId, title: initialTitle }) => {
   const { id: currentChatId } = useParams<{ id: string }>();
 
-  const [title, setTitle] = useState(chat.title);
-  const [isEditing, setIsEditing] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
 
-  const { execute: updateChat } = useServerAction(updateChatAction, {
-    onError: ({ err }) => {
-      toast.error(err.message);
-    },
-    onSuccess: () => {
-      router.refresh();
-    },
-  });
+  const { title, isEditing, setTitle, setIsEditing, updateChatTitle } =
+    useUpdateChatTitle(chatId, initialTitle);
 
-  const onUpdateTitle = async () => {
-    if (title === chat.title) {
-      setIsEditing(false);
-      return;
-    }
-
-    updateChat({
-      chatId: chat.id!,
-      title,
-    });
-
-    setIsEditing(false);
-  };
+  const { isPending: isRemoving, deleteChats } = useDeleteChats(
+    chatId,
+    currentChatId,
+    setDeleteDialogOpen,
+  );
 
   return (
     <li
       className={cn(
         "group relative w-full overflow-hidden rounded-lg hover:bg-accent",
-        currentChatId === chat.id && "bg-accent",
+        currentChatId === chatId && "bg-accent",
       )}
     >
       {isEditing ? (
@@ -59,13 +45,13 @@ const ChatItem: FC<ChatItemProps> = ({ chat }) => {
           <EditChatTitle
             title={title}
             setTitle={setTitle}
-            onUpdateTitle={onUpdateTitle}
+            onUpdateTitle={updateChatTitle}
           />
         </div>
       ) : (
         <>
           <Link
-            href={`${chatUrl}/${chat.id}`}
+            href={`${chatUrl}/${chatId}`}
             className={cn(
               buttonVariants({ variant: "ghost", size: "sm" }),
               "relative flex w-full items-center justify-start overflow-hidden whitespace-nowrap p-2 text-sm font-normal capitalize text-foreground/80 hover:text-foreground/80",
@@ -75,22 +61,38 @@ const ChatItem: FC<ChatItemProps> = ({ chat }) => {
             <div
               className={cn(
                 "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
-                currentChatId === chat.id && "w-9 from-accent/90",
+                currentChatId === chatId && "w-9 from-accent/90",
               )}
             />
           </Link>
           <div
             className={cn(
               "absolute bottom-0 right-0 top-0 flex items-center bg-accent pr-2 opacity-0 group-hover:opacity-100",
-              currentChatId === chat.id && "opacity-100",
+              currentChatId === chatId && "opacity-100",
             )}
           >
-            <ChatActions
-              chat={chat}
-              currentChatId={currentChatId}
-              onUpdateTitle={() => setIsEditing(true)}
-            />
+            <ChatActions>
+              <DropdownMenuItem onClick={() => setIsEditing((prev) => !prev)}>
+                <Pencil className="size-4" />
+                <span>Rename</span>
+                <span className="sr-only">Rename</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={isRemoving}
+                onClick={() => setDeleteDialogOpen(true)}
+              >
+                <Trash className="size-4" />
+                <span>Delete</span>
+                <span className="sr-only">Delete</span>
+              </DropdownMenuItem>
+            </ChatActions>
           </div>
+          <DeleteChatAlert
+            deleteDialogOpen={deleteDialogOpen}
+            setDeleteDialogOpen={setDeleteDialogOpen}
+            isRemovePending={isRemoving}
+            onDeleteChat={deleteChats}
+          />
         </>
       )}
     </li>

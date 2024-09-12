@@ -43,11 +43,7 @@ const ChatWindowWrapper: FC<ChatWindowWrapperProps> = ({
       <div className="flex-grow overflow-hidden">{children}</div>
       <div className="relative w-[450px] shrink-0 bg-background">
         <div className="relative flex h-screen flex-col">
-          <ChatHistory
-            chatId={chatId}
-            userId={userId}
-            messageClassName="py-4"
-          />
+          <ChatHistory chatId={chatId} userId={userId} />
           <div className="mb-3 px-4">
             <ChatWindowPanel onSubmitMessage={onSubmitMessage} />
           </div>

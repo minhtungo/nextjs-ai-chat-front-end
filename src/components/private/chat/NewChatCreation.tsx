@@ -6,7 +6,7 @@ import OptionsRadio from "@/components/private/chat/OptionsRadio";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useCreateChat } from "@/data/mutations/use-create-chat";
+import { useCreateChat } from "@/hooks/use-create-chat";
 import { SUBJECTS_BY_LEVEL } from "@/lib/constant";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";

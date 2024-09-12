@@ -1,16 +1,16 @@
 "use client";
 
-import { ElementRef, FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 
 import Spinner from "@/components/common/Spinner";
 
 import { MESSAGES_LIMIT } from "@/app-config";
 import EmptyChatScreen from "@/components/private/chat/EmptyChatScreen";
 import MessageHistory from "@/components/private/chat/MessageHistory";
-import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
-import { useInfiniteMessages } from "@/data/queries/use-infinite-messages";
-import { useMessages } from "@/hooks/use-messages";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useInfiniteMessages } from "@/hooks/use-infinite-messages";
 import { usePreviews } from "@/hooks/use-previews";
+import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
 import { Message } from "@/lib/definitions";
 import { cn, isGuestUser, isNotUndefinedOrEmptyArray } from "@/lib/utils";
 import { useParams } from "next/navigation";
@@ -20,7 +20,6 @@ export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   chatId?: string;
   userId: string;
   className?: string;
-  messageClassName?: string;
   initialMessages?: Message[];
 }
 
@@ -28,7 +27,6 @@ const ChatHistory: FC<ChatHistoryProps> = ({
   chatId,
   userId,
   className,
-  messageClassName,
   initialMessages,
 }) => {
   const { data, isFetchingNextPage, isLoading, fetchNextPage, hasNextPage } =
@@ -38,52 +36,29 @@ const ChatHistory: FC<ChatHistoryProps> = ({
       initialMessages,
     });
 
-  const fetchedMessages = usePreviews({ pages: data?.pages });
+  const messages = usePreviews({ pages: data?.pages, chatId });
 
-  const { messages, setMessages } = useMessages();
-
-  const { id } = useParams<{ id: string }>();
+  const { id: currentChatId } = useParams<{ id: string }>();
 
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.1,
   });
 
-  const { ref: bottomRef, inView: isBottom } = useInView();
-
-  const scrollRef = useRef<ElementRef<"div">>(null);
-
   useEffect(() => {
     if (!isGuestUser(userId)) {
-      if (chatId && !id && messages.length === 1) {
+      if (chatId && !currentChatId && messages.length === 1) {
         window.history.replaceState({}, "", `/chat/${chatId}`);
       }
     }
-  }, [id, messages, userId]);
+  }, [currentChatId, messages, userId]);
 
   useEffect(() => {
-    if (fetchedMessages.length > 0) {
-      setMessages(fetchedMessages);
-    }
-  }, [fetchedMessages]);
-
-  useEffect(() => {
-    console.log("useEffect chatId");
-    if (!chatId) {
-      setMessages([]);
-    }
-  }, [chatId]);
-
-  useEffect(() => {
-    if (inView && hasNextPage && fetchedMessages.length >= MESSAGES_LIMIT) {
+    if (inView && hasNextPage && messages.length >= MESSAGES_LIMIT) {
       fetchNextPage();
     }
   }, [inView, hasNextPage]);
 
-  useEffect(() => {
-    if (!isBottom && scrollRef.current && !inView) {
-      scrollRef?.current?.scrollIntoView({ block: "end" });
-    }
-  }, [isBottom, fetchedMessages]);
+  const { messagesRef, scrollRef, visibilityRef } = useScrollAnchor();
 
   if (isLoading)
     return (
@@ -93,21 +68,26 @@ const ChatHistory: FC<ChatHistoryProps> = ({
     );
 
   return (
-    <>
+    <ScrollArea className="h-full w-full" ref={scrollRef}>
       {isNotUndefinedOrEmptyArray(messages) ? (
-        <ScrollAreaContainer
-          className={cn("flex h-full w-full flex-col", className)}
-        >
-          {isFetchingNextPage && <Spinner className="mx-auto mb-6" />}
-          <div ref={inViewRef} />
-          <MessageHistory className={messageClassName} />
-          <div ref={bottomRef} />
-          <div ref={scrollRef} />
-        </ScrollAreaContainer>
+        <>
+          {isFetchingNextPage && (
+            <div className="mb-4 text-center">
+              <Spinner />
+            </div>
+          )}
+          <div className="h-px w-full" ref={inViewRef} />
+          <MessageHistory
+            ref={messagesRef}
+            messages={messages}
+            className={cn("px-4", className)}
+          />
+          <div className="h-px w-full" ref={visibilityRef} />
+        </>
       ) : (
-        <EmptyChatScreen className="h-full" userId={userId} />
+        <EmptyChatScreen className="h-[calc(100vh-140px)]" userId={userId} />
       )}
-    </>
+    </ScrollArea>
   );
 };
 

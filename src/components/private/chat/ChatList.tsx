@@ -30,7 +30,11 @@ const ChatList: FC<ChatListProps> = async ({ className }) => {
                 <div className="mb-1.5 text-[13px] font-semibold">{label}</div>
                 <ul className="space-y-[2px]">
                   {chats.map((chat) => (
-                    <ChatItem key={`${chat.id}-chat-item`} chat={chat} />
+                    <ChatItem
+                      key={`${chat.id}-chat-item`}
+                      chatId={chat.id}
+                      title={chat.title}
+                    />
                   ))}
                 </ul>
               </li>

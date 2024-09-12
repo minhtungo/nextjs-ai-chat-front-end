@@ -99,9 +99,18 @@ export const useSendMessage = (
     }
 
     if (currentSubscription) {
-      currentSubscription.publish({
-        input,
-      });
+      currentSubscription
+        .publish({
+          input,
+        })
+        .then(
+          function (ctx) {
+            console.log(ctx);
+          },
+          function (err) {
+            console.log("err", err);
+          },
+        );
     }
   };
 
