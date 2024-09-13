@@ -5,13 +5,13 @@ import { cva, VariantProps } from "class-variance-authority";
 import { FC } from "react";
 
 const sidebarVariants = cva(
-  "absolute inset-y-0 z-30 hidden h-screen overflow-visible bg-card transition duration-300 ease-in-out bg-card data-[state=open]:translate-x-0 lg:w-[300px]",
+  "absolute inset-y-0 z-30 hidden h-screen overflow-visible bg-card transition duration-300 ease-in-out bg-card data-[state=open]:translate-x-0 lg:w-[300px] bg-accent lg:flex flex-col",
   {
     variants: {
       side: {
-        default: "border-r translate-x-0",
-        left: "border-r -translate-x-full",
-        right: "border-l right-0 translate-x-full",
+        default: "translate-x-0",
+        left: "-translate-x-full",
+        right: "right-0 translate-x-full",
       },
     },
     defaultVariants: {

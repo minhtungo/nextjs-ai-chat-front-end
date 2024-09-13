@@ -2,16 +2,16 @@
 
 import BotMessage from "@/components/private/chat/BotMessage";
 import UserMessage from "@/components/private/chat/UserMessage";
-import { Message } from "@/lib/definitions";
+import { useMessages } from "@/hooks/use-messages";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-type MessageHistoryProps = React.HTMLAttributes<HTMLDivElement> & {
-  messages: Message[];
-};
+type MessageHistoryProps = React.HTMLAttributes<HTMLDivElement> & {};
 
 const MessageHistory = React.forwardRef<HTMLDivElement, MessageHistoryProps>(
-  ({ className, messages, children, ...props }, ref) => {
+  ({ className, children, ...props }, ref) => {
+    const { messages } = useMessages();
+
     return (
       <div className={cn("w-full space-y-4", className)} ref={ref} {...props}>
         {messages.map((message) => (

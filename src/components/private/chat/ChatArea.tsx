@@ -6,14 +6,20 @@ import { FC } from "react";
 interface ChatAreaProps {
   userId: string;
   chatId?: string;
+  chatTitle?: string;
   initialMessages?: Message[];
 }
 
-const ChatArea: FC<ChatAreaProps> = ({ userId, chatId, initialMessages }) => {
+const ChatArea: FC<ChatAreaProps> = ({
+  userId,
+  chatId,
+  chatTitle,
+  initialMessages,
+}) => {
   return (
     <>
-      <ChatHeader userId={userId} chatId={chatId} />
-      <div className="relative flex h-full w-full flex-col overflow-hidden py-4">
+      <ChatHeader userId={userId} chatTitle={chatTitle} />
+      <div className="relative flex h-full w-full flex-col overflow-hidden">
         <Chat
           userId={userId}
           chatId={chatId}

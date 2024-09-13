@@ -1,6 +1,7 @@
 "use client";
 
 import AttachFilePreview from "@/components/private/chat/AttachFilePreview";
+import SidebarToggle from "@/components/private/common/SidebarToggle";
 import SidebarWithToggle from "@/components/private/common/SidebarWithToggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from "@/hooks/use-chat";
@@ -16,14 +17,14 @@ const AttachmentsSidebar: FC<AttachmentsSidebarProps> = ({ user }) => {
 
   return (
     <SidebarWithToggle
-      className="peer/attachments flex-col gap-y-2 py-4 lg:flex lg:w-[250px]"
-      type="attachments"
+      className="peer/attachments gap-y-3 py-4 lg:w-[250px]"
       side="right"
     >
-      <ScrollArea className="py-2">
-        <div className="mb-2 mt-4 px-4 text-sm font-semibold">
-          Attached Files
-        </div>
+      <div className="flex items-center justify-end px-2">
+        <SidebarToggle side="right" />
+      </div>
+      <ScrollArea>
+        <div className="mb-2 px-4 text-sm font-semibold">Attached Files</div>
         {docs.length > 0 ? (
           <>
             <div className="flex w-full flex-col gap-1 px-4">

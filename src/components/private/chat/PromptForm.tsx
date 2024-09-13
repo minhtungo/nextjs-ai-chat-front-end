@@ -9,6 +9,7 @@ import UtilButtons from "@/components/private/chat/UtilButtons";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -42,7 +43,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
 
   return (
     <form
-      className="relative"
+      className="relative overflow-hidden"
       ref={formRef}
       onSubmit={(e) => {
         e.preventDefault();
@@ -52,7 +53,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
       {!showMathKeyboard ? (
         <div
           className={cn(
-            "relative overflow-hidden rounded-lg bg-accent/50",
+            "relative flex w-full items-end gap-2 rounded-3xl bg-accent p-2.5",
             className,
           )}
           onDragOver={(e) => {
@@ -67,57 +68,49 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             }
           }}
         >
-          <div className="p-1.5 px-2">
-            <div className="flex w-full items-center gap-2 lg:gap-3">
-              <div className="self-end">
-                <UtilButtons
-                  showMathKeyboard={showMathKeyboard}
-                  setShowMathKeyboard={setShowMathKeyboard}
-                  className="self-center"
-                />
-              </div>
+          <UtilButtons
+            showMathKeyboard={showMathKeyboard}
+            setShowMathKeyboard={setShowMathKeyboard}
+          />
 
-              <span className="sr-only">Message</span>
-
-              <div className="flex w-full flex-1 flex-col items-start justify-center gap-y-3 overflow-hidden">
-                <UploadedFiles />
-                <Textarea
-                  ref={inputRef}
-                  tabIndex={0}
-                  onPaste={async (e) => {
-                    const files = e.clipboardData?.files;
-                    if (files && files.length > 0) {
-                      e.preventDefault();
-                      addFiles(Array.from(files));
-                    }
-                  }}
-                  onKeyDown={onKeyDown}
-                  placeholder="Message"
-                  className={cn(
-                    "max-h-48 min-h-0 w-full resize-none bg-transparent text-sm focus-within:outline-none",
-                  )}
-                  autoFocus
-                  spellCheck={false}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  name="message"
-                  rows={1}
-                  value={content}
-                  onChange={(e) =>
-                    setMessage((prev) => ({ ...prev, content: e.target.value }))
-                  }
-                />
-              </div>
-              <button
-                type="submit"
-                className="flex size-5 items-center justify-center rounded-full bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:bg-accent disabled:text-foreground"
-                disabled={content.trim() === "" || pending || !inTokenLimit}
-              >
-                <ArrowUp className="size-3" />
-                <span className="sr-only">Send message</span>
-              </button>
-            </div>
+          <div className="flex flex-1 flex-col gap-y-2">
+            <UploadedFiles />
+            <Textarea
+              ref={inputRef}
+              tabIndex={0}
+              onPaste={async (e) => {
+                const files = e.clipboardData?.files;
+                if (files && files.length > 0) {
+                  e.preventDefault();
+                  addFiles(Array.from(files));
+                }
+              }}
+              onKeyDown={onKeyDown}
+              placeholder="Ask Lumi anything..."
+              className={cn(
+                "max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1 text-sm focus-within:outline-none",
+              )}
+              autoFocus
+              spellCheck={false}
+              autoComplete="off"
+              autoCorrect="off"
+              name="message"
+              rows={1}
+              value={content}
+              onChange={(e) =>
+                setMessage((prev) => ({ ...prev, content: e.target.value }))
+              }
+            />
           </div>
+          <Button
+            size="icon"
+            type="submit"
+            className="size-7 rounded-full bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70"
+            disabled={content.trim() === "" || pending || !inTokenLimit}
+          >
+            <ArrowUp className="size-4" />
+            <span className="sr-only">Send message</span>
+          </Button>
         </div>
       ) : (
         <>

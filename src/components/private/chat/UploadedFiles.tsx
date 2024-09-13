@@ -10,7 +10,7 @@ const UploadedFiles = () => {
   return (
     <>
       {files && files.length > 0 && (
-        <div className="relative mb-1 flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible py-1.5">
+        <div className="relative flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible">
           {files.map(({ preview, name, type, isUploading, id }) => (
             <div
               className="relative overflow-visible rounded-lg"

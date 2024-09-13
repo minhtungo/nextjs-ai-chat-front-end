@@ -25,7 +25,12 @@ const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
   }
 
   return (
-    <ChatArea userId={user.id!} chatId={id} initialMessages={chat.messages} />
+    <ChatArea
+      userId={user.id!}
+      chatId={id}
+      chatTitle={chat.title}
+      initialMessages={chat.messages}
+    />
   );
 };
 

@@ -256,6 +256,7 @@ export const groupChatsByDate = (
     yesterday: [] as ChatListItem[],
     previous7Days: [] as ChatListItem[],
     previous30Days: [] as ChatListItem[],
+    months: {} as Record<string, ChatListItem[]>, // For chats older than 30 days
   };
 
   chats
@@ -285,10 +286,18 @@ export const groupChatsByDate = (
         )
       ) {
         groupedChats.previous30Days.push(chat);
+      } else {
+        // Group by the month and year
+        const monthLabel = lastActiveDate.format("MMM YYYY"); // E.g., "July 2024"
+        if (!groupedChats.months[monthLabel]) {
+          groupedChats.months[monthLabel] = [];
+        }
+        groupedChats.months[monthLabel].push(chat);
       }
     });
 
-  return [
+  // Create the final result array
+  const result = [
     {
       label: "Today",
       chats: groupedChats.today,
@@ -306,6 +315,16 @@ export const groupChatsByDate = (
       chats: groupedChats.previous30Days,
     },
   ];
+
+  // Add the months group to the result
+  Object.keys(groupedChats.months).forEach((monthLabel) => {
+    result.push({
+      label: monthLabel,
+      chats: groupedChats.months[monthLabel],
+    });
+  });
+
+  return result;
 };
 
 export const isGuestUser = (userId: string) => {

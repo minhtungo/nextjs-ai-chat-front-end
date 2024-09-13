@@ -49,14 +49,14 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
   return (
     <div
       className={cn(
-        "grid grid-cols-3 gap-3 text-sm transition-colors",
+        "flex flex-nowrap gap-3 overflow-auto pb-[2px] text-sm transition-colors",
         className,
       )}
     >
       {promptSuggestion.map(({ content }) => (
         <button
           key={`${content}-prompt-suggestion`}
-          className="rounded-lg border bg-secondary/40 p-2 text-left text-card-foreground shadow-sm hover:bg-secondary sm:px-3 sm:py-2"
+          className="shrink-0 rounded-lg border bg-secondary/40 p-2 text-left text-card-foreground shadow-sm hover:bg-secondary sm:flex-1 sm:px-3 sm:py-2"
           onClick={() => {
             publishMessage(content);
           }}

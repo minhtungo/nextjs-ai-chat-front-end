@@ -1,37 +1,45 @@
 import { signInUrl, signUpUrl } from "@/app-config";
 import Logo from "@/components/common/Logo";
-import ChatHeaderTitle from "@/components/private/common/ChatHeaderTitle";
 import ChatMobileMenu from "@/components/private/common/ChatMobileMenu";
 import NewChatButton from "@/components/private/common/NewChatButton";
+import SidebarToggle from "@/components/private/common/SidebarToggle";
 import FeedbackDropdown from "@/components/private/feedback/FeedbackDropdown";
 import { buttonVariants } from "@/components/ui/button";
+import Typography from "@/components/ui/typography";
 import { cn, isGuestUser } from "@/lib/utils";
 import Link from "next/link";
-import { FC, Suspense } from "react";
+import { FC } from "react";
 
 interface ChatHeaderProps {
   userId: string;
   chatId?: string;
+  chatTitle?: string;
   className?: string;
 }
 
 const ChatHeader: FC<ChatHeaderProps> = async ({
   userId,
-  chatId,
+  chatTitle,
   className,
 }) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 flex h-14 w-full items-center justify-between gap-4 border-b px-4 lg:px-6",
+        "sticky top-0 z-50 flex w-full items-center gap-3 px-4 py-4 lg:px-6",
         className,
       )}
     >
+      <SidebarToggle side="left" type="out" />
       {!isGuestUser(userId) ? (
         <>
-          <Suspense fallback={<p>Loading...</p>}>
-            <ChatHeaderTitle className="hidden lg:block" chatId={chatId} />
-          </Suspense>
+          <Typography
+            className={cn(
+              "hidden overflow-hidden text-ellipsis font-normal capitalize lg:block",
+              className,
+            )}
+          >
+            {chatTitle ?? "Welcome to Lumi"}
+          </Typography>
           <ChatMobileMenu userId={userId} />
         </>
       ) : (
@@ -39,8 +47,10 @@ const ChatHeader: FC<ChatHeaderProps> = async ({
           <Logo />
         </Link>
       )}
-      <div className="flex items-center justify-end gap-x-2">
+
+      <div className="ml-auto flex items-center justify-end gap-x-2">
         <FeedbackDropdown />
+        <SidebarToggle side="right" type="out" />
         {isGuestUser(userId) && (
           <div className="flex items-center gap-x-2">
             <Link

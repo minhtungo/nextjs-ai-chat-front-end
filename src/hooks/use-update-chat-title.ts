@@ -1,6 +1,6 @@
 import { updateChatAction } from "@/actions/chat";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
@@ -19,22 +19,19 @@ export const useUpdateChatTitle = (chatId: string, currentTitle: string) => {
     },
   });
 
-  const updateChatTitle = useCallback(
-    () => async () => {
-      if (title === currentTitle) {
-        setIsEditing(false);
-        return;
-      }
-
-      updateChat({
-        chatId,
-        title,
-      });
-
+  const updateChatTitle = async () => {
+    if (title === currentTitle) {
       setIsEditing(false);
-    },
-    [title, currentTitle, updateChat, chatId],
-  );
+      return;
+    }
+
+    updateChat({
+      chatId,
+      title,
+    });
+
+    setIsEditing(false);
+  };
 
   return {
     title,

@@ -36,12 +36,12 @@ const ChatItem: FC<ChatItemProps> = ({ chatId, title: initialTitle }) => {
   return (
     <li
       className={cn(
-        "group relative w-full overflow-hidden rounded-lg hover:bg-accent",
-        currentChatId === chatId && "bg-accent",
+        "group relative w-full overflow-hidden rounded-lg hover:bg-muted",
+        currentChatId === chatId && "bg-muted",
       )}
     >
       {isEditing ? (
-        <div className="border-1 z-10 h-full w-full rounded-lg border-ring bg-card">
+        <div className="z-10 h-full w-full rounded-lg border-ring">
           <EditChatTitle
             title={title}
             setTitle={setTitle}
@@ -53,26 +53,27 @@ const ChatItem: FC<ChatItemProps> = ({ chatId, title: initialTitle }) => {
           <Link
             href={`${chatUrl}/${chatId}`}
             className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              "relative flex w-full items-center justify-start overflow-hidden whitespace-nowrap p-2 text-sm font-normal capitalize text-foreground/80 hover:text-foreground/80",
+              "flex w-full items-center p-2 text-sm font-normal capitalize text-foreground/80",
             )}
           >
-            {title}
-            <div
-              className={cn(
-                "absolute bottom-0 right-0 top-0 w-2 bg-gradient-to-l from-background/80 from-60% to-transparent group-hover:w-9 group-hover:from-accent/90",
-                currentChatId === chatId && "w-9 from-accent/90",
-              )}
-            />
+            <div className="relative grow overflow-hidden whitespace-nowrap">
+              {title}
+              <div
+                className={cn(
+                  "absolute bottom-0 right-0 top-0 w-6 bg-gradient-to-l from-accent from-30% to-accent/60 group-hover:w-9 group-hover:from-muted group-hover:to-muted/60",
+                  currentChatId === chatId && "w-9 from-muted to-muted/60",
+                )}
+              />
+            </div>
           </Link>
           <div
             className={cn(
-              "absolute bottom-0 right-0 top-0 flex items-center bg-accent pr-2 opacity-0 group-hover:opacity-100",
+              "absolute bottom-0 right-0 top-0 flex items-center bg-muted pr-2 opacity-0 group-hover:opacity-100",
               currentChatId === chatId && "opacity-100",
             )}
           >
             <ChatActions>
-              <DropdownMenuItem onClick={() => setIsEditing((prev) => !prev)}>
+              <DropdownMenuItem onClick={() => setIsEditing(true)}>
                 <Pencil className="size-4" />
                 <span>Rename</span>
                 <span className="sr-only">Rename</span>

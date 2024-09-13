@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
@@ -7,59 +8,60 @@ import {
 } from "@/components/ui/tooltip";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { FC } from "react";
+import { PanelLeft, PanelRight } from "lucide-react";
 
 interface SidebarToggleProps {
   className?: string;
-  side: "left" | "right" | null;
-  type: "chat" | "attachments";
-  isSidebarOpen: boolean;
+  side: "left" | "right";
+  type?: "out" | "in";
 }
 
-const SidebarToggle: FC<SidebarToggleProps> = ({
+const SidebarToggle = ({
   side,
   className,
-  type,
-  isSidebarOpen,
-}) => {
-  const { toggleAttachmentsSidebar, toggleChatSidebar } = useSidebar();
+  type = "in",
+}: SidebarToggleProps) => {
+  const {
+    toggleAttachmentsSidebar,
+    toggleChatSidebar,
+    isAttachmentsSidebarOpen,
+    isChatSidebarOpen,
+  } = useSidebar();
+
+  const isSidebarOpen =
+    side === "left" ? isChatSidebarOpen : isAttachmentsSidebarOpen;
+
+  if (type === "out" && isSidebarOpen) {
+    return null;
+  }
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <button
-          className={cn("hidden rounded-full bg-accent p-1 lg:flex", className)}
+        <Button
+          className={cn("hidden lg:flex", className)}
+          variant="ghost"
+          size="icon"
           onClick={() => {
-            if (type === "chat") {
+            if (side === "left") {
               toggleChatSidebar();
             } else {
               toggleAttachmentsSidebar();
             }
           }}
         >
-          {isSidebarOpen ? (
-            <>
-              {side === "left" ? (
-                <ChevronLeft className="size-4" />
-              ) : (
-                <ChevronRight className="size-4" />
-              )}
-            </>
+          {side === "left" ? (
+            <PanelLeft className="size-5 text-muted-foreground" />
           ) : (
-            <>
-              {side === "left" ? (
-                <ChevronRight className="size-4" />
-              ) : (
-                <ChevronLeft className="size-4" />
-              )}
-            </>
+            <PanelRight className="size-5 text-muted-foreground" />
           )}
-          <span className="sr-only">Toggle {type} Sidebar</span>
-        </button>
+          <span className="sr-only">
+            Toggle {side === "left" ? "chat" : "attachments"} sidebar
+          </span>
+        </Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>Toggle {type} sidebar</p>
+        <p>Toggle {side === "left" ? "chat" : "attachments"} sidebar</p>
       </TooltipContent>
     </Tooltip>
   );

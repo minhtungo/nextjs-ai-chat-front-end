@@ -11,7 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { isGuestUser } from "@/lib/utils";
-import { PanelLeftOpen, SquarePen } from "lucide-react";
+import { Menu, SquarePen } from "lucide-react";
 import Link from "next/link";
 import { FC, Suspense } from "react";
 
@@ -23,7 +23,7 @@ const ChatMobileMenu: FC<ChatMobileMenuProps> = ({ userId }) => {
   return (
     <Sheet>
       <SheetTrigger className="lg:hidden">
-        <PanelLeftOpen className="size-5 text-muted-foreground hover:text-foreground" />
+        <Menu className="size-5 text-muted-foreground hover:text-foreground" />
       </SheetTrigger>
       <SheetContent
         className="flex h-screen flex-col"

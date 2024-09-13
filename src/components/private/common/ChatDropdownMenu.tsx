@@ -29,7 +29,7 @@ const ChatDropdownMenu = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex h-fit w-full items-center justify-between px-2"
+          className="h-fit w-full items-center justify-between px-2"
         >
           <div className="flex items-center gap-x-2">
             <UserAvatar user={user} />

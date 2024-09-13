@@ -22,7 +22,7 @@ const ChatActions: FC<ChatActionsProps> = ({ children }) => {
     <DropdownMenu modal={false}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <DropdownMenuTrigger className="bg-accent">
+          <DropdownMenuTrigger>
             <Ellipsis className="size-4" />
           </DropdownMenuTrigger>
         </TooltipTrigger>
