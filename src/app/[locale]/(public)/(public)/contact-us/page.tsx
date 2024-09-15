@@ -1,4 +1,5 @@
-import Section from "@/components/public/common/Section";
+import Page from "@/components/public/common/Page";
+import PageHeader from "@/components/public/common/PageHeader";
 import PageTitle from "@/components/public/common/PageTitle";
 import ContactUsForm from "@/components/public/ContactForm";
 import { unstable_setRequestLocale } from "next-intl/server";
@@ -10,14 +11,16 @@ const ContactUsPage = ({
 }) => {
   unstable_setRequestLocale(locale);
   return (
-    <Section>
-      <PageTitle
-        title="Contact Us"
-        description="Lorem
+    <Page>
+      <PageHeader>
+        <PageTitle
+          title="Contact Us"
+          description="Lorem
         ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!"
-      />
+        />
+      </PageHeader>
       <ContactUsForm />
-    </Section>
+    </Page>
   );
 };
 

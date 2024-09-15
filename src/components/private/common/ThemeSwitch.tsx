@@ -1,3 +1,5 @@
+"use client";
+
 import { Label } from "@/components/ui/label";
 import { FC, useEffect, useState } from "react";
 import * as SwitchPrimitives from "@radix-ui/react-switch";

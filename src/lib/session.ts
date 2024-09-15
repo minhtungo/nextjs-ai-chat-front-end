@@ -14,19 +14,20 @@ export const assertAuthenticated = async () => {
   return user;
 };
 
-export const getChatUserId = async (user: User | undefined) => {
-  let userId;
-
-  if (!user) {
-    if (getCookie("userId", { cookies })) {
-      userId = getCookie("userId", { cookies });
-    } else {
-      userId = `guest-${uuid()}`;
-      setCookie("userId", userId, { cookies });
-    }
-  } else {
-    userId = user.id;
+export const getChatUser = async (user: User | undefined) => {
+  if (user) {
+    return user;
   }
 
-  return userId;
+  let id = getCookie("userId", { cookies });
+
+  if (!id) {
+    id = `guest-${uuid()}`;
+    setCookie("userId", id, { cookies });
+  }
+
+  return {
+    id,
+    isGuest: true,
+  };
 };

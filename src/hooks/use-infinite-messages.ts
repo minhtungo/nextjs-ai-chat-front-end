@@ -29,6 +29,5 @@ export const useInfiniteMessages = ({
       pageParams: [0],
     },
     enabled: !isGuestUser(userId) && !!chatId,
-    refetchOnMount: false,
   });
 };

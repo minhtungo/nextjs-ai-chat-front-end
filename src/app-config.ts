@@ -11,12 +11,12 @@ export const LANGUAGES = [
 
 export const apiAuthPrefix = "/api";
 export const afterLoginUrl = "/chat";
-export const signInUrl = "/auth/sign-in";
-export const signUpUrl = "/auth/sign-up";
-export const forgotPasswordUrl = "/auth/forgot-password";
-export const authErrorUrl = "/auth/error";
-export const emailVerificationUrl = "/auth/verification";
-export const resetPasswordUrl = "/auth/reset-password";
+export const signInUrl = "/sign-in";
+export const signUpUrl = "/sign-up";
+export const forgotPasswordUrl = "/forgot-password";
+export const authErrorUrl = "/error";
+export const emailVerificationUrl = "/verification";
+export const resetPasswordUrl = "/reset-password";
 export const onboardingUrl = "/onboarding";
 
 export const chatUrl = "/chat";

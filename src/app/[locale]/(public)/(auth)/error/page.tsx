@@ -1,3 +1,4 @@
+import Page from "@/components/public/common/Page";
 import AuthError from "./AuthError";
 import { unstable_setRequestLocale } from "next-intl/server";
 
@@ -8,7 +9,11 @@ const AuthErrorPage = ({
 }>) => {
   unstable_setRequestLocale(locale);
 
-  return <AuthError />;
+  return (
+    <Page className="flex h-full w-full items-center justify-center">
+      <AuthError />
+    </Page>
+  );
 };
 
 export default AuthErrorPage;

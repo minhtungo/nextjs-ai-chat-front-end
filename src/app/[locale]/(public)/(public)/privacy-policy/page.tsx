@@ -1,5 +1,6 @@
+import Page from "@/components/public/common/Page";
+import PageHeader from "@/components/public/common/PageHeader";
 import PageTitle from "@/components/public/common/PageTitle";
-import Section from "@/components/public/common/Section";
 import PrivacyPolicy from "@/components/public/PrivacyPolicy";
 import { constructMetadata } from "@/lib/utils";
 import { Metadata } from "next";
@@ -17,13 +18,15 @@ const PrivacyPage = ({
 }) => {
   unstable_setRequestLocale(locale);
   return (
-    <Section>
-      <PageTitle
-        title="Privacy Policy"
-        description="Last updated August 18th, 2024"
-      />
+    <Page>
+      <PageHeader>
+        <PageTitle
+          title="Privacy Policy"
+          description="Last updated August 18th, 2024"
+        />
+      </PageHeader>
       <PrivacyPolicy />
-    </Section>
+    </Page>
   );
 };
 

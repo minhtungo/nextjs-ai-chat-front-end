@@ -13,18 +13,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useRemoveChats } from "@/data/mutations/use-remove-chats";
+import { useDeleteChats } from "@/hooks/use-delete-chats";
 import { useState } from "react";
 
 const DeleteAllChatButton = () => {
   const [open, setOpen] = useState(false);
-  const { mutate: removeChats, isPending } = useRemoveChats(setOpen);
+  const { deleteAllChats, isPending } = useDeleteChats({
+    setDialogOpen: setOpen,
+  });
 
   const handleDeletion = async (e: any) => {
-    e.preventDefault();
-    removeChats({
-      deleteAll: true,
-    });
+    deleteAllChats(e);
   };
 
   return (

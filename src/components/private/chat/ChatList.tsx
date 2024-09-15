@@ -1,13 +1,11 @@
 import ChatItem from "@/components/private/chat/ChatItem";
 import { cn, groupChatsByDate } from "@/lib/utils";
 import { getChatListUseCase } from "@/use-cases/chat";
-import React, { FC } from "react";
+import React, { ComponentProps, FC } from "react";
 
-interface ChatListProps {
-  className?: string;
-}
+interface ChatListProps extends ComponentProps<"div"> {}
 
-const ChatList: FC<ChatListProps> = async ({ className }) => {
+const ChatList = async ({ className, ...props }: ChatListProps) => {
   const chats = await getChatListUseCase();
 
   if (!chats || chats.length === 0) {
@@ -21,7 +19,7 @@ const ChatList: FC<ChatListProps> = async ({ className }) => {
   const groupedChats = groupChatsByDate(chats);
 
   return (
-    <div className={cn("px-4", className)}>
+    <div className={cn("px-4", className)} {...props}>
       <ol className="space-y-4">
         {groupedChats.map(({ label, chats }) => (
           <React.Fragment key={`${label}-chat-group`}>

@@ -15,7 +15,8 @@ export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
   console.log("usePreviews", pages);
   const { setMessages } = useMessages();
 
-  if (!pages || pages.length === 0) return [];
+  if (!pages || pages.length === 0 || pages[0]?.messages.length === 0)
+    return [];
 
   const messages = useMemo(
     () =>
@@ -28,13 +29,19 @@ export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
   );
 
   useEffect(() => {
-    if (messages.length > 0) {
-      setMessages(messages);
-    }
+    setMessages([
+      {
+        id: "123",
+        content: "123",
+        docs: [],
+        images: [],
+        timestamp: 0,
+        userId: "123",
+      },
+    ]);
   }, [messages]);
 
   useEffect(() => {
-    console.log("useEffect chatId");
     if (!chatId) {
       setMessages([]);
     }

@@ -1,9 +1,6 @@
-import { chatUrl, signInUrl } from "@/app-config";
+import Spinner from "@/components/common/Spinner";
 import ChatArea from "@/components/private/chat/ChatArea";
-import { getChatInfo } from "@/data/chat";
-import { getCurrentUser } from "@/lib/auth";
-import { notFound, redirect } from "next/navigation";
-import { FC } from "react";
+import { Suspense } from "react";
 
 interface ChatPageProps {
   params: {
@@ -11,26 +8,17 @@ interface ChatPageProps {
   };
 }
 
-const ChatPage: FC<ChatPageProps> = async ({ params: { id } }) => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    redirect(`/${signInUrl}?redirect=${chatUrl}/${id}`);
-  }
-
-  const chat = await getChatInfo(id);
-
-  if (!chat) {
-    notFound();
-  }
-
+const ChatPage = async ({ params: { id } }: ChatPageProps) => {
   return (
-    <ChatArea
-      userId={user.id!}
-      chatId={id}
-      chatTitle={chat.title}
-      initialMessages={chat.messages}
-    />
+    <Suspense
+      fallback={
+        <div className="flex h-full w-full items-center justify-center">
+          <Spinner className="size-5 sm:size-6" />
+        </div>
+      }
+    >
+      <ChatArea chatId={id} />
+    </Suspense>
   );
 };
 

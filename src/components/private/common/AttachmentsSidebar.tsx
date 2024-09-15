@@ -5,14 +5,8 @@ import SidebarToggle from "@/components/private/common/SidebarToggle";
 import SidebarWithToggle from "@/components/private/common/SidebarWithToggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChat } from "@/hooks/use-chat";
-import { type User } from "next-auth";
-import { FC } from "react";
 
-interface AttachmentsSidebarProps {
-  user: User | undefined;
-}
-
-const AttachmentsSidebar: FC<AttachmentsSidebarProps> = ({ user }) => {
+const AttachmentsSidebar = () => {
   const { docs, images } = useChat();
 
   return (

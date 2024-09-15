@@ -29,7 +29,7 @@ interface SidebarProviderProps {
 
 export function SidebarProvider({ children }: SidebarProviderProps) {
   const [isChatSidebarOpen, setChatSidebarOpen] = useState(true);
-  const [isAttachmentsSidebarOpen, setAttachmentsSidebarOpen] = useState(true);
+  const [isAttachmentsSidebarOpen, setAttachmentsSidebarOpen] = useState(false);
 
   const [isLoading, setLoading] = useState(true);
 

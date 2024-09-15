@@ -1,21 +1,13 @@
-import { FC } from "react";
-import { cn } from "@/lib/utils";
 import Typography from "@/components/ui/typography";
 
 interface PageTitleProps {
   title: string;
   description?: string;
-  className?: string;
 }
 
-const PageTitle: FC<PageTitleProps> = ({ title, description, className }) => {
+const PageTitle = ({ title, description }: PageTitleProps) => {
   return (
-    <div
-      className={cn(
-        "mx-auto mb-10 max-w-xl space-y-2 text-pretty text-center",
-        className,
-      )}
-    >
+    <>
       <Typography variant="h2" tag="h1">
         {title}
       </Typography>
@@ -28,7 +20,7 @@ const PageTitle: FC<PageTitleProps> = ({ title, description, className }) => {
           {description}
         </Typography>
       )}
-    </div>
+    </>
   );
 };
 

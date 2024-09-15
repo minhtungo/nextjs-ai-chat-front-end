@@ -1,6 +1,6 @@
-import VerificationForm from "./VerificationForm";
+import Page from "@/components/public/common/Page";
+import ForgotPasswordForm from "./ForgotPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
 
 export async function generateMetadata({
   params: { locale },
@@ -9,7 +9,7 @@ export async function generateMetadata({
 }) {
   const t = await getTranslations({
     locale,
-    namespace: "pages.EmailVerification",
+    namespace: "pages.ForgotPassword",
   });
 
   return {
@@ -17,18 +17,16 @@ export async function generateMetadata({
   };
 }
 
-const VerificationPage = ({
+export default function ForgotPasswordPage({
   params: { locale },
 }: Readonly<{
   params: { locale: string };
-}>) => {
+}>) {
   unstable_setRequestLocale(locale);
 
   return (
-    <Suspense>
-      <VerificationForm />
-    </Suspense>
+    <Page className="flex h-full w-full items-center justify-center">
+      <ForgotPasswordForm />
+    </Page>
   );
-};
-
-export default VerificationPage;
+}

@@ -87,9 +87,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
               }}
               onKeyDown={onKeyDown}
               placeholder="Ask Lumi anything..."
-              className={cn(
-                "max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1 text-sm focus-within:outline-none",
-              )}
+              className="max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1 text-sm focus-within:outline-none"
               autoFocus
               spellCheck={false}
               autoComplete="off"

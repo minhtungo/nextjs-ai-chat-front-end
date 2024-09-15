@@ -1,3 +1,4 @@
+import Page from "@/components/public/common/Page";
 import ResetPasswordForm from "./ResetPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -22,8 +23,8 @@ export default function ResetPasswordPage({
   unstable_setRequestLocale(locale);
 
   return (
-    <Suspense>
+    <Page className="flex h-full w-full items-center justify-center">
       <ResetPasswordForm />
-    </Suspense>
+    </Page>
   );
 }

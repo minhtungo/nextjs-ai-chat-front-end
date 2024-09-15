@@ -12,7 +12,7 @@ import Link from "next/link";
 const Hero = () => {
   const t = useTranslations("public.Hero");
   return (
-    <Section className="mt-10">
+    <Section>
       <div className="mx-auto mb-12 flex max-w-3xl flex-col items-center justify-center text-pretty text-center sm:mb-16">
         <Typography variant="h1">{t("title")}</Typography>
         <p

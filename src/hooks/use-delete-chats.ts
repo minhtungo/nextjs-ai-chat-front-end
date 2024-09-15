@@ -2,11 +2,15 @@ import { removeChatsAction } from "@/actions/chat";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 
-export const useDeleteChats = (
-  chatId: string,
-  currentChatId: string,
-  setDialogOpen?: (open: boolean) => void,
-) => {
+export const useDeleteChats = ({
+  chatId,
+  currentChatId,
+  setDialogOpen,
+}: {
+  chatId?: string;
+  currentChatId?: string;
+  setDialogOpen?: (open: boolean) => void;
+}) => {
   const { execute, isPending } = useServerAction(removeChatsAction, {
     onError: ({ err }) => {
       toast.error(err.message);
@@ -28,5 +32,14 @@ export const useDeleteChats = (
     });
   };
 
-  return { isPending, deleteChats };
+  const deleteAllChats = async (e: any) => {
+    e.preventDefault();
+
+    await execute({
+      deleteAll: true,
+      currentChatId,
+    });
+  };
+
+  return { isPending, deleteChats, deleteAllChats };
 };

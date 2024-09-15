@@ -5,7 +5,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import { FC } from "react";
 
 const sidebarVariants = cva(
-  "absolute inset-y-0 z-30 hidden h-screen overflow-visible bg-card transition duration-300 ease-in-out bg-card data-[state=open]:translate-x-0 lg:w-[300px] bg-accent lg:flex flex-col",
+  "absolute inset-y-0 z-30 hidden h-screen overflow-visible bg-card transition duration-300 ease-in-out bg-card data-[state=open]:translate-x-0 lg:w-[300px] bg-accent lg:flex flex-col gap-y-3",
   {
     variants: {
       side: {

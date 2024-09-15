@@ -8,8 +8,6 @@ export const getChatInfo = cache(
   async (chatId?: string): Promise<Chat | undefined> => {
     if (!chatId) return;
 
-    console.log("getChatInfos", chatId);
-
     const response = await fetch(
       `${process.env.BASE_URL ?? ""}/api/chat/${chatId}/info`,
       {

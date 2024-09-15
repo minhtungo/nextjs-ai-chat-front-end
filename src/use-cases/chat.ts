@@ -1,12 +1,12 @@
 import { createChatRoom } from "@/lib/chat";
 
-import { Message } from "@/lib/definitions";
+import { MESSAGES_LIMIT } from "@/app-config";
 import { fetchAuth } from "@/lib/api";
-import { CHAT_LIST_QUERY_KEY, getChatListQueryKey } from "@/lib/query-keys";
+import { Message } from "@/lib/definitions";
+import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { nanoid } from "@/lib/utils";
 import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
-import { MESSAGES_LIMIT } from "@/app-config";
 
 export const createChatUseCase = async (title: string) => {
   try {

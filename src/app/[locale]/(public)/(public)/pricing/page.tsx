@@ -1,7 +1,8 @@
 import FAQs from "@/components/public/FAQs";
-import PageTitle from "@/components/public/common/PageTitle";
 import PricingSection from "@/components/public/PricingSection";
-import Section from "@/components/public/common/Section";
+import Page from "@/components/public/common/Page";
+import PageHeader from "@/components/public/common/PageHeader";
+import PageTitle from "@/components/public/common/PageTitle";
 import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
@@ -27,12 +28,12 @@ export default function PricingPage({
   const t = useTranslations("public.Pricing");
 
   return (
-    <>
-      <Section className="mx-auto max-w-5xl">
+    <Page className="max-w-5xl">
+      <PageHeader>
         <PageTitle title={t("title")} description={t("subtitle")} />
-        <PricingSection />
-      </Section>
-      <FAQs className="mb-10 sm:mb-14" />
-    </>
+      </PageHeader>
+      <PricingSection />
+      <FAQs />
+    </Page>
   );
 }

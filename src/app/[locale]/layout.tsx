@@ -19,17 +19,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale },
+  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: { locale: string };
+  params: any;
 }>) {
-  unstable_setRequestLocale(locale);
+  unstable_setRequestLocale(params.locale);
+  console.log(params);
 
   return (
     <html
       suppressHydrationWarning
-      lang={locale}
+      lang={params.locale}
       className={GeistSans.className}
     >
       <body>

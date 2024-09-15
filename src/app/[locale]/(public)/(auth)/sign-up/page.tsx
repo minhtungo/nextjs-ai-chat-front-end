@@ -1,3 +1,4 @@
+import Page from "@/components/public/common/Page";
 import SignUpForm from "./SignUpForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
@@ -20,5 +21,9 @@ export default function SignUp({
 }>) {
   unstable_setRequestLocale(locale);
 
-  return <SignUpForm />;
+  return (
+    <Page className="flex h-full w-full items-center justify-center">
+      <SignUpForm />
+    </Page>
+  );
 }

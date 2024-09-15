@@ -1,3 +1,7 @@
+import AOSWrapper from "@/components/common/AOS";
+import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
+import Footer from "@/components/public/common/Footer";
+import PublicHeader from "@/components/public/common/PublicHeader";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function PublicLayout({
@@ -9,8 +13,12 @@ export default function PublicLayout({
 }>) {
   unstable_setRequestLocale(locale);
   return (
-    <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
-      {children}
-    </div>
+    <AOSWrapper>
+      <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
+        <PublicHeader />
+        <MaxWidthWrapper tag="main">{children}</MaxWidthWrapper>
+        <Footer />
+      </div>
+    </AOSWrapper>
   );
 }

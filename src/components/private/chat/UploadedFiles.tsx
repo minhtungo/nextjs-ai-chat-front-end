@@ -11,7 +11,7 @@ const UploadedFiles = () => {
     <>
       {files && files.length > 0 && (
         <div className="relative flex w-full flex-nowrap gap-3 overflow-x-auto overflow-y-visible">
-          {files.map(({ preview, name, type, isUploading, id }) => (
+          {files.map(({ preview, name, type, isUploading, id, url }) => (
             <div
               className="relative overflow-visible rounded-lg"
               key={`${name}-${type}-${id}`}
@@ -25,7 +25,7 @@ const UploadedFiles = () => {
                   className="peer aspect-square min-h-14 min-w-14 rounded-sm object-cover"
                 />
               ) : (
-                <DocPreview name={name} type={type!} />
+                <DocPreview name={name} type={type!} url={url!} />
               )}
               <button
                 className="absolute -right-2 -top-2 cursor-pointer rounded-full bg-secondary p-1 opacity-70 transition-opacity hover:opacity-100"

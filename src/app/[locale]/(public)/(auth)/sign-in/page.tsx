@@ -1,3 +1,4 @@
+import Page from "@/components/public/common/Page";
 import SignInForm from "./SignInForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -22,8 +23,10 @@ export default function SignIn({
   unstable_setRequestLocale(locale);
 
   return (
-    <Suspense>
-      <SignInForm />
-    </Suspense>
+    <Page className="flex h-full w-full items-center justify-center">
+      <Suspense>
+        <SignInForm />
+      </Suspense>
+    </Page>
   );
 }

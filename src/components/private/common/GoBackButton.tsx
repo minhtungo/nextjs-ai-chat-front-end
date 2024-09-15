@@ -16,7 +16,7 @@ const GoBackButton: FC<GoBackButtonProps> = ({ className }) => {
         buttonVariants({
           variant: "ghost",
         }),
-        "px-3",
+        "w-full justify-start px-3",
         className,
       )}
       href={chatUrl}

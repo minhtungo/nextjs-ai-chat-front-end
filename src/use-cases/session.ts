@@ -1,9 +1,10 @@
 import { headers } from "next/headers";
 import { toast } from "sonner";
 import { env } from "@/env";
+import { User } from "next-auth";
 
-export const getChatUserIdUseCase = async () => {
-  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/userId`, {
+export const getChatUserUseCase = async () => {
+  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/user`, {
     headers: headers(),
   });
 
@@ -16,7 +17,7 @@ export const getChatUserIdUseCase = async () => {
 
   console.log("*****************getChatUserIdUseCase", data);
 
-  return data.id as string;
+  return data.user as User;
 };
 
 export const getChatTokenUseCase = async () => {

@@ -5,13 +5,11 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FC } from "react";
+import { ComponentProps, FC } from "react";
 
-interface NavLinksProps {
-  className?: string;
-}
+interface HeaderLinksProps extends ComponentProps<"div"> {}
 
-const NavLinks: FC<NavLinksProps> = ({ className }) => {
+const HeaderLinks: FC<HeaderLinksProps> = ({ className }) => {
   const pathname = usePathname();
   const t = useTranslations("common.Navbar");
 
@@ -34,4 +32,4 @@ const NavLinks: FC<NavLinksProps> = ({ className }) => {
   );
 };
 
-export default NavLinks;
+export default HeaderLinks;

@@ -11,15 +11,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { CHAT_MENU_URLS } from "@/lib/routes";
 import { EllipsisVertical, LogOut, ShieldCheck } from "lucide-react";
+import { User } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
-const ChatDropdownMenu = () => {
-  const user = useCurrentUser();
+interface ChatDropdownMenuProps {
+  user: User | undefined;
+}
 
+const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
   if (!user) {
     return null;
   }
@@ -52,21 +54,7 @@ const ChatDropdownMenu = () => {
             </div>
           </div>
         </DropdownMenuLabel>
-        {/* <DropdownMenuSeparator />
-        <div className="mt-2 flex items-center justify-between px-2 text-sm">
-          <span className="font-medium capitalize">{user.plan} Plan</span>
-          <Link
-            href={`${accountUrl}/subscription`}
-            className={buttonVariants({
-              variant: "default",
-              size: "manual",
-              className: "px-2 py-1 text-xs",
-            })}
-          >
-            <Rocket className="size-3" />
-            <span>Upgrade</span>
-          </Link>
-        </div> */}
+
         <DropdownMenuSeparator />
         {CHAT_MENU_URLS.map(({ title, href, icon }) => (
           <DropdownMenuItem asChild key={`${title}-user-dashboard-item`}>

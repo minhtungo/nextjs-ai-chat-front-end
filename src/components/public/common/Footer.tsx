@@ -4,16 +4,13 @@ import ThemeSwitcher from "@/components/private/common/ThemeSwitcher";
 import { FOOTER_URLS, SOCIAL_LINKS } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { FC } from "react";
 
-interface FooterProps {
-  className?: string;
-}
+interface FooterProps extends React.ComponentProps<"footer"> {}
 
-const Footer: FC<FooterProps> = ({ className }) => {
+const Footer = ({ className, ...props }: FooterProps) => {
   const t = useTranslations("common.Navbar");
   return (
-    <footer className={className}>
+    <footer className={className} {...props}>
       <MaxWidthWrapper className="space-y-6 pb-6">
         <div className="flex flex-col flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-6 sm:flex-row">
           <div className="space-y-4 text-center sm:text-left">
@@ -28,7 +25,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
           <div className="text-muted-foreground">
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
-          <ul className="flex items-center gap-x-4 gap-y-4 text-sm">
+          <ul className="flex items-center gap-4 text-sm">
             {FOOTER_URLS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}

@@ -13,9 +13,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { FC } from "react";
 
-interface HeaderTitleProps {}
-
-const AccountHeaderTitle: FC<HeaderTitleProps> = () => {
+const AccountHeaderTitle = () => {
   const pathname = usePathname();
   const breadcrumbs = generateBreadcrumbs(pathname);
 

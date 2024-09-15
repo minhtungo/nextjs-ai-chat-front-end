@@ -1,9 +1,10 @@
-import FAQs from "@/components/public/FAQs";
-import CTA from "@/components/public/Cta";
 import Features from "@/components/providers/Features";
+import CTA from "@/components/public/Cta";
+import FAQs from "@/components/public/FAQs";
 import Hero from "@/components/public/Hero";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import Intros from "@/components/public/Intros";
+import Page from "@/components/public/common/Page";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({
   params: { locale },
@@ -24,12 +25,12 @@ export default function Home({
 }) {
   unstable_setRequestLocale(locale);
   return (
-    <>
+    <Page className="pt-0">
       <Hero />
       <Features />
       <Intros />
       <CTA />
-      <FAQs className="mb-10 sm:mb-14" />
-    </>
+      <FAQs />
+    </Page>
   );
 }

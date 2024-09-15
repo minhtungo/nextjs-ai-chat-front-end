@@ -1,3 +1,5 @@
+"use client";
+
 import OverlayWindow from "@/components/common/OverlayWindow";
 import Spinner from "@/components/common/Spinner";
 import { useChat } from "@/hooks/use-chat";

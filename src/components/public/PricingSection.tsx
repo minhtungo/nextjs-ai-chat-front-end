@@ -15,6 +15,7 @@ import { signUpUrl } from "@/app-config";
 
 const PricingSection = () => {
   const t = useTranslations("public.Pricing");
+
   return (
     <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
       {PRICING_PLANS.map(

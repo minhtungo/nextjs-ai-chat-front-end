@@ -2,13 +2,12 @@ import { FC } from "react";
 import { cn } from "@/lib/utils";
 import Typography from "@/components/ui/typography";
 
-interface PageTitleProps {
+interface PageTitleProps extends React.ComponentProps<"div"> {
   title: string;
   description?: string;
-  className?: string;
 }
 
-const PageTitle: FC<PageTitleProps> = ({ title, description, className }) => {
+const PageTitle = ({ title, description, className }: PageTitleProps) => {
   return (
     <div className={cn("mb-4", className)}>
       <Typography variant="h5" tag="h1" className="leading-normal">

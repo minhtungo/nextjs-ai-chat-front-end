@@ -1,27 +1,23 @@
 import { signInUrl, signUpUrl } from "@/app-config";
-import Logo from "@/components/common/Logo";
 import ChatMobileMenu from "@/components/private/common/ChatMobileMenu";
 import NewChatButton from "@/components/private/common/NewChatButton";
 import SidebarToggle from "@/components/private/common/SidebarToggle";
+import UpgradeButton from "@/components/private/common/UpgradeButton";
 import FeedbackDropdown from "@/components/private/feedback/FeedbackDropdown";
 import { buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import { cn, isGuestUser } from "@/lib/utils";
+import { User } from "next-auth";
 import Link from "next/link";
-import { FC } from "react";
+import { ComponentProps } from "react";
 
-interface ChatHeaderProps {
-  userId: string;
+interface ChatHeaderProps extends ComponentProps<"header"> {
+  user: User;
   chatId?: string;
-  chatTitle?: string;
-  className?: string;
+  title?: string;
 }
 
-const ChatHeader: FC<ChatHeaderProps> = async ({
-  userId,
-  chatTitle,
-  className,
-}) => {
+const ChatHeader = async ({ user, title, className }: ChatHeaderProps) => {
   return (
     <header
       className={cn(
@@ -30,28 +26,22 @@ const ChatHeader: FC<ChatHeaderProps> = async ({
       )}
     >
       <SidebarToggle side="left" type="out" />
-      {!isGuestUser(userId) ? (
-        <>
-          <Typography
-            className={cn(
-              "hidden overflow-hidden text-ellipsis font-normal capitalize lg:block",
-              className,
-            )}
-          >
-            {chatTitle ?? "Welcome to Lumi"}
-          </Typography>
-          <ChatMobileMenu userId={userId} />
-        </>
-      ) : (
-        <Link href="/">
-          <Logo />
-        </Link>
+      <ChatMobileMenu user={user!} />
+
+      {!isGuestUser(user.id!) && (
+        <Typography
+          className={cn(
+            "hidden overflow-hidden text-ellipsis font-normal capitalize lg:block",
+            className,
+          )}
+        >
+          {title ?? "Welcome to Lumi"}
+        </Typography>
       )}
 
       <div className="ml-auto flex items-center justify-end gap-x-2">
         <FeedbackDropdown />
-        <SidebarToggle side="right" type="out" />
-        {isGuestUser(userId) && (
+        {isGuestUser(user.id!) && (
           <div className="flex items-center gap-x-2">
             <Link
               className={cn(
@@ -74,10 +64,11 @@ const ChatHeader: FC<ChatHeaderProps> = async ({
             >
               Login
             </Link>
+            <SidebarToggle side="right" type="out" />
           </div>
         )}
-        {/* {user?.plan === "free" ? <UpgradeButton /> : null} */}
-        {!isGuestUser(userId) && <NewChatButton className="ml-1 lg:hidden" />}
+        {user?.plan === "free" && <UpgradeButton />}
+        {!isGuestUser(user.id!) && <NewChatButton className="ml-1 lg:hidden" />}
       </div>
     </header>
   );
