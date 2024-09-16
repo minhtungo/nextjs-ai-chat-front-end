@@ -1,16 +1,15 @@
+import { authErrorUrl, signInUrl } from "@/app-config";
 import authConfig from "@/auth/config";
-import { db } from "@/lib/db";
-import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import {
   deleteTwoFactorConfirmation,
   getTwoFactorConfirmationByUserId,
 } from "@/data/auth";
 import { getUserById, updateNewGoogleUser } from "@/data/user";
+import { db } from "@/lib/db";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { Languages, Plan, type UserRole } from "@prisma/client";
-import { authErrorUrl, signInUrl } from "@/app-config";
-import { env } from "@/env";
 import { setCookie } from "cookies-next";
+import NextAuth from "next-auth";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
@@ -19,7 +18,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     signIn: signInUrl,
     error: authErrorUrl,
   },
-  secret: env.AUTH_SECRET,
+  secret: process.env.AUTH_SECRET,
   // jwt: {
   //   encode: async ({ secret, token }) => {
   //     if (!secret) {

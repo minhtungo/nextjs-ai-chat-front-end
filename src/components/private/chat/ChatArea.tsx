@@ -1,5 +1,6 @@
 import DocPreviewWindowWrapper from "@/components/private/chat-window/DocPreviewWindowWrapper";
 import ImagePreviewsWindowWrapper from "@/components/private/chat-window/ImagePreviewsWindowWrapper";
+import CentrifugeConnection from "@/components/private/chat/CentrifugeConnection";
 import ChatHistory from "@/components/private/chat/ChatHistory";
 import ChatPanel from "@/components/private/chat/ChatPanel";
 import ChatHeader from "@/components/private/common/ChatHeader";
@@ -15,7 +16,9 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
   const userPromise = getChatUserUseCase();
   const chatPromise = getChatInfo(chatId);
 
-  const [user, chat] = await Promise.all([userPromise, chatPromise]);
+  const [{ user, token }, chat] = await Promise.all([userPromise, chatPromise]);
+
+  console.log("*****************ChatArea", user, chat);
 
   if (chatId && !chat) {
     notFound();
@@ -23,7 +26,8 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
 
   return (
     <>
-      <ChatHeader user={user!} title={chat?.title} />
+      <CentrifugeConnection token={token} />
+      <ChatHeader user={user} title={chat?.title} />
       <div className="relative flex h-full w-full flex-col overflow-hidden">
         <ChatHistory
           chatId={chatId}

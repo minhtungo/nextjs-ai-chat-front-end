@@ -1,5 +1,5 @@
-import { signInWithFacebook, signInWithGoogle } from "@/actions/auth";
 import { afterLoginUrl } from "@/app-config";
+import { signIn } from "@/auth";
 import Facebook from "@/components/icons/Facebook";
 import Google from "@/components/icons/Google";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,7 @@ interface OAuthButtonsProps {
   hideAlternative?: boolean;
 }
 
-const OAuthButtons: FC<OAuthButtonsProps> = ({ hideAlternative }) => {
+const OAuthButtons = ({ hideAlternative }: OAuthButtonsProps) => {
   const searchParams = useSearchParams();
   const redirectURL = searchParams.get("redirect");
   const t = useTranslations("auth.OAuth");
@@ -21,7 +21,7 @@ const OAuthButtons: FC<OAuthButtonsProps> = ({ hideAlternative }) => {
     <>
       <div className="grid gap-3 sm:grid-cols-2">
         <GoogleLogin label={t("google")} redirectURL={redirectURL!} />
-        <FacebookLogin label={t("facebook")} redirectURL={redirectURL} />
+        <FacebookLogin label={t("facebook")} redirectURL={redirectURL!} />
       </div>
       {!hideAlternative && (
         <div className="relative my-4">
@@ -45,34 +45,32 @@ interface AuthButtonProps {
   redirectURL: string | null;
 }
 
-const FacebookLogin: FC<AuthButtonProps> = ({
-  className,
-  label,
-  redirectURL = afterLoginUrl,
-}) => {
+const FacebookLogin = ({ className, label, redirectURL }: AuthButtonProps) => {
   return (
     <Button
       type="button"
       variant="outline"
       className={cn("w-full", className)}
-      onClick={async () => await signInWithFacebook(redirectURL)}
+      onClick={async () =>
+        await signIn("facebook", {
+          redirectTo: redirectURL ?? afterLoginUrl,
+        })
+      }
     >
       <Facebook className="size-4 sm:size-5" /> <span>{label}</span>
     </Button>
   );
 };
 
-const GoogleLogin: FC<AuthButtonProps> = ({
-  className,
-  label,
-  redirectURL = afterLoginUrl,
-}) => {
+const GoogleLogin = ({ className, label, redirectURL }: AuthButtonProps) => {
   return (
     <Button
       type="button"
       variant="outline"
       className={cn("w-full", className)}
-      onClick={async () => await signInWithGoogle(redirectURL)}
+      onClick={async () =>
+        await signIn("google", { redirectTo: redirectURL ?? afterLoginUrl })
+      }
     >
       <Google className="size-4 sm:size-5" /> <span>{label}</span>
     </Button>

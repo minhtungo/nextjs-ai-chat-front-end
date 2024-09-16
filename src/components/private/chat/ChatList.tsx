@@ -6,21 +6,21 @@ import React, { ComponentProps, FC } from "react";
 interface ChatListProps extends ComponentProps<"div"> {}
 
 const ChatList = async ({ className, ...props }: ChatListProps) => {
-  const chats = await getChatListUseCase();
+  // const chats = await getChatListUseCase();
 
-  if (!chats || chats.length === 0) {
-    return (
-      <div className="px-4 text-sm text-muted-foreground">
-        You have no chats yet.
-      </div>
-    );
-  }
+  // if (!chats || chats.length === 0) {
+  //   return (
+  //     <div className="px-4 text-sm text-muted-foreground">
+  //       You have no chats yet.
+  //     </div>
+  //   );
+  // }
 
-  const groupedChats = groupChatsByDate(chats);
+  // const groupedChats = groupChatsByDate(chats);
 
   return (
     <div className={cn("px-4", className)} {...props}>
-      <ol className="space-y-4">
+      {/* <ol className="space-y-4">
         {groupedChats.map(({ label, chats }) => (
           <React.Fragment key={`${label}-chat-group`}>
             {chats.length > 0 && (
@@ -39,7 +39,7 @@ const ChatList = async ({ className, ...props }: ChatListProps) => {
             )}
           </React.Fragment>
         ))}
-      </ol>
+      </ol> */}
     </div>
   );
 };

@@ -25,8 +25,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
   const [showMathKeyboard, setShowMathKeyboard] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // const isSubscribed = useAtomValue(isSubscribedAtom);
-
   const {
     message: { content },
     setMessage,
@@ -53,7 +51,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
       {!showMathKeyboard ? (
         <div
           className={cn(
-            "relative flex w-full items-end gap-2 rounded-3xl bg-accent p-2.5",
+            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-2.5 pl-5 pr-4",
             className,
           )}
           onDragOver={(e) => {
@@ -68,11 +66,10 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             }
           }}
         >
-          <UtilButtons
+          {/* <UtilButtons
             showMathKeyboard={showMathKeyboard}
             setShowMathKeyboard={setShowMathKeyboard}
-          />
-
+          /> */}
           <div className="flex flex-1 flex-col gap-y-2">
             <UploadedFiles />
             <Textarea

@@ -1,30 +1,18 @@
-import { getTokenAction } from "@/actions/api";
+import { env } from "@/env";
 import { Centrifuge } from "centrifuge";
 import { atom } from "jotai";
 import { toast } from "sonner";
-import { env } from "@/env";
 
 export const centrifugeAtom = atom<Centrifuge | null>(null);
 
 export const subscribedCentrifugeAtom = atom(
   (get) => get(centrifugeAtom),
-  async (get, set) => {
+  async (get, set, token: string) => {
     const currentCentrifuge = get(centrifugeAtom);
 
     console.log("----subscribedCentrifugeAtom", currentCentrifuge);
 
     if (currentCentrifuge) {
-      return;
-    }
-
-    console.log("----subscribedCentrifugeAtom below if", currentCentrifuge);
-
-    const [data, error] = await getTokenAction();
-
-    console.log("*****************connectToCentrifugeAction", data);
-
-    if (error) {
-      toast.error(error.message);
       return;
     }
 
@@ -36,14 +24,14 @@ export const subscribedCentrifugeAtom = atom(
         },
       ],
       {
-        data: data?.token,
+        data: token,
         debug: true,
       },
     );
 
     newCentrifuge.on("connected", (ctx) => {
       console.log("Centrifuge connected:", ctx);
-      // toast.success("Connected to the server");
+      toast.success("Connected to the server");
     });
 
     newCentrifuge.on("connecting", (ctx) => {
@@ -52,6 +40,7 @@ export const subscribedCentrifugeAtom = atom(
 
     newCentrifuge.on("error", (ctx) => {
       console.error("Centrifuge error:", ctx.error);
+      toast.error(ctx.error.message);
     });
 
     if (newCentrifuge.state === "disconnected") {
@@ -61,8 +50,3 @@ export const subscribedCentrifugeAtom = atom(
     set(centrifugeAtom, newCentrifuge);
   },
 );
-
-subscribedCentrifugeAtom.onMount = (setAtom) => {
-  console.log("----subscribedCentrifugeAtom.onMount");
-  setAtom();
-};

@@ -1,19 +1,20 @@
 import { auth } from "@/auth";
 import { ApiResponse } from "@/lib/response";
-import { getChatUser } from "@/lib/session";
+import { getChatToken, getChatUser } from "@/lib/session";
 import { StatusCodes } from "http-status-codes";
 
 export const GET = auth(async (req) => {
   const existingUser = req?.auth?.user;
 
-  const user = await getChatUser(existingUser);
+  const user = getChatUser(existingUser);
+  const token = getChatToken(user.id!);
 
-  console.log("*****************GET request user", user);
+  console.log("*****************GET request user", user, token);
 
   return Response.json(
     ApiResponse.success(
       "Successfully fetched messages",
-      { user },
+      { user, token },
       StatusCodes.OK,
     ),
     {

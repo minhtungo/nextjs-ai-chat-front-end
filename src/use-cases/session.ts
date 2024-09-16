@@ -3,21 +3,19 @@ import { toast } from "sonner";
 import { env } from "@/env";
 import { User } from "next-auth";
 
-export const getChatUserUseCase = async () => {
+export const getChatUserUseCase = async (): Promise<{
+  user: User;
+  token: string;
+}> => {
   const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/user`, {
     headers: headers(),
   });
 
   const { data } = await response.json();
 
-  if (!data) {
-    toast.error("Error getting chat user id");
-    return;
-  }
+  console.log("*****************getChatUserUseCase", data);
 
-  console.log("*****************getChatUserIdUseCase", data);
-
-  return data.user as User;
+  return data;
 };
 
 export const getChatTokenUseCase = async () => {

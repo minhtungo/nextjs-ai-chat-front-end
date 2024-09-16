@@ -17,9 +17,7 @@ export const getTokenUseCase = async ({ userId }: { userId?: string }) => {
       const isExpired = Date.now() >= decodedToken.exp * 1000;
 
       if (!isExpired) {
-        return {
-          token: cachedToken,
-        };
+        return cachedToken;
       }
     }
 
@@ -30,9 +28,7 @@ export const getTokenUseCase = async ({ userId }: { userId?: string }) => {
     const newToken = encodeToken(payload);
     tokenCache.set("accessToken", newToken);
 
-    return {
-      token: newToken,
-    };
+    return newToken;
   } catch (error) {
     throw new Error("Error getting token");
   }

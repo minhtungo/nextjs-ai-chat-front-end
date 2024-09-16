@@ -5,6 +5,7 @@ import { getCookie, setCookie } from "cookies-next";
 import { User } from "next-auth";
 import { cookies } from "next/headers";
 import { v4 as uuid } from "uuid";
+import { createToken, encodeToken } from "@/lib/utils";
 
 export const assertAuthenticated = async () => {
   const user = await getCurrentUser();
@@ -14,7 +15,7 @@ export const assertAuthenticated = async () => {
   return user;
 };
 
-export const getChatUser = async (user: User | undefined) => {
+export const getChatUser = (user: User | undefined) => {
   if (user) {
     return user;
   }
@@ -30,4 +31,21 @@ export const getChatUser = async (user: User | undefined) => {
     id,
     isGuest: true,
   };
+};
+
+export const getChatToken = (userId: string) => {
+  let token = getCookie("chatToken", { cookies });
+
+  if (token) {
+    return token;
+  }
+
+  const payload = createToken({
+    uid: userId,
+  });
+
+  token = encodeToken(payload);
+  setCookie("chatTokenasdasd", token, { cookies });
+
+  return token;
 };

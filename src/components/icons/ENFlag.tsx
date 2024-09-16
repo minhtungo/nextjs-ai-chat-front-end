@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types";
-import { FC } from "react";
 
-const ENFlag: FC<IconProps> = ({ className, ...props }) => {
+const ENFlag = ({ className, ...props }: IconProps) => {
   return (
     <svg
       viewBox="0 0 36 36"

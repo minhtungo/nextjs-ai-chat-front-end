@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types";
-import { FC } from "react";
 
-const Instagram: FC<IconProps> = ({ className, ...props }) => {
+const Instagram = ({ className, ...props }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

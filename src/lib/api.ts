@@ -23,9 +23,9 @@ export const fetchAuth = async ({
   tags,
 }: FetchAuthProps) => {
   try {
-    const [tokenRes, error] = await getTokenAction();
+    const [token, error] = await getTokenAction();
 
-    if (error || !tokenRes) {
+    if (error || !token) {
       console.log("Error getting tokens", error);
       throw new Error("Error getting tokens");
     }
@@ -33,7 +33,7 @@ export const fetchAuth = async ({
     const response = await fetch(`${baseUrl}${path}`, {
       method,
       headers: {
-        "Access-Token": tokenRes.token,
+        "Access-Token": token,
         ...headers,
       },
       ...(body && { body: JSON.stringify(body) }),

@@ -1,8 +1,7 @@
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types";
-import { FC } from "react";
 
-const Momo: FC<IconProps> = ({ className, ...props }) => {
+const Momo = ({ className, ...props }: IconProps) => {
   return (
     <svg
       version="1.1"

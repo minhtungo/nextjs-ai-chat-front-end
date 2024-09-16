@@ -6,25 +6,27 @@ import { getCookie, setCookie } from "cookies-next";
 import { cookies } from "next/headers";
 import { v4 as uuid } from "uuid";
 
-export const getTokenAction = chatAction.handler(async ({ ctx: { user } }) => {
-  let userId;
+export const getTokenAction = chatAction.handler(
+  async ({ ctx: { user } }): Promise<string> => {
+    let userId;
 
-  if (!user) {
-    if (getCookie("userId", { cookies })) {
-      userId = getCookie("userId", { cookies });
+    if (!user) {
+      if (getCookie("userId", { cookies })) {
+        userId = getCookie("userId", { cookies });
+      } else {
+        userId = `guest-${uuid()}`;
+        setCookie("userId", userId, { cookies });
+      }
     } else {
-      userId = `guest-${uuid()}`;
-      setCookie("userId", userId, { cookies });
+      userId = user.id;
     }
-  } else {
-    userId = user.id;
-  }
 
-  console.log("**************getTokenAction userId", userId);
+    console.log("**************getTokenAction userId", userId);
 
-  const token = await getTokenUseCase({
-    userId: userId!,
-  });
+    const token = await getTokenUseCase({
+      userId: userId!,
+    });
 
-  return token;
-});
+    return token;
+  },
+);
