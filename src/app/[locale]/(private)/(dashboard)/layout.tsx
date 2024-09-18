@@ -12,12 +12,10 @@ export default async function PrivateLayout({
   return (
     <ReactQueryProvider>
       <JoTaiProvider>
-        <TooltipProvider delayDuration={100}>
-          <div className="relative flex min-h-screen overflow-hidden">
-            {children}
-          </div>
-          <Toaster closeButton position="top-right" />
-        </TooltipProvider>
+        <div className="relative flex min-h-screen overflow-hidden">
+          {children}
+        </div>
+        <Toaster closeButton position="top-right" />
       </JoTaiProvider>
     </ReactQueryProvider>
   );

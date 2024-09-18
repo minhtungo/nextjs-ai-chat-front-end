@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { CHAT_MENU_URLS } from "@/lib/routes";
+import { cn } from "@/lib/utils";
 import { EllipsisVertical, LogOut, ShieldCheck } from "lucide-react";
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
@@ -38,7 +39,14 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
         >
           <div className="flex items-center gap-x-2 text-sm font-medium">
             <UserAvatar user={user} />
-            {isSidebarOpen && <span>{user.name}</span>}
+            <span
+              className={cn(
+                "duration opacity-100 transition-all duration-300 ease-in-out",
+                !isSidebarOpen && "opacity-0",
+              )}
+            >
+              {user.name}
+            </span>
           </div>
           <EllipsisVertical className="size-4" />
           <span className="sr-only">Toggle user menu</span>

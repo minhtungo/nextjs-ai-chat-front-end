@@ -25,7 +25,7 @@ const NewChatButton = ({ className }: NewChatButtonProps) => {
           href={path !== chatUrl ? chatUrl : "#"}
           className={cn(
             buttonVariants({
-              size: "sm",
+              size: "manual",
             }),
             "w-full rounded-full p-2",
             path === chatUrl && "pointer-events-none opacity-50",
