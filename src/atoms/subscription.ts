@@ -1,4 +1,4 @@
-import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
+import { centrifugeAtom } from "@/atoms/centrifuge";
 import { Subscription } from "centrifuge";
 import { atom, type Setter } from "jotai";
 import { toast } from "sonner";
@@ -10,7 +10,7 @@ export const currentSubscriptionAtom = atom(
   (get) => get(subscriptionAtom),
   async (get, set, channel: string) => {
     console.log("Current SubscriptionAtom", channel);
-    const centrifuge = get(subscribedCentrifugeAtom);
+    const centrifuge = get(centrifugeAtom);
     const currentSub = get(subscriptionAtom);
 
     if (!centrifuge) {

@@ -20,14 +20,16 @@ export const useInfiniteMessages = ({
     getNextPageParam: (lastPage) =>
       (lastPage?.messages?.length! > 0 && lastPage?.messages[0]?.timestamp) ||
       undefined,
-    initialData: {
-      pages: [
-        {
-          messages: initialMessages,
-        },
-      ],
-      pageParams: [0],
-    },
+    ...(initialMessages?.length > 0 && {
+      initialData: {
+        pages: [
+          {
+            messages: initialMessages,
+          },
+        ],
+        pageParams: [0],
+      },
+    }),
     enabled: !isGuestUser(userId) && !!chatId,
   });
 };

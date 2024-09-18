@@ -5,7 +5,7 @@ import SidebarWithToggle from "@/components/private/common/SidebarWithToggle";
 import ChatSkeleton from "@/components/private/skeleton/ChatSkeleton";
 import { Suspense } from "react";
 
-const ChatSidebar = async () => {
+const ChatSidebar = () => {
   return (
     <SidebarWithToggle side="left" className="peer/chat gap-y-3 pt-4">
       <div className="flex items-center justify-between px-4">

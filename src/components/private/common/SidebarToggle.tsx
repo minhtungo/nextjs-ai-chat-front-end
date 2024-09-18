@@ -21,15 +21,7 @@ const SidebarToggle = ({
   className,
   type = "in",
 }: SidebarToggleProps) => {
-  const {
-    toggleAttachmentsSidebar,
-    toggleChatSidebar,
-    isAttachmentsSidebarOpen,
-    isChatSidebarOpen,
-  } = useSidebar();
-
-  const isSidebarOpen =
-    side === "left" ? isChatSidebarOpen : isAttachmentsSidebarOpen;
+  const { isSidebarOpen, setSidebarOpen } = useSidebar(side);
 
   if (type === "out" && isSidebarOpen) {
     return null;
@@ -43,17 +35,13 @@ const SidebarToggle = ({
           variant="ghost"
           size="icon"
           onClick={() => {
-            if (side === "left") {
-              toggleChatSidebar();
-            } else {
-              toggleAttachmentsSidebar();
-            }
+            setSidebarOpen(!isSidebarOpen);
           }}
         >
           {side === "left" ? (
-            <PanelLeft className="size-5 text-muted-foreground" />
+            <PanelLeft className="size-5 text-muted-foreground sm:size-6" />
           ) : (
-            <PanelRight className="size-5 text-muted-foreground" />
+            <PanelRight className="size-5 text-muted-foreground sm:size-6" />
           )}
           <span className="sr-only">
             Toggle {side === "left" ? "chat" : "attachments"} sidebar

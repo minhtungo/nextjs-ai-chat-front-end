@@ -1,7 +1,6 @@
 "use client";
 
-import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
-import { useSetAtom } from "jotai";
+import { useCentrifuge } from "@/hooks/use-centrifuge";
 import { useEffect } from "react";
 
 interface CentrifugeConnectionProps {
@@ -9,11 +8,14 @@ interface CentrifugeConnectionProps {
 }
 
 const CentrifugeConnection = ({ token }: CentrifugeConnectionProps) => {
-  const setCentrifuge = useSetAtom(subscribedCentrifugeAtom);
+  console.log("CentrifugeConnection");
+  const { connectCentrifuge } = useCentrifuge();
 
   useEffect(() => {
-    setCentrifuge(token);
+    console.log("CentrifugeConnection useEffect");
+    connectCentrifuge(token);
   }, []);
+
   return <></>;
 };
 

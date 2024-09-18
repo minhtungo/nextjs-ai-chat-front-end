@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUp, ChevronDown } from "lucide-react";
+import { ArrowUp, ChevronDown, Paperclip, SendHorizonal } from "lucide-react";
 import { FC, FormEvent, useEffect, useRef, useState } from "react";
 import Textarea from "react-textarea-autosize";
 
@@ -10,6 +10,12 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Formula from "@/components/icons/Formula";
 
 // const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
 //   loading: () => <p>Loading...</p>,
@@ -51,7 +57,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
       {!showMathKeyboard ? (
         <div
           className={cn(
-            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-2.5 pl-5 pr-4",
+            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-2.5 pl-6 pr-4",
             className,
           )}
           onDragOver={(e) => {
@@ -66,10 +72,6 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
             }
           }}
         >
-          {/* <UtilButtons
-            showMathKeyboard={showMathKeyboard}
-            setShowMathKeyboard={setShowMathKeyboard}
-          /> */}
           <div className="flex flex-1 flex-col gap-y-2">
             <UploadedFiles />
             <Textarea
@@ -84,7 +86,7 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
               }}
               onKeyDown={onKeyDown}
               placeholder="Ask Lumi anything..."
-              className="max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1 text-sm focus-within:outline-none"
+              className="max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1.5 text-sm focus-within:outline-none"
               autoFocus
               spellCheck={false}
               autoComplete="off"
@@ -97,15 +99,73 @@ const PromptForm: FC<PromptFormProps> = ({ className, onSubmit }) => {
               }
             />
           </div>
-          <Button
-            size="icon"
-            type="submit"
-            className="size-7 rounded-full bg-primary text-primary-foreground disabled:cursor-not-allowed disabled:opacity-70"
-            disabled={content.trim() === "" || pending || !inTokenLimit}
-          >
-            <ArrowUp className="size-4" />
-            <span className="sr-only">Send message</span>
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                type="submit"
+                variant="ghost"
+                className="!rounded-full"
+                asChild
+                // disabled={content.trim() === "" || pending || !inTokenLimit}
+              >
+                <label
+                  htmlFor="attach-file"
+                  className="relative flex cursor-pointer select-none items-center gap-1.5 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                >
+                  <Paperclip className="pointer-events-none size-[18px]" />
+                </label>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Attach files</TooltipContent>
+          </Tooltip>
+          <input
+            type="file"
+            accept="image/*, .pdf, .doc, .docx"
+            className="hidden"
+            multiple
+            id="attach-file"
+            onChange={async (e) => {
+              const files = e.target.files;
+              if (files) {
+                addFiles(Array.from(files));
+              }
+            }}
+          />
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                type="submit"
+                variant="ghost"
+                className="!rounded-full"
+                onClick={() => setShowMathKeyboard(!showMathKeyboard)}
+              >
+                <Formula className="size-[18px]" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Math Equation</TooltipContent>
+          </Tooltip>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                size="icon"
+                type="submit"
+                variant="ghost"
+                className={cn(
+                  "transition-all duration-300 ease-in-out hover:rounded-full",
+                  content.trim() === ""
+                    ? "-mr-10 scale-0 opacity-0"
+                    : "scale-100 opacity-100",
+                )}
+                // disabled={content.trim() === "" || pending || !inTokenLimit}
+              >
+                <SendHorizonal className="size-[18px]" />
+                <span className="sr-only">Send message</span>
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Submit</TooltipContent>
+          </Tooltip>
         </div>
       ) : (
         <>

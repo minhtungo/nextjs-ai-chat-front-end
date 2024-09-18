@@ -6,24 +6,20 @@ import { FC } from "react";
 
 interface SidebarWithToggleProps {
   className?: string;
-  side: "left" | "right" | null;
+  side: "left" | "right";
   children: React.ReactNode;
 }
 
-const SidebarWithToggle: FC<SidebarWithToggleProps> = ({
+const SidebarWithToggle = ({
   className,
-  side = "left",
+  side,
   children,
-}) => {
-  const { isChatSidebarOpen, isAttachmentsSidebarOpen, isLoading } =
-    useSidebar();
-
-  const isSidebarOpen =
-    side === "left" ? isChatSidebarOpen : isAttachmentsSidebarOpen;
+}: SidebarWithToggleProps) => {
+  const { isSidebarOpen } = useSidebar(side);
 
   return (
     <Sidebar
-      data-state={isSidebarOpen && !isLoading ? "open" : "closed"}
+      data-state={isSidebarOpen ? "open" : "closed"}
       className={className}
       side={side}
     >

@@ -2,16 +2,16 @@
 
 import { useEffect } from "react";
 
-import { subscribedCentrifugeAtom } from "@/atoms/centrifuge";
 import { currentSubscriptionAtom } from "@/atoms/subscription";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 import PromptForm from "@/components/private/chat/PromptForm";
 import PromptSuggestions from "@/components/private/chat/PromptSuggestions";
 import { Badge } from "@/components/ui/badge";
+import { useCentrifuge } from "@/hooks/use-centrifuge";
 import { useMessage } from "@/hooks/use-message";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { isGuestUser } from "@/lib/utils";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 
 interface ChatPanelProps {
   chatId?: string;
@@ -19,7 +19,7 @@ interface ChatPanelProps {
 }
 
 const ChatPanel = ({ chatId, userId }: ChatPanelProps) => {
-  const centrifuge = useAtomValue(subscribedCentrifugeAtom);
+  const { centrifuge } = useCentrifuge();
   const setupSubscription = useSetAtom(currentSubscriptionAtom);
 
   const { resetMessageState, inTokenLimit } = useMessage();
@@ -42,7 +42,7 @@ const ChatPanel = ({ chatId, userId }: ChatPanelProps) => {
 
   return (
     <MaxWidthWrapper className="max-w-5xl space-y-3 py-3">
-      <PromptSuggestions className="mt-4" userId={userId} />
+      <PromptSuggestions userId={userId} />
       {!inTokenLimit && (
         <Badge className="mb-3">
           <span className="text-xs">Exceeded token limit</span>
