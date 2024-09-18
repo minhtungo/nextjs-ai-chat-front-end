@@ -2,7 +2,6 @@
 
 import Sidebar from "@/components/private/common/Sidebar";
 import { useSidebar } from "@/hooks/use-sidebar";
-import { FC } from "react";
 
 interface SidebarWithToggleProps {
   className?: string;

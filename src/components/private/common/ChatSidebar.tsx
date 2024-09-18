@@ -8,8 +8,10 @@ import { Suspense } from "react";
 const ChatSidebar = () => {
   return (
     <SidebarWithToggle side="left" className="peer/chat gap-y-3 pt-4">
-      <div className="flex items-center justify-between px-4">
+      <div className="px-4">
         <SidebarToggle side="left" />
+      </div>
+      <div className="px-4">
         <NewChatButton />
       </div>
       <Suspense fallback={<ChatSkeleton />}>

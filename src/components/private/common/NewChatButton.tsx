@@ -1,3 +1,5 @@
+"use client";
+
 import { chatUrl } from "@/app-config";
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -5,27 +7,33 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
-import { SquarePen } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
-import { FC } from "react";
+import { usePathname } from "next/navigation";
 
-interface NewChatButtonProps {
-  className?: string;
-}
+interface NewChatButtonProps extends React.ComponentProps<"a"> {}
 
-const NewChatButton: FC<NewChatButtonProps> = ({ className }) => {
+const NewChatButton = ({ className }: NewChatButtonProps) => {
+  const path = usePathname();
+  const { isSidebarOpen } = useSidebar("left");
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <Link
-          href={chatUrl}
+          href={path !== chatUrl ? chatUrl : "#"}
           className={cn(
-            buttonVariants({ variant: "ghost", size: "icon" }),
+            buttonVariants({
+              size: "sm",
+            }),
+            "w-full rounded-full p-2",
+            path === chatUrl && "pointer-events-none opacity-50",
             className,
           )}
         >
-          <SquarePen className="size-[18px] text-muted-foreground" />
+          <Plus className="size-5" />
+          {isSidebarOpen && <span>New Chat</span>}
         </Link>
       </TooltipTrigger>
       <TooltipContent>

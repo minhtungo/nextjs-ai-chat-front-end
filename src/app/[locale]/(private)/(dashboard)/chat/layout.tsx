@@ -12,7 +12,7 @@ export default async function ChatLayout({
     <ClientOnly>
       <ChatSidebar />
       <AttachmentsSidebar />
-      <MainArea className="pl-0 pr-0 transition-all duration-300 ease-in-out peer-[[data-state=open]]/attachments:lg:pr-[250px] peer-[[data-state=open]]/chat:lg:pl-[300px]">
+      <MainArea className="pr-0 transition-all duration-300 ease-in-out lg:pl-[70px] peer-[[data-state=open]]/attachments:lg:pr-[250px] peer-[[data-state=open]]/chat:lg:pl-[300px]">
         {children}
       </MainArea>
     </ClientOnly>

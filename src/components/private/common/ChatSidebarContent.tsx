@@ -6,7 +6,6 @@ import { getCurrentUser } from "@/lib/auth";
 
 const ChatSidebarContent = async () => {
   const user = await getCurrentUser();
-  console.log("*****************ChatSidebarContent", user);
   return (
     <>
       <ScrollArea className="h-full flex-1">

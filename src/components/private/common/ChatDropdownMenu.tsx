@@ -11,6 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useSidebar } from "@/hooks/use-sidebar";
 import { CHAT_MENU_URLS } from "@/lib/routes";
 import { EllipsisVertical, LogOut, ShieldCheck } from "lucide-react";
 import { User } from "next-auth";
@@ -22,6 +23,8 @@ interface ChatDropdownMenuProps {
 }
 
 const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
+  const { isSidebarOpen } = useSidebar("left");
+
   if (!user) {
     return null;
   }
@@ -33,13 +36,10 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
           variant="ghost"
           className="h-fit w-full items-center justify-between px-2"
         >
-          <div className="flex items-center gap-x-2">
+          <div className="flex items-center gap-x-2 text-sm font-medium">
             <UserAvatar user={user} />
-            <span className="text-sm font-medium">{user.name}</span>
+            {isSidebarOpen && <span>{user.name}</span>}
           </div>
-          {/* <Badge variant="secondary" className="capitalize">
-            {user.plan}
-          </Badge> */}
           <EllipsisVertical className="size-4" />
           <span className="sr-only">Toggle user menu</span>
         </Button>

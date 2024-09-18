@@ -31,7 +31,7 @@ const SidebarToggle = ({
     <Tooltip>
       <TooltipTrigger asChild>
         <Button
-          className={cn("hidden lg:flex", className)}
+          className={cn("hidden lg:inline-flex", className)}
           variant="ghost"
           size="icon"
           onClick={() => {

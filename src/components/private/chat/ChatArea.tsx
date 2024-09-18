@@ -18,8 +18,6 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
 
   const [{ user, token }, chat] = await Promise.all([userPromise, chatPromise]);
 
-  console.log("*****************ChatArea", user, chat);
-
   if (chatId && !chat) {
     notFound();
   }

@@ -29,8 +29,6 @@ const ChatHistory = ({
 
   const fetchedMessages = usePreviews({ pages: data?.pages, chatId });
 
-  console.log("ChatHistory", fetchedMessages);
-
   if (isLoading)
     return (
       <div className="flex h-full w-full items-center justify-center">

@@ -12,7 +12,7 @@ const UserAvatar: FC<UserAvatarProps> = ({ user, className }) => {
   return (
     <Avatar className={cn("size-5 sm:size-6", className)}>
       <AvatarImage src={user.image || ""} alt={`${user.name}-avatar`} />
-      <AvatarFallback className="text-[11px] selection:sm:text-[13px]">
+      <AvatarFallback className="text-[13px] selection:sm:text-sm">
         {user.name ? user.name.split(" ").pop()?.charAt(0) : "G"}
       </AvatarFallback>
     </Avatar>

@@ -1,6 +1,5 @@
 import { signInUrl, signUpUrl } from "@/app-config";
 import ChatMobileMenu from "@/components/private/common/ChatMobileMenu";
-import NewChatButton from "@/components/private/common/NewChatButton";
 import SidebarToggle from "@/components/private/common/SidebarToggle";
 import UpgradeButton from "@/components/private/common/UpgradeButton";
 import FeedbackDropdown from "@/components/private/feedback/FeedbackDropdown";
@@ -25,7 +24,6 @@ const ChatHeader = async ({ user, title, className }: ChatHeaderProps) => {
         className,
       )}
     >
-      <SidebarToggle side="left" type="out" />
       <ChatMobileMenu user={user!} />
 
       {!isGuestUser(user.id!) && (
@@ -64,11 +62,10 @@ const ChatHeader = async ({ user, title, className }: ChatHeaderProps) => {
             >
               Login
             </Link>
-            <SidebarToggle side="right" type="out" />
           </div>
         )}
         {user?.plan === "free" && <UpgradeButton />}
-        {!isGuestUser(user.id!) && <NewChatButton className="ml-1 lg:hidden" />}
+        <SidebarToggle side="right" type="out" />
       </div>
     </header>
   );
