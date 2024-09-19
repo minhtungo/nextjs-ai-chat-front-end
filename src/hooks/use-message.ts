@@ -6,9 +6,10 @@ import {
   imagesAtom,
   initialMessageAtom,
   isWithinTokenLimitAtom,
-  filesUploadAtom,
-  fileRemovalAtom,
+  uploadFileAtom,
+  removeFileAtom,
   filesAtom,
+  mathModeAtom,
 } from "@/atoms/message";
 
 export const useMessage = () => {
@@ -19,10 +20,12 @@ export const useMessage = () => {
     docs: useAtomValue(docsAtom),
     images: useAtomValue(imagesAtom),
     files: useAtomValue(filesAtom),
-    addFiles: useSetAtom(filesUploadAtom),
-    removeFile: useSetAtom(fileRemovalAtom),
+    addFiles: useSetAtom(uploadFileAtom),
+    removeFile: useSetAtom(removeFileAtom),
     inTokenLimit: useAtomValue(isWithinTokenLimitAtom),
     setInTokenLimit: useSetAtom(isWithinTokenLimitAtom),
+    mathMode: useAtomValue(mathModeAtom),
+    setMathMode: useSetAtom(mathModeAtom),
     resetMessageState: useSetAtom(initialMessageAtom),
   };
 };

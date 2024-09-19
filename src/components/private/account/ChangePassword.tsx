@@ -20,7 +20,6 @@ import {
 import Typography from "@/components/ui/typography";
 import { changeUserPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -29,7 +28,6 @@ import { useServerAction } from "zsa-react";
 
 const ChangePassword = () => {
   const { isPending, execute } = useServerAction(changeUserPasswordAction);
-  const { update } = useSession();
 
   const form = useForm<z.infer<typeof changeUserPasswordSchema>>({
     resolver: zodResolver(changeUserPasswordSchema),
@@ -47,7 +45,7 @@ const ChangePassword = () => {
       toast.error(err.message);
       return;
     }
-    update();
+    // update();
     form.reset();
     toast.success("Thay đổi mật khẩu thành công");
   };

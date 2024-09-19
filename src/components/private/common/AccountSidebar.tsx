@@ -6,7 +6,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const AccountSidebar = () => {
   return (
-    <Sidebar>
+    <Sidebar side="default">
       <UserInfo className="mb-3 px-4 pt-4" />
       <ScrollArea className="h-full flex-1">
         <AccountSidebarLinks className="px-4" />

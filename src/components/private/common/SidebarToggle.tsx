@@ -10,8 +10,7 @@ import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { PanelLeft, PanelRight } from "lucide-react";
 
-interface SidebarToggleProps {
-  className?: string;
+interface SidebarToggleProps extends React.ComponentProps<"div"> {
   side: "left" | "right";
   type?: "out" | "in";
 }

@@ -11,10 +11,10 @@ const AttachmentsSidebar = () => {
 
   return (
     <SidebarWithToggle
-      className="peer/attachments gap-y-3 py-4 lg:w-[250px]"
+      className="peer/attachments gap-y-3 py-4 lg:w-[260px]"
       side="right"
     >
-      <div className="flex items-center justify-end px-2">
+      <div className="flex items-center justify-end px-3">
         <SidebarToggle side="right" />
       </div>
       <ScrollArea>

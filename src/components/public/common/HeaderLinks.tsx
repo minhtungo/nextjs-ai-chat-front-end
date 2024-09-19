@@ -1,5 +1,6 @@
 "use client";
 
+import { authRoutes } from "@/app-config";
 import { HEADER_URLS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
@@ -12,6 +13,10 @@ interface HeaderLinksProps extends ComponentProps<"div"> {}
 const HeaderLinks: FC<HeaderLinksProps> = ({ className }) => {
   const pathname = usePathname();
   const t = useTranslations("common.Navbar");
+
+  if (authRoutes.includes(pathname)) {
+    return null;
+  }
 
   return (
     <nav className={cn("hidden md:block", className)}>

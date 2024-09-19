@@ -1,5 +1,4 @@
 import { signOut } from "@/actions/auth";
-import { accountUrl } from "@/app-config";
 
 import {
   changeUserPassword,
@@ -11,7 +10,6 @@ import {
 import { changeUserPasswordSchema, onboardingSchema } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
 import { User, UserSettings } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 export const updateUserUseCase = async (
@@ -25,8 +23,6 @@ export const updateUserUseCase = async (
   }
 
   await updateUser(dbUser?.id!, values);
-
-  revalidatePath(`${accountUrl}`);
 };
 
 export const updateUserSettingsUseCase = async (

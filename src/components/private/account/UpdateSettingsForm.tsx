@@ -24,7 +24,6 @@ import { Switch } from "@/components/ui/switch";
 import { updateUserSettingsSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "next-auth";
-import { useSession } from "next-auth/react";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -36,7 +35,6 @@ interface UpdateSettingsFormProps {
 }
 
 const UpdateSettingsForm: FC<UpdateSettingsFormProps> = ({ user }) => {
-  const { update } = useSession();
   const { isPending, execute } = useServerAction(updateUserSettingsAction);
 
   const form = useForm<z.infer<typeof updateUserSettingsSchema>>({
@@ -54,7 +52,7 @@ const UpdateSettingsForm: FC<UpdateSettingsFormProps> = ({ user }) => {
       toast.error(err.message);
       return;
     }
-    update();
+    // update();
     toast.success("Cập nhật thành công");
   };
 

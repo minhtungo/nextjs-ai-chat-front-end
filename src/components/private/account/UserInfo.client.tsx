@@ -2,13 +2,10 @@ import UserAvatar from "@/components/private/common/UserAvatar";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import { FC } from "react";
 
-interface UserInfoProps {
-  className?: string;
-}
+interface UserInfoProps extends React.ComponentProps<"div"> {}
 
-const UserInfo: FC<UserInfoProps> = async ({ className }) => {
+const UserInfo = async ({ className }: UserInfoProps) => {
   const user = await getCurrentUser();
 
   if (!user) {

@@ -1,7 +1,6 @@
 import JoTaiProvider from "@/components/providers/JotaiProvider";
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider";
 import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import "@/styles/chat.css";
 
 export default async function PrivateLayout({

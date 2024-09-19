@@ -5785,10 +5785,10 @@ react-markdown@^9.0.1:
     unist-util-visit "^5.0.0"
     vfile "^6.0.0"
 
-react-pdf@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/react-pdf/-/react-pdf-9.1.0.tgz#2a1456646d2eb4e4a246e83121d195775bbfa5dc"
-  integrity sha512-KhPDQE3QshkLdS3b48S5Bldv0N5flob6qwvsiADWdZOS5TMDaIrkRtEs+Dyl6ubRf2jTf9jWmFb6RjWu46lSSg==
+react-pdf@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/react-pdf/-/react-pdf-9.1.1.tgz#10b1d1012e1ad15a12b7d16fbaec5a3dc81068d7"
+  integrity sha512-Cn3RTJZMqVOOCgLMRXDamLk4LPGfyB2Np3OwQAUjmHIh47EpuGW1OpAA1Z1GVDLoHx4d5duEDo/YbUkDbr4QFQ==
   dependencies:
     clsx "^2.0.0"
     dequal "^2.0.3"
@@ -7011,10 +7011,10 @@ uuid@^10.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-10.0.0.tgz#5a95aa454e6e002725c79055fd42aaba30ca6294"
   integrity sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==
 
-vaul@^0.9.3:
-  version "0.9.3"
-  resolved "https://registry.yarnpkg.com/vaul/-/vaul-0.9.3.tgz#363c21e7c7d404bacb81591c2ca1e8cc5cdc5829"
-  integrity sha512-VNWuzw37fw6DWptl9PMUc9PH5NJpGqpetcxDMRiH/GzH2inJAEMwo/uZqaONlGseeOG8xDtrrp3nYoiZhyabpw==
+vaul@^0.9.4:
+  version "0.9.4"
+  resolved "https://registry.yarnpkg.com/vaul/-/vaul-0.9.4.tgz#2e1d8f90481a9f25169226f9cd6f764ad30ca65e"
+  integrity sha512-pcyIy1nEk6798ReNQpbVH/T/dYnoJ3bwyq7jmSp134s+bSvpWoSWQthm3/jfsQRvHNYIEK4ZKbkHUJ3YfLfw1w==
   dependencies:
     "@radix-ui/react-dialog" "^1.1.1"
 

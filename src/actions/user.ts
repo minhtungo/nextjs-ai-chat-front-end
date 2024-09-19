@@ -1,5 +1,6 @@
 "use server";
 
+import { accountUrl } from "@/app-config";
 import {
   changeUserPasswordSchema,
   onboardingSchema,
@@ -13,6 +14,7 @@ import {
   updateUserSettingsUseCase,
   updateUserUseCase,
 } from "@/use-cases/user";
+import { revalidatePath } from "next/cache";
 
 import { cookies } from "next/headers";
 
@@ -24,12 +26,14 @@ export const updateUserAction = authenticatedAction
   .input(updateUserProfileSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserUseCase(user.id!, input);
+    revalidatePath(`${accountUrl}`);
   });
 
 export const updateUserSettingsAction = authenticatedAction
   .input(updateUserSettingsSchema)
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserSettingsUseCase(user.id!, input);
+    revalidatePath(`${accountUrl}`);
   });
 
 export const onboardingFormAction = authenticatedAction
@@ -46,4 +50,5 @@ export const changeUserPasswordAction = authenticatedAction
     }
 
     await changeUserPasswordUseCase(user.id!, input);
+    revalidatePath(`${accountUrl}`);
   });

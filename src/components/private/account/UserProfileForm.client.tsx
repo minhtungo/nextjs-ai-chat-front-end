@@ -26,8 +26,7 @@ import { ACADEMIC_LEVELS } from "@/lib/constant";
 import { updateUserProfileSchema } from "@/lib/definitions";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Camera, Pencil } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { Camera } from "lucide-react";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -52,7 +51,6 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
   const [file, setFile] = useState<File | undefined>(undefined);
 
   const { isPending, execute } = useServerAction(updateUserAction);
-  const { update } = useSession();
   const form = useForm<z.infer<typeof updateUserProfileSchema>>({
     resolver: zodResolver(updateUserProfileSchema),
     defaultValues: {
@@ -73,7 +71,6 @@ const UserProfileForm: FC<UserProfileFormProps> = ({ user }) => {
     }
 
     setFile(undefined);
-    update();
     toast.success("Cập nhật thành công");
   };
 

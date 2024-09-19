@@ -19,7 +19,17 @@ const Footer = ({ className, ...props }: FooterProps) => {
             </Link>
           </div>
           {/* <LanguageSwitcher showIcon /> */}
-          <ThemeSwitcher />
+          <div className="flex items-center gap-x-5">
+            {SOCIAL_LINKS.map(({ title, href, icon }) => (
+              <Link
+                key={`social-footer-${title}`}
+                href={href}
+                className="text-muted-foreground hover:text-primary"
+              >
+                {icon}
+              </Link>
+            ))}
+          </div>
         </div>
         <div className="flex w-full flex-col items-center justify-between gap-y-4 text-sm sm:flex-row">
           <div className="text-muted-foreground">
@@ -35,17 +45,7 @@ const Footer = ({ className, ...props }: FooterProps) => {
               </li>
             ))}
           </ul>
-          <div className="flex gap-x-5">
-            {SOCIAL_LINKS.map(({ title, href, icon }) => (
-              <Link
-                key={`social-footer-${title}`}
-                href={href}
-                className="text-muted-foreground hover:text-primary"
-              >
-                {icon}
-              </Link>
-            ))}
-          </div>
+          <ThemeSwitcher />
         </div>
       </MaxWidthWrapper>
     </footer>

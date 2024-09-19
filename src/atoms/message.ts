@@ -21,13 +21,15 @@ export const initialMessageAtom = atom(null, (get, set) => {
   set(messageAtom, initialMessageState);
   set(filesAtom, []);
   set(pendingAtom, false);
+  set(mathModeAtom, false);
 });
 
 export const pendingAtom = atom(false);
+export const mathModeAtom = atom(false);
 
 export const filesAtom = atom<FileAtom[]>([]);
 
-export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
+export const uploadFileAtom = atom(null, async (get, set, files: File[]) => {
   if (!files || files.length === 0) {
     return;
   }
@@ -120,7 +122,7 @@ export const filesUploadAtom = atom(null, async (get, set, files: File[]) => {
   );
 });
 
-export const fileRemovalAtom = atom(null, async (_, set, fileId?: string) => {
+export const removeFileAtom = atom(null, async (_, set, fileId?: string) => {
   set(filesAtom, (prev) => prev.filter((f) => f.id !== fileId));
 });
 

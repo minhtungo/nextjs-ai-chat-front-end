@@ -1,12 +1,10 @@
-import { FC, Suspense } from "react";
-import UserInfoClient from "./UserInfo.client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Suspense } from "react";
+import UserInfoClient from "./UserInfo.client";
 
-interface UserInfoProps {
-  className?: string;
-}
+interface UserInfoProps extends React.ComponentProps<"div"> {}
 
-const UserInfo: FC<UserInfoProps> = async ({ className }) => {
+const UserInfo = async ({ className }: UserInfoProps) => {
   return (
     <Suspense
       fallback={

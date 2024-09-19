@@ -3,7 +3,6 @@
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { LaptopMinimal, MoonStar, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { FC } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
@@ -12,19 +11,19 @@ interface ThemeSwitcherProps {}
 const THEME_OPTIONS = [
   {
     value: "system",
-    icon: <LaptopMinimal className="size-4" />,
+    icon: <LaptopMinimal className="size-3.5" />,
   },
   {
     value: "light",
-    icon: <Sun className="size-4" />,
+    icon: <Sun className="size-3.5" />,
   },
   {
     value: "dark",
-    icon: <MoonStar className="size-4" />,
+    icon: <MoonStar className="size-3.5" />,
   },
 ];
 
-const ThemeSwitcher: FC<ThemeSwitcherProps> = () => {
+const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -33,7 +32,7 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = () => {
   }, []);
 
   if (!mounted) {
-    return <Skeleton className="!size-7 sm:!size-8" />;
+    return <Skeleton className="h-[30px] w-[90px] rounded-full" />;
   }
 
   return (
@@ -49,7 +48,7 @@ const ThemeSwitcher: FC<ThemeSwitcherProps> = () => {
           value={value}
           aria-label="system"
           size="sm"
-          className="rounded-full text-muted-foreground hover:text-foreground"
+          className="rounded-full"
         >
           {icon}
         </ToggleGroupItem>

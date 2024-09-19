@@ -1,12 +1,12 @@
 import { useMessage } from "@/hooks/use-message";
 import { MathfieldElement } from "mathlive";
-import { FC, RefObject, useEffect, useMemo, useRef } from "react";
+import { RefObject, useEffect, useMemo, useRef } from "react";
 
 interface MathKeyboardProps {
   formRef: RefObject<HTMLFormElement>;
 }
 
-const MathKeyboard: FC<MathKeyboardProps> = ({ formRef }) => {
+const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
   const {
     message: { mathEquation },
     setMessage,

@@ -5,6 +5,17 @@ export type IconProps = {
 
 declare module "convex-hull";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "math-field": React.DetailedHTMLProps<
+        React.HTMLAttributes<MathfieldElement>,
+        MathfieldElement
+      >;
+    }
+  }
+}
+
 interface MultiStepFormProps<T extends z.ZodType> {
   schema: T;
   form: UseFormReturn<z.infer<T>>;

@@ -20,19 +20,14 @@ const ChatHeader = async ({ user, title, className }: ChatHeaderProps) => {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 flex w-full items-center gap-3 px-4 py-4 lg:px-6",
+        "sticky top-0 z-50 flex w-full items-center gap-3 px-4 py-4 lg:pl-6 lg:pr-3",
         className,
       )}
     >
       <ChatMobileMenu user={user!} />
 
       {!isGuestUser(user.id!) && (
-        <Typography
-          className={cn(
-            "hidden overflow-hidden text-ellipsis font-normal capitalize lg:block",
-            className,
-          )}
-        >
+        <Typography className="hidden overflow-hidden text-ellipsis font-normal capitalize lg:block">
           {title ?? "Welcome to Lumi"}
         </Typography>
       )}

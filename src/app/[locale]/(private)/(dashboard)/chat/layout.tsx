@@ -17,7 +17,7 @@ export default async function ChatLayout({
       <TooltipProvider delayDuration={100}>
         <AttachmentsSidebar />
       </TooltipProvider>
-      <MainArea className="pr-0 transition-all duration-300 ease-in-out lg:pl-[70px] peer-[[data-state=open]]/attachments:lg:pr-[250px] peer-[[data-state=open]]/chat:lg:pl-[300px]">
+      <MainArea className="pr-0 transition-all duration-300 ease-in-out lg:pl-[70px] peer-[[data-state=open]]/attachments:lg:pr-[260px] peer-[[data-state=open]]/chat:lg:pl-[300px]">
         <TooltipProvider delayDuration={100}>{children}</TooltipProvider>
       </MainArea>
     </ClientOnly>
