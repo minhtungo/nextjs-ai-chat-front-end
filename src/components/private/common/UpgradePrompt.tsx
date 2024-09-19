@@ -1,20 +1,21 @@
-import { signUpUrl } from "@/app-config";
+import { subscriptionUrl } from "@/app-config";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
-import { Lock } from "lucide-react";
+import { Rocket } from "lucide-react";
 import Link from "next/link";
 
-const SignInPrompt = () => {
+const UpgradePrompt = () => {
   return (
     <Card className="bg-muted/50 p-4 text-sm shadow sm:p-4">
       <div className="mb-2 flex items-center gap-x-2">
-        <Lock className="size-4" />
+        <Rocket className="size-4" />
         <p className="font-medium">Unlock More</p>
       </div>
-      <p className="mb-4 text-muted-foreground">
-        You must be logged in to view the chat history
-      </p>
+      <Typography className="mb-4 text-sm text-muted-foreground">
+        Upgrade for more powerful models, unlimited document and images uploads.
+      </Typography>
 
       <Link
         className={cn(
@@ -22,12 +23,12 @@ const SignInPrompt = () => {
             size: "sm",
           }),
         )}
-        href={signUpUrl}
+        href={subscriptionUrl}
       >
-        Get Started
+        Upgrade
       </Link>
     </Card>
   );
 };
 
-export default SignInPrompt;
+export default UpgradePrompt;

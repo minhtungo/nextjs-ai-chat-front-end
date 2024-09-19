@@ -18,6 +18,7 @@ export const authErrorUrl = "/error";
 export const emailVerificationUrl = "/verification";
 export const resetPasswordUrl = "/reset-password";
 export const onboardingUrl = "/onboarding";
+export const subscriptionUrl = "/subscription";
 
 export const chatUrl = "/chat";
 export const accountUrl = "/account";

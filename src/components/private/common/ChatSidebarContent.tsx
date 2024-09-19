@@ -1,6 +1,7 @@
 import ChatList from "@/components/private/chat/ChatList";
 import ChatDropdownMenu from "@/components/private/common/ChatDropdownMenu";
 import SignInPrompt from "@/components/private/common/SignInPrompt";
+import UpgradePrompt from "@/components/private/common/UpgradePrompt";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCurrentUser } from "@/lib/auth";
 
@@ -17,6 +18,13 @@ const ChatSidebarContent = async () => {
           </div>
         )}
       </ScrollArea>
+
+      {user && user.plan === "free" && (
+        <div className="mb-4 px-4">
+          <UpgradePrompt />
+        </div>
+      )}
+
       <div className="w-full px-4 pb-4">
         {user ? <ChatDropdownMenu user={user} /> : <SignInPrompt />}
       </div>
