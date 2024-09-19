@@ -1,11 +1,7 @@
 "use client";
 
+import TooltipContainer from "@/components/common/TooltipContainer";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 
@@ -18,21 +14,16 @@ const ChatSearch = ({ className }: ChatSearchProps) => {
 
   return (
     <div>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            className={cn("hidden lg:flex", className)}
-            variant="ghost"
-            size="icon"
-            onClick={searchChat}
-          >
-            <Search className="size-5 text-muted-foreground sm:size-6" />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Search Chat</p>
-        </TooltipContent>
-      </Tooltip>
+      <TooltipContainer content="Search chat">
+        <Button
+          className={cn("hidden lg:flex", className)}
+          variant="ghost"
+          size="icon"
+          onClick={searchChat}
+        >
+          <Search className="size-5 text-muted-foreground sm:size-6" />
+        </Button>
+      </TooltipContainer>
     </div>
   );
 };

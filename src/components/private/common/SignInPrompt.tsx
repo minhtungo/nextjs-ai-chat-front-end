@@ -1,14 +1,11 @@
-import { signInUrl, signUpUrl } from "@/app-config";
+import { signUpUrl } from "@/app-config";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Lock } from "lucide-react";
 import Link from "next/link";
-import { FC } from "react";
 
-interface SignInPromptProps {}
-
-const SignInPrompt: FC<SignInPromptProps> = () => {
+const SignInPrompt = () => {
   return (
     <Card className="bg-muted/50 p-4 text-sm shadow sm:p-4">
       <div className="mb-2 flex items-center gap-x-2">
@@ -29,18 +26,6 @@ const SignInPrompt: FC<SignInPromptProps> = () => {
         href={signUpUrl}
       >
         Get Started
-      </Link>
-      <Link
-        className={cn(
-          buttonVariants({
-            size: "sm",
-            variant: "outline",
-          }),
-          "mt-2 w-full justify-start",
-        )}
-        href={signInUrl}
-      >
-        Login
       </Link>
     </Card>
   );

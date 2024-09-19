@@ -1,17 +1,11 @@
 "use client";
 
-import { FC } from "react";
-
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Bot, Copy, Redo, ThumbsDown, ThumbsUp } from "lucide-react";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
+import TooltipContainer from "@/components/common/TooltipContainer";
 import { MemoizedReactMarkdown } from "@/components/markdown";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
@@ -20,7 +14,7 @@ interface BotMessageProps {
   content: string;
 }
 
-const BotMessage: FC<BotMessageProps> = ({ content }) => {
+const BotMessage = ({ content }: BotMessageProps) => {
   // const text = useStreamableText(content);
 
   return (
@@ -44,49 +38,33 @@ const BotMessage: FC<BotMessageProps> = ({ content }) => {
         </MemoizedReactMarkdown>
 
         <div className="flex items-center gap-[2px] text-muted-foreground">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="xs"
-                onClick={() => {
-                  navigator.clipboard.writeText(content);
-                  toast.success("Copied to clipboard");
-                }}
-              >
-                <Copy className="h-3.5 w-3.5" />
-                <span className="sr-only">Copy</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Copy</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="xs">
-                <ThumbsUp className="h-3.5 w-3.5" />
-                <span className="sr-only">Good</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Good</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="xs">
-                <ThumbsDown className="h-3.5 w-3.5" />
-                <span className="sr-only">Bad</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Bad</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button variant="ghost" size="xs">
-                <Redo className="h-3.5 w-3.5" />
-                <span className="sr-only">Redo</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">Redo</TooltipContent>
-          </Tooltip>
+          <TooltipContainer content="Copy">
+            <Button
+              variant="ghost"
+              size="xs"
+              onClick={() => {
+                navigator.clipboard.writeText(content);
+                toast.success("Copied to clipboard");
+              }}
+            >
+              <Copy className="h-3.5 w-3.5" />
+            </Button>
+          </TooltipContainer>
+          <TooltipContainer content="Good">
+            <Button variant="ghost" size="xs">
+              <ThumbsUp className="h-3.5 w-3.5" />
+            </Button>
+          </TooltipContainer>
+          <TooltipContainer content="Bad">
+            <Button variant="ghost" size="xs">
+              <ThumbsDown className="h-3.5 w-3.5" />
+            </Button>
+          </TooltipContainer>
+          <TooltipContainer content="Redo">
+            <Button variant="ghost" size="xs">
+              <Redo className="h-3.5 w-3.5" />
+            </Button>
+          </TooltipContainer>
         </div>
       </div>
     </div>

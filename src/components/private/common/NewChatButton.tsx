@@ -1,12 +1,8 @@
 "use client";
 
 import { chatUrl } from "@/app-config";
+import TooltipContainer from "@/components/common/TooltipContainer";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
@@ -19,34 +15,29 @@ const NewChatButton = ({ className }: NewChatButtonProps) => {
   const path = usePathname();
   const { isSidebarOpen } = useSidebar("left");
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Link
-          href={path !== chatUrl ? chatUrl : "#"}
+    <TooltipContainer content="New chat">
+      <Link
+        href={path !== chatUrl ? chatUrl : "#"}
+        className={cn(
+          buttonVariants({
+            size: "manual",
+          }),
+          "w-full gap-0 rounded-full p-2",
+          path === chatUrl && "pointer-events-none opacity-50",
+          className,
+        )}
+      >
+        <Plus className="size-5" />
+        <span
           className={cn(
-            buttonVariants({
-              size: "manual",
-            }),
-            "w-full gap-0 rounded-full p-2",
-            path === chatUrl && "pointer-events-none opacity-50",
-            className,
+            "ml-2 opacity-100",
+            !isSidebarOpen && "ml-0 w-0 opacity-0",
           )}
         >
-          <Plus className="size-5" />
-          <span
-            className={cn(
-              "ml-2 opacity-100",
-              !isSidebarOpen && "ml-0 w-0 opacity-0",
-            )}
-          >
-            New Chat
-          </span>
-        </Link>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Create a new chat</p>
-      </TooltipContent>
-    </Tooltip>
+          New Chat
+        </span>
+      </Link>
+    </TooltipContainer>
   );
 };
 

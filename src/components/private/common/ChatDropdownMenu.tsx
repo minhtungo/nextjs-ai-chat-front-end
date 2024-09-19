@@ -1,5 +1,6 @@
 "use client";
 
+import TooltipContainer from "@/components/common/TooltipContainer";
 import ThemeSwitch from "@/components/private/common/ThemeSwitch";
 import UserAvatar from "@/components/private/common/UserAvatar";
 import { Button } from "@/components/ui/button";
@@ -11,11 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Tooltip, TooltipContent } from "@/components/ui/tooltip";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { CHAT_MENU_URLS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
-import { TooltipTrigger } from "@radix-ui/react-tooltip";
 import { EllipsisVertical, LogOut, ShieldCheck } from "lucide-react";
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
@@ -34,32 +33,28 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
 
   return (
     <DropdownMenu modal={false}>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="h-fit w-full items-center justify-between px-2"
-            >
-              <div className="flex items-center gap-x-2 text-sm font-medium">
-                <UserAvatar user={user} />
-                <span
-                  className={cn(
-                    "duration opacity-100 transition-all duration-300 ease-in-out",
-                    !isSidebarOpen && "opacity-0",
-                  )}
-                >
-                  {user.name}
-                </span>
-              </div>
-              <EllipsisVertical className="size-4" />
-              <span className="sr-only">Toggle user menu</span>
-            </Button>
-          </DropdownMenuTrigger>
-        </TooltipTrigger>
-        <TooltipContent>User menu</TooltipContent>
-      </Tooltip>
-
+      <TooltipContainer content="User Menu">
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="h-fit w-full items-center justify-between px-2"
+          >
+            <div className="flex items-center gap-x-2 text-sm font-medium">
+              <UserAvatar user={user} />
+              <span
+                className={cn(
+                  "duration opacity-100 transition-all duration-300 ease-in-out",
+                  !isSidebarOpen && "opacity-0",
+                )}
+              >
+                {user.name}
+              </span>
+            </div>
+            <EllipsisVertical className="size-4" />
+            <span className="sr-only">Toggle user menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+      </TooltipContainer>
       <DropdownMenuContent align="end" className="min-w-72">
         <DropdownMenuLabel>
           <div className="flex items-center gap-x-2">

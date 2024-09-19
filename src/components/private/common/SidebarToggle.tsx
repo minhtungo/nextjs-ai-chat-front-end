@@ -1,5 +1,6 @@
 "use client";
 
+import TooltipContainer from "@/components/common/TooltipContainer";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -27,30 +28,27 @@ const SidebarToggle = ({
   }
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          className={cn("hidden lg:flex", className)}
-          variant="ghost"
-          size="icon"
-          onClick={() => {
-            setSidebarOpen(!isSidebarOpen);
-          }}
-        >
-          {side === "left" ? (
-            <PanelLeft className="size-5 text-muted-foreground sm:size-6" />
-          ) : (
-            <PanelRight className="size-5 text-muted-foreground sm:size-6" />
-          )}
-          <span className="sr-only">
-            Toggle {side === "left" ? "chat" : "attachments"} sidebar
-          </span>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>Toggle {side === "left" ? "chat" : "attachments"} sidebar</p>
-      </TooltipContent>
-    </Tooltip>
+    <TooltipContainer
+      content={`Toggle ${side === "left" ? "chat" : "attachments"} sidebar`}
+    >
+      <Button
+        className={cn("hidden lg:flex", className)}
+        variant="ghost"
+        size="icon"
+        onClick={() => {
+          setSidebarOpen(!isSidebarOpen);
+        }}
+      >
+        {side === "left" ? (
+          <PanelLeft className="size-5 text-muted-foreground sm:size-6" />
+        ) : (
+          <PanelRight className="size-5 text-muted-foreground sm:size-6" />
+        )}
+        <span className="sr-only">
+          Toggle {side === "left" ? "chat" : "attachments"} sidebar
+        </span>
+      </Button>
+    </TooltipContainer>
   );
 };
 
