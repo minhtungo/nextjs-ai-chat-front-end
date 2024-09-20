@@ -7,7 +7,10 @@ import { Suspense } from "react";
 
 const ChatSidebar = () => {
   return (
-    <SidebarWithToggle side="left" className="peer/chat gap-y-3 pt-4">
+    <SidebarWithToggle
+      side="left"
+      className="peer/chat group/chat gap-y-4 pt-4"
+    >
       <ChatSidebarActions />
       <div className="space-y-4 px-4">
         <NewChatButton />

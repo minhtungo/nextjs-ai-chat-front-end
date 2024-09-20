@@ -1,7 +1,7 @@
 import { MessageStore } from "@/types/chat";
 import { atom } from "jotai";
 
-export const guestIdAtom = atom<string>("");
+export const chatSearchModeAtom = atom<boolean>(false);
 
 export const messagesAtom = atom<MessageStore[]>([]);
 
@@ -9,13 +9,9 @@ export const imagesAtom = atom((get) =>
   get(messagesAtom).flatMap((msg) => msg?.images ?? []),
 );
 
-export const docsAtom = atom((get) =>
-  get(messagesAtom).flatMap((msg) => msg?.docs ?? []),
-);
-
 export const selectedImageIndexAtom = atom<number | null>(null);
 
-export const selectedImageIndexFinderAtom = atom(
+export const updateSelectedImageIndexAtom = atom(
   null,
   (get, set, url: string) => {
     if (get(selectedImageIndexAtom) !== null) {
@@ -28,9 +24,13 @@ export const selectedImageIndexFinderAtom = atom(
   },
 );
 
+export const docsAtom = atom((get) =>
+  get(messagesAtom).flatMap((msg) => msg?.docs ?? []),
+);
+
 export const selectedDocIndexAtom = atom<number | null>(null);
 
-export const selectedDocIndexFinderAtom = atom(
+export const updateSelectedDocIndexAtom = atom(
   null,
   (get, set, url: string) => {
     if (get(selectedDocIndexAtom) !== null) {

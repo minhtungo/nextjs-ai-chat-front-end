@@ -3,7 +3,6 @@ import { useChat } from "@/hooks/use-chat";
 import { cn } from "@/lib/utils";
 import { FileText } from "lucide-react";
 import Image from "next/image";
-import { FC } from "react";
 
 interface AttachFilePreviewProps {
   type: "document" | "pdf" | "image";
@@ -12,13 +11,14 @@ interface AttachFilePreviewProps {
   className?: string;
 }
 
-const AttachFilePreview: FC<AttachFilePreviewProps> = ({
+const AttachFilePreview = ({
   type,
   name,
   url,
   className,
-}) => {
+}: AttachFilePreviewProps) => {
   const { updateDocIndex, updateImageIndex } = useChat();
+
   return (
     <div
       className={cn(

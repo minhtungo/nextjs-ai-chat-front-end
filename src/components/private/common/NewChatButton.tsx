@@ -22,7 +22,7 @@ const NewChatButton = ({ className }: NewChatButtonProps) => {
           buttonVariants({
             size: "manual",
           }),
-          "w-full gap-0 rounded-full p-2",
+          "w-full gap-0 p-2",
           path === chatUrl && "pointer-events-none opacity-50",
           className,
         )}

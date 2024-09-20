@@ -20,7 +20,7 @@ const ChatSidebarContent = async () => {
       </ScrollArea>
 
       {user && user.plan === "free" && (
-        <div className="mb-4 px-4">
+        <div className="px-4">
           <UpgradePrompt />
         </div>
       )}
