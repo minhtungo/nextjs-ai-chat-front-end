@@ -72,8 +72,6 @@ export const getUserUploadedFilesUseCase = async (userId: string) => {
     method: "GET",
   });
 
-  console.log(data);
-
   // const assets = data.data.assets.map((asset: any) => ({
   //   id: asset._id,
   //   name: asset.name,

@@ -21,13 +21,13 @@ export default function Error({
   return (
     <OverlayWindow
       containerClassName="bg-background"
-      className="flex h-full w-full flex-col items-center justify-center gap-y-3 text-center"
+      className="flex h-full w-full flex-col items-center justify-center gap-y-3 px-4 text-center"
     >
       <Typography variant="h3">Opps, Something went wrong!</Typography>
       <Typography className="max-w-xl text-muted-foreground">
         {error.message}
       </Typography>
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-3 text-center">
         <Link
           className={buttonVariants({ variant: "outline", size: "sm" })}
           href="/"

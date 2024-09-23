@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { ApiResponse } from "@/lib/response";
 import { getChatToken, getChatUser } from "@/lib/session";
 import { StatusCodes } from "http-status-codes";
+import { cookies } from "next/headers";
 
 export const GET = auth(async (req) => {
   const existingUser = req?.auth?.user;
@@ -10,6 +11,7 @@ export const GET = auth(async (req) => {
   const token = getChatToken(user.id!);
 
   console.log("*****************GET request user", user, token);
+  console.log("cookies", cookies().getAll());
 
   return Response.json(
     ApiResponse.success(

@@ -1,7 +1,7 @@
 import "server-only";
 import { getCurrentUser } from "@/lib/auth";
 import { AuthenticationError } from "@/lib/error";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, getCookies, setCookie } from "cookies-next";
 import { User } from "next-auth";
 import { cookies } from "next/headers";
 import { v4 as uuid } from "uuid";
@@ -20,11 +20,12 @@ export const getChatUser = (user: User | undefined) => {
     return user;
   }
 
-  let id = getCookie("userId", { cookies });
+  let id = cookies().get("chatUserId")?.value;
+  console.log("getChatUser", id);
 
   if (!id) {
     id = `guest-${uuid()}`;
-    setCookie("userId", id, { cookies });
+    cookies().set("chatUserId", id);
   }
 
   return {
@@ -34,7 +35,8 @@ export const getChatUser = (user: User | undefined) => {
 };
 
 export const getChatToken = (userId: string) => {
-  let token = getCookie("chatToken", { cookies });
+  let token = cookies().get("chatToken")?.value;
+  console.log("getChatToken", token);
 
   if (token) {
     return token;
@@ -45,7 +47,7 @@ export const getChatToken = (userId: string) => {
   });
 
   token = encodeToken(payload);
-  setCookie("chatTokenasdasd", token, { cookies });
+  cookies().set("chatToken", token);
 
   return token;
 };

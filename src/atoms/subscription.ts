@@ -14,7 +14,6 @@ export const currentSubscriptionAtom = atom(
     const currentSub = get(subscriptionAtom);
 
     if (!centrifuge) {
-      console.log("Current SubscriptionAtom centrifuge is null", channel);
       toast.error("Please connect to the centrifuge network");
       return;
     }

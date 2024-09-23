@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { ApiResponse } from "@/lib/response";
 import { getChatToken, getChatUser } from "@/lib/session";
-import { getTokenUseCase } from "@/use-cases/api";
 import { StatusCodes } from "http-status-codes";
 
 export const GET = auth(async (req) => {

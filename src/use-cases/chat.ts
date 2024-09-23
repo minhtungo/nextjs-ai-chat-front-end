@@ -2,8 +2,10 @@ import { createChatRoom } from "@/lib/chat";
 
 import { MESSAGES_LIMIT } from "@/app-config";
 import { fetchAuth } from "@/lib/api";
+import { getCurrentUser } from "@/lib/auth";
 import { Message } from "@/lib/definitions";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
+import { getChatToken, getChatUser } from "@/lib/session";
 import { nanoid } from "@/lib/utils";
 import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
 import { ZSAError } from "zsa";
@@ -171,4 +173,16 @@ export const removeChatsUseCase = async ({
   } else if (response.error) {
     throw Error(`Failed to remove chat: ${response.error}`);
   }
+};
+
+export const getChatUserUseCase = async () => {
+  const existingUser = await getCurrentUser();
+
+  const user = getChatUser(existingUser);
+  const token = getChatToken(user.id!);
+
+  return {
+    user,
+    token,
+  };
 };

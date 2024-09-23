@@ -139,7 +139,7 @@ const SignInForm = () => {
         </form>
       </Form>
       <div className="mt-6 text-center text-sm">
-        {t("SignIn.action.title")}{" "}
+        {t("SignIn.action.title")}
         <Link href={signUpUrl} className="underline">
           {t("SignIn.action.link")}
         </Link>
