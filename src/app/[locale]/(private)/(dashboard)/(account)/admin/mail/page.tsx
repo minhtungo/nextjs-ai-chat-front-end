@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { Mail } from "@/components/private/mail/Mail";
+import { Mail } from "@/components/mail/Mail";
 import { getUserMails } from "@/data/mail";
 import { getCurrentUser } from "@/lib/auth";
 

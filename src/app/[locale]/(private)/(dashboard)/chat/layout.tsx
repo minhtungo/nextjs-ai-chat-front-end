@@ -1,7 +1,7 @@
 import ClientOnly from "@/components/common/ClientOnly";
-import AttachmentsSidebar from "@/components/private/common/AttachmentsSidebar";
-import ChatSidebar from "@/components/private/common/ChatSidebar";
-import MainArea from "@/components/private/common/MainArea";
+import AttachmentsSidebar from "@/components/layout/AttachmentsSidebar";
+import ChatSidebar from "@/components/layout/ChatSidebar";
+import MainArea from "@/components/layout/MainArea";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 
 export default async function ChatLayout({

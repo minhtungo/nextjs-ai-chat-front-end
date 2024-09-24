@@ -1,7 +1,7 @@
-import PageTitle from "@/components/private/common/PageTitle";
-import FeedbackForm from "@/components/private/feedback/FeedbackForm";
-import Page from "@/components/public/common/Page";
-import PageHeader from "@/components/public/common/PageHeader";
+import PageTitle from "@/components/common/PageTitle";
+import FeedbackForm from "@/components/feedback/FeedbackForm";
+import Page from "@/components/layout/Page";
+import PageHeader from "@/components/layout/PageHeader";
 import { FC } from "react";
 
 interface FeedbackPageProps {}

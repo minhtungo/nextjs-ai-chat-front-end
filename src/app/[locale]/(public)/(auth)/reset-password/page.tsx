@@ -1,4 +1,4 @@
-import Page from "@/components/public/common/Page";
+import Page from "@/components/layout/Page";
 import ResetPasswordForm from "./ResetPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";

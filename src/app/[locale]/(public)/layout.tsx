@@ -1,7 +1,7 @@
 import AOSWrapper from "@/components/common/AOS";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import Footer from "@/components/public/common/Footer";
-import PublicHeader from "@/components/public/common/PublicHeader";
+import Footer from "@/components/layout/Footer";
+import PublicHeader from "@/components/layout/PublicHeader";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function PublicLayout({

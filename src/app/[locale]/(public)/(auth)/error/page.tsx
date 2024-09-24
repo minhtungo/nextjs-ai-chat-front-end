@@ -1,4 +1,4 @@
-import Page from "@/components/public/common/Page";
+import Page from "@/components/layout/Page";
 import AuthError from "./AuthError";
 import { unstable_setRequestLocale } from "next-intl/server";
 

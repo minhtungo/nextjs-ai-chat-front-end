@@ -1,4 +1,4 @@
-import LoadingOverlay from "@/components/private/common/LoadingOverlay";
+import LoadingOverlay from "@/components/common/LoadingOverlay";
 
 export default function Loading() {
   return <LoadingOverlay isLoading={true} />;

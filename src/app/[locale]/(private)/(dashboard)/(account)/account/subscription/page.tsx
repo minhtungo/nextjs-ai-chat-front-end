@@ -1,11 +1,11 @@
-import Plans from "@/components/private/subscription/Plans";
+import Plans from "@/components/subscription/Plans";
 
-import BillingHistory from "@/components/private/subscription/BillingHistory";
+import BillingHistory from "@/components/subscription/BillingHistory";
 import { Separator } from "@/components/ui/separator";
 import Typography from "@/components/ui/typography";
 import { getCurrentUser } from "@/lib/auth";
 import { Metadata } from "next";
-import PaymentMethodDialog from "@/components/private/subscription/PaymentMethodDialog";
+import PaymentMethodDialog from "@/components/subscription/PaymentMethodDialog";
 
 export const metadata: Metadata = {
   title: "Billing",

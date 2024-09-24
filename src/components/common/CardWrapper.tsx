@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { FC, ReactNode } from "react";
-import BackButton from "../private/common/BackButton";
+import BackButton from "./BackButton";
 import { cn } from "@/lib/utils";
 
 interface cardWrapperProps {

@@ -3,7 +3,7 @@ import CTA from "@/components/public/Cta";
 import FAQs from "@/components/public/FAQs";
 import Hero from "@/components/public/Hero";
 import Intros from "@/components/public/Intros";
-import Page from "@/components/public/common/Page";
+import Page from "@/components/layout/Page";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({

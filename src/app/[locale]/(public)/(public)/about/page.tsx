@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { sanitize } from "isomorphic-dompurify";
 import Section from "@/components/public/common/Section";
-import PageTitle from "@/components/public/common/PageTitle";
-import Page from "@/components/public/common/Page";
-import PageHeader from "@/components/public/common/PageHeader";
+import PageTitle from "@/components/layout/PageTitle";
+import Page from "@/components/layout/Page";
+import PageHeader from "@/components/layout/PageHeader";
 
 export async function generateMetadata({
   params: { locale },

@@ -1,6 +1,6 @@
 import { getCurrentUser } from "@/lib/auth";
 import { FC, Suspense } from "react";
-import Overview from "@/components/private/admin/Overview";
+import Overview from "@/components/admin/Overview";
 
 interface AdminPageProps {}
 

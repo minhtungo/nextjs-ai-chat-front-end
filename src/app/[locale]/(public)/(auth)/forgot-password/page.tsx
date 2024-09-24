@@ -1,4 +1,4 @@
-import Page from "@/components/public/common/Page";
+import Page from "@/components/layout/Page";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 

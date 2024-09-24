@@ -1,7 +1,7 @@
-import AccountHeader from "@/components/private/common/AccountHeader";
-import AccountSidebar from "@/components/private/common/AccountSidebar";
-import MainArea from "@/components/private/common/MainArea";
-import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
+import AccountHeader from "@/components/layout/AccountHeader";
+import AccountSidebar from "@/components/layout/AccountSidebar";
+import MainArea from "@/components/layout/MainArea";
+import ScrollAreaContainer from "@/components/layout/ScrollAreaContainer";
 
 export default async function AccountLayout({
   children,

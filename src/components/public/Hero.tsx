@@ -1,5 +1,5 @@
 import { chatUrl } from "@/app-config";
-import { BorderBeam } from "@/components/public/common/BorderBeam";
+import { BorderBeam } from "@/components/common/BorderBeam";
 import Section from "@/components/public/common/Section";
 import ThemeImage from "@/components/public/ThemeImage";
 import { buttonVariants } from "@/components/ui/button";

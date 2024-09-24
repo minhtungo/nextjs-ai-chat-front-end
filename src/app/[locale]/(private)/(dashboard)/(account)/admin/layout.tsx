@@ -1,7 +1,7 @@
 import Typography from "@/components/ui/typography";
 import { Suspense } from "react";
-import Nav from "@/components/private/admin/Nav";
-import ScrollAreaContainer from "@/components/private/common/ScrollAreaContainer";
+import Nav from "@/components/admin/Nav";
+import ScrollAreaContainer from "@/components/layout/ScrollAreaContainer";
 
 export default async function AdminDashBoardLayout({
   children,

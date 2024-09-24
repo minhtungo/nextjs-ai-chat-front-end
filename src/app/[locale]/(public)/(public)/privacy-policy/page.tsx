@@ -1,6 +1,6 @@
-import Page from "@/components/public/common/Page";
-import PageHeader from "@/components/public/common/PageHeader";
-import PageTitle from "@/components/public/common/PageTitle";
+import Page from "@/components/layout/Page";
+import PageHeader from "@/components/layout/PageHeader";
+import PageTitle from "@/components/layout/PageTitle";
 import PrivacyPolicy from "@/components/public/PrivacyPolicy";
 import { constructMetadata } from "@/lib/utils";
 import { Metadata } from "next";

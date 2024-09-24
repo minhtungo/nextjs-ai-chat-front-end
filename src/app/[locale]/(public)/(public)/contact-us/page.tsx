@@ -1,6 +1,6 @@
-import Page from "@/components/public/common/Page";
-import PageHeader from "@/components/public/common/PageHeader";
-import PageTitle from "@/components/public/common/PageTitle";
+import Page from "@/components/layout/Page";
+import PageHeader from "@/components/layout/PageHeader";
+import PageTitle from "@/components/layout/PageTitle";
 import ContactUsForm from "@/components/public/ContactForm";
 import { unstable_setRequestLocale } from "next-intl/server";
 

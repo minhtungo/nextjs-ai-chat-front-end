@@ -5,7 +5,7 @@ import CardWrapper from "@/components/common/CardWrapper";
 import Spinner from "@/components/common/Spinner";
 import FormError from "@/components/auth/FormError";
 import FormSuccess from "@/components/auth/FormSuccess";
-import BackButton from "@/components/private/common/BackButton";
+import BackButton from "@/components/common/BackButton";
 import Typography from "@/components/ui/typography";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";

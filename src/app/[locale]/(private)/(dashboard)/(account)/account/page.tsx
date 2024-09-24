@@ -1,8 +1,8 @@
 import Google from "@/components/icons/Google";
-import ChangePassword from "@/components/private/account/ChangePassword";
-import GeneralSettings from "@/components/private/account/GeneralSettings";
-import UserProfileFormServer from "@/components/private/account/UserProfileForm.server";
-import AccountPageSkeleton from "@/components/private/skeleton/AccountPageSkeleton";
+import ChangePassword from "@/components/account/ChangePassword";
+import GeneralSettings from "@/components/account/GeneralSettings";
+import UserProfileFormServer from "@/components/account/UserProfileForm.server";
+import AccountPageSkeleton from "@/components/skeleton/AccountPageSkeleton";
 import Typography from "@/components/ui/typography";
 import { getCurrentUser } from "@/lib/auth";
 import { constructMetadata } from "@/lib/utils";
