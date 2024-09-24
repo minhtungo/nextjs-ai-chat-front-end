@@ -5,10 +5,8 @@ import { useMessages } from "@/hooks/use-messages";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
-import { FC } from "react";
 
-interface PromptSuggestionProps {
-  className?: string;
+interface PromptSuggestionProps extends React.ComponentProps<"div"> {
   userId: string;
 }
 
@@ -22,9 +20,12 @@ const promptSuggestion = [
   {
     content: "How do I work with variables in equations 2?",
   },
+  {
+    content: "How do I work with variables in equations 2?",
+  },
 ];
 
-const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
+const PromptHints = ({ userId, className }: PromptSuggestionProps) => {
   const currentSubscription = useAtomValue(currentSubscriptionAtom);
   const { setMessages } = useMessages();
 
@@ -48,7 +49,7 @@ const PromptHints: FC<PromptSuggestionProps> = ({ userId, className }) => {
   return (
     <div
       className={cn(
-        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-3",
+        "grid gap-3 break-words text-sm text-muted-foreground transition-colors sm:grid-cols-4",
         className,
       )}
     >

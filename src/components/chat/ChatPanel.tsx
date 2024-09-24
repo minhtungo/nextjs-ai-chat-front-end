@@ -37,10 +37,6 @@ const ChatPanel = ({ chatId, userId }: ChatPanelProps) => {
     };
   }, [chatId, centrifuge]);
 
-  const onSubmitMessage = () => {
-    sendMessage();
-  };
-
   return (
     <MaxWidthWrapper className="max-w-5xl space-y-3 py-3">
       <PromptSuggestions userId={userId} />
@@ -49,7 +45,7 @@ const ChatPanel = ({ chatId, userId }: ChatPanelProps) => {
           <span className="text-xs">Exceeded token limit</span>
         </Badge>
       )}
-      <PromptForm onSubmit={onSubmitMessage} />
+      <PromptForm onSubmit={sendMessage} />
     </MaxWidthWrapper>
   );
 };

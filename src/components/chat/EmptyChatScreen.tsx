@@ -1,4 +1,3 @@
-import BotAvatar from "@/components/chat/BotAvatar";
 import PromptHints from "@/components/chat/PromptHints";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
 
@@ -17,8 +16,7 @@ const EmptyChatScreen = ({ className, userId }: EmptyChatScreenProps) => {
         className,
       )}
     >
-      <BotAvatar />
-      <Typography variant="h4" tag="h2" className="text-center">
+      <Typography variant="h3" tag="h2" className="text-center">
         How can I help you today?
       </Typography>
       <PromptHints className="mt-4" userId={userId} />

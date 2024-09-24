@@ -26,7 +26,6 @@ const PromptActions = ({}: PromptActionsProps) => {
           variant="ghost"
           className="!rounded-full"
           asChild
-          // disabled={content.trim() === "" || pending || !inTokenLimit}
         >
           <label
             htmlFor="attach-file"

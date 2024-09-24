@@ -29,13 +29,9 @@ const DocPreviewWindow: FC<DocPreviewWindowProps> = ({ userId, chatId }) => {
 
   const { setSelectedDocIndex, selectedDocIndex, docs } = useChat();
 
-  const onSubmitMessage = async () => {
-    sendMessage();
-  };
-
   return (
     <ChatWindowWrapper
-      onSubmitMessage={onSubmitMessage}
+      onSubmitMessage={sendMessage}
       userId={userId}
       chatId={chatId}
     >

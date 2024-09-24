@@ -3,17 +3,13 @@
 import { FormEvent, useEffect, useRef } from "react";
 import Textarea from "react-textarea-autosize";
 
+import MathKeyboardContainer from "@/components/chat/MathKeyboardContainer";
+import PromptActions from "@/components/chat/PromptActions";
+import UploadedFiles from "@/components/chat/UploadedFiles";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
-import dynamic from "next/dynamic";
-import UploadedFiles from "@/components/chat/UploadedFiles";
-import PromptActions from "@/components/chat/PromptActions";
-
-const MathKeyboard = dynamic(() => import("./MathKeyboard"), {
-  loading: () => <p>Loading...</p>,
-});
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface PromptFormProps extends React.ComponentProps<"form"> {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -27,8 +23,6 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
     message: { content },
     setMessage,
     addFiles,
-    mathMode,
-    setMathMode,
   } = useMessage();
 
   useEffect(() => {
@@ -38,9 +32,12 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
   }, []);
 
   return (
-    <>
+    <TooltipProvider delayDuration={100}>
+      <MathKeyboardContainer formRef={formRef} className="peer" />
       <form
-        className={cn("relative overflow-hidden", mathMode && "hidden")}
+        className={cn(
+          "relative overflow-hidden peer-[[data-state=open]]:hidden",
+        )}
         ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
@@ -49,7 +46,7 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
       >
         <div
           className={cn(
-            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-2.5 pl-6 pr-4",
+            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-1.5 pl-6 pr-4",
             className,
           )}
           onDragOver={(e) => {
@@ -91,22 +88,11 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
               }
             />
           </div>
+
           <PromptActions />
         </div>
       </form>
-      {mathMode && <MathKeyboard formRef={formRef} />}
-      <div className="relative">
-        {mathMode && (
-          <button
-            className="absolute -top-[10px] left-1/2 z-[1000] mb-4 size-5 rounded-full bg-accent p-1"
-            onClick={() => setMathMode((prev) => !prev)}
-          >
-            <ChevronDown className="size-3" />
-          </button>
-        )}
-        <div className="w-full" id="math-keyboard" />
-      </div>
-    </>
+    </TooltipProvider>
   );
 };
 
