@@ -1,6 +1,6 @@
-import SectionTitle from "@/components/public/common/SectionTitle";
+import Section from "@/components/layout/Section";
+import SectionTitle from "@/components/layout/SectionTitle";
 import IntroBlock from "@/components/public/IntroBlock";
-import Section from "@/components/public/common/Section";
 import { INTRO_BLOCKS } from "@/content/landing";
 
 const Intros = () => {

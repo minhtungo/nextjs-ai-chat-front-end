@@ -2,7 +2,7 @@ import ChatArea from "@/components/chat/ChatArea";
 import Spinner from "@/components/common/Spinner";
 import { Suspense } from "react";
 
-const ChatIndexPage = async () => {
+const ChatIndexPage = () => {
   return (
     <Suspense
       fallback={

@@ -1,4 +1,4 @@
-import Section from "@/components/public/common/Section";
+import Section from "@/components/layout/Section";
 import {
   Accordion,
   AccordionContent,

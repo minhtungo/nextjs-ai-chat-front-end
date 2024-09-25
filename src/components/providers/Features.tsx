@@ -1,6 +1,7 @@
 import ContentBox from "@/components/common/ContentBox";
-import SectionTitle from "@/components/public/common/SectionTitle";
-import Section from "@/components/public/common/Section";
+import Section from "@/components/layout/Section";
+import SectionTitle from "@/components/layout/SectionTitle";
+
 import { FEATURES } from "@/content/landing";
 
 const Features = () => {

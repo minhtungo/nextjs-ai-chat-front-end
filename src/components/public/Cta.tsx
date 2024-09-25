@@ -1,5 +1,5 @@
 import { signUpUrl } from "@/app-config";
-import Section from "@/components/public/common/Section";
+import Section from "@/components/layout/Section";
 import { buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";

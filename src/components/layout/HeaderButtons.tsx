@@ -1,6 +1,7 @@
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
+import NavButtons from "@/components/layout/NavButtons";
 import PublicMobileMenu from "@/components/layout/PublicMobileMenu";
-import LanguageSwitcher from "@/components/public/common/LanguageSwitcher";
-import NavButtons from "@/components/public/common/NavButtons";
+
 import { cn } from "@/lib/utils";
 import { Suspense } from "react";
 

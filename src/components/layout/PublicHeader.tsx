@@ -1,7 +1,8 @@
 import Logo from "@/components/common/Logo";
 import MaxWidthWrapper from "@/components/common/MaxWidthWrapper";
-import HeaderButtons from "@/components/public/common/HeaderButtons";
-import HeaderLinks from "@/components/public/common/HeaderLinks";
+import HeaderButtons from "@/components/layout/HeaderButtons";
+import HeaderLinks from "@/components/layout/HeaderLinks";
+
 import Link from "next/link";
 
 const PublicHeader = () => {

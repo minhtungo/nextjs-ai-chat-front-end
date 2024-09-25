@@ -20,10 +20,10 @@
     preact "10.11.3"
     preact-render-to-string "5.2.3"
 
-"@auth/core@0.35.0":
-  version "0.35.0"
-  resolved "https://registry.yarnpkg.com/@auth/core/-/core-0.35.0.tgz#2d2c20896c13ee40aa0fffe0bff613b180d1d16f"
-  integrity sha512-XvMALiYn5ZQd1hVeG1t+jCU89jRrc7ortl/05wkBrPHnRWZScxAK5jKuzBz+AOBQXewDjYcMpzeF5tTqg6rDhQ==
+"@auth/core@0.35.2":
+  version "0.35.2"
+  resolved "https://registry.yarnpkg.com/@auth/core/-/core-0.35.2.tgz#a6362f7fed722122cb239054aaad426476b03227"
+  integrity sha512-4PSrmSkZNMNQEHq86jARBYqls/9G2ECGMJmlazXxkRpZWgtKMUBXF1HUPz82cxy3qFXZ9/HPEiGIEGtIvu4YGQ==
   dependencies:
     "@panva/hkdf" "^1.1.1"
     "@types/cookie" "0.6.0"
@@ -33,12 +33,12 @@
     preact "10.11.3"
     preact-render-to-string "5.2.3"
 
-"@auth/prisma-adapter@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@auth/prisma-adapter/-/prisma-adapter-2.5.0.tgz#cccea5b69f8b843625794d7ae7a8f71b591e3e70"
-  integrity sha512-A+sd+mqV+7i9a5FcP9oZSIJTBHsidd5xA0abGSaAeek8OaA1LebbX20kjggFRIeP/UlKiQERXar/e1Q4mJjp/w==
+"@auth/prisma-adapter@^2.5.2":
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/@auth/prisma-adapter/-/prisma-adapter-2.5.2.tgz#450aed5ce38181d1edf1eb38ae3a214773f0f240"
+  integrity sha512-yqBBZMzUIFUFU/rUf99wq81wV3nLsvB/XwG+BXoVYXE9lIHENgzdaDn53RbT0iu5kT8zXhSz/U1RfM6bG75y7g==
   dependencies:
-    "@auth/core" "0.35.0"
+    "@auth/core" "0.35.2"
 
 "@babel/runtime@^7.13.10", "@babel/runtime@^7.23.2":
   version "7.24.5"
@@ -1402,10 +1402,10 @@
   dependencies:
     "@t3-oss/env-core" "0.11.1"
 
-"@tanstack/eslint-plugin-query@^5.57.1":
-  version "5.57.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.57.1.tgz#e3bce3c69916a7bcdc0fbad5b197b8997af19270"
-  integrity sha512-HrfX4NqVseUZiRFBEOjS61bYIU5Qb9TeLEraOj0yMruCFIXz4reP62Cpq6BwZfMMASV7GfWAFiRvMbg7J/U05Q==
+"@tanstack/eslint-plugin-query@^5.57.2":
+  version "5.57.2"
+  resolved "https://registry.yarnpkg.com/@tanstack/eslint-plugin-query/-/eslint-plugin-query-5.57.2.tgz#7f47055f3855a94b65c8b94e20864c5d60a59070"
+  integrity sha512-JEvKhL4cRV0vMwvjg8LSYE7tiaxr1zzBEgNC9n/vexrUKkLeM7rxt4iIXMYphMGzuTYdSBYBo5CQy1Iio7LhSA==
   dependencies:
     "@typescript-eslint/utils" "^8.3.0"
 
@@ -1414,17 +1414,17 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.56.2.tgz#2def2fb0290cd2836bbb08afb0c175595bb8109b"
   integrity sha512-gor0RI3/R5rVV3gXfddh1MM+hgl0Z4G7tj6Xxpq6p2I03NGPaJ8dITY9Gz05zYYb/EJq9vPas/T4wn9EaDPd4Q==
 
-"@tanstack/query-devtools@5.56.1":
-  version "5.56.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.56.1.tgz#319c362dd19c6cfe005e74a8777baefa4a4f72de"
-  integrity sha512-xnp9jq/9dHfSCDmmf+A5DjbIjYqbnnUL2ToqlaaviUQGRTapXQ8J+GxusYUu1IG0vZMaWdiVUA4HRGGZYAUU+A==
+"@tanstack/query-devtools@5.58.0":
+  version "5.58.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-devtools/-/query-devtools-5.58.0.tgz#5c68ce90562e154004de4372bc0a28fcd94cdf31"
+  integrity sha512-iFdQEFXaYYxqgrv63ots+65FGI+tNp5ZS5PdMU1DWisxk3fez5HG3FyVlbUva+RdYS5hSLbxZ9aw3yEs97GNTw==
 
-"@tanstack/react-query-devtools@^5.56.2":
-  version "5.56.2"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.56.2.tgz#c129cdb811927085434ea27691e4b7f605eb4128"
-  integrity sha512-7nINJtRZZVwhTTyDdMIcSaXo+EHMLYJu1S2e6FskvvD5prx87LlAXXWZDfU24Qm4HjshEtM5lS3HIOszNGblcw==
+"@tanstack/react-query-devtools@^5.58.0":
+  version "5.58.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query-devtools/-/react-query-devtools-5.58.0.tgz#0d541cf8f755402553da540bcf7a1f802f49a8d5"
+  integrity sha512-qF0xCyBeVuNLygTO1sAl1X4Gv52w52SeaDdbjYQmtTOooUJ3aAVlBEtiRJFfJblWQ9p/UQG8NIcC/65RjX8Jkw==
   dependencies:
-    "@tanstack/query-devtools" "5.56.1"
+    "@tanstack/query-devtools" "5.58.0"
 
 "@tanstack/react-query@^5.56.2":
   version "5.56.2"
@@ -4448,10 +4448,10 @@ lru-cache@^10.2.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.2.2.tgz#48206bc114c1252940c41b25b41af5b545aca878"
   integrity sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==
 
-lucide-react@^0.445.0:
-  version "0.445.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.445.0.tgz#35c42341e98fbf0475b2a6cf74fd25ef7cbfcd62"
-  integrity sha512-YrLf3aAHvmd4dZ8ot+mMdNFrFpJD7YRwQ2pUcBhgqbmxtrMP4xDzIorcj+8y+6kpuXBF4JB0NOCTUWIYetJjgA==
+lucide-react@^0.446.0:
+  version "0.446.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.446.0.tgz#b92bd0229ad79a11fff84d47f9351797fc0b904e"
+  integrity sha512-BU7gy8MfBMqvEdDPH79VhOXSEgyG8TSPOKWaExWGCQVqnGH7wGgDngPbofu+KdtVjPQBWbEmnfMTq90CTiiDRg==
 
 make-cancellable-promise@^1.3.1:
   version "1.3.2"
@@ -5630,10 +5630,10 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier-plugin-tailwindcss@^0.6.6:
-  version "0.6.6"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.6.tgz#93e524d3c30f3fb45dc9e99de985b2a584ff063f"
-  integrity sha512-OPva5S7WAsPLEsOuOWXATi13QrCKACCiIonFgIR6V4lYv4QLp++UXVhZSzRbZxXGimkQtQT86CC6fQqTOybGng==
+prettier-plugin-tailwindcss@^0.6.8:
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.8.tgz#8a178e1679e3f941cc9de396f109c6cffea676d8"
+  integrity sha512-dGu3kdm7SXPkiW4nzeWKCl3uoImdd5CTZEJGxyypEPL37Wj0HT2pLqjrvSei1nTeuQfO4PUfjeW5cTUNRLZ4sA==
 
 prettier@3.0.3:
   version "3.0.3"
@@ -7004,10 +7004,10 @@ uuid@^10.0.0:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-10.0.0.tgz#5a95aa454e6e002725c79055fd42aaba30ca6294"
   integrity sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==
 
-vaul@^0.9.4:
-  version "0.9.4"
-  resolved "https://registry.yarnpkg.com/vaul/-/vaul-0.9.4.tgz#2e1d8f90481a9f25169226f9cd6f764ad30ca65e"
-  integrity sha512-pcyIy1nEk6798ReNQpbVH/T/dYnoJ3bwyq7jmSp134s+bSvpWoSWQthm3/jfsQRvHNYIEK4ZKbkHUJ3YfLfw1w==
+vaul@^0.9.6:
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/vaul/-/vaul-0.9.6.tgz#b6b08997a7c408a403af158f118a90c19d2ee07b"
+  integrity sha512-Ykk5FSu4ibeD6qfKQH/CkBRdSGWkxi35KMNei0z59kTPAlgzpE/Qf1gTx2sxih8Q05KBO/aFhcF/UkBW5iI1Ww==
   dependencies:
     "@radix-ui/react-dialog" "^1.1.1"
 

@@ -17,7 +17,7 @@ interface ChatHeaderProps extends ComponentProps<"header"> {
   title?: string;
 }
 
-const ChatHeader = async ({ user, title, className }: ChatHeaderProps) => {
+const ChatHeader = ({ user, title, className }: ChatHeaderProps) => {
   return (
     <TooltipProvider delayDuration={100}>
       <header
