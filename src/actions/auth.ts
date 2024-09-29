@@ -10,6 +10,7 @@ import {
 } from "@/lib/definitions";
 import {
   forgotPasswordUseCase,
+  sendVerificationEmailUseCase,
   setNewPasswordUseCase,
   signInWithCredentialsUseCase,
   signUpWithCredentialsUseCase,
@@ -52,6 +53,12 @@ export const signOut = async () => {
     redirectTo: "/",
   });
 };
+
+export const sendVerificationEmailAction = createServerAction()
+  .input(z.string())
+  .handler(async ({ input: token }) => {
+    return await sendVerificationEmailUseCase(token);
+  });
 
 export const verifyNewUserEmailAction = createServerAction()
   .input(z.string())

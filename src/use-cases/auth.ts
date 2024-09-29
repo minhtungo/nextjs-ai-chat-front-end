@@ -8,6 +8,7 @@ import {
   getPasswordResetTokenByToken,
   getTwoFactorConfirmationByUserId,
   getTwoFactorTokenByEmail,
+  getVerificationTokenByEmail,
   getVerificationTokenByToken,
 } from "@/data/auth";
 import {
@@ -39,6 +40,7 @@ import {
   generateVerificationToken,
   saltAndHashPassword,
 } from "@/lib/security";
+import { ApiResponse } from "@/lib/response";
 
 export const signInWithCredentialsUseCase = async ({
   values,
@@ -167,6 +169,7 @@ export const signUpWithCredentialsUseCase = async (
 
 export const verifyNewUserEmailUseCase = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
+
   if (!existingToken) {
     throw new ZSAError("NOT_AUTHORIZED", "error.tokenInvalid");
   }
@@ -183,6 +186,8 @@ export const verifyNewUserEmailUseCase = async (token: string) => {
     throw new ZSAError("NOT_AUTHORIZED", "error.invalidVerificationEmail");
   }
 
+  console.log("existingUser", existingUser);
+
   try {
     await updateUserEmailVerification(existingUser.id);
     await deleteVerificationToken(existingToken.id);
@@ -190,7 +195,9 @@ export const verifyNewUserEmailUseCase = async (token: string) => {
     throw new ZSAError("ERROR", "error.generalError");
   }
 
-  return { message: "success.emailVerified" };
+  return ApiResponse.success("success.emailVerified", {
+    email: existingUser.email,
+  });
 };
 
 export const forgotPasswordUseCase = async (
@@ -259,4 +266,27 @@ export const setNewPasswordUseCase = async ({
   }
 
   return { message: "success.passwordChanged" };
+};
+
+export const sendVerificationEmailUseCase = async (token: string) => {
+  const existingToken = await getVerificationTokenByToken(token);
+
+  if (!existingToken) {
+    throw new ZSAError("NOT_AUTHORIZED", "error.tokenInvalid");
+  }
+
+  const user = await getUserByEmail(existingToken.email);
+
+  if (!user) throw new ZSAError("NOT_AUTHORIZED", "error.invalidEmail");
+
+  if (user.emailVerified)
+    throw new ZSAError("CONFLICT", "error.alreadyVerified");
+
+  const newToken = await generateVerificationToken(user.email);
+
+  await sendVerificationEmail(newToken.email, newToken.token);
+
+  if (existingToken) {
+    await deleteVerificationToken(existingToken.id);
+  }
 };

@@ -6,7 +6,6 @@ import Image from "next/image";
 
 const UploadedFiles = () => {
   const { removeFile, files } = useMessage();
-  console.log("files", files);
   return (
     <>
       {files && files.length > 0 && (

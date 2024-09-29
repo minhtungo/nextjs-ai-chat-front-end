@@ -6,7 +6,9 @@ import { useTheme } from "next-themes";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { useEffect, useState } from "react";
-interface ThemeSwitcherProps {}
+import { cn } from "@/lib/utils";
+
+interface ThemeSwitcherProps extends React.ComponentProps<"div"> {}
 
 const THEME_OPTIONS = [
   {
@@ -23,7 +25,7 @@ const THEME_OPTIONS = [
   },
 ];
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -40,7 +42,7 @@ const ThemeSwitcher = () => {
       value={theme}
       onValueChange={setTheme}
       type="single"
-      className="rounded-full border"
+      className={cn("w-fit rounded-full border", className)}
     >
       {THEME_OPTIONS.map(({ value, icon }) => (
         <ToggleGroupItem

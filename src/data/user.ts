@@ -9,48 +9,36 @@ export const getUserByEmail = async (
   email: string,
   options?: getUserOptions,
 ) => {
-  try {
-    return await db.user.findUnique({
-      where: { email },
-      omit: {
-        ...options?.omit,
-      },
-      include: {
-        ...options?.include,
-      },
-    });
-  } catch (error) {
-    return null;
-  }
+  return await db.user.findUnique({
+    where: { email },
+    omit: {
+      ...options?.omit,
+    },
+    include: {
+      ...options?.include,
+    },
+  });
 };
 
 export const getUserById = async (id: string, options?: getUserOptions) => {
-  try {
-    return await db.user.findUnique({
-      where: { id },
-      omit: {
-        ...options?.omit,
-      },
-      include: {
-        ...options?.include,
-      },
-    });
-  } catch (error) {
-    return null;
-  }
+  return await db.user.findUnique({
+    where: { id },
+    omit: {
+      ...options?.omit,
+    },
+    include: {
+      ...options?.include,
+    },
+  });
 };
 
 export const getUserRole = async (id: string) => {
-  try {
-    return await db.user.findUnique({
-      where: { id },
-      select: {
-        role: true,
-      },
-    });
-  } catch (error) {
-    return null;
-  }
+  return await db.user.findUnique({
+    where: { id },
+    select: {
+      role: true,
+    },
+  });
 };
 
 type CreateUserProps = Omit<

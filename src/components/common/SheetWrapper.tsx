@@ -43,7 +43,7 @@ const SheetWrapper: FC<SheetWrapperProps> = ({
         )}
       </SheetTrigger>
       <SheetContent className={cn("h-full", wrapperClassName)} side={side}>
-        <Link href="/">
+        <Link className="p-4" href="/">
           <Logo />
         </Link>
         <div className="relative flex h-screen w-full flex-1 flex-col">

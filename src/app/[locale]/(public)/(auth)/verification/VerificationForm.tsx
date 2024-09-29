@@ -12,6 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useServerAction } from "zsa-react";
 import { signInUrl } from "@/app-config";
+import ResendVerificationEmail from "@/app/[locale]/(public)/(auth)/verification/ResendVerificationEmail";
 
 const VerificationForm = () => {
   const searchParams = useSearchParams();
@@ -29,6 +30,8 @@ const VerificationForm = () => {
     }
 
     await execute(token);
+
+    console.log("verification", data);
   }, [token]);
 
   useEffect(() => {
@@ -38,15 +41,18 @@ const VerificationForm = () => {
   return (
     <CardWrapper headerLabel={t("Verification.title")} noBorderMobile>
       {isPending && (
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <Typography className="mb-2 text-muted-foreground">
-            We are verifying your email. Please wait.
+            We are verifying your email.
           </Typography>
           <Spinner />
         </div>
       )}
       {error && <FormError message={t(error.message as any)} />}
       {!token && <FormError message={t("error.tokenMissing")} />}
+      {error && t(error.message as any) === t("error.tokenExpired") && (
+        <ResendVerificationEmail className="mt-4" token={token!} />
+      )}
       {data && data.message && (
         <>
           <Typography className="text-muted-foreground-2 mt-2">

@@ -179,6 +179,7 @@
     "error": {
       "email": "Email required",
       "invalidEmail": "Invalid email",
+      "alreadyVerified": "Email has already been verified",
       "password": "Password required",
       "currentPassword": "Current password required",
       "currentPasswordInvalid": "Current password is invalid",
@@ -210,7 +211,8 @@
       "emailVerified": "Your email has been verified",
       "passwordChanged": "Your password has been changed",
       "resetPasswordEmailSent": "An email with the reset password link was sent to your email",
-      "twoFactorEmailSent": "2FA code was sent to your email. Please check your email"
+      "twoFactorEmailSent": "2FA code was sent to your email. Please check your email",
+      "emailVerificationSent": "Email verification link was sent to your email. Please check your email"
     }
   },
   "form": {
