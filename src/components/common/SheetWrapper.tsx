@@ -1,69 +1,69 @@
+import Logo from "@/components/common/Logo";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
-import { FC } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import Logo from "@/components/common/Logo";
-import Link from "next/link";
 import { Menu } from "lucide-react";
+import Link from "next/link";
 
-interface SheetWrapperProps {
-  className?: string;
+interface SheetWrapperProps extends React.ComponentProps<"div"> {
   triggerIcon?: React.ReactNode;
   triggerClassName?: string;
   wrapperClassName?: string;
-  footerClassName?: string;
   title?: string;
-  content: React.ReactNode;
   footer?: React.ReactNode;
   side?: "top" | "bottom" | "left" | "right" | null | undefined;
+  noCloseTrigger?: boolean;
+  action?: React.ReactNode;
 }
 
-const SheetWrapper: FC<SheetWrapperProps> = ({
+const SheetWrapper = ({
   className,
   triggerClassName,
   triggerIcon,
   wrapperClassName,
-  footerClassName,
-  content,
   footer,
   title,
   side,
-}) => {
+  noCloseTrigger,
+  action,
+  children,
+}: SheetWrapperProps) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn(triggerClassName)}>
+      <SheetTrigger className={cn("md:hidden", triggerClassName)}>
         {triggerIcon || (
           <Menu className="size-5 text-muted-foreground sm:size-6" />
         )}
       </SheetTrigger>
-      <SheetContent className={cn("h-full", wrapperClassName)} side={side}>
-        <Link className="p-4" href="/">
-          <Logo />
-        </Link>
-        <div className="relative flex h-screen w-full flex-1 flex-col">
-          <ScrollArea className="flex h-full w-full flex-1 flex-col py-4 lg:py-6">
-            {title && (
-              <SheetHeader className="px-4 sm:px-6">
-                <SheetTitle>{title}</SheetTitle>
-              </SheetHeader>
-            )}
-            <div
-              className={cn(
-                "mt-14 h-full w-full flex-1 px-4 sm:px-6",
-                className,
-              )}
-            >
-              {content}
-            </div>
-          </ScrollArea>
-          {footer ? <div className={cn(footerClassName)}>{footer}</div> : null}
+      <SheetContent
+        className={cn("flex h-screen flex-col", wrapperClassName)}
+        side={side}
+        noCloseTrigger={noCloseTrigger}
+      >
+        <div className="flex items-center justify-between px-4 pt-4">
+          <SheetClose>
+            <Link href="/">
+              <Logo />
+            </Link>
+          </SheetClose>
+          {action}
         </div>
+        <ScrollArea className="flex h-full w-full flex-1 flex-col py-2">
+          {title && (
+            <SheetHeader className="px-4 sm:px-6">
+              <SheetTitle>{title}</SheetTitle>
+            </SheetHeader>
+          )}
+          <div className={cn("px-4", className)}>{children}</div>
+        </ScrollArea>
+        {footer && <div className="px-4 py-4">{footer}</div>}
       </SheetContent>
     </Sheet>
   );
