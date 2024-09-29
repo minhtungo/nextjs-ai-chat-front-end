@@ -1,10 +1,11 @@
 import Features from "@/components/providers/Features";
-import CTA from "@/components/public/Cta";
-import FAQs from "@/components/public/FAQs";
-import Hero from "@/components/public/Hero";
-import Intros from "@/components/public/Intros";
+
 import Page from "@/components/layout/Page";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import Hero from "@/app/[locale]/(public)/(landing)/components/Hero";
+import Intros from "@/app/[locale]/(public)/(landing)/components/Intros";
+import CTA from "@/app/[locale]/(public)/(landing)/components/Cta";
+import FAQs from "@/app/[locale]/(public)/(landing)/components/FAQs";
 
 export async function generateMetadata({
   params: { locale },

@@ -1,6 +1,6 @@
+import IntroBlock from "@/app/[locale]/(public)/(landing)/components/IntroBlock";
 import Section from "@/components/layout/Section";
 import SectionTitle from "@/components/layout/SectionTitle";
-import IntroBlock from "@/components/public/IntroBlock";
 import { INTRO_BLOCKS } from "@/content/landing";
 
 const Intros = () => {

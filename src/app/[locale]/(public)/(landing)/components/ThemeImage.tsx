@@ -2,14 +2,13 @@
 
 import { cn } from "@/lib/utils";
 import Image, { ImageProps } from "next/image";
-import { FC } from "react";
 
-type Props = Omit<ImageProps, "src" | "priority" | "loading"> & {
+type ThemeImageProps = Omit<ImageProps, "src" | "priority" | "loading"> & {
   srcLight: string;
   srcDark: string;
 };
 
-const ThemeImage: FC<Props> = (props) => {
+const ThemeImage = (props: ThemeImageProps) => {
   const { srcLight, srcDark, alt, className, ...rest } = props;
   return (
     <>

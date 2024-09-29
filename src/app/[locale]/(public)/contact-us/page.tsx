@@ -1,17 +1,10 @@
+import ContactUsForm from "@/app/[locale]/(public)/contact-us/ContactForm";
 import Page from "@/components/layout/Page";
 import PageHeader from "@/components/layout/PageHeader";
 import PageTitle from "@/components/layout/PageTitle";
-import PrivacyPolicy from "@/components/public/PrivacyPolicy";
-import { constructMetadata } from "@/lib/utils";
-import { Metadata } from "next";
 import { unstable_setRequestLocale } from "next-intl/server";
 
-export const metadata: Metadata = constructMetadata({
-  title: "Privacy Policy",
-  canonical: "/privacy-policy",
-});
-
-const PrivacyPage = ({
+const ContactUsPage = ({
   params: { locale },
 }: {
   params: { locale: string };
@@ -21,13 +14,14 @@ const PrivacyPage = ({
     <Page>
       <PageHeader>
         <PageTitle
-          title="Privacy Policy"
-          description="Last updated August 18th, 2024"
+          title="Contact Us"
+          description="Lorem
+        ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, dolores!"
         />
       </PageHeader>
-      <PrivacyPolicy />
+      <ContactUsForm />
     </Page>
   );
 };
 
-export default PrivacyPage;
+export default ContactUsPage;
