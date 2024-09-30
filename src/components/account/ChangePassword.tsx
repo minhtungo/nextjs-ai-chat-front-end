@@ -45,7 +45,6 @@ const ChangePassword = () => {
       toast.error(err.message);
       return;
     }
-    // update();
     form.reset();
     toast.success("Thay đổi mật khẩu thành công");
   };

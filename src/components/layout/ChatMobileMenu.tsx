@@ -15,38 +15,42 @@ interface ChatMobileMenuProps {
   user: User;
 }
 
+const ChatMobileMenuFooter = ({ user }: { user: User }) => {
+  return (
+    <div className="px-4 pb-4">
+      {!isGuestUser(user.id!) ? (
+        <ChatDropdownMenu user={user} />
+      ) : (
+        <SignInPrompt />
+      )}
+    </div>
+  );
+};
+
+const ChatMobileMenuAction = () => {
+  return (
+    <Link href={chatUrl}>
+      <SquarePen className="size-5 text-muted-foreground hover:text-foreground" />
+    </Link>
+  );
+};
+
 const ChatMobileMenu = async ({ user }: ChatMobileMenuProps) => {
   return (
-    <>
-      <SheetWrapper
-        action={
-          <Link href={chatUrl}>
-            <SquarePen className="size-5 text-muted-foreground hover:text-foreground" />
-          </Link>
-        }
-        side="left"
-        footer={
-          <div className="px-4 pb-4">
-            {!isGuestUser(user.id!) ? (
-              <ChatDropdownMenu user={user} />
-            ) : (
-              <SignInPrompt />
-            )}
-          </div>
-        }
-        noCloseTrigger
-      >
-        {!isGuestUser(user.id!) ? (
-          <Suspense fallback={<ChatSkeleton />}>
-            <ChatList />
-          </Suspense>
-        ) : (
-          <p className="px-4 text-sm text-muted-foreground">
-            You must be logged in to view the chat history
-          </p>
-        )}
-      </SheetWrapper>
-    </>
+    <SheetWrapper
+      action={<ChatMobileMenuAction />}
+      footer={<ChatMobileMenuFooter user={user} />}
+    >
+      {!isGuestUser(user.id!) ? (
+        <Suspense fallback={<ChatSkeleton />}>
+          <ChatList />
+        </Suspense>
+      ) : (
+        <p className="px-4 text-sm text-muted-foreground">
+          You must be logged in to view the chat history
+        </p>
+      )}
+    </SheetWrapper>
   );
 };
 

@@ -20,13 +20,14 @@ const Footer = ({ className, ...props }: FooterProps) => {
             </Link>
           </div>
           {/* <LanguageSwitcher showIcon /> */}
-          <SocialLinks />
+          {/* <SocialLinks /> */}
+          <ThemeSwitcher />
         </div>
-        <div className="flex w-full flex-col items-center justify-between gap-y-4 text-sm sm:flex-row">
+        <div className="flex w-full flex-col items-center justify-between gap-y-4 text-xs sm:flex-row">
           <div className="text-muted-foreground sm:w-3/12">
             © {new Date().getFullYear()} Lumi. All rights Reserved.
           </div>
-          <ul className="flex flex-1 items-center justify-center gap-x-4">
+          <ul className="flex flex-1 items-center justify-end gap-x-4">
             {FOOTER_URLS.map(({ title, href }) => (
               <li
                 key={`footer-${title}`}
@@ -36,7 +37,6 @@ const Footer = ({ className, ...props }: FooterProps) => {
               </li>
             ))}
           </ul>
-          <ThemeSwitcher />
         </div>
       </MaxWidthWrapper>
     </footer>

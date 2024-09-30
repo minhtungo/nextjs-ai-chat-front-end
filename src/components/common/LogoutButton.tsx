@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { signOut } from "next-auth/react";
 
-const SignOutButton = () => {
+interface LogoutButtonProps {}
+
+const LogoutButton = ({}: LogoutButtonProps) => {
   return (
     <Button
       onClick={async () =>
@@ -14,9 +16,9 @@ const SignOutButton = () => {
       }
       className="w-full"
     >
-      <LogOut className="size-4" /> Đăng xuất
+      <LogOut className="h-4 w-4" /> Đăng xuất
     </Button>
   );
 };
 
-export default SignOutButton;
+export default LogoutButton;

@@ -20,18 +20,16 @@ const AttachmentsSidebar = () => {
       <ScrollArea>
         <div className="mb-2 px-4 text-sm font-semibold">Attached Files</div>
         {docs.length > 0 ? (
-          <>
-            <div className="flex w-full flex-col gap-1 px-4">
-              {docs.map(({ name, type, url }) => (
-                <AttachFilePreview
-                  key={`${url}-${name}`}
-                  name={name}
-                  type={type}
-                  url={url}
-                />
-              ))}
-            </div>
-          </>
+          <div className="flex w-full flex-col gap-1 px-4">
+            {docs.map(({ name, type, url }) => (
+              <AttachFilePreview
+                key={`${url}-${name}`}
+                name={name}
+                type={type}
+                url={url}
+              />
+            ))}
+          </div>
         ) : (
           <p className="px-4 text-sm text-muted-foreground">
             No documents attached

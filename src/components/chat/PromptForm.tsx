@@ -46,7 +46,7 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
       >
         <div
           className={cn(
-            "relative flex w-full items-end gap-2 rounded-3xl bg-accent py-1.5 pl-6 pr-4",
+            "relative flex w-full items-end gap-2 rounded-3xl bg-secondary py-1.5 pl-6 pr-4",
             className,
           )}
           onDragOver={(e) => {

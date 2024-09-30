@@ -1,5 +1,5 @@
-import FAQs from "@/components/public/FAQs";
-import PricingSection from "@/components/public/PricingSection";
+import FAQs from "@/app/[locale]/(public)/(landing)/components/FAQs";
+import PricingSection from "@/app/[locale]/(public)/(landing)/components/PricingSection";
 import Page from "@/components/layout/Page";
 import PageHeader from "@/components/layout/PageHeader";
 import PageTitle from "@/components/layout/PageTitle";

@@ -9,8 +9,8 @@ interface HeaderButtonsProps extends React.ComponentProps<"div"> {}
 
 const HeaderButtons = ({ className }: HeaderButtonsProps) => {
   return (
-    <div className={cn("flex items-center gap-x-2", className)}>
-      <LanguageSwitcher className="mr-3" showIcon />
+    <div className={cn("flex items-center gap-x-4", className)}>
+      <LanguageSwitcher showIcon />
       <Suspense>
         <NavButtons />
       </Suspense>

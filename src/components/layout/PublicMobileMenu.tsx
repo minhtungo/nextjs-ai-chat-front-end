@@ -8,37 +8,41 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
+const PublicMobileMenuFooter = () => {
+  const t = useTranslations("common.Navbar");
+
+  return (
+    <div className="flex flex-col items-center justify-stretch gap-2 text-center">
+      <SheetFooter className="w-full gap-2">
+        <SheetClose asChild>
+          <Link
+            href={signUpUrl}
+            className={cn(
+              buttonVariants({
+                variant: "ghost",
+              }),
+              "w-full",
+            )}
+          >
+            {t("SignUp.title")}
+          </Link>
+        </SheetClose>
+        <SheetClose asChild>
+          <Link href={signInUrl} className={buttonVariants({})}>
+            {t("SignIn.title")}
+          </Link>
+        </SheetClose>
+      </SheetFooter>
+      <ThemeSwitcher />
+    </div>
+  );
+};
+
 const PublicMobileMenu = () => {
   const t = useTranslations("common.Navbar");
 
   return (
-    <SheetWrapper
-      footer={
-        <div className="flex flex-col items-center justify-stretch gap-2 text-center">
-          <SheetFooter className="w-full gap-2">
-            <SheetClose asChild>
-              <Link
-                href={signUpUrl}
-                className={cn(
-                  buttonVariants({
-                    variant: "ghost",
-                  }),
-                  "w-full",
-                )}
-              >
-                {t("SignUp.title")}
-              </Link>
-            </SheetClose>
-            <SheetClose asChild>
-              <Link href={signInUrl} className={buttonVariants({})}>
-                {t("SignIn.title")}
-              </Link>
-            </SheetClose>
-          </SheetFooter>
-          <ThemeSwitcher />
-        </div>
-      }
-    >
+    <SheetWrapper footer={<PublicMobileMenuFooter />}>
       <nav className="h-full flex-1">
         <ul className="flex flex-col gap-1">
           {HEADER_URLS.map(({ title, href }) => (

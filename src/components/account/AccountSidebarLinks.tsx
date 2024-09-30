@@ -6,15 +6,16 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-interface AccountSidebarLinksProps extends React.ComponentProps<"nav"> {
-  className?: string;
-}
+interface AccountSidebarLinksProps extends React.ComponentProps<"nav"> {}
 
-const AccountSidebarLinks = ({ className }: AccountSidebarLinksProps) => {
+const AccountSidebarLinks = ({
+  className,
+  ...props
+}: AccountSidebarLinksProps) => {
   const pathname = usePathname();
   return (
-    <nav className={cn("grid gap-y-1.5", className)}>
-      {ACCOUNT_URLS.map(({ href, title, icon }) => (
+    <nav className={cn("grid gap-y-1.5", className)} {...props}>
+      {ACCOUNT_URLS.map(({ href, title, icon: Icon }) => (
         <Link
           className={cn(
             buttonVariants({ variant: "ghost" }),
@@ -24,7 +25,7 @@ const AccountSidebarLinks = ({ className }: AccountSidebarLinksProps) => {
           href={href}
           key={`${title}-sidebar-nav-item`}
         >
-          {icon}
+          <Icon className="size-[18px]" />
           {title}
         </Link>
       ))}

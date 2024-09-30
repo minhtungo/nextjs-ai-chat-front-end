@@ -3,13 +3,7 @@ import Facebook from "@/components/icons/Facebook";
 import { accountUrl, adminUrl } from "@/app-config";
 import Discord from "@/components/icons/Discord";
 import Instagram from "@/components/icons/Instagram";
-import {
-  CreditCard,
-  Folder,
-  MessageSquareMore,
-  ShieldCheck,
-  UserRound,
-} from "lucide-react";
+import { CreditCard, Folder, MessageSquareMore, UserRound } from "lucide-react";
 
 export const HEADER_URLS = [
   {
@@ -41,23 +35,22 @@ export const ACCOUNT_URLS = [
   {
     title: "Account",
     href: `${accountUrl}`,
-    icon: <UserRound className="size-[18px]" />,
+    icon: UserRound,
   },
   {
     title: "Subscription",
     href: `${accountUrl}/subscription`,
-    icon: <CreditCard className="size-[18px]" />,
+    icon: CreditCard,
   },
-
   {
     title: "Files",
     href: `${accountUrl}/files`,
-    icon: <Folder className="size-[18px]" />,
+    icon: Folder,
   },
   {
     title: "Support",
     href: `${accountUrl}/support`,
-    icon: <MessageSquareMore className="size-[18px]" />,
+    icon: MessageSquareMore,
   },
 ];
 
@@ -65,17 +58,17 @@ export const CHAT_MENU_URLS = [
   {
     title: "Account",
     href: `${accountUrl}`,
-    icon: <UserRound className="size-4" />,
+    icon: UserRound,
   },
   {
     title: "Subscription",
     href: `${accountUrl}/subscription`,
-    icon: <CreditCard className="size-4" />,
+    icon: CreditCard,
   },
   {
     title: "Support",
     href: `${accountUrl}/support`,
-    icon: <MessageSquareMore className="size-4" />,
+    icon: MessageSquareMore,
   },
 ];
 

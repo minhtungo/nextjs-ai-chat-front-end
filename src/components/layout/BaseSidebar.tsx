@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 
 const sidebarVariants = cva(
-  "absolute inset-y-0 z-30 hidden h-screen  bg-card transition-all duration-300 ease-in-out bg-card bg-accent lg:flex flex-col gap-y-3",
+  "absolute inset-y-0 z-30 hidden h-screen transition-all duration-300 ease-in-out lg:flex flex-col gap-y-3 bg-secondary",
   {
     variants: {
       side: {

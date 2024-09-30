@@ -31,8 +31,8 @@ const Hero = () => {
           <ArrowRight className="size-3.5" />
         </Link>
       </div>
-      <div className="relative mt-12">
-        <div className="rounded-2xl border bg-background before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:bg-gradient-to-b before:from-cyan-500 before:opacity-5 before:[filter:blur(180px)] sm:mt-20">
+      <div className="relative mt-12 overflow-hidden">
+        <div className="overflow-hidden rounded-2xl border bg-background before:absolute before:bottom-1/2 before:left-0 before:top-0 before:h-full before:w-full before:bg-gradient-to-b before:from-cyan-500 before:opacity-5 before:[filter:blur(180px)]">
           <ThemeImage
             srcLight="/images/hero.png"
             srcDark="/images/hero-dark.png"
@@ -49,13 +49,3 @@ const Hero = () => {
 };
 
 export default Hero;
-
-{
-  /* <div className="card-wrapper z-0 mx-auto mb-4 max-w-fit rounded-full p-[2px] shadow-md ring-1 ring-inset ring-border">
-          <div className="flex items-center justify-center space-x-2 overflow-hidden rounded-full bg-card px-6 py-2 backdrop-blur transition-all">
-            <p className="text-sm font-semibold text-card-foreground">
-              {t("noti")}
-            </p>
-          </div>
-        </div> */
-}

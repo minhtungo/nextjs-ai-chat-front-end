@@ -8,8 +8,8 @@ const UserInfo = async ({ className }: UserInfoProps) => {
   return (
     <Suspense
       fallback={
-        <div className="px-4">
-          <Skeleton className="h-8 w-full" />
+        <div className="px-4 pt-4">
+          <Skeleton className="h-9 w-full" />
         </div>
       }
     >

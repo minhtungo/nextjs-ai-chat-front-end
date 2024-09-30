@@ -67,10 +67,10 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
-        {CHAT_MENU_URLS.map(({ title, href, icon }) => (
+        {CHAT_MENU_URLS.map(({ title, href, icon: Icon }) => (
           <DropdownMenuItem asChild key={`${title}-user-dashboard-item`}>
             <Link href={href} className="gap-x-1.5">
-              {icon}
+              <Icon className="size-[18px]" />
               {title}
             </Link>
           </DropdownMenuItem>

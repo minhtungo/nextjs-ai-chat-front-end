@@ -11,7 +11,7 @@ import {
 import { generateBreadcrumbs } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React, { FC } from "react";
+import React from "react";
 
 const AccountHeaderTitle = () => {
   const pathname = usePathname();
