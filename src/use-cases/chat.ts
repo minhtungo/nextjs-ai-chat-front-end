@@ -29,7 +29,7 @@ export const getChatInfoUseCase = async (chatId: string): Promise<ChatRoom> => {
     path: `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
   });
 
-  if (response.error) {
+  if (!response.success) {
     throw new Error(`Failed to get chat: ${response.error}`);
   }
 
@@ -63,7 +63,7 @@ export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
     tags: [CHAT_LIST_QUERY_KEY],
   });
 
-  if (response.error) {
+  if (!response.success) {
     throw new Error(`Failed to get chat: ${response.error}`);
   }
 
@@ -98,7 +98,7 @@ export const getMessagesUseCase = async ({
     method: "GET",
   });
 
-  if (response.error) {
+  if (!response.success) {
     throw new Error(`Failed to get messages: ${response.error}`);
   }
 
@@ -147,7 +147,7 @@ export const updateChatUseCase = async ({
 
   if (response.success) {
     return response.data;
-  } else if (response.error) {
+  } else {
     throw new Error("Failed to update chat");
   }
 };

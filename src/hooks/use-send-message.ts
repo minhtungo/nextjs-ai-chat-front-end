@@ -34,19 +34,16 @@ export const useSendMessage = (
 
     let newSub: Subscription | undefined;
 
-    // Blur focus on mobile
-    if (window.innerWidth < 600) {
-      // @ts-ignore
-      e.target["message"]?.blur();
-    }
-
     const submitContent = mathEquation || content;
 
     if (!submitContent || submitContent.trim() === "") {
       return;
     }
 
-    const withinMessageLimit = isWithinTokenLimit(content, MESSAGE_TOKEN_LIMIT);
+    const withinMessageLimit = isWithinTokenLimit(
+      content!,
+      MESSAGE_TOKEN_LIMIT,
+    );
 
     setInTokenLimit(withinMessageLimit);
 
@@ -72,7 +69,7 @@ export const useSendMessage = (
     };
 
     setMessages((currentMessages) => [...currentMessages, newMessage]);
-
+    console.log("use send message", messages);
     resetMessageState();
 
     if (!currentChatId && messages.length === 0) {

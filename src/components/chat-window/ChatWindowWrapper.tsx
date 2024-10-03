@@ -4,7 +4,7 @@ import ChatWindowPanel from "@/components/chat-window/ChatWindowPanel";
 import ChatHistory from "@/components/chat/ChatHistory";
 import OverlayWindow from "@/components/common/OverlayWindow";
 import "@/styles/draw.css";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface ChatWindowWrapperProps extends React.ComponentProps<"div"> {
   userId: string;

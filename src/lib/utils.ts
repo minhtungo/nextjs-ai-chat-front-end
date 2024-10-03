@@ -17,7 +17,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  12,
+  15,
 ); // 12-character random string
 
 export const formatDate = (date: Date) => {

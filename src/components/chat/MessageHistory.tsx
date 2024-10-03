@@ -61,8 +61,6 @@ const MessageHistory = ({
     }
   }, [inView, hasNextPage]);
 
-  console.log("MessageHistory", messages);
-
   if (messages.length === 0)
     return (
       <EmptyChatScreen className="h-[calc(100vh-145px)]" userId={userId} />

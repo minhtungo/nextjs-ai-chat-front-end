@@ -31,9 +31,9 @@ const DocPreviewWindow: FC<DocPreviewWindowProps> = ({ userId, chatId }) => {
 
   return (
     <ChatWindowWrapper
-      onSubmitMessage={sendMessage}
       userId={userId}
       chatId={chatId}
+      onSubmitMessage={sendMessage}
     >
       <div className="flex h-full w-full flex-col justify-between gap-3">
         <div className="flex h-14 w-full items-center justify-between gap-3 px-4 text-sm">

@@ -65,8 +65,9 @@ export const fetchAuth = async ({
     };
   } catch (error) {
     return {
-      error,
+      success: false,
       statusCode: 400,
+      message: error,
     };
   }
 };

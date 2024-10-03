@@ -1,18 +1,19 @@
 "use client";
 
-import { FormEvent, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import Textarea from "react-textarea-autosize";
 
 import MathKeyboardContainer from "@/components/chat/MathKeyboardContainer";
 import PromptActions from "@/components/chat/PromptActions";
 import UploadedFiles from "@/components/chat/UploadedFiles";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
-interface PromptFormProps extends React.ComponentProps<"form"> {
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+interface PromptFormProps {
+  className?: string;
+  onSubmit: () => void;
 }
 
 const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
@@ -20,9 +21,9 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const {
+    addFiles,
     message: { content },
     setMessage,
-    addFiles,
   } = useMessage();
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
         ref={formRef}
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(e);
+          onSubmit();
         }}
       >
         <div

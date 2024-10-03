@@ -10,11 +10,11 @@ interface PromptActionsProps {}
 
 const PromptActions = ({}: PromptActionsProps) => {
   const {
-    message: { content },
     addFiles,
     inTokenLimit,
     pending,
     setMathMode,
+    message: { content },
   } = useMessage();
 
   return (
@@ -66,11 +66,11 @@ const PromptActions = ({}: PromptActionsProps) => {
           variant="ghost"
           className={cn(
             "transition-all duration-300 ease-in-out hover:rounded-full",
-            content.trim() === ""
+            content?.trim() === ""
               ? "-mr-10 scale-0 opacity-0"
               : "scale-100 opacity-100",
           )}
-          disabled={content.trim() === "" || pending || !inTokenLimit}
+          disabled={content?.trim() === "" || pending || !inTokenLimit}
         >
           <SendHorizonal className="size-[18px]" />
           <span className="sr-only">Send message</span>
