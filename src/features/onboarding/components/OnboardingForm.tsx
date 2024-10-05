@@ -1,6 +1,5 @@
 "use client";
 
-import { onboardingFormAction } from "@/actions/user";
 import { chatUrl } from "@/config/config";
 import MultipleSelect from "@/components/common/MultipleSelect";
 import Stepper from "@/components/common/Stepper";
@@ -39,13 +38,14 @@ import {
   ONBOARDING_STEPS,
   SUBJECTS,
 } from "@/lib/constant";
-import { onboardingSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle, ChevronRight } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { onboardingSchema } from "@/features/onboarding/schemas";
+import { onboardingFormAction } from "@/features/onboarding/actions";
 
 type FormValues = z.infer<typeof onboardingSchema>;
 

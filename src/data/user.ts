@@ -1,5 +1,6 @@
+import { onboardingSchema } from "@/features/onboarding/schemas";
 import { db } from "@/lib/db";
-import { changeUserPasswordSchema, onboardingSchema } from "@/lib/definitions";
+import { changeUserPasswordSchema } from "@/lib/definitions";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { User, UserSettings } from "@prisma/client";
 import { z } from "zod";

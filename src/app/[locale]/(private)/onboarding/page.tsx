@@ -1,4 +1,4 @@
-import OnboardingForm from "@/components/onboarding/OnboardingForm";
+import OnboardingForm from "@/features/onboarding/components/OnboardingForm";
 import { getCurrentUser } from "@/lib/auth";
 
 const OnboardingPage = async () => {

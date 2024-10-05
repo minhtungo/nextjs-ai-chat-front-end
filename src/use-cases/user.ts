@@ -7,10 +7,11 @@ import {
   updateUserOnboarding,
   updateUserSettings,
 } from "@/data/user";
-import { changeUserPasswordSchema, onboardingSchema } from "@/lib/definitions";
+import { changeUserPasswordSchema } from "@/lib/definitions";
 import { sendChangePasswordEmail } from "@/lib/mail";
 import { User, UserSettings } from "@prisma/client";
 import { z } from "zod";
+import { onboardingSchema } from "@/features/onboarding/schemas";
 
 export const updateUserUseCase = async (
   userID: string,

@@ -9,16 +9,6 @@ export const updateUserProfileSchema = object({
   subjects: z.array(z.string()).optional(),
 });
 
-export const onboardingSchema = createStepSchema({
-  academic: z.object({
-    level: z.string(),
-    subjects: z.array(z.string()),
-  }),
-  goals: z.object({
-    goals: z.array(z.string()),
-  }),
-});
-
 export const updateUserSettingsSchema = object({
   isTwoFactorEnabled: boolean(),
   preferredLang: string().optional().default("vi"),

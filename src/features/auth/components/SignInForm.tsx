@@ -118,7 +118,7 @@ const SignInForm = () => {
           )}
           {/* @ts-ignore*/}
           {(error || urlError) && (
-            <FormError message={t(error.message || urlError)} />
+            <FormError message={t(error?.message || urlError)} />
           )}
           {/* {successMessage && <FormSuccess message={successMessage} />} */}
           <div className="pt-2">

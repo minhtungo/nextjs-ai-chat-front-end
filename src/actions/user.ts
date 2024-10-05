@@ -3,14 +3,12 @@
 import { accountUrl } from "@/config/config";
 import {
   changeUserPasswordSchema,
-  onboardingSchema,
   updateUserProfileSchema,
   updateUserSettingsSchema,
 } from "@/lib/definitions";
 import { authenticatedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
-  onboardingFormUseCase,
   updateUserSettingsUseCase,
   updateUserUseCase,
 } from "@/use-cases/user";
@@ -34,12 +32,6 @@ export const updateUserSettingsAction = authenticatedAction
   .handler(async ({ input, ctx: { user } }) => {
     await updateUserSettingsUseCase(user.id!, input);
     revalidatePath(`${accountUrl}`);
-  });
-
-export const onboardingFormAction = authenticatedAction
-  .input(onboardingSchema)
-  .handler(async ({ input: values, ctx: { user } }) => {
-    return await onboardingFormUseCase(user.id!, values);
   });
 
 export const changeUserPasswordAction = authenticatedAction
