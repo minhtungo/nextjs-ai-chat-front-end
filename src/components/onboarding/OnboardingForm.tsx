@@ -1,7 +1,7 @@
 "use client";
 
 import { onboardingFormAction } from "@/actions/user";
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 import MultipleSelect from "@/components/common/MultipleSelect";
 import Stepper from "@/components/common/Stepper";
 import SubmitButton from "@/components/common/SubmitButton";

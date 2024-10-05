@@ -1,6 +1,6 @@
 "use client";
 
-import { authRoutes } from "@/app-config";
+import { authRoutes } from "@/config/config";
 import { HEADER_URLS } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";

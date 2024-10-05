@@ -1,6 +1,6 @@
 "use server";
 
-import { afterLoginUrl } from "@/app-config";
+import { afterLoginUrl } from "@/config/config";
 import { signOut as naSignOut, signIn } from "@/auth";
 import {
   forgotPasswordSchema,

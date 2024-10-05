@@ -1,73 +1,120 @@
-import { getTokenAction } from "@/actions/api";
-import { env } from "@/env";
+import { env } from "@/config/env";
+import { ApiResponseType } from "@/lib/response";
 
-interface FetchAuthProps {
-  baseUrl?: string;
-  path: string;
+interface RequestOptions {
+  path?: string;
   method?: "POST" | "GET" | "PUT" | "DELETE" | "PATCH";
-  body?: { [key: string]: any };
-  formData?: FormData;
-  responseType?: "json" | "blob";
   headers?: HeadersInit;
-  tags?: string[];
+  body?: any;
+  cache?: RequestCache;
+  next?: NextFetchRequestConfig;
+  cookie?: string;
+  type?: "body" | "formData";
 }
 
-export const fetchAuth = async ({
-  baseUrl = env.NEXT_PUBLIC_CHAT_SERVER_URL,
-  path,
-  method = "GET",
-  body,
-  formData,
-  responseType = "json",
-  headers,
-  tags,
-}: FetchAuthProps) => {
-  try {
-    const [token, error] = await getTokenAction();
+const fetchApi = async (
+  url: string,
+  options: RequestOptions = {},
+): Promise<ApiResponseType> => {
+  const {
+    method = "GET",
+    headers = {},
+    body,
+    cookie,
+    cache = "no-store",
+    next,
+    path,
+    type,
+  } = options;
+  // const [token, error] = await getTokenAction();
+  const token = "123";
+  const error = null;
 
-    if (error || !token) {
-      console.log("Error getting tokens", error);
-      throw new Error("Error getting tokens");
-    }
+  if (error || !token) {
+    console.log("Error getting tokens", error);
+    throw new Error("Error getting tokens");
+  }
 
-    const response = await fetch(`${baseUrl}${path}`, {
-      method,
-      headers: {
-        "Access-Token": token,
-        ...headers,
-      },
-      ...(body && { body: JSON.stringify(body) }),
-      ...(formData && { body: formData }),
-      ...(tags && {
-        next: { tags },
-      }),
-    });
+  const response = await fetch(`${url}${path}`, {
+    method,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "Access-Token": token,
+      ...headers,
+      ...(cookie ? { Cookie: cookie } : {}),
+    },
+    ...(body && { body: type === "body" ? JSON.stringify(body) : body }),
+    cache,
+    next,
+  });
 
-    if (!response.ok) {
-      return {
-        error: response.statusText,
-        statusCode: response.status,
-      };
-    }
-
-    let data;
-
-    if (responseType === "json") {
-      data = await response.json();
-    } else if (responseType === "blob") {
-      data = response;
-    }
-
-    return {
-      success: true,
-      data,
-      statusCode: response.status,
-    };
-  } catch (error) {
+  if (!response.ok) {
     return {
       success: false,
-      statusCode: 400,
-      message: error,
+      data: undefined,
+      statusCode: response.status,
     };
   }
+
+  const data = await response.json();
+
+  return {
+    success: true,
+    data,
+    statusCode: response.status,
+  };
+};
+
+export const chatApi = {
+  get(path: string, options?: RequestOptions): Promise<ApiResponseType> {
+    return fetchApi(env.NEXT_PUBLIC_CHAT_SERVER_URL, {
+      ...options,
+      path,
+      method: "GET",
+    });
+  },
+  post(
+    path: string,
+    body?: any,
+    options?: Omit<RequestOptions, "body" | "path">,
+  ): Promise<ApiResponseType> {
+    return fetchApi(env.NEXT_PUBLIC_CHAT_SERVER_URL, {
+      ...options,
+      method: "POST",
+      body,
+      path,
+    });
+  },
+  put(
+    path: string,
+    body?: any,
+    options?: RequestOptions,
+  ): Promise<ApiResponseType> {
+    return fetchApi(env.NEXT_PUBLIC_CHAT_SERVER_URL, {
+      ...options,
+      method: "PUT",
+      body,
+      path,
+    });
+  },
+  patch(
+    path: string,
+    body?: any,
+    options?: RequestOptions,
+  ): Promise<ApiResponseType> {
+    return fetchApi(env.NEXT_PUBLIC_CHAT_SERVER_URL, {
+      ...options,
+      method: "PATCH",
+      body,
+      path,
+    });
+  },
+  delete(path: string, options?: RequestOptions): Promise<ApiResponseType> {
+    return fetchApi(env.NEXT_PUBLIC_CHAT_SERVER_URL, {
+      ...options,
+      method: "DELETE",
+      path,
+    });
+  },
 };

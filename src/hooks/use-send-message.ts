@@ -1,5 +1,5 @@
 import { createChatAction } from "@/actions/chat";
-import { MESSAGE_TOKEN_LIMIT } from "@/app-config";
+import { MESSAGE_TOKEN_LIMIT } from "@/config/config";
 import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useMessage } from "@/hooks/use-message";
 import { useMessages } from "@/hooks/use-messages";

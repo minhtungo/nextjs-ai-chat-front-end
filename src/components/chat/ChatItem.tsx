@@ -1,6 +1,6 @@
 "use client";
 
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 
 import EditChatTitle from "@/components/chat/EditChatTitle";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";

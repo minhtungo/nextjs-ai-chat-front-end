@@ -4,8 +4,7 @@ import CentrifugeConnection from "@/components/chat/CentrifugeConnection";
 import ChatHistory from "@/components/chat/ChatHistory";
 import ChatPanel from "@/components/chat/ChatPanel";
 import ChatHeader from "@/components/layout/ChatHeader";
-import { getChatInfo } from "@/data/chat";
-import { getChatUserUseCase } from "@/use-cases/session";
+import { getChatInfoUseCase, getChatUserUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
 
 interface ChatAreaProps {
@@ -14,7 +13,7 @@ interface ChatAreaProps {
 
 const ChatArea = async ({ chatId }: ChatAreaProps) => {
   const userPromise = getChatUserUseCase();
-  const chatPromise = getChatInfo(chatId);
+  const chatPromise = getChatInfoUseCase(chatId);
 
   const [{ user, token }, chat] = await Promise.all([userPromise, chatPromise]);
 
@@ -24,7 +23,7 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
 
   return (
     <>
-      <CentrifugeConnection token={token} />
+      <CentrifugeConnection token={token} userId={user?.id!} chatId={chatId} />
       <ChatHeader user={user} title={chat?.title} />
       <div className="relative flex h-full w-full flex-col overflow-hidden">
         <ChatHistory
@@ -34,7 +33,7 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
         />
         <ChatPanel chatId={chatId} userId={user?.id!} />
         <ImagePreviewsWindowWrapper chatId={chatId} userId={user?.id!} />
-        <DocPreviewWindowWrapper userId={user?.id!} chatId={chatId} />
+        <DocPreviewWindowWrapper chatId={chatId} userId={user?.id!} />
       </div>
     </>
   );

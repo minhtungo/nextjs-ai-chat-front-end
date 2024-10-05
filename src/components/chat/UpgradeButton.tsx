@@ -1,4 +1,4 @@
-import { accountUrl } from "@/app-config";
+import { accountUrl } from "@/config/config";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";

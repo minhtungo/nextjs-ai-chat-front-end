@@ -1,4 +1,4 @@
-import { subscriptionUrl } from "@/app-config";
+import { subscriptionUrl } from "@/config/config";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import Typography from "@/components/ui/typography";

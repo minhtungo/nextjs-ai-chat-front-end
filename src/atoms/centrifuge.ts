@@ -1,6 +1,5 @@
-import { env } from "@/env";
+import { env } from "@/config/env";
 import { Centrifuge } from "centrifuge";
-import { getCookies, setCookie } from "cookies-next";
 import { atom } from "jotai";
 
 export const centrifugeAtom = atom<Centrifuge | null>(null);
@@ -9,9 +8,6 @@ export const connectCentrifugeAtom = atom(null, (get, set, token: string) => {
   if (get(centrifugeAtom)) {
     return;
   }
-
-  setCookie("chatToken", token);
-  console.log("connectCentrifuge  below if");
 
   const newCentrifuge = new Centrifuge(
     [

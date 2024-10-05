@@ -1,10 +1,10 @@
 "use server";
 
-import { TOKEN_EXPIRATION } from "@/app-config";
+import { TOKEN_EXPIRATION } from "@/config/config";
 import { authenticatedAction } from "@/lib/safe-actions";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
-import { env } from "@/env";
+import { env } from "@/config/env";
 
 const CENTRIFUGO_TOKEN_SECRET = env.CENTRIFUGO_TOKEN_SECRET;
 

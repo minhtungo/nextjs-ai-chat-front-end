@@ -1,6 +1,6 @@
 import Facebook from "@/components/icons/Facebook";
 
-import { accountUrl, adminUrl } from "@/app-config";
+import { accountUrl, adminUrl } from "@/config/config";
 import Discord from "@/components/icons/Discord";
 import Instagram from "@/components/icons/Instagram";
 import { CreditCard, Folder, MessageSquareMore, UserRound } from "lucide-react";

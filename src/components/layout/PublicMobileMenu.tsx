@@ -1,4 +1,4 @@
-import { signInUrl, signUpUrl } from "@/app-config";
+import { signInUrl, signUpUrl } from "@/config/config";
 import SheetWrapper from "@/components/common/SheetWrapper";
 import ThemeSwitcher from "@/components/common/ThemeSwitcher";
 import { buttonVariants } from "@/components/ui/button";

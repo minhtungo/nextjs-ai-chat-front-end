@@ -1,4 +1,4 @@
-import { afterLoginUrl } from "@/app-config";
+import { afterLoginUrl } from "@/config/config";
 import { signIn } from "@/auth";
 import Facebook from "@/components/icons/Facebook";
 import Google from "@/components/icons/Google";

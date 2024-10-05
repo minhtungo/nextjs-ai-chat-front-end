@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useServerAction } from "zsa-react";
-import { signInUrl } from "@/app-config";
+import { signInUrl } from "@/config/config";
 import ResendVerificationEmail from "@/app/[locale]/(public)/(auth)/verification/ResendVerificationEmail";
 
 const VerificationForm = () => {

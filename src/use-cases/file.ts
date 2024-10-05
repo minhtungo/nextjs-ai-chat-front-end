@@ -1,4 +1,4 @@
-import { fetchAuth } from "@/lib/api";
+import { chatApi, fetchAuth } from "@/lib/api";
 import { ZSAError } from "zsa";
 
 type UploadFileResponse = {
@@ -33,10 +33,8 @@ export const uploadFileUseCase = async (
   formData.append("name", file.name);
   formData.append("type_upload", "users");
 
-  const data = await fetchAuth({
-    path: "/assets/v1/auth/upload",
-    method: "POST",
-    formData,
+  const data = await chatApi.post("/assets/v1/auth/upload", formData, {
+    type: "formData",
   });
 
   if (data.success) {
@@ -63,10 +61,9 @@ export const uploadFileUseCase = async (
 // };
 
 export const getUserUploadedFilesUseCase = async (userId: string) => {
-  const data = await fetchAuth({
-    path: `/assets/v1/auth/admin/assets/list?page=1&page_size=10?path=/users/${userId}/`,
-    method: "GET",
-  });
+  const data = await chatApi.get(
+    `/assets/v1/auth/admin/assets/list?page=1&page_size=10?path=/users/${userId}/`,
+  );
 
   // const assets = data.data.assets.map((asset: any) => ({
   //   id: asset._id,
@@ -81,7 +78,7 @@ export const getUserUploadedFilesUseCase = async (userId: string) => {
     return {
       assets: data.data,
     };
-  } else if (data.error) {
-    console.log("Failed to get user uploaded files: " + data.error);
+  } else {
+    console.log("Failed to get user uploaded files");
   }
 };

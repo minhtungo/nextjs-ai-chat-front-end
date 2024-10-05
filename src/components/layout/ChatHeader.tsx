@@ -1,4 +1,4 @@
-import { signInUrl, signUpUrl } from "@/app-config";
+import { signInUrl, signUpUrl } from "@/config/config";
 import UpgradeButton from "@/components/chat/UpgradeButton";
 import FeedbackDropdown from "@/components/feedback/FeedbackDropdown";
 import ChatMobileMenu from "@/components/layout/ChatMobileMenu";
@@ -12,8 +12,9 @@ import Link from "next/link";
 import { ComponentProps } from "react";
 
 interface ChatHeaderProps extends ComponentProps<"header"> {
-  user: User;
-  chatId?: string;
+  user: User & {
+    id: string;
+  };
   title?: string;
 }
 

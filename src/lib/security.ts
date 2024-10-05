@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { v4 as uuid } from "uuid";
 import { db } from "./db";
-import { EXPIRY_PERIOD } from "@/app-config";
+import { EXPIRY_PERIOD } from "@/config/config";
 
 export const saltAndHashPassword = async (password: string) => {
   return await bcrypt.hash(password, 10);

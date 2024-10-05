@@ -9,8 +9,8 @@ import {
   ADMIN_EMAIL,
   emailVerificationUrl,
   resetPasswordUrl,
-} from "@/app-config";
-import { env } from "@/env";
+} from "@/config/config";
+import { env } from "@/config/env";
 
 const resend = new Resend(env.RESEND_API_KEY);
 

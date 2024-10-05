@@ -20,6 +20,13 @@ export const resetPasswordUrl = "/reset-password";
 export const onboardingUrl = "/onboarding";
 export const subscriptionUrl = "/subscription";
 
+export const cookie = {
+  chat: {
+    token: "x-chat-token",
+    userId: "x-chat-user-id",
+  },
+};
+
 export const chatUrl = "/chat";
 export const accountUrl = "/account";
 export const adminUrl = "/admin";

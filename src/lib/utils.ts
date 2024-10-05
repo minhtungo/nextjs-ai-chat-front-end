@@ -9,7 +9,7 @@ import { twMerge } from "tailwind-merge";
 import { v4 as uuid } from "uuid";
 import { z } from "zod";
 import { SUBJECTS } from "./constant";
-import { env } from "@/env";
+import { env } from "@/config/env";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -18,7 +18,11 @@ export function cn(...inputs: ClassValue[]) {
 export const nanoid = customAlphabet(
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
   15,
-); // 12-character random string
+);
+
+export const createUUID = () => uuid();
+
+export const createGuestUserId = () => `guest-${uuid()}`;
 
 export const formatDate = (date: Date) => {
   const months = [

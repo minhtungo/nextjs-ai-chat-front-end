@@ -1,4 +1,4 @@
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 import ThemeImage from "@/app/[locale]/(public)/(landing)/components/ThemeImage";
 import { BorderBeam } from "@/components/common/BorderBeam";
 import Section from "@/components/layout/Section";

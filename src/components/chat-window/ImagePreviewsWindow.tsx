@@ -5,24 +5,21 @@ import { clearCanvas } from "@/lib/utils";
 import "@/styles/draw.css";
 import { Eraser, Paintbrush, X } from "lucide-react";
 import Image from "next/image";
-import { FC, useRef } from "react";
+import { useRef } from "react";
 
+import ChatWindowWrapper from "@/components/chat-window/ChatWindowWrapper";
+import SlidesNav from "@/components/chat-window/SlidesNav";
+import { ImageMaskEditor } from "@/components/chat/ImageMaskEditor";
+import LineWidthSlider from "@/components/chat/LineWidthSlider";
 import { useSendMessage } from "@/hooks/use-send-message";
 import { clearPoints, getConvexHull } from "@/lib/chat";
-import ChatWindowWrapper from "@/components/chat-window/ChatWindowWrapper";
-import LineWidthSlider from "@/components/chat/LineWidthSlider";
-import { ImageMaskEditor } from "@/components/chat/ImageMaskEditor";
-import SlidesNav from "@/components/chat-window/SlidesNav";
 
 interface ImagePreviewsWindowProps {
   userId: string;
   chatId?: string;
 }
 
-const ImagePreviewsWindow: FC<ImagePreviewsWindowProps> = ({
-  userId,
-  chatId,
-}) => {
+const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
   const { selectedImageIndex, images, setSelectedImageIndex } = useChat();
   const drawingPointsRef = useRef<Array<[number, number]>>([]);
   const { sendMessage } = useSendMessage(userId, chatId);

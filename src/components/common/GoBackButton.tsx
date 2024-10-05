@@ -1,4 +1,4 @@
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";

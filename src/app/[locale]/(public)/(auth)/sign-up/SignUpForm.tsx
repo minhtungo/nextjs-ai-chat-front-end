@@ -25,7 +25,7 @@ import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import { signInUrl } from "@/app-config";
+import { signInUrl } from "@/config/config";
 
 const SignUpForm = () => {
   const { data, error, isPending, execute } = useServerAction(

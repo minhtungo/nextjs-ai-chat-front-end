@@ -1,7 +1,7 @@
 "use client";
 
 import { updateUserSettingsAction } from "@/actions/user";
-import { LANGUAGES } from "@/app-config";
+import { LANGUAGES } from "@/config/config";
 import SubmitButton from "@/components/common/SubmitButton";
 import { CardFooter } from "@/components/ui/card";
 import {

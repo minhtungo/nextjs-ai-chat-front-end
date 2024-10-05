@@ -38,7 +38,7 @@ export class ApiResponse<T = null> {
 
 export const ApiResponseSchema = z.object({
   success: z.boolean(),
-  message: z.string(),
+  message: z.string().optional(),
   data: z.any().optional(),
   statusCode: z.number(),
 });

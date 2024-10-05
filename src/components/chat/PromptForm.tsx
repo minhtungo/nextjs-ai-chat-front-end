@@ -11,8 +11,7 @@ import { useEnterSubmit } from "@/hooks/use-enter-submit";
 import { useMessage } from "@/hooks/use-message";
 import { cn } from "@/lib/utils";
 
-interface PromptFormProps {
-  className?: string;
+interface PromptFormProps extends React.ComponentProps<"form"> {
   onSubmit: () => void;
 }
 
@@ -75,7 +74,7 @@ const PromptForm = ({ className, onSubmit }: PromptFormProps) => {
                 }
               }}
               onKeyDown={onKeyDown}
-              placeholder="Ask Lumi anything..."
+              placeholder="Ask Lumi..."
               className="max-h-48 min-h-0 w-full resize-none self-center bg-transparent py-1.5 text-sm focus-within:outline-none"
               autoFocus
               spellCheck={false}

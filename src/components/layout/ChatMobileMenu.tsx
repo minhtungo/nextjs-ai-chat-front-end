@@ -1,8 +1,8 @@
-import { chatUrl } from "@/app-config";
 import ChatDropdownMenu from "@/components/chat/ChatDropdownMenu";
 import ChatList from "@/components/chat/ChatList";
 import SheetWrapper from "@/components/common/SheetWrapper";
 import SignInPrompt from "@/components/common/SignInPrompt";
+import { chatUrl } from "@/config/config";
 
 import ChatSkeleton from "@/components/skeleton/ChatSkeleton";
 import { isGuestUser } from "@/lib/utils";
@@ -17,13 +17,13 @@ interface ChatMobileMenuProps {
 
 const ChatMobileMenuFooter = ({ user }: { user: User }) => {
   return (
-    <div className="px-4 pb-4">
+    <>
       {!isGuestUser(user.id!) ? (
         <ChatDropdownMenu user={user} />
       ) : (
         <SignInPrompt />
       )}
-    </div>
+    </>
   );
 };
 
@@ -40,14 +40,15 @@ const ChatMobileMenu = async ({ user }: ChatMobileMenuProps) => {
     <SheetWrapper
       action={<ChatMobileMenuAction />}
       footer={<ChatMobileMenuFooter user={user} />}
+      side="left"
     >
       {!isGuestUser(user.id!) ? (
         <Suspense fallback={<ChatSkeleton />}>
           <ChatList />
         </Suspense>
       ) : (
-        <p className="px-4 text-sm text-muted-foreground">
-          You must be logged in to view the chat history
+        <p className="text-sm text-muted-foreground">
+          You must be logged in to view the chat history.
         </p>
       )}
     </SheetWrapper>

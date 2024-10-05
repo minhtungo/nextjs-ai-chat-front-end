@@ -1,6 +1,6 @@
 "use client";
 
-import { MESSAGES_LIMIT } from "@/app-config";
+import { MESSAGES_LIMIT } from "@/config/config";
 import BotMessage from "@/components/chat/BotMessage";
 import EmptyChatScreen from "@/components/chat/EmptyChatScreen";
 import UserMessage from "@/components/chat/UserMessage";

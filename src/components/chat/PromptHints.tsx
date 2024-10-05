@@ -21,7 +21,7 @@ const promptSuggestion = [
     content: "How do I work with variables in equations 2?",
   },
   {
-    content: "How do I work with variables in equations 2?",
+    content: "How do I work with variables in equations 3?",
   },
 ];
 

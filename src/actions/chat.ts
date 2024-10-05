@@ -1,22 +1,17 @@
 "use server";
 
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { authenticatedAction, chatAction } from "@/lib/safe-actions";
 import {
   createChatUseCase,
-  getChatUserUseCase,
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { createServerAction, ZSAError } from "zsa";
-
-export const getChatUserAction = createServerAction().handler(async () => {
-  return await getChatUserUseCase();
-});
+import { ZSAError } from "zsa";
 
 export const createChatAction = chatAction
   .input(z.string())

@@ -32,7 +32,7 @@ import {
 import { AuthError } from "next-auth";
 import { z } from "zod";
 import { ZSAError } from "zsa";
-import { afterLoginUrl } from "@/app-config";
+import { afterLoginUrl } from "@/config/config";
 import {
   comparePassword,
   generatePasswordResetToken,

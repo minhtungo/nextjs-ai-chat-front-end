@@ -1,8 +1,7 @@
 import { cn, groupChatsByDate } from "@/lib/utils";
 import { getChatListUseCase } from "@/use-cases/chat";
-import React, { ComponentProps, FC } from "react";
 
-interface ChatListProps extends ComponentProps<"div"> {}
+interface ChatListProps extends React.ComponentProps<"div"> {}
 
 const ChatList = async ({ className, ...props }: ChatListProps) => {
   // const chats = await getChatListUseCase();

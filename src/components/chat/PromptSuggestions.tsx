@@ -1,5 +1,6 @@
 import { currentSubscriptionAtom } from "@/atoms/subscription";
 import { useMessages } from "@/hooks/use-messages";
+import { useSubscription } from "@/hooks/use-subscription";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
 import { useAtomValue } from "jotai";
@@ -27,7 +28,7 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
   className,
   userId,
 }) => {
-  const sub = useAtomValue(currentSubscriptionAtom);
+  const { subscription } = useSubscription();
   const { messages, setMessages } = useMessages();
 
   if (messages.length < 4) return null;
@@ -37,8 +38,8 @@ const PromptSuggestions: FC<PromptSuggestionProps> = ({
 
     setMessages((prev) => [...prev, newMessage]);
 
-    if (sub) {
-      sub.publish({
+    if (subscription) {
+      subscription.publish({
         input: {
           content,
         },

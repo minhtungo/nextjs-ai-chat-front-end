@@ -20,7 +20,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import { useTranslations } from "next-intl";
-import { signInUrl } from "@/app-config";
+import { signInUrl } from "@/config/config";
 
 const ForgotPasswordForm = () => {
   const t = useTranslations("auth.ForgotPassword");

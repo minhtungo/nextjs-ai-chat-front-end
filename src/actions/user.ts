@@ -1,6 +1,6 @@
 "use server";
 
-import { accountUrl } from "@/app-config";
+import { accountUrl } from "@/config/config";
 import {
   changeUserPasswordSchema,
   onboardingSchema,

@@ -1,6 +1,6 @@
 "use client";
 
-import { chatUrl } from "@/app-config";
+import { chatUrl } from "@/config/config";
 import TooltipContainer from "@/components/common/TooltipContainer";
 import { buttonVariants } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";

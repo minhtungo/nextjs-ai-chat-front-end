@@ -11,7 +11,7 @@ import { CircleCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { PRICING_PLANS, PricingPlan } from "@/content/pricing";
-import { signUpUrl } from "@/app-config";
+import { signUpUrl } from "@/config/config";
 
 const PricingSection = () => {
   const t = useTranslations("public.Pricing");

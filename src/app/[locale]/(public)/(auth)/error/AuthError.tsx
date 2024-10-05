@@ -1,6 +1,6 @@
 import { FC } from "react";
 import CardWrapper from "@/components/common/CardWrapper";
-import { signInUrl } from "@/app-config";
+import { signInUrl } from "@/config/config";
 
 interface AuthErrorProps {
   className?: string;

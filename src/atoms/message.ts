@@ -3,7 +3,7 @@ import {
   MAX_UPLOAD_FILE_COUNT,
   MAX_UPLOAD_FILE_SIZE,
   MAX_UPLOAD_FILE_SIZE_IN_MB,
-} from "@/app-config";
+} from "@/config/config";
 import { getImageDimensions, nanoid } from "@/lib/utils";
 import { NewMessage } from "@/types/chat";
 import { FileAtom } from "@/types/file";
@@ -93,8 +93,6 @@ export const uploadFileAtom = atom(null, async (get, set, files: File[]) => {
         formData.append("name", file.name);
 
         const [data, error] = await uploadFileAction(formData);
-
-        console.log("data", data);
 
         if (error) {
           throw new Error(error.message);

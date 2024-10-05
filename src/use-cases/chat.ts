@@ -1,14 +1,19 @@
 import { createChatRoom } from "@/lib/chat";
 
-import { MESSAGES_LIMIT } from "@/app-config";
-import { fetchAuth } from "@/lib/api";
+import { cookie, MESSAGES_LIMIT } from "@/config/config";
 import { getCurrentUser } from "@/lib/auth";
 import { Message } from "@/lib/definitions";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
-import { getChatToken, getChatUser } from "@/lib/session";
-import { nanoid } from "@/lib/utils";
+import {
+  createGuestUserId,
+  createToken,
+  encodeToken,
+  nanoid,
+} from "@/lib/utils";
 import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
+import { cookies } from "next/headers";
 import { ZSAError } from "zsa";
+import { chatApi } from "@/lib/api";
 
 export const createChatUseCase = async (title: string) => {
   try {
@@ -23,14 +28,45 @@ export const createChatUseCase = async (title: string) => {
   }
 };
 
-export const getChatInfoUseCase = async (chatId: string): Promise<ChatRoom> => {
-  console.log("-----------ChatInfo useCase Called");
-  const response = await fetchAuth({
-    path: `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
+export const getChatUserUseCase = async () => {
+  const existingUser = await getCurrentUser();
+
+  const id =
+    existingUser?.id ||
+    cookies().get(cookie.chat.userId)?.value ||
+    createGuestUserId();
+
+  const token =
+    cookies().get(cookie.chat.token)?.value ||
+    encodeToken(
+      createToken({
+        uid: id,
+      }),
+    );
+
+  console.log("getChatUserUseCase", {
+    id,
+    token,
   });
 
+  return {
+    user: existingUser || { id },
+    token,
+  };
+};
+
+export const getChatInfoUseCase = async (
+  chatId?: string,
+): Promise<ChatRoom | undefined> => {
+  console.log("-----------ChatInfo useCase Called");
+  if (!chatId) return;
+
+  const response = await chatApi.get(
+    `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
+  );
+
   if (!response.success) {
-    throw new Error(`Failed to get chat: ${response.error}`);
+    throw new Error(`Failed to get chat`);
   }
 
   const {
@@ -57,14 +93,12 @@ export const getChatInfoUseCase = async (chatId: string): Promise<ChatRoom> => {
 };
 
 export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
-  const response = await fetchAuth({
-    path: "/chat/list-rooms",
-    method: "GET",
-    tags: [CHAT_LIST_QUERY_KEY],
+  const response = await chatApi.get("/chat/list-rooms", {
+    next: { tags: [CHAT_LIST_QUERY_KEY] },
   });
 
   if (!response.success) {
-    throw new Error(`Failed to get chat: ${response.error}`);
+    throw new Error(`Failed to get chat list`);
   }
 
   return response.data
@@ -93,13 +127,12 @@ export const getMessagesUseCase = async ({
     ...(offset && { offset: offset.toString() }),
   });
 
-  const response = await fetchAuth({
-    path: `/chat/rooms/${chatId}/messages?${query.toString()}`,
-    method: "GET",
-  });
+  const response = await chatApi.get(
+    `/chat/rooms/${chatId}/messages?${query.toString()}`,
+  );
 
   if (!response.success) {
-    throw new Error(`Failed to get messages: ${response.error}`);
+    throw new Error(`Failed to get messages`);
   }
 
   const messages: Message[] = response?.data?.result?.data?.history
@@ -136,13 +169,9 @@ export const updateChatUseCase = async ({
   title?: string;
   subject?: string;
 }) => {
-  const response = await fetchAuth({
-    path: `/chat/update/${chatId}`,
-    method: "PUT",
-    body: {
-      ...(title && { title }),
-      ...(subject && { subject }),
-    },
+  const response = await chatApi.put(`/chat/update/${chatId}`, {
+    ...(title && { title }),
+    ...(subject && { subject }),
   });
 
   if (response.success) {
@@ -159,9 +188,7 @@ export const removeChatsUseCase = async ({
   chats: string[];
   deleteAll: boolean;
 }) => {
-  const response = await fetchAuth({
-    path: `/chat/delete`,
-    method: "DELETE",
+  const response = await chatApi.delete(`/chat/delete`, {
     body: {
       ...(chats.length > 0 && { rooms: chats }),
       ...(deleteAll && { deleteAll }),
@@ -170,19 +197,7 @@ export const removeChatsUseCase = async ({
 
   if (response.success) {
     return response.data;
-  } else if (response.error) {
-    throw Error(`Failed to remove chat: ${response.error}`);
+  } else {
+    throw Error(`Failed to remove chat`);
   }
-};
-
-export const getChatUserUseCase = async () => {
-  const existingUser = await getCurrentUser();
-
-  const user = getChatUser(existingUser);
-  const token = getChatToken(user.id!);
-
-  return {
-    user,
-    token,
-  };
 };

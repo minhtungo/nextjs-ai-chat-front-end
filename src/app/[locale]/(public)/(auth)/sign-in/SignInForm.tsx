@@ -25,7 +25,7 @@ import { Suspense } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import { forgotPasswordUrl, signUpUrl } from "@/app-config";
+import { forgotPasswordUrl, signUpUrl } from "@/config/config";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();

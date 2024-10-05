@@ -1,4 +1,4 @@
-import { signUpUrl } from "@/app-config";
+import { signUpUrl } from "@/config/config";
 import Section from "@/components/layout/Section";
 import { buttonVariants } from "@/components/ui/button";
 import Typography from "@/components/ui/typography";

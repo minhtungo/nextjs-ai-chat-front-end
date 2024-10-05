@@ -12,7 +12,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Plan } from "@prisma/client";
 import { PRICING_PLANS, PricingPlan } from "@/content/pricing";
-import { signUpUrl } from "@/app-config";
+import { signUpUrl } from "@/config/config";
 
 const Plans = ({ currentPlan }: { currentPlan: Plan }) => {
   const t = useTranslations("public.Pricing");

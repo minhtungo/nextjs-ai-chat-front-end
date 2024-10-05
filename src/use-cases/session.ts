@@ -1,22 +1,26 @@
+import { env } from "@/config/env";
 import { headers } from "next/headers";
 import { toast } from "sonner";
-import { env } from "@/env";
-import { User } from "next-auth";
 
-export const getChatUserUseCase = async (): Promise<{
-  user: User;
-  token: string;
-}> => {
-  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/user`, {
-    headers: headers(),
-  });
+// export const getChatInfoUseCase = cache(
+//   async (chatId?: string): Promise<Chat | undefined> => {
+//     if (!chatId) return;
 
-  const { data } = await response.json();
+//     const response = await fetch(
+//       `${process.env.BASE_URL ?? ""}/api/chat/${chatId}/info`,
+//       {
+//         headers: headers(),
+//         next: {
+//           tags: [getChatInfoQueryKey(chatId).toString()],
+//         },
+//       },
+//     );
 
-  console.log("*****************getChatUserUseCase", data);
+//     const data = (await response.json()) as ApiResponseType;
 
-  return data;
-};
+//     return data.data.chat;
+//   },
+// );
 
 export const getChatTokenUseCase = async () => {
   const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/token`, {

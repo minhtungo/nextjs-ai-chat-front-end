@@ -1,4 +1,4 @@
-import { fetchAuth } from "@/lib/api";
+import { chatApi } from "@/lib/api";
 import { Message } from "@/lib/definitions";
 import { ApiResponseType } from "@/lib/response";
 import { nanoid } from "@/lib/utils";
@@ -58,13 +58,9 @@ export const getMessageFiles = (files: FileAtom[]) => {
 export const createChatRoom = async (
   title: string,
 ): Promise<CreateNewRoomResponse> => {
-  const { data } = await fetchAuth({
-    path: "/chat/create-room",
-    method: "POST",
-    body: {
-      subject: "General",
-      title,
-    },
+  const { data } = await chatApi.post("/chat/create-room", {
+    subject: "General",
+    title,
   });
 
   return data;

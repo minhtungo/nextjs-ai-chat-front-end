@@ -1,4 +1,4 @@
-import { chatUrl, signInUrl, signUpUrl } from "@/app-config";
+import { chatUrl, signInUrl, signUpUrl } from "@/config/config";
 import SignOutButton from "@/components/common/SignOutButton";
 import { buttonVariants } from "@/components/ui/button";
 import { getCurrentUser } from "@/lib/auth";

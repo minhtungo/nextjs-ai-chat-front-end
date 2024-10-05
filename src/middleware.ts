@@ -9,7 +9,7 @@ import {
   authRoutes,
   publicRoutes,
   signInUrl,
-} from "@/app-config";
+} from "@/config/config";
 
 const { auth } = NextAuth(authConfig);
 

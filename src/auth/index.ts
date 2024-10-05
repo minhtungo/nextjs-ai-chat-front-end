@@ -1,4 +1,4 @@
-import { authErrorUrl, signInUrl } from "@/app-config";
+import { authErrorUrl, signInUrl } from "@/config/config";
 import authConfig from "@/auth/config";
 import {
   deleteTwoFactorConfirmation,

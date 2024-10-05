@@ -4,7 +4,6 @@ import OverlayWindow from "@/components/common/OverlayWindow";
 import Spinner from "@/components/common/Spinner";
 import { useChat } from "@/hooks/use-chat";
 import dynamic from "next/dynamic";
-import { FC } from "react";
 
 interface DocPreviewWindowWrapperProps {
   userId: string;
