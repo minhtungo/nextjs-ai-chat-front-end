@@ -1,7 +1,6 @@
 import Page from "@/components/layout/Page";
-import ResetPasswordForm from "./ResetPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
-import { Suspense } from "react";
+import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
 
 export async function generateMetadata({
   params: { locale },

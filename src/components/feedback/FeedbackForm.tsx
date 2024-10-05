@@ -19,8 +19,8 @@ import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import FormSuccess from "@/components/auth/FormSuccess";
-import FormError from "@/components/auth/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
+import FormError from "@/features/auth/components/FormError";
 
 const FeedbackForm = () => {
   const { isPending, execute, data, error } =

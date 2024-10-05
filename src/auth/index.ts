@@ -3,7 +3,7 @@ import authConfig from "@/auth/config";
 import {
   deleteTwoFactorConfirmation,
   getTwoFactorConfirmationByUserId,
-} from "@/data/auth";
+} from "@/features/auth/dto";
 import { getUserById, updateNewGoogleUser } from "@/data/user";
 import { db } from "@/lib/db";
 import { PrismaAdapter } from "@auth/prisma-adapter";

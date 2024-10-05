@@ -1,5 +1,5 @@
 import Page from "@/components/layout/Page";
-import ForgotPasswordForm from "./ForgotPasswordForm";
+import ForgotPasswordForm from "@/features/auth/components/ForgotPasswordForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({

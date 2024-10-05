@@ -1,5 +1,5 @@
 import Page from "@/components/layout/Page";
-import AuthError from "./AuthError";
+import AuthError from "../../../../../features/auth/components/AuthError";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 const AuthErrorPage = ({

@@ -1,12 +1,11 @@
-import { afterLoginUrl } from "@/config/config";
 import { signIn } from "@/auth";
 import Facebook from "@/components/icons/Facebook";
 import Google from "@/components/icons/Google";
 import { Button } from "@/components/ui/button";
+import { afterLoginUrl } from "@/config/config";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { FC } from "react";
 
 interface OAuthButtonsProps {
   hideAlternative?: boolean;

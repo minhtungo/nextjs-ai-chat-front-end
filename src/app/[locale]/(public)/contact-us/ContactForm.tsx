@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 import { sendContactUsFormAction } from "@/actions/mail";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
 import {
   Form,
   FormControl,

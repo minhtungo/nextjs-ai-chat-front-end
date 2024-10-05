@@ -5,7 +5,7 @@ import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 import { getUserByEmail } from "@/data/user";
 import { comparePassword } from "@/lib/security";
-import { signInSchema } from "@/lib/definitions";
+import { signInSchema } from "@/features/auth/schemas";
 
 const providers: Provider[] = [
   Credentials({

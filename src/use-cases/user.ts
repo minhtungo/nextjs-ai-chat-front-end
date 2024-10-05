@@ -1,4 +1,4 @@
-import { signOut } from "@/actions/auth";
+import { signOut } from "@/features/auth/actions";
 
 import {
   changeUserPassword,

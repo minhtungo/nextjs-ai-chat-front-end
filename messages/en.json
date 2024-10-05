@@ -107,19 +107,19 @@
       "fields": {
         "name": {
           "label": "Name",
-          "placeholder": ""
+          "placeholder": "Name"
         },
         "email": {
           "label": "Email",
-          "placeholder": ""
+          "placeholder": "Email"
         },
         "password": {
           "label": "Password",
-          "placeholder": ""
+          "placeholder": "Password"
         },
         "confirmPassword": {
           "label": "Confirm Password",
-          "placeholder": ""
+          "placeholder": "Confirm Password"
         }
       }
     },
@@ -135,11 +135,11 @@
       "fields": {
         "email": {
           "label": "Email",
-          "placeholder": ""
+          "placeholder": "Email"
         },
         "password": {
           "label": "Password",
-          "placeholder": "",
+          "placeholder": "Password",
           "action": "Forgot password?"
         }
       }
@@ -148,7 +148,8 @@
       "title": "Forgot Password",
       "description": "Please fill in the details to reset your password",
       "cta": "Reset Password",
-      "goBack": "Back to Sign In"
+      "goBack": "Back to Sign In",
+      "placeholder": "Email"
     },
     "ResetPassword": {
       "title": "Forgot Password",
@@ -158,11 +159,11 @@
       "fields": {
         "password": {
           "label": "New password",
-          "placeholder": ""
+          "placeholder": "New password"
         },
         "confirmPassword": {
           "label": "Confirm new password",
-          "placeholder": ""
+          "placeholder": "Confirm new password"
         }
       }
     },

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 
-import { signUpWithCredentialsAction } from "@/actions/auth";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
-import OAuthButtons from "@/components/auth/OAuthButtons";
+import { signUpWithCredentialsAction } from "@/features/auth/actions";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
+import OAuthButtons from "@/features/auth/components/OAuthButtons";
 import CardWrapper from "@/components/common/CardWrapper";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
@@ -18,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signUpSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
@@ -26,6 +25,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import { signInUrl } from "@/config/config";
+import { signUpSchema } from "@/features/auth/schemas";
 
 const SignUpForm = () => {
   const { data, error, isPending, execute } = useServerAction(
@@ -64,7 +64,6 @@ const SignUpForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("SignUp.fields.name.label")}</FormLabel>
                 <FormControl>
                   <Input
                     placeholder={t("SignUp.fields.name.placeholder")}
@@ -80,7 +79,6 @@ const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("SignUp.fields.email.label")}</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
@@ -97,7 +95,6 @@ const SignUpForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{t("SignUp.fields.password.label")}</FormLabel>
                 <FormControl>
                   <PasswordInput
                     placeholder={t("SignUp.fields.password.placeholder")}
@@ -113,9 +110,6 @@ const SignUpForm = () => {
             name="confirm_password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("SignUp.fields.confirmPassword.label")}
-                </FormLabel>
                 <FormControl>
                   <PasswordInput
                     placeholder={t("SignUp.fields.confirmPassword.placeholder")}

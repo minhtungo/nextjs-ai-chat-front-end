@@ -2,12 +2,7 @@
 
 import { afterLoginUrl } from "@/config/config";
 import { signOut as naSignOut, signIn } from "@/auth";
-import {
-  forgotPasswordSchema,
-  resetPasswordSchema,
-  signInSchema,
-  signUpSchema,
-} from "@/lib/definitions";
+
 import {
   forgotPasswordUseCase,
   sendVerificationEmailUseCase,
@@ -18,6 +13,12 @@ import {
 } from "@/use-cases/auth";
 import { z } from "zod";
 import { createServerAction } from "zsa";
+import {
+  forgotPasswordSchema,
+  resetPasswordSchema,
+  signInSchema,
+  signUpSchema,
+} from "@/features/auth/schemas";
 
 export const signInWithGoogle = async (redirectURL: string | null) => {
   await signIn("google", {

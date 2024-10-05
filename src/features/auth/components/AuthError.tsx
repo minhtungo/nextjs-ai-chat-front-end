@@ -1,12 +1,7 @@
-import { FC } from "react";
 import CardWrapper from "@/components/common/CardWrapper";
 import { signInUrl } from "@/config/config";
 
-interface AuthErrorProps {
-  className?: string;
-}
-
-const AuthError: FC<AuthErrorProps> = ({ className }) => {
+const AuthError = () => {
   return (
     <CardWrapper
       headerLabel="Something went wrong!"

@@ -1,12 +1,11 @@
 "use client";
 
-import { signInWithCredentialsAction } from "@/actions/auth";
+import { signInWithCredentialsAction } from "@/features/auth/actions";
 import CardWrapper from "@/components/common/CardWrapper";
 import SubmitButton from "@/components/common/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
-import OAuthButtons from "@/components/auth/OAuthButtons";
-import PasswordInput from "@/components/common/PasswordInput";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
+import OAuthButtons from "@/features/auth/components/OAuthButtons";
 import {
   Form,
   FormControl,
@@ -16,7 +15,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { signInSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -26,6 +24,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import { forgotPasswordUrl, signUpUrl } from "@/config/config";
+import PasswordInput from "@/components/common/PasswordInput";
+import { signInSchema } from "@/features/auth/schemas";
 
 const SignInForm = () => {
   const searchParams = useSearchParams();
@@ -71,7 +71,6 @@ const SignInForm = () => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("SignIn.fields.email.label")}</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
@@ -88,15 +87,6 @@ const SignInForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <div className="flex items-center">
-                      <FormLabel>{t("SignIn.fields.password.label")}</FormLabel>
-                      <Link
-                        href={forgotPasswordUrl}
-                        className="ml-auto inline-block text-[13px] text-muted-foreground hover:underline"
-                      >
-                        {t("SignIn.fields.password.action")}
-                      </Link>
-                    </div>
                     <FormControl>
                       <PasswordInput
                         placeholder={t("SignIn.fields.password.placeholder")}
@@ -142,6 +132,14 @@ const SignInForm = () => {
         {t("SignIn.action.title")}{" "}
         <Link href={signUpUrl} className="underline">
           {t("SignIn.action.link")}
+        </Link>
+      </div>
+      <div className="mt-2 text-center">
+        <Link
+          href={forgotPasswordUrl}
+          className="inline-block text-xs text-muted-foreground hover:underline"
+        >
+          {t("SignIn.fields.password.action")}
         </Link>
       </div>
     </CardWrapper>

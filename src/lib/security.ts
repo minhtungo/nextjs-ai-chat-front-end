@@ -2,7 +2,7 @@ import {
   getPasswordResetTokenByEmail,
   getTwoFactorTokenByEmail,
   getVerificationTokenByEmail,
-} from "@/data/auth";
+} from "@/features/auth/dto";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { v4 as uuid } from "uuid";

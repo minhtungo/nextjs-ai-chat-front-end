@@ -1,6 +1,6 @@
-import { sendVerificationEmailAction } from "@/actions/auth";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
+import { sendVerificationEmailAction } from "@/features/auth/actions";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
 import SubmitButton from "@/components/common/SubmitButton";
 import { cn } from "@/lib/utils";
 import { useServerAction } from "zsa-react";

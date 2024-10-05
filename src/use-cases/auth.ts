@@ -10,19 +10,14 @@ import {
   getTwoFactorTokenByEmail,
   getVerificationTokenByEmail,
   getVerificationTokenByToken,
-} from "@/data/auth";
+} from "@/features/auth/dto";
 import {
   createUser,
   getUserByEmail,
   setNewUserPassword,
   updateUserEmailVerification,
 } from "@/data/user";
-import {
-  forgotPasswordSchema,
-  resetPasswordSchema,
-  signInSchema,
-  signUpSchema,
-} from "@/lib/definitions";
+
 import {
   sendPasswordResetEmail,
   sendTwoFactorTokenEmail,
@@ -41,6 +36,12 @@ import {
   saltAndHashPassword,
 } from "@/lib/security";
 import { ApiResponse } from "@/lib/response";
+import {
+  forgotPasswordSchema,
+  resetPasswordSchema,
+  signInSchema,
+  signUpSchema,
+} from "@/features/auth/schemas";
 
 export const signInWithCredentialsUseCase = async ({
   values,

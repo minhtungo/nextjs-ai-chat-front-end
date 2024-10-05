@@ -1,7 +1,7 @@
 import Page from "@/components/layout/Page";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
-import VerificationForm from "./VerificationForm";
+import VerificationForm from "@/features/auth/components/VerificationForm";
 
 export async function generateMetadata({
   params: { locale },

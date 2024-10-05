@@ -1,10 +1,10 @@
 "use client";
 
-import { setNewPasswordAction } from "@/actions/auth";
+import { setNewPasswordAction } from "@/features/auth/actions";
 import CardWrapper from "@/components/common/CardWrapper";
 import SubmitButton from "@/components/common/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
 import PasswordInput from "@/components/common/PasswordInput";
 import {
   Form,
@@ -14,13 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { resetPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
+import { resetPasswordSchema } from "@/features/auth/schemas";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();
@@ -58,9 +58,6 @@ const ResetPasswordForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("ResetPassword.fields.password.label")}
-                </FormLabel>
                 <FormControl>
                   <PasswordInput
                     placeholder={t("ResetPassword.fields.password.placeholder")}
@@ -76,9 +73,6 @@ const ResetPasswordForm = () => {
             name="confirm_password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>
-                  {t("ResetPassword.fields.confirmPassword.label")}
-                </FormLabel>
                 <FormControl>
                   <PasswordInput
                     placeholder={t(

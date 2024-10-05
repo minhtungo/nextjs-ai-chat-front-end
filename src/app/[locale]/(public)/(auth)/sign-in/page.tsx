@@ -1,5 +1,5 @@
 import Page from "@/components/layout/Page";
-import SignInForm from "./SignInForm";
+import SignInForm from "@/features/auth/components/SignInForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 

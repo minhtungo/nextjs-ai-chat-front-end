@@ -1,10 +1,10 @@
 "use client";
 
-import { forgotPasswordAction } from "@/actions/auth";
+import { forgotPasswordAction } from "@/features/auth/actions";
 import CardWrapper from "@/components/common/CardWrapper";
 import SubmitButton from "@/components/common/SubmitButton";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
 import {
   Form,
   FormControl,
@@ -14,13 +14,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { forgotPasswordSchema } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import { useTranslations } from "next-intl";
 import { signInUrl } from "@/config/config";
+import { forgotPasswordSchema } from "@/features/auth/schemas";
 
 const ForgotPasswordForm = () => {
   const t = useTranslations("auth.ForgotPassword");
@@ -54,9 +54,12 @@ const ForgotPasswordForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input type="email" {...field} />
+                  <Input
+                    type="email"
+                    placeholder={t("placeholder")}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

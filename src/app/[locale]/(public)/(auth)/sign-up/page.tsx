@@ -1,5 +1,5 @@
 import Page from "@/components/layout/Page";
-import SignUpForm from "./SignUpForm";
+import SignUpForm from "@/features/auth/components/SignUpForm";
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 
 export async function generateMetadata({

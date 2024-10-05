@@ -116,19 +116,19 @@
       "fields": {
         "name": {
           "label": "Tên",
-          "placeholder": ""
+          "placeholder": "Họ và Tên"
         },
         "email": {
           "label": "Email",
-          "placeholder": ""
+          "placeholder": "Email"
         },
         "password": {
           "label": "Mật khẩu",
-          "placeholder": ""
+          "placeholder": "Mật khẩu"
         },
         "confirmPassword": {
           "label": "Xác nhận mật khẩu",
-          "placeholder": ""
+          "placeholder": "Xác nhận mật khẩu"
         }
       }
     },
@@ -144,11 +144,11 @@
       "fields": {
         "email": {
           "label": "Email",
-          "placeholder": ""
+          "placeholder": "Email"
         },
         "password": {
           "label": "Mật khẩu",
-          "placeholder": "",
+          "placeholder": "Mật khẩu",
           "action": "Quên mật khẩu?"
         }
       }
@@ -157,7 +157,8 @@
       "title": "Tạo mật khẩu mới",
       "description": "Vui lòng điền thông tin để lấy lại mật khẩu của bạn",
       "cta": "Đặt mật khẩu",
-      "goBack": "Quay lại đăng nhập"
+      "goBack": "Quay lại đăng nhập",
+      "placeholder": "Email"
     },
     "ResetPassword": {
       "title": "Tạo mật khẩu mới",
@@ -167,11 +168,11 @@
       "fields": {
         "password": {
           "label": "Mật khẩu mới",
-          "placeholder": ""
+          "placeholder": "Mật khẩu mới"
         },
         "confirmPassword": {
           "label": "Xác nhận mật khẩu",
-          "placeholder": ""
+          "placeholder": "Xác nhận mật khẩu"
         }
       }
     },

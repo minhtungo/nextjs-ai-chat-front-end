@@ -1,10 +1,10 @@
 "use client";
 
-import { verifyNewUserEmailAction } from "@/actions/auth";
+import { verifyNewUserEmailAction } from "@/features/auth/actions";
 import CardWrapper from "@/components/common/CardWrapper";
 import Spinner from "@/components/common/Spinner";
-import FormError from "@/components/auth/FormError";
-import FormSuccess from "@/components/auth/FormSuccess";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
 import BackButton from "@/components/common/BackButton";
 import Typography from "@/components/ui/typography";
 import { useTranslations } from "next-intl";
@@ -12,7 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
 import { useServerAction } from "zsa-react";
 import { signInUrl } from "@/config/config";
-import ResendVerificationEmail from "@/app/[locale]/(public)/(auth)/verification/ResendVerificationEmail";
+import ResendVerificationEmail from "@/features/auth/components/ResendVerificationEmail";
 
 const VerificationForm = () => {
   const searchParams = useSearchParams();
