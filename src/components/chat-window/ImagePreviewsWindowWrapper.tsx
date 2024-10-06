@@ -5,12 +5,6 @@ import Spinner from "@/components/common/Spinner";
 
 import { useChat } from "@/hooks/use-chat";
 import dynamic from "next/dynamic";
-import { FC } from "react";
-
-interface ImagePreviewsWindowWrapperProps {
-  chatId?: string;
-  userId: string;
-}
 
 const ImagePreviewsWindow = dynamic(
   () => import("@/components/chat-window/ImagePreviewsWindow"),
@@ -23,19 +17,10 @@ const ImagePreviewsWindow = dynamic(
   },
 );
 
-const ImagePreviewsWindowWrapper: FC<ImagePreviewsWindowWrapperProps> = ({
-  chatId,
-  userId,
-}) => {
+const ImagePreviewsWindowWrapper = () => {
   const { selectedImageIndex } = useChat();
 
-  return (
-    <>
-      {selectedImageIndex !== null && (
-        <ImagePreviewsWindow userId={userId} chatId={chatId} />
-      )}
-    </>
-  );
+  return <>{selectedImageIndex !== null && <ImagePreviewsWindow />}</>;
 };
 
 export default ImagePreviewsWindowWrapper;

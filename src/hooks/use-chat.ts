@@ -6,12 +6,16 @@ import {
   selectedImageIndexAtom,
   updateSelectedImageIndexAtom,
   chatSearchModeAtom,
+  chatInfoAtom,
+  focusedImageAtom,
 } from "@/atoms/chat";
 
 import { useAtomValue, useSetAtom } from "jotai";
 
 export const useChat = () => {
   return {
+    chatInfo: useAtomValue(chatInfoAtom),
+    setChatInfo: useSetAtom(chatInfoAtom),
     chatSearchMode: useAtomValue(chatSearchModeAtom),
     setChatSearchMode: useSetAtom(chatSearchModeAtom),
     images: useAtomValue(imagesAtom),
@@ -22,5 +26,7 @@ export const useChat = () => {
     updateDocIndex: useSetAtom(updateSelectedDocIndexAtom),
     selectedDocIndex: useAtomValue(selectedDocIndexAtom),
     setSelectedDocIndex: useSetAtom(selectedDocIndexAtom),
+    focusedImage: useAtomValue(focusedImageAtom),
+    setFocusedImage: useSetAtom(focusedImageAtom),
   };
 };

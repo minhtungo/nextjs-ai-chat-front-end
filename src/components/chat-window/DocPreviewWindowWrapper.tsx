@@ -5,11 +5,6 @@ import Spinner from "@/components/common/Spinner";
 import { useChat } from "@/hooks/use-chat";
 import dynamic from "next/dynamic";
 
-interface DocPreviewWindowWrapperProps {
-  userId: string;
-  chatId?: string;
-}
-
 const DocPreviewWindow = dynamic(
   () => import("@/components/chat-window/DocPreviewWindow"),
   {
@@ -21,19 +16,10 @@ const DocPreviewWindow = dynamic(
   },
 );
 
-const DocPreviewWindowWrapper = ({
-  userId,
-  chatId,
-}: DocPreviewWindowWrapperProps) => {
+const DocPreviewWindowWrapper = () => {
   const { selectedDocIndex } = useChat();
 
-  return (
-    <>
-      {selectedDocIndex !== null && (
-        <DocPreviewWindow userId={userId} chatId={chatId} />
-      )}
-    </>
-  );
+  return <>{selectedDocIndex !== null && <DocPreviewWindow />}</>;
 };
 
 export default DocPreviewWindowWrapper;

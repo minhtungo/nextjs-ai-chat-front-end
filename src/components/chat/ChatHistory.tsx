@@ -8,26 +8,16 @@ import { usePreviews } from "@/hooks/use-previews";
 import { Message } from "@/lib/definitions";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
-  chatId?: string;
-  userId: string;
-  className?: string;
   initialMessages?: Message[];
 }
 
-const ChatHistory = ({
-  chatId,
-  userId,
-  className,
-  initialMessages,
-}: ChatHistoryProps) => {
+const ChatHistory = ({ className, initialMessages }: ChatHistoryProps) => {
   const { data, isFetchingNextPage, isLoading, fetchNextPage, hasNextPage } =
     useInfiniteMessages({
-      chatId,
-      userId,
       initialMessages,
     });
 
-  const fetchedMessages = usePreviews({ pages: data?.pages, chatId });
+  const fetchedMessages = usePreviews({ pages: data?.pages });
 
   if (isLoading)
     return (
@@ -39,8 +29,6 @@ const ChatHistory = ({
   return (
     <MessageHistory
       initialMessages={fetchedMessages}
-      chatId={chatId}
-      userId={userId}
       isFetchingNextPage={isFetchingNextPage}
       hasNextPage={hasNextPage}
       fetchNextPage={fetchNextPage}

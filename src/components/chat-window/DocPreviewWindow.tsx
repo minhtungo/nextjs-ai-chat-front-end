@@ -1,8 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useChat } from "@/hooks/use-chat";
-import { useSendMessage } from "@/hooks/use-send-message";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
-import { FC, useState } from "react";
+import { useState } from "react";
 import { pdfjs } from "react-pdf";
 
 import ChatWindowWrapper from "@/components/chat-window/ChatWindowWrapper";
@@ -17,24 +16,14 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url,
 ).toString();
 
-interface DocPreviewWindowProps {
-  userId: string;
-  chatId?: string;
-}
-
-const DocPreviewWindow: FC<DocPreviewWindowProps> = ({ userId, chatId }) => {
-  const { sendMessage } = useSendMessage(userId, chatId);
+const DocPreviewWindow = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [numPages, setNumPages] = useState<number | null>(null);
 
   const { setSelectedDocIndex, selectedDocIndex, docs } = useChat();
 
   return (
-    <ChatWindowWrapper
-      userId={userId}
-      chatId={chatId}
-      onSubmitMessage={sendMessage}
-    >
+    <ChatWindowWrapper>
       <div className="flex h-full w-full flex-col justify-between gap-3">
         <div className="flex h-14 w-full items-center justify-between gap-3 px-4 text-sm">
           <div className="flex items-center gap-x-2">

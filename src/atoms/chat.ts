@@ -1,5 +1,23 @@
 import { MessageStore } from "@/types/chat";
+import { focusAtom } from "jotai-optics";
 import { atom } from "jotai";
+
+type ChatInfo = {
+  chatId?: string;
+  chatUserId: string;
+};
+
+export const chatInfoAtom = atom<ChatInfo>({
+  chatId: "",
+  chatUserId: "",
+});
+
+export const chatIdAtom = focusAtom(chatInfoAtom, (optic) =>
+  optic.prop("chatId"),
+);
+export const chatUserIdAtom = focusAtom(chatInfoAtom, (optic) =>
+  optic.prop("chatUserId"),
+);
 
 export const chatSearchModeAtom = atom<boolean>(false);
 
@@ -12,6 +30,8 @@ export const imagesAtom = atom((get) =>
 export const docsAtom = atom((get) =>
   get(messagesAtom).flatMap((msg) => msg?.docs ?? []),
 );
+
+export const focusedImageAtom = atom<any>(undefined);
 
 export const selectedImageIndexAtom = atom<number | null>(null);
 

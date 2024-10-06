@@ -1,3 +1,4 @@
+import { useChatInfo } from "@/hooks/use-chat-info";
 import { getChatMessages } from "@/lib/chat";
 import { Message } from "@/lib/definitions";
 import { getMessagesQueryKey } from "@/lib/query-keys";
@@ -5,14 +6,12 @@ import { isGuestUser } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const useInfiniteMessages = ({
-  chatId,
-  userId,
   initialMessages = [],
 }: {
-  chatId?: string;
-  userId: string;
   initialMessages?: Message[];
 }) => {
+  const { chatId, chatUserId: userId } = useChatInfo();
+
   return useInfiniteQuery({
     queryKey: getMessagesQueryKey(chatId || ""),
     initialPageParam: undefined,

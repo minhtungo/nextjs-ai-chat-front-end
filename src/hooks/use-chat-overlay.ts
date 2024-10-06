@@ -42,20 +42,6 @@ export const useChatOverlay = (
   );
 
   useEffect(() => {
-    const handleClose = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setSelectedImageIndex(null);
-      }
-    };
-
-    document.addEventListener("keydown", handleClose);
-
-    return () => {
-      document.removeEventListener("keydown", handleClose);
-    };
-  }, []);
-
-  useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollIntoView({ block: "end" });
     }

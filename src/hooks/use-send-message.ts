@@ -1,19 +1,17 @@
 import { createChatAction } from "@/actions/chat";
 import { MESSAGE_TOKEN_LIMIT } from "@/config/config";
-import { currentSubscriptionAtom } from "@/atoms/subscription";
+import { useChat } from "@/hooks/use-chat";
+import { useChatInfo } from "@/hooks/use-chat-info";
 import { useMessage } from "@/hooks/use-message";
 import { useMessages } from "@/hooks/use-messages";
+import { useSubscription } from "@/hooks/use-subscription";
 import { createNewMessageStore } from "@/lib/chat";
 import { isGuestUser } from "@/lib/utils";
 import { Subscription } from "centrifuge";
 import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
-import { useAtom } from "jotai";
 import { toast } from "sonner";
 
-export const useSendMessage = (
-  userId: string,
-  currentChatId: string | undefined,
-) => {
+export const useSendMessage = () => {
   const {
     message: { mathEquation, content },
     pending,
@@ -23,13 +21,15 @@ export const useSendMessage = (
     setInTokenLimit,
   } = useMessage();
 
+  const { chatId: currentChatId, chatUserId: userId } = useChatInfo();
+
+  const { focusedImage } = useChat();
+
   const { messages, setMessages } = useMessages();
 
-  const [currentSubscription, setupSubscription] = useAtom(
-    currentSubscriptionAtom,
-  );
+  const { subscription, setupSubscription } = useSubscription();
 
-  const sendMessage = async (focusedImage?: any) => {
+  const sendMessage = async () => {
     if (pending) return;
 
     let newSub: Subscription | undefined;
@@ -69,7 +69,9 @@ export const useSendMessage = (
     };
 
     setMessages((currentMessages) => [...currentMessages, newMessage]);
+
     console.log("use send message", messages);
+
     resetMessageState();
 
     if (!currentChatId && messages.length === 0) {
@@ -95,8 +97,8 @@ export const useSendMessage = (
       }
     }
 
-    if (currentSubscription) {
-      currentSubscription
+    if (subscription) {
+      subscription
         .publish({
           input,
         })

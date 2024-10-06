@@ -1,3 +1,4 @@
+import { useChatInfo } from "@/hooks/use-chat-info";
 import { useMessages } from "@/hooks/use-messages";
 import { Message } from "@/lib/definitions";
 import { InfiniteMessagePage } from "@/types/chat";
@@ -5,15 +6,14 @@ import { useEffect, useMemo } from "react";
 
 type usePreviewsProps<T> = {
   pages?: T[];
-  chatId?: string;
 };
 
 export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
   pages,
-  chatId,
 }: usePreviewsProps<T>): Message[] => {
   console.log("usePreviews", pages);
   const { setMessages } = useMessages();
+  const { chatId } = useChatInfo();
 
   if (!pages || pages.length === 0 || pages[0]?.messages.length === 0)
     return [];
@@ -29,16 +29,7 @@ export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
   );
 
   useEffect(() => {
-    setMessages([
-      {
-        id: "123",
-        content: "123",
-        docs: [],
-        images: [],
-        timestamp: 0,
-        userId: "123",
-      },
-    ]);
+    setMessages(messages);
   }, [messages]);
 
   useEffect(() => {

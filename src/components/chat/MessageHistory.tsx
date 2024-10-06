@@ -15,10 +15,9 @@ import { cn, isGuestUser } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import { ComponentProps, Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { useChatInfo } from "@/hooks/use-chat-info";
 
 interface MessageHistoryProps extends ComponentProps<"div"> {
-  chatId?: string;
-  userId: string;
   isFetchingNextPage: boolean;
   hasNextPage: boolean;
   fetchNextPage: () => void;
@@ -26,8 +25,6 @@ interface MessageHistoryProps extends ComponentProps<"div"> {
 }
 
 const MessageHistory = ({
-  chatId,
-  userId,
   isFetchingNextPage,
   hasNextPage,
   fetchNextPage,
@@ -36,6 +33,7 @@ const MessageHistory = ({
   ...props
 }: MessageHistoryProps) => {
   const { messages: atomMessages } = useMessages();
+  const { chatId, chatUserId } = useChatInfo();
 
   const messages = atomMessages || initialMessages;
 
@@ -48,12 +46,12 @@ const MessageHistory = ({
   const { id: currentChatId } = useParams<{ id: string }>();
 
   useEffect(() => {
-    if (!isGuestUser(userId)) {
+    if (!isGuestUser(chatUserId)) {
       if (chatId && !currentChatId && messages.length === 1) {
         window.history.replaceState({}, "", `/chat/${chatId}`);
       }
     }
-  }, [currentChatId, messages, userId]);
+  }, [currentChatId, messages, chatUserId]);
 
   useEffect(() => {
     if (inView && hasNextPage && messages.length >= MESSAGES_LIMIT) {
@@ -63,7 +61,7 @@ const MessageHistory = ({
 
   if (messages.length === 0)
     return (
-      <EmptyChatScreen className="h-[calc(100vh-145px)]" userId={userId} />
+      <EmptyChatScreen className="h-[calc(100vh-145px)]" userId={chatUserId} />
     );
 
   return (

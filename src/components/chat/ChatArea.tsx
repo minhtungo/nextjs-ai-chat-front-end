@@ -3,6 +3,7 @@ import ImagePreviewsWindowWrapper from "@/components/chat-window/ImagePreviewsWi
 import CentrifugeConnection from "@/components/chat/CentrifugeConnection";
 import ChatHistory from "@/components/chat/ChatHistory";
 import ChatPanel from "@/components/chat/ChatPanel";
+import HydrateAtoms from "@/components/chat/HydrateAtoms";
 import ChatHeader from "@/components/layout/ChatHeader";
 import { getChatInfoUseCase, getChatUserUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
@@ -23,17 +24,14 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
 
   return (
     <>
+      <HydrateAtoms id={chatId!} userId={user?.id!} />
       <CentrifugeConnection token={token} userId={user?.id!} chatId={chatId} />
       <ChatHeader user={user} title={chat?.title} />
       <div className="relative flex h-full w-full flex-col overflow-hidden">
-        <ChatHistory
-          chatId={chatId}
-          userId={user?.id!}
-          initialMessages={chat?.messages}
-        />
-        <ChatPanel chatId={chatId} userId={user?.id!} />
-        <ImagePreviewsWindowWrapper chatId={chatId} userId={user?.id!} />
-        <DocPreviewWindowWrapper chatId={chatId} userId={user?.id!} />
+        <ChatHistory initialMessages={chat?.messages} />
+        <ChatPanel />
+        <ImagePreviewsWindowWrapper />
+        <DocPreviewWindowWrapper />
       </div>
     </>
   );

@@ -1,15 +1,11 @@
-import { currentSubscriptionAtom } from "@/atoms/subscription";
+import { useChatInfo } from "@/hooks/use-chat-info";
 import { useMessages } from "@/hooks/use-messages";
 import { useSubscription } from "@/hooks/use-subscription";
 import { createNewMessageStore } from "@/lib/chat";
 import { cn } from "@/lib/utils";
-import { useAtomValue } from "jotai";
-
-import { FC } from "react";
 
 interface PromptSuggestionProps {
   className?: string;
-  userId: string;
 }
 
 const promptSuggestion = [
@@ -24,11 +20,9 @@ const promptSuggestion = [
   },
 ];
 
-const PromptSuggestions: FC<PromptSuggestionProps> = ({
-  className,
-  userId,
-}) => {
+const PromptSuggestions = ({ className }: PromptSuggestionProps) => {
   const { subscription } = useSubscription();
+  const { chatUserId: userId } = useChatInfo();
   const { messages, setMessages } = useMessages();
 
   if (messages.length < 4) return null;

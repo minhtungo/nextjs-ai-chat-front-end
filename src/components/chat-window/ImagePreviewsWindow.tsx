@@ -11,18 +11,12 @@ import ChatWindowWrapper from "@/components/chat-window/ChatWindowWrapper";
 import SlidesNav from "@/components/chat-window/SlidesNav";
 import { ImageMaskEditor } from "@/components/chat/ImageMaskEditor";
 import LineWidthSlider from "@/components/chat/LineWidthSlider";
-import { useSendMessage } from "@/hooks/use-send-message";
 import { clearPoints, getConvexHull } from "@/lib/chat";
 
-interface ImagePreviewsWindowProps {
-  userId: string;
-  chatId?: string;
-}
-
-const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
+const ImagePreviewsWindow = () => {
   const { selectedImageIndex, images, setSelectedImageIndex } = useChat();
   const drawingPointsRef = useRef<Array<[number, number]>>([]);
-  const { sendMessage } = useSendMessage(userId, chatId);
+  const { setFocusedImage } = useChat();
 
   const {
     isFocusMode,
@@ -34,27 +28,8 @@ const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
     onNavigateImage,
   } = useChatOverlay(drawingPointsRef);
 
-  const onSubmitMessage = async () => {
-    const selectedImage = imageRefs?.current[selectedImageIndex!];
-
-    const focusedImage = {
-      url: images[selectedImageIndex!].url,
-      annotation: getConvexHull({
-        drawingPointsRef,
-        selectedImage,
-      }),
-    };
-
-    sendMessage(focusedImage);
-    onToggleFocusMode();
-  };
-
   return (
-    <ChatWindowWrapper
-      userId={userId}
-      chatId={chatId}
-      onSubmitMessage={onSubmitMessage}
-    >
+    <ChatWindowWrapper>
       <div className="flex h-full w-full flex-col justify-between">
         <div className="flex h-14 w-full items-center gap-3 px-4">
           {isFocusMode && (
@@ -78,7 +53,10 @@ const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
             {isFocusMode ? (
               <button
                 className="text-muted-foreground hover:text-foreground"
-                onClick={onToggleFocusMode}
+                onClick={() => {
+                  onToggleFocusMode();
+                  setFocusedImage(undefined);
+                }}
               >
                 Cancel
               </button>
@@ -88,7 +66,21 @@ const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
                   size="icon"
                   variant="ghost"
                   className="hover:bg-background/60"
-                  onClick={onToggleFocusMode}
+                  onClick={() => {
+                    onToggleFocusMode();
+                    const selectedImage =
+                      imageRefs?.current[selectedImageIndex!];
+
+                    const focusedImage = {
+                      url: images[selectedImageIndex!].url,
+                      annotation: getConvexHull({
+                        drawingPointsRef,
+                        selectedImage,
+                      }),
+                    };
+
+                    setFocusedImage(focusedImage);
+                  }}
                 >
                   {isFocusMode ? "Cancel" : <Paintbrush className="size-5" />}
                 </Button>
@@ -98,6 +90,7 @@ const ImagePreviewsWindow = ({ userId, chatId }: ImagePreviewsWindowProps) => {
                   className="hover:bg-background/60"
                   onClick={() => {
                     setSelectedImageIndex(null);
+                    setFocusedImage(undefined);
                     clearPoints(drawingPointsRef);
                   }}
                 >
