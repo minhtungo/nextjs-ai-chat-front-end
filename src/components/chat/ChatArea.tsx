@@ -1,5 +1,4 @@
 import { getChatUserAction } from "@/actions/chat";
-import DocPreviewWindowWrapper from "@/components/chat-window/DocPreviewWindowWrapper";
 import ImagePreviewsWindowWrapper from "@/components/chat-window/ImagePreviewsWindowWrapper";
 import CentrifugeConnection from "@/components/chat/CentrifugeConnection";
 import ChatHistory from "@/components/chat/ChatHistory";
@@ -38,7 +37,7 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
         <ChatHistory initialMessages={chat?.messages} />
         <ChatPanel />
         <ImagePreviewsWindowWrapper />
-        <DocPreviewWindowWrapper />
+        {/* <DocPreviewWindowWrapper /> */}
       </div>
     </>
   );

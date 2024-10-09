@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { useChat } from "@/hooks/use-chat";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useState } from "react";
-import { pdfjs } from "react-pdf";
 
 import ChatWindowWrapper from "@/components/chat-window/ChatWindowWrapper";
 import SlidesNav from "@/components/chat-window/SlidesNav";
@@ -10,11 +9,6 @@ import PdfPreview from "@/components/chat/PdfPreview";
 import TooltipContainer from "@/components/common/TooltipContainer";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
 
 const DocPreviewWindow = () => {
   const [pageNumber, setPageNumber] = useState<number>(1);
