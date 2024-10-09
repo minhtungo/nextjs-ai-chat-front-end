@@ -44,34 +44,34 @@ export const updateChatAction = authenticatedAction
     });
   });
 
-export const getChatUserAction = chatAction.handler(
-  async ({ ctx: { user: existingUser } }) => {
-    const id =
-      existingUser?.id ||
-      cookies().get(cookie.chat.userId)?.value ||
-      createGuestUserId();
+// export const getChatUserAction = chatAction.handler(
+//   async ({ ctx: { user: existingUser } }) => {
+//     const id =
+//       existingUser?.id ||
+//       cookies().get(cookie.chat.userId)?.value ||
+//       createGuestUserId();
 
-    const token =
-      cookies().get(cookie.chat.token)?.value ||
-      encodeToken(
-        createToken({
-          uid: id,
-        }),
-      );
-    console.log("getChatUserAction", {
-      id,
-      token,
-    });
+//     const token =
+//       cookies().get(cookie.chat.token)?.value ||
+//       encodeToken(
+//         createToken({
+//           uid: id,
+//         }),
+//       );
+//     console.log("getChatUserAction", {
+//       id,
+//       token,
+//     });
 
-    console.log("session", cookies().get("session")?.value);
-    setChatTokenCookie(token, Date.now() + cookie.chat.expires);
+//     console.log("session", cookies().get("session")?.value);
+//     setChatTokenCookie(token, Date.now() + cookie.chat.expires);
 
-    return {
-      user: existingUser || { id },
-      token,
-    };
-  },
-);
+//     return {
+//       user: existingUser || { id },
+//       token,
+//     };
+//   },
+// );
 
 export const removeChatsAction = authenticatedAction
   .input(

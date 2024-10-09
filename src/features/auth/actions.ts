@@ -20,15 +20,16 @@ import {
   signUpSchema,
 } from "@/features/auth/schemas";
 
-export const signInWithGoogle = async (redirectURL: string | null) => {
-  await signIn("google", {
-    redirectTo: redirectURL || afterLoginUrl,
-  });
-};
-
-export const signInWithFacebook = async (redirectURL: string | null) => {
-  await signIn("facebook", {
-    redirectTo: redirectURL || afterLoginUrl,
+export const signInWithProvider = async (
+  provider: "google" | "facebook",
+  {
+    redirectTo,
+  }: {
+    redirectTo: string;
+  },
+) => {
+  await signIn(provider, {
+    redirectTo: redirectTo || afterLoginUrl,
   });
 };
 

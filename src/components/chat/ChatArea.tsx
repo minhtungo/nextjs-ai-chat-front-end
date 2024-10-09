@@ -5,7 +5,7 @@ import ChatHistory from "@/components/chat/ChatHistory";
 import ChatPanel from "@/components/chat/ChatPanel";
 import HydrateAtoms from "@/components/chat/HydrateAtoms";
 import ChatHeader from "@/components/layout/ChatHeader";
-import { getChatInfoUseCase } from "@/use-cases/chat";
+import { getChatInfoUseCase, getChatUserUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
 
 interface ChatAreaProps {
@@ -13,16 +13,10 @@ interface ChatAreaProps {
 }
 
 const ChatArea = async ({ chatId }: ChatAreaProps) => {
-  const userPromise = getChatUserAction();
+  const userPromise = getChatUserUseCase();
   const chatPromise = getChatInfoUseCase(chatId);
 
-  const [[data], chat] = await Promise.all([userPromise, chatPromise]);
-
-  if (!data) {
-    return <></>;
-  }
-
-  const { user, token } = data;
+  const [{ user, token }, chat] = await Promise.all([userPromise, chatPromise]);
 
   if (chatId && !chat) {
     notFound();

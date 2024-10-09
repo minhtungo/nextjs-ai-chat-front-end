@@ -1,8 +1,8 @@
-import { signIn } from "@/auth";
 import Facebook from "@/components/icons/Facebook";
 import Google from "@/components/icons/Google";
 import { Button } from "@/components/ui/button";
 import { afterLoginUrl } from "@/config/config";
+import { signInWithProvider } from "@/features/auth/actions";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
@@ -51,7 +51,7 @@ const FacebookLogin = ({ className, label, redirectURL }: AuthButtonProps) => {
       variant="outline"
       className={cn("w-full", className)}
       onClick={async () =>
-        await signIn("facebook", {
+        await signInWithProvider("facebook", {
           redirectTo: redirectURL ?? afterLoginUrl,
         })
       }
@@ -68,7 +68,9 @@ const GoogleLogin = ({ className, label, redirectURL }: AuthButtonProps) => {
       variant="outline"
       className={cn("w-full", className)}
       onClick={async () =>
-        await signIn("google", { redirectTo: redirectURL ?? afterLoginUrl })
+        await signInWithProvider("google", {
+          redirectTo: redirectURL ?? afterLoginUrl,
+        })
       }
     >
       <Google className="size-4 sm:size-5" /> <span>{label}</span>

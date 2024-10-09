@@ -44,32 +44,32 @@ export const createChatUseCase = async (title: string) => {
 //   }
 // };
 
-// export const getChatUserUseCase = async () => {
-//   const existingUser = await getCurrentUser();
+export const getChatUserUseCase = async () => {
+  const existingUser = await getCurrentUser();
 
-//   const id =
-//     existingUser?.id ||
-//     cookies().get(cookie.chat.userId)?.value ||
-//     createGuestUserId();
+  const id =
+    existingUser?.id ||
+    cookies().get(cookie.chat.userId)?.value ||
+    createGuestUserId();
 
-//   const token =
-//     cookies().get(cookie.chat.token)?.value ||
-//     encodeToken(
-//       createToken({
-//         uid: id,
-//       }),
-//     );
+  const token =
+    cookies().get(cookie.chat.token)?.value ||
+    encodeToken(
+      createToken({
+        uid: id,
+      }),
+    );
 
-//   console.log("getChatUserUseCase", {
-//     id,
-//     token,
-//   });
+  console.log("getChatUserUseCase", {
+    id,
+    token,
+  });
 
-//   return {
-//     user: existingUser || { id },
-//     token,
-//   };
-// };
+  return {
+    user: existingUser || { id },
+    token,
+  };
+};
 
 export const getChatInfoUseCase = async (
   chatId?: string,
