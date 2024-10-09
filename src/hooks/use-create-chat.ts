@@ -1,4 +1,4 @@
-import { createChatAction } from "@/actions/chat";
+import { createChatAction } from "@/features/chat/actions";
 import { useServerActionMutation } from "@/hooks/server-action-hooks";
 import { toast } from "sonner";
 

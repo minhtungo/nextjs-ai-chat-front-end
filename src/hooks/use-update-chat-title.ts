@@ -1,4 +1,4 @@
-import { updateChatAction } from "@/actions/chat";
+import { updateChatAction } from "@/features/chat/actions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";

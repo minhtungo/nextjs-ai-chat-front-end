@@ -1,10 +1,10 @@
 "use client";
 
-import AttachFilePreview from "@/components/chat/AttachFilePreview";
+import AttachFilePreview from "@/features/chat/components/AttachFilePreview";
 import SidebarToggle from "@/components/layout/SidebarToggle";
 import SidebarWithToggle from "@/components/layout/SidebarWithToggle";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { useChat } from "@/hooks/use-chat";
+import { useChat } from "@/features/chat/store/use-chat";
 
 const AttachmentsSidebar = () => {
   const { docs, images } = useChat();

@@ -2,7 +2,7 @@ import { chatApi } from "@/lib/api";
 import { Message } from "@/lib/definitions";
 import { ApiResponseType } from "@/lib/response";
 import { nanoid } from "@/lib/utils";
-import { CreateNewRoomResponse } from "@/types/chat";
+import { CreateNewRoomResponse } from "@/features/chat/types";
 import { FileAtom } from "@/types/file";
 import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";

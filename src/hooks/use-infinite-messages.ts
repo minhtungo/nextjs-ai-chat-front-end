@@ -1,4 +1,4 @@
-import { useChatInfo } from "@/hooks/use-chat-info";
+import { useChat } from "@/features/chat/store/use-chat";
 import { getChatMessages } from "@/lib/chat";
 import { Message } from "@/lib/definitions";
 import { getMessagesQueryKey } from "@/lib/query-keys";
@@ -10,7 +10,7 @@ export const useInfiniteMessages = ({
 }: {
   initialMessages?: Message[];
 }) => {
-  const { chatId, chatUserId: userId } = useChatInfo();
+  const { chatId, chatUserId: userId } = useChat();
 
   return useInfiniteQuery({
     queryKey: getMessagesQueryKey(chatId || ""),

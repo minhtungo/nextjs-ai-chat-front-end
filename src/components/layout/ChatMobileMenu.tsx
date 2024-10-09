@@ -1,5 +1,5 @@
-import ChatDropdownMenu from "@/components/chat/ChatDropdownMenu";
-import ChatList from "@/components/chat/ChatList";
+import ChatDropdownMenu from "@/features/chat/components/ChatDropdownMenu";
+import ChatList from "@/features/chat/components/ChatList";
 import SheetWrapper from "@/components/common/SheetWrapper";
 import SignInPrompt from "@/components/common/SignInPrompt";
 import { chatUrl } from "@/config/config";

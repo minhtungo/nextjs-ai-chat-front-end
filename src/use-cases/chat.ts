@@ -10,7 +10,7 @@ import {
   encodeToken,
   nanoid,
 } from "@/lib/utils";
-import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
+import { ChatListItem, ChatRoom, MessageResponse } from "@/features/chat/types";
 import { cookies } from "next/headers";
 import { ZSAError } from "zsa";
 import { chatApi } from "@/lib/api";

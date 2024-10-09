@@ -1,4 +1,4 @@
-import ChatArea from "@/components/chat/ChatArea";
+import ChatArea from "@/features/chat/components/ChatArea";
 import Spinner from "@/components/common/Spinner";
 import { Suspense } from "react";
 

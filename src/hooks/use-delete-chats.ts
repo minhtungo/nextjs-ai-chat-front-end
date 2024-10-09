@@ -1,4 +1,4 @@
-import { removeChatsAction } from "@/actions/chat";
+import { removeChatsAction } from "@/features/chat/actions";
 import { toast } from "sonner";
 import { useServerAction } from "zsa-react";
 

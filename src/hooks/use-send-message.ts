@@ -1,10 +1,9 @@
-import { createChatAction } from "@/actions/chat";
+import { createChatAction } from "@/features/chat/actions";
 import { MESSAGE_TOKEN_LIMIT } from "@/config/config";
-import { useChat } from "@/hooks/use-chat";
-import { useChatInfo } from "@/hooks/use-chat-info";
-import { useMessage } from "@/hooks/use-message";
-import { useMessages } from "@/hooks/use-messages";
-import { useSubscription } from "@/hooks/use-subscription";
+import { useChat } from "@/features/chat/store/use-chat";
+import { useMessage } from "@/features/chat/store/use-message";
+import { useMessages } from "@/features/chat/store/use-messages";
+import { useSubscription } from "@/features/chat/store/use-subscription";
 import { createNewMessageStore } from "@/lib/chat";
 import { isGuestUser } from "@/lib/utils";
 import { Subscription } from "centrifuge";
@@ -21,7 +20,7 @@ export const useSendMessage = () => {
     setInTokenLimit,
   } = useMessage();
 
-  const { chatId: currentChatId, chatUserId: userId } = useChatInfo();
+  const { chatId: currentChatId, chatUserId: userId } = useChat();
 
   const { focusedImage } = useChat();
 

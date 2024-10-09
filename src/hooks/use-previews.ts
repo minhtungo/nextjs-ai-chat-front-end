@@ -1,7 +1,7 @@
-import { useChatInfo } from "@/hooks/use-chat-info";
-import { useMessages } from "@/hooks/use-messages";
+import { useChat } from "@/features/chat/store/use-chat";
+import { useMessages } from "@/features/chat/store/use-messages";
 import { Message } from "@/lib/definitions";
-import { InfiniteMessagePage } from "@/types/chat";
+import { InfiniteMessagePage } from "@/features/chat/types";
 import { useEffect, useMemo } from "react";
 
 type usePreviewsProps<T> = {
@@ -13,7 +13,7 @@ export const usePreviews = <T extends InfiniteMessagePage["pages"]>({
 }: usePreviewsProps<T>): Message[] => {
   console.log("usePreviews", pages);
   const { setMessages } = useMessages();
-  const { chatId } = useChatInfo();
+  const { chatId } = useChat();
 
   if (!pages || pages.length === 0 || pages[0]?.messages.length === 0)
     return [];

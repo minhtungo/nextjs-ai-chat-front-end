@@ -1,5 +1,5 @@
-import ChatSidebarContent from "@/components/chat/ChatSidebarContent";
-import NewChatButton from "@/components/chat/NewChatButton";
+import ChatSidebarContent from "@/features/chat/components/ChatSidebarContent";
+import NewChatButton from "@/features/chat/components/NewChatButton";
 import ChatSidebarActions from "@/components/layout/ChatSidebarActions";
 import SidebarWithToggle from "@/components/layout/SidebarWithToggle";
 import ChatSkeleton from "@/components/skeleton/ChatSkeleton";

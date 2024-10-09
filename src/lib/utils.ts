@@ -1,7 +1,7 @@
 import dayjs from "@/lib/dayjs";
 import { ACCOUNT_URLS } from "@/lib/routes";
 import { AccessToken } from "@/types/api";
-import { ChatListItem } from "@/types/chat";
+import { ChatListItem } from "@/features/chat/types";
 import { type ClassValue, clsx } from "clsx";
 import jwt from "jsonwebtoken";
 import { customAlphabet } from "nanoid";

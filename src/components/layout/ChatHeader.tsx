@@ -1,5 +1,5 @@
 import { signInUrl, signUpUrl } from "@/config/config";
-import UpgradeButton from "@/components/chat/UpgradeButton";
+import UpgradeButton from "@/features/chat/components/UpgradeButton";
 import FeedbackDropdown from "@/components/feedback/FeedbackDropdown";
 import ChatMobileMenu from "@/components/layout/ChatMobileMenu";
 import SidebarToggle from "@/components/layout/SidebarToggle";

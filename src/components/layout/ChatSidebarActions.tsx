@@ -1,9 +1,9 @@
 "use client";
 
-import ChatSearch from "@/components/chat/ChatSearch";
+import ChatSearch from "@/features/chat/components/ChatSearch";
 import SidebarToggle from "@/components/layout/SidebarToggle";
 import { Button } from "@/components/ui/button";
-import { useChat } from "@/hooks/use-chat";
+import { useChat } from "@/features/chat/store/use-chat";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
