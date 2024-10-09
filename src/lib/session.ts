@@ -1,4 +1,3 @@
-import "server-only";
 import { getCurrentUser } from "@/lib/auth";
 import { AuthenticationError } from "@/lib/error";
 

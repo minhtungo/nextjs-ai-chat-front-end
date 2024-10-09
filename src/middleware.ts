@@ -2,14 +2,16 @@ import authConfig from "@/auth/config";
 import NextAuth from "next-auth";
 import createIntlMiddleware from "next-intl/middleware";
 import { locales } from "@/lib/config";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   afterLoginUrl,
   apiAuthPrefix,
   authRoutes,
+  cookie,
   publicRoutes,
   signInUrl,
 } from "@/config/config";
+import { env } from "@/config/env";
 
 const { auth } = NextAuth(authConfig);
 
@@ -72,6 +74,10 @@ const authMiddleware = auth((req) => {
 });
 
 export default function middleware(req: NextRequest) {
+  const chatToken = req.cookies.get(cookie.chat.token);
+
+  console.log("middleware", chatToken);
+
   const publicPathnameRegex = new RegExp(
     `^(/(${locales.join("|")})?)?(${publicPages
       .flatMap((p) => (p === "/" ? ["/", ""] : [p]))

@@ -13,7 +13,7 @@ const NavButtons = async () => {
     <div className="hidden items-center gap-x-2 capitalize md:flex">
       {user ? (
         <>
-          <SignOutButton title={t("SignOut.title")} />
+          <SignOutButton />
           <Link
             href={chatUrl}
             className={buttonVariants({

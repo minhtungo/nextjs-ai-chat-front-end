@@ -1,6 +1,7 @@
 "use client";
 
 import { cookie } from "@/config/config";
+import { env } from "@/config/env";
 import { useCentrifuge } from "@/hooks/use-centrifuge";
 import { useMessage } from "@/hooks/use-message";
 import { useSubscription } from "@/hooks/use-subscription";
@@ -30,8 +31,16 @@ const CentrifugeConnection = ({
   }, []);
 
   useEffect(() => {
-    setCookie(cookie.chat.token, token);
-    setCookie(cookie.chat.userId, userId);
+    setCookie(cookie.chat.token, token, {
+      expires: new Date(Date.now() + cookie.chat.expires),
+      path: "/",
+      sameSite: "lax",
+    });
+    setCookie(cookie.chat.userId, {
+      expires: new Date(Date.now() + cookie.chat.expires),
+      path: "/",
+      sameSite: "lax",
+    });
   }, []);
 
   useEffect(() => {

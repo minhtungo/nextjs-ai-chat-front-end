@@ -24,6 +24,7 @@ export const cookie = {
   chat: {
     token: "x-chat-token",
     userId: "x-chat-user-id",
+    expires: 60 * 1000 * 60 * 24 * 7,
   },
 };
 

@@ -14,6 +14,9 @@ import { ChatListItem, ChatRoom, MessageResponse } from "@/types/chat";
 import { cookies } from "next/headers";
 import { ZSAError } from "zsa";
 import { chatApi } from "@/lib/api";
+import { ApiResponseType } from "@/lib/response";
+import { toast } from "sonner";
+import { env } from "@/config/env";
 
 export const createChatUseCase = async (title: string) => {
   try {
@@ -28,32 +31,45 @@ export const createChatUseCase = async (title: string) => {
   }
 };
 
-export const getChatUserUseCase = async () => {
-  const existingUser = await getCurrentUser();
+// export const getChatUserUseCase = async () => {
+//   const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/token`);
+//   const data = (await response.json()) as ApiResponseType;
 
-  const id =
-    existingUser?.id ||
-    cookies().get(cookie.chat.userId)?.value ||
-    createGuestUserId();
+//   console.log("getChatUserUseCase function", data);
 
-  const token =
-    cookies().get(cookie.chat.token)?.value ||
-    encodeToken(
-      createToken({
-        uid: id,
-      }),
-    );
+//   if (data.success) {
+//     return data.data;
+//   } else {
+//     toast.error("Error getting chat messages");
+//   }
+// };
 
-  console.log("getChatUserUseCase", {
-    id,
-    token,
-  });
+// export const getChatUserUseCase = async () => {
+//   const existingUser = await getCurrentUser();
 
-  return {
-    user: existingUser || { id },
-    token,
-  };
-};
+//   const id =
+//     existingUser?.id ||
+//     cookies().get(cookie.chat.userId)?.value ||
+//     createGuestUserId();
+
+//   const token =
+//     cookies().get(cookie.chat.token)?.value ||
+//     encodeToken(
+//       createToken({
+//         uid: id,
+//       }),
+//     );
+
+//   console.log("getChatUserUseCase", {
+//     id,
+//     token,
+//   });
+
+//   return {
+//     user: existingUser || { id },
+//     token,
+//   };
+// };
 
 export const getChatInfoUseCase = async (
   chatId?: string,
@@ -98,7 +114,7 @@ export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
   });
 
   if (!response.success) {
-    throw new Error(`Failed to get chat list`);
+    return [];
   }
 
   return response.data

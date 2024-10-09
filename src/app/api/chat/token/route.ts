@@ -1,16 +1,37 @@
 import { auth } from "@/auth";
+import { cookie } from "@/config/config";
 import { ApiResponse } from "@/lib/response";
-import { getChatToken, getChatUser } from "@/lib/session";
+import { createGuestUserId, createToken, encodeToken } from "@/lib/utils";
 import { StatusCodes } from "http-status-codes";
+import { cookies } from "next/headers";
 
 export const GET = auth(async (req) => {
   const existingUser = req?.auth?.user;
 
-  const user = getChatUser(existingUser);
+  const id =
+    existingUser?.id ||
+    cookies().get(cookie.chat.userId)?.value ||
+    createGuestUserId();
 
-  const token = getChatToken(user.id!);
+  const token =
+    cookies().get(cookie.chat.token)?.value ||
+    encodeToken(
+      createToken({
+        uid: id,
+      }),
+    );
 
-  console.log("****************GET request chat token", user, token);
+  if (!cookies().get(cookie.chat.token)?.value) {
+    cookies().set(cookie.chat.token, token, {
+      httpOnly: true,
+      maxAge: cookie.chat.expires,
+    });
+  }
+
+  console.log("getChatUserUseCase GET", {
+    id,
+    token,
+  });
 
   return Response.json(
     ApiResponse.success(

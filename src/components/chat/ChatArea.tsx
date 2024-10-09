@@ -1,3 +1,4 @@
+import { getChatUserAction } from "@/actions/chat";
 import DocPreviewWindowWrapper from "@/components/chat-window/DocPreviewWindowWrapper";
 import ImagePreviewsWindowWrapper from "@/components/chat-window/ImagePreviewsWindowWrapper";
 import CentrifugeConnection from "@/components/chat/CentrifugeConnection";
@@ -5,7 +6,7 @@ import ChatHistory from "@/components/chat/ChatHistory";
 import ChatPanel from "@/components/chat/ChatPanel";
 import HydrateAtoms from "@/components/chat/HydrateAtoms";
 import ChatHeader from "@/components/layout/ChatHeader";
-import { getChatInfoUseCase, getChatUserUseCase } from "@/use-cases/chat";
+import { getChatInfoUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
 
 interface ChatAreaProps {
@@ -13,10 +14,16 @@ interface ChatAreaProps {
 }
 
 const ChatArea = async ({ chatId }: ChatAreaProps) => {
-  const userPromise = getChatUserUseCase();
+  const userPromise = getChatUserAction();
   const chatPromise = getChatInfoUseCase(chatId);
 
-  const [{ user, token }, chat] = await Promise.all([userPromise, chatPromise]);
+  const [[data], chat] = await Promise.all([userPromise, chatPromise]);
+
+  if (!data) {
+    return <></>;
+  }
+
+  const { user, token } = data;
 
   if (chatId && !chat) {
     notFound();

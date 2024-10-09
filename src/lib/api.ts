@@ -26,6 +26,8 @@ const fetchApi = async (
     path,
     type,
   } = options;
+  console.log("fetchApi Header", headers);
+
   // const [token, error] = await getTokenAction();
   const token = "123";
   const error = null;
@@ -45,9 +47,11 @@ const fetchApi = async (
       ...(cookie ? { Cookie: cookie } : {}),
     },
     ...(body && { body: type === "body" ? JSON.stringify(body) : body }),
-    cache,
-    next,
+    ...(cache && { cache }),
+    ...(next && { next }),
   });
+
+  console.log("fetchApi", response);
 
   if (!response.ok) {
     return {

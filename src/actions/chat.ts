@@ -1,14 +1,17 @@
 "use server";
 
-import { chatUrl } from "@/config/config";
+import { chatUrl, cookie } from "@/config/config";
+import { setChatTokenCookie } from "@/lib/cookie";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { authenticatedAction, chatAction } from "@/lib/safe-actions";
+import { createGuestUserId, createToken, encodeToken } from "@/lib/utils";
 import {
   createChatUseCase,
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
@@ -40,6 +43,35 @@ export const updateChatAction = authenticatedAction
       subject,
     });
   });
+
+export const getChatUserAction = chatAction.handler(
+  async ({ ctx: { user: existingUser } }) => {
+    const id =
+      existingUser?.id ||
+      cookies().get(cookie.chat.userId)?.value ||
+      createGuestUserId();
+
+    const token =
+      cookies().get(cookie.chat.token)?.value ||
+      encodeToken(
+        createToken({
+          uid: id,
+        }),
+      );
+    console.log("getChatUserAction", {
+      id,
+      token,
+    });
+
+    console.log("session", cookies().get("session")?.value);
+    setChatTokenCookie(token, Date.now() + cookie.chat.expires);
+
+    return {
+      user: existingUser || { id },
+      token,
+    };
+  },
+);
 
 export const removeChatsAction = authenticatedAction
   .input(
