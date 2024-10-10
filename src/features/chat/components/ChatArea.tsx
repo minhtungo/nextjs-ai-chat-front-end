@@ -1,10 +1,9 @@
-import { getChatUserAction } from "@/features/chat/actions";
-import ImagePreviewsWindowWrapper from "@/features/chat/components/chat-window/ImagePreviewsWindowWrapper";
+import ChatHeader from "@/components/layout/ChatHeader";
 import CentrifugeConnection from "@/features/chat/components/CentrifugeConnection";
+import ImagePreviewsWindowWrapper from "@/features/chat/components/chat-window/ImagePreviewsWindowWrapper";
 import ChatHistory from "@/features/chat/components/ChatHistory";
 import ChatPanel from "@/features/chat/components/ChatPanel";
 import HydrateAtoms from "@/features/chat/components/HydrateAtoms";
-import ChatHeader from "@/components/layout/ChatHeader";
 import { getChatInfoUseCase, getChatUserUseCase } from "@/use-cases/chat";
 import { notFound } from "next/navigation";
 

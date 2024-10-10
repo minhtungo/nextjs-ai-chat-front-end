@@ -1,6 +1,9 @@
 "use server";
 
-import { contactUsFormSchema, feedbackFormSchema } from "@/lib/definitions";
+import {
+  contactUsFormSchema,
+  feedbackFormSchema,
+} from "@/features/feedback/schemas";
 import { authenticatedAction } from "@/lib/safe-actions";
 import { sendUserMailUseCase } from "@/use-cases/mail";
 import { sanitize } from "isomorphic-dompurify";

@@ -5,7 +5,7 @@ import Spinner from "@/components/common/Spinner";
 
 import { useInfiniteMessages } from "@/hooks/use-infinite-messages";
 import { usePreviews } from "@/hooks/use-previews";
-import { Message } from "@/lib/definitions";
+import { Message } from "@/features/account/schemas";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];

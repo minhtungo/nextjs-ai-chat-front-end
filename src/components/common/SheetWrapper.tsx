@@ -31,7 +31,7 @@ const SheetWrapper = ({
 }: SheetWrapperProps) => {
   return (
     <Sheet>
-      <SheetTrigger className={cn("md:hidden", triggerClassName)}>
+      <SheetTrigger className={cn("lg:hidden", triggerClassName)}>
         {triggerIcon || (
           <Menu className="size-5 text-muted-foreground sm:size-6" />
         )}

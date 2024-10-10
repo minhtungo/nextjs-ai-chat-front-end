@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { IconProps } from "@/types";
-import { FC } from "react";
 
 const Discord = ({ className, ...props }: IconProps) => {
   return (

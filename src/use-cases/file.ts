@@ -1,4 +1,4 @@
-import { chatApi, fetchAuth } from "@/lib/api";
+import { chatApi } from "@/lib/api";
 import { ZSAError } from "zsa";
 
 type UploadFileResponse = {

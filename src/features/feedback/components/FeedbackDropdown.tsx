@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { MessageSquareMore } from "lucide-react";
-import FeedbackForm from "../feedback/FeedbackForm";
+import FeedbackForm from "./FeedbackForm";
 
 const FeedbackDropdown = () => {
   return (

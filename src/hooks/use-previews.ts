@@ -1,6 +1,6 @@
 import { useChat } from "@/features/chat/store/use-chat";
 import { useMessages } from "@/features/chat/store/use-messages";
-import { Message } from "@/lib/definitions";
+import { Message } from "@/features/account/schemas";
 import { InfiniteMessagePage } from "@/features/chat/types";
 import { useEffect, useMemo } from "react";
 

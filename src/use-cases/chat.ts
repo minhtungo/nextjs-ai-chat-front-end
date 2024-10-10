@@ -2,7 +2,6 @@ import { createChatRoom } from "@/lib/chat";
 
 import { cookie, MESSAGES_LIMIT } from "@/config/config";
 import { getCurrentUser } from "@/lib/auth";
-import { Message } from "@/lib/definitions";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import {
   createGuestUserId,
@@ -11,12 +10,13 @@ import {
   nanoid,
 } from "@/lib/utils";
 import { ChatListItem, ChatRoom, MessageResponse } from "@/features/chat/types";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { ZSAError } from "zsa";
 import { chatApi } from "@/lib/api";
 import { ApiResponseType } from "@/lib/response";
 import { toast } from "sonner";
 import { env } from "@/config/env";
+import { Message } from "@/features/chat/schemas";
 
 export const createChatUseCase = async (title: string) => {
   try {
@@ -165,7 +165,6 @@ export const getMessagesUseCase = async ({
         name: image.name,
         type: image.type,
         url: image.url,
-        thumbnail: image.thumbnail,
         originalWidth: image?.originalWidth,
         originalHeight: image?.originalHeight,
       })),
@@ -216,4 +215,41 @@ export const removeChatsUseCase = async ({
   } else {
     throw Error(`Failed to remove chat`);
   }
+};
+
+// export const getChatInfoUseCase = cache(
+//   async (chatId?: string): Promise<Chat | undefined> => {
+//     if (!chatId) return;
+
+//     const response = await fetch(
+//       `${process.env.BASE_URL ?? ""}/api/chat/${chatId}/info`,
+//       {
+//         headers: headers(),
+//         next: {
+//           tags: [getChatInfoQueryKey(chatId).toString()],
+//         },
+//       },
+//     );
+
+//     const data = (await response.json()) as ApiResponseType;
+
+//     return data.data.chat;
+//   },
+// );
+
+export const getChatTokenUseCase = async () => {
+  const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/token`, {
+    headers: headers(),
+  });
+
+  const { data } = await response.json();
+
+  if (!data) {
+    toast.error("Error getting chat user id");
+    return;
+  }
+
+  console.log("*****************getChatTokenUseCase", data);
+
+  return data.token as string;
 };

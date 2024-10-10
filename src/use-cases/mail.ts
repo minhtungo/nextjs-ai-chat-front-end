@@ -1,5 +1,5 @@
 import { createUserMail } from "@/data/mail";
-import { feedbackFormSchema } from "@/lib/definitions";
+import { feedbackFormSchema } from "@/features/feedback/schemas";
 import { sendUserFeedbackEmail } from "@/lib/mail";
 import { User } from "next-auth";
 import { z } from "zod";

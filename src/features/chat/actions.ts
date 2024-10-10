@@ -1,6 +1,6 @@
 "use server";
 
-import { chatUrl } from "@/config/config";
+import { ACCEPTED_TYPES, chatUrl, MAX_UPLOAD_FILE_SIZE } from "@/config/config";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { authenticatedAction, chatAction } from "@/lib/safe-actions";
 import {
@@ -8,6 +8,7 @@ import {
   removeChatsUseCase,
   updateChatUseCase,
 } from "@/use-cases/chat";
+import { uploadFileUseCase } from "@/use-cases/file";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -87,4 +88,26 @@ export const removeChatsAction = authenticatedAction
     if (currentChatId && currentChatId === chats[0]) {
       redirect(chatUrl);
     }
+  });
+
+export const uploadFileAction = authenticatedAction
+  .input(
+    z.object({
+      file: z
+        .any()
+        .refine(
+          (file) => file?.size <= MAX_UPLOAD_FILE_SIZE,
+          `Max file size is 5MB.`,
+        )
+        .refine(
+          (file) => ACCEPTED_TYPES.includes(file.type),
+          "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
+        ),
+    }),
+    {
+      type: "formData",
+    },
+  )
+  .handler(async ({ input: { file }, ctx }) => {
+    return await uploadFileUseCase(file, ctx.user.id!);
   });

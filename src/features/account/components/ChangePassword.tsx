@@ -1,6 +1,6 @@
 "use client";
 
-import { changeUserPasswordAction } from "@/actions/user";
+import { changeUserPasswordAction } from "@/features/account/actions";
 import PasswordInput from "@/components/common/PasswordInput";
 import SubmitButton from "@/components/common/SubmitButton";
 import {
@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Typography from "@/components/ui/typography";
-import { changeUserPasswordSchema } from "@/lib/definitions";
+import { changeUserPasswordSchema } from "@/features/account/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";

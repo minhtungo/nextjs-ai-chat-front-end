@@ -20,10 +20,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { updateUserAction } from "@/actions/user";
+import { updateUserAction } from "@/features/account/actions";
 import SubmitButton from "@/components/common/SubmitButton";
 import { ACADEMIC_LEVELS } from "@/lib/constant";
-import { updateUserProfileSchema } from "@/lib/definitions";
+import { updateUserProfileSchema } from "@/features/account/schemas";
 import { UserProfileProps } from "@/types/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Camera } from "lucide-react";

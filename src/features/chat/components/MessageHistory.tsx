@@ -10,7 +10,7 @@ import Spinner from "@/components/common/Spinner";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMessages } from "@/features/chat/store/use-messages";
 import { useScrollAnchor } from "@/hooks/use-scroll-anchor";
-import { Message } from "@/lib/definitions";
+import { Message } from "@/features/account/schemas";
 import { cn, isGuestUser } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import { ComponentProps, Fragment, useEffect } from "react";

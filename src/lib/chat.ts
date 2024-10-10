@@ -1,10 +1,12 @@
+import {
+  CreateMessageAtom,
+  CreateNewRoomResponse,
+  FileAtom,
+} from "@/features/chat/types";
 import { chatApi } from "@/lib/api";
-import { Message } from "@/lib/definitions";
+import { Message } from "@/features/account/schemas";
 import { ApiResponseType } from "@/lib/response";
 import { nanoid } from "@/lib/utils";
-import { CreateNewRoomResponse } from "@/features/chat/types";
-import { FileAtom } from "@/types/file";
-import { MessageAtom } from "@/types/message";
 import convexHull from "convex-hull";
 import { MutableRefObject } from "react";
 import { toast } from "sonner";
@@ -76,7 +78,7 @@ export const createNewMessageStore = ({
   userId: string;
   docs?: FileAtom[];
   images?: FileAtom[];
-}): MessageAtom => {
+}): CreateMessageAtom => {
   return {
     id: nanoid(),
     content,
@@ -131,15 +133,6 @@ export const getConvexHull = ({
     [number, number]
   >;
   const scaledHull = convexHull(scaledPoints) as Array<[number, number]>;
-
-  console.log("test get hull", {
-    renderedWidth,
-    renderedHeight,
-    renderedHull,
-    originalWidth,
-    originalHeight,
-    scaledHull,
-  });
 
   return {
     renderedWidth,

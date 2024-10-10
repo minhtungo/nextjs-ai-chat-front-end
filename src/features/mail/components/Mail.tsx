@@ -16,7 +16,7 @@ import { type Mail } from "@prisma/client";
 
 import { MailDisplay } from "./MailDisplay";
 import { MailList } from "./MailList";
-import { useMail } from "@/hooks/use-mail";
+import { useMail } from "@/features/mail/use-mail";
 
 interface MailProps {
   mails: Mail[];

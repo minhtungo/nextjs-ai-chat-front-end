@@ -1,6 +1,6 @@
 "use client";
 
-import { updateUserSettingsAction } from "@/actions/user";
+import { updateUserSettingsAction } from "@/features/account/actions";
 import { LANGUAGES } from "@/config/config";
 import SubmitButton from "@/components/common/SubmitButton";
 import { CardFooter } from "@/components/ui/card";
@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { updateUserSettingsSchema } from "@/lib/definitions";
+import { updateUserSettingsSchema } from "@/features/account/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "next-auth";
 import { FC } from "react";

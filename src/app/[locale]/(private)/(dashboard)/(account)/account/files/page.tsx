@@ -1,4 +1,4 @@
-import FilesLibrary from "@/components/files/FilesLibrary";
+import FilesLibrary from "@/features/account/components/FilesLibrary";
 import { getCurrentUser } from "@/lib/auth";
 import { Metadata } from "next";
 

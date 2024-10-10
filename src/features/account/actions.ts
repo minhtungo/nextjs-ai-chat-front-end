@@ -5,7 +5,7 @@ import {
   changeUserPasswordSchema,
   updateUserProfileSchema,
   updateUserSettingsSchema,
-} from "@/lib/definitions";
+} from "@/features/account/schemas";
 import { authenticatedAction } from "@/lib/safe-actions";
 import {
   changeUserPasswordUseCase,
@@ -29,8 +29,8 @@ export const updateUserAction = authenticatedAction
 
 export const updateUserSettingsAction = authenticatedAction
   .input(updateUserSettingsSchema)
-  .handler(async ({ input, ctx: { user } }) => {
-    await updateUserSettingsUseCase(user.id!, input);
+  .handler(async ({ input: values, ctx: { user } }) => {
+    await updateUserSettingsUseCase(user.id!, values);
     revalidatePath(`${accountUrl}`);
   });
 

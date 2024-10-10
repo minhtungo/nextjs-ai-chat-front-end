@@ -25,7 +25,6 @@ export default async function RootLayout({
   params: any;
 }>) {
   unstable_setRequestLocale(params.locale);
-  console.log(params);
 
   return (
     <html

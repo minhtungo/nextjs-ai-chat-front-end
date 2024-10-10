@@ -1,5 +1,5 @@
 import PageTitle from "@/components/common/PageTitle";
-import FeedbackForm from "@/components/feedback/FeedbackForm";
+import FeedbackForm from "@/features/feedback/components/FeedbackForm";
 import Page from "@/components/layout/Page";
 import PageHeader from "@/components/layout/PageHeader";
 import { FC } from "react";

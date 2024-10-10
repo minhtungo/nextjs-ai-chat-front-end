@@ -26,6 +26,7 @@ const fetchApi = async (
     path,
     type,
   } = options;
+  console.log("fetchAPI cookies", typeof window);
   console.log("fetchApi Header", headers);
 
   // const [token, error] = await getTokenAction();

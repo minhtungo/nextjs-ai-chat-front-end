@@ -15,7 +15,7 @@ const getTokenExpiration = () => {
 export const getConnectionTokenAction = authenticatedAction.handler(
   async ({ ctx: { user } }) => {
     if (!CENTRIFUGO_TOKEN_SECRET) {
-      throw new Error("CENTRIFUGO_TOKEN_SECRET is not set");
+      throw new Error("CENTRIFUGE_TOKEN_SECRET is not set");
     }
 
     const token = {

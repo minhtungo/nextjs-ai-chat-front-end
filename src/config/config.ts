@@ -56,6 +56,18 @@ export const ADMIN_EMAIL = "onboarding@resend.dev";
 export const MAX_UPLOAD_FILE_SIZE_IN_MB = 10;
 export const MAX_UPLOAD_FILE_SIZE = 1024 * 1024 * MAX_UPLOAD_FILE_SIZE_IN_MB;
 export const MAX_UPLOAD_FILE_COUNT = 10;
+export const ACCEPTED_TYPES = [
+  "image",
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "doc",
+  "docx",
+  "pdf",
+  "application/pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
 
 export const EXPIRY_PERIOD = 1800 * 1000;
 

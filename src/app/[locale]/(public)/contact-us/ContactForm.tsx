@@ -3,7 +3,7 @@
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
-import { sendContactUsFormAction } from "@/actions/mail";
+import { sendContactUsFormAction } from "@/features/mail/actions";
 import FormError from "@/features/auth/components/FormError";
 import FormSuccess from "@/features/auth/components/FormSuccess";
 import {
@@ -14,7 +14,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { contactUsFormSchema } from "@/lib/definitions";
+import { contactUsFormSchema } from "@/features/account/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";

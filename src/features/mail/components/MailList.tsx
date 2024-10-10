@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import { type Mail } from "@prisma/client";
 import dayjs from "@/lib/dayjs";
-import { useMail } from "@/hooks/use-mail";
+import { useMail } from "@/features/mail/use-mail";
 
 interface MailListProps {
   items: Mail[];

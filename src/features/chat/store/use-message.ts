@@ -1,22 +1,21 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { uploadFileAction } from "@/actions/file";
 import {
   MAX_UPLOAD_FILE_COUNT,
   MAX_UPLOAD_FILE_SIZE,
   MAX_UPLOAD_FILE_SIZE_IN_MB,
 } from "@/config/config";
 import { getImageDimensions, nanoid } from "@/lib/utils";
-import { NewMessage } from "@/features/chat/types";
-import { FileAtom } from "@/types/file";
+import { FileAtom, MessageAtom } from "@/features/chat/types";
 import { atom } from "jotai";
 import { toast } from "sonner";
+import { uploadFileAction } from "@/features/chat/actions";
 
-const initialMessageState: NewMessage = {
+const initialMessageState: MessageAtom = {
   content: "",
   mathEquation: "",
 };
 
-const messageAtom = atom<NewMessage>(initialMessageState);
+const messageAtom = atom<MessageAtom>(initialMessageState);
 
 const initialMessageAtom = atom(null, (get, set) => {
   set(messageAtom, initialMessageState);

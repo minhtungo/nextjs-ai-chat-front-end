@@ -1,6 +1,6 @@
 import { onboardingSchema } from "@/features/onboarding/schemas";
 import { db } from "@/lib/db";
-import { changeUserPasswordSchema } from "@/lib/definitions";
+import { changeUserPasswordSchema } from "@/features/account/schemas";
 import { comparePassword, saltAndHashPassword } from "@/lib/security";
 import { User, UserSettings } from "@prisma/client";
 import { z } from "zod";
@@ -115,18 +115,6 @@ export const updateUserEmailVerification = async (id: string) => {
     data: { emailVerified: new Date() },
   });
 };
-
-// export const toggleTwoFactor = async (
-//   userID: string,
-//   values: z.infer<typeof twoFactorToggleSchema>,
-// ) => {
-//   await db.user.update({
-//     where: { id: userID },
-//     data: {
-//       ...values,
-//     },
-//   });
-// };
 
 export const updateUserSettings = async (
   userID: string,

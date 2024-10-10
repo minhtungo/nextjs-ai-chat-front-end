@@ -7,7 +7,7 @@ import {
   updateUserOnboarding,
   updateUserSettings,
 } from "@/data/user";
-import { changeUserPasswordSchema } from "@/lib/definitions";
+import { changeUserPasswordSchema } from "@/features/account/schemas";
 import { sendChangePasswordEmail } from "@/lib/mail";
 import { User, UserSettings } from "@prisma/client";
 import { z } from "zod";
@@ -50,19 +50,6 @@ export const onboardingFormUseCase = async (
     throw new Error("Error saving onboarding form");
   }
 };
-
-// export const toggleTwoFactorUseCase = async (
-//   userID: string,
-//   values: z.infer<typeof twoFactorToggleSchema>,
-// ) => {
-//   const dbUser = await getUserById(userID);
-
-//   if (!dbUser) {
-//     throw new Error("User not found");
-//   }
-
-//   await toggleTwoFactor(dbUser.id, values);
-// };
 
 export const changeUserPasswordUseCase = async (
   userID: string,

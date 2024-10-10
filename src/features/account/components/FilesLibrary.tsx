@@ -1,11 +1,10 @@
 import { DataTable } from "@/components/common/DataTable";
-import { columns } from "@/components/files/columns";
+import { columns } from "@/features/account/components/columns";
 import { data } from "@/components/files/data";
-import { FC } from "react";
 
 interface FilesLibraryProps {}
 
-const FilesLibrary: FC<FilesLibraryProps> = () => {
+const FilesLibrary = ({}: FilesLibraryProps) => {
   return <DataTable columns={columns} data={data} />;
 };
 

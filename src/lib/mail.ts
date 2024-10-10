@@ -1,8 +1,8 @@
-import { EmailNotiChangePassword } from "@/components/email/EmailNotiChangePassword";
-import { EmailResetPassword } from "@/components/email/EmailResetPassword";
-import { EmailSignUpConfirmation } from "@/components/email/EmailSignUpConfirmation";
-import { EmailTwoFactor } from "@/components/email/EmailTwoFactor";
-import EmailUserFeedback from "@/components/email/EmailUserFeedback";
+import { EmailNotiChangePassword } from "@/features/mail/components/EmailNotiChangePassword";
+import { EmailResetPassword } from "@/features/mail/components/EmailResetPassword";
+import { EmailSignUpConfirmation } from "@/features/mail/components/EmailSignUpConfirmation";
+import { EmailTwoFactor } from "@/features/mail/components/EmailTwoFactor";
+import EmailUserFeedback from "@/features/mail/components/EmailUserFeedback";
 import { Resend } from "resend";
 import { formatDate } from "./utils";
 import {

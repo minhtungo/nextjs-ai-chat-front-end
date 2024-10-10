@@ -1,14 +1,37 @@
-import { Message } from "@/lib/definitions";
-import { FileAtom } from "@/types/file";
+import { Message } from "@/features/chat/schemas";
+
+type FileType = "image" | "document" | "pdf";
+
+export type FileAtom = {
+  id?: string;
+  name: string;
+  type?: FileType;
+  url?: string;
+  preview?: string;
+  size?: number;
+  isUploading?: boolean;
+  originalWidth?: number;
+  originalHeight?: number;
+};
+
+export type CreateMessageAtom = {
+  id: string;
+  content: string;
+  role: "user" | "bot";
+  userId: string;
+  docs?: FileAtom[];
+  images?: FileAtom[];
+  timestamp: number;
+};
+
+export type MessageAtom = {
+  content: string;
+  mathEquation: string;
+};
 
 export type ChatInfo = {
   chatId?: string;
   chatUserId: string;
-};
-
-export type NewMessage = {
-  content: string;
-  mathEquation: string;
 };
 
 export type CreateNewRoomResponse = {
