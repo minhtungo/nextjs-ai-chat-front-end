@@ -117,6 +117,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.isOnboarded = token.isOnboarded as boolean;
         session.user.plan = token.plan as Plan;
       }
+      session.test = "test";
       return session;
     },
   },

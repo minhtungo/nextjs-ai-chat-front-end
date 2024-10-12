@@ -24,25 +24,26 @@ const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
   );
 
   useEffect(() => {
-    if (mf) {
-      // mfe.value = "f(x)=\\frac{x}{2}";
-      if (containerRef.current) {
-        // @ts-ignore
-        containerRef.current.appendChild(mf);
-      }
-    }
+    console.log("useEffect MathKeyboard");
+    if (!containerRef.current || !mf) return;
+
+    // mfe.value = "f(x)=\\frac{x}{2}";
+    // @ts-ignore
+    containerRef.current.appendChild(mf);
 
     mf.focus();
 
     mf.onfocus = (evt: any) => {
       window.mathVirtualKeyboard.show();
     };
+
     mf.onbeforeinput = (evt: any) => {
       if (evt.inputType === "insertLineBreak") {
         formRef.current?.requestSubmit();
         evt.preventDefault();
       }
     };
+
     mf.oninput = (evt: any) => {
       setMessage((prev) => ({ ...prev, mathEquation: evt.target.value }));
     };
@@ -62,8 +63,12 @@ const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
     window.mathVirtualKeyboard.show();
 
     return () => {
+      mf.remove();
+      // if (containerRef) {
+      //   // @ts-ignore
+      //   containerRef?.current = null;
+      // }
       setMessage((prev) => ({ ...prev, mathEquation: "" }));
-      window.mathVirtualKeyboard.hide();
     };
   }, []);
 

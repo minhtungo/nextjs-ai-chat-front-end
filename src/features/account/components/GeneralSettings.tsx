@@ -1,6 +1,6 @@
-import DeleteAllChatButton from "@/components/account/DeleteAllChatButton";
-import UpdateSettingsForm from "@/components/account/UpdateSettingsForm";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import DeleteAllChatButton from "@/features/account/components/DeleteAllChatButton";
+import UpdateSettingsForm from "@/features/account/components/UpdateSettingsForm";
 import { User } from "next-auth";
 
 const GeneralSettings = ({ user }: { user: User }) => {

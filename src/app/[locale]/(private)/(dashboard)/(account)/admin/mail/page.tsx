@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { Mail } from "@/components/mail/Mail";
 import { getUserMails } from "@/data/mail";
 import { getCurrentUser } from "@/lib/auth";
+import { Mail } from "@/features/mail/components/Mail";
 
 const EmailPage = async () => {
   const user = await getCurrentUser();

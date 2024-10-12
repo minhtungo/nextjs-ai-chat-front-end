@@ -1,9 +1,9 @@
-import ChangePassword from "@/components/account/ChangePassword";
-import GeneralSettings from "@/components/account/GeneralSettings";
-import UserProfileFormServer from "@/components/account/UserProfileForm.server";
 import Google from "@/components/icons/Google";
 import AccountPageSkeleton from "@/components/skeleton/AccountPageSkeleton";
 import Typography from "@/components/ui/typography";
+import ChangePassword from "@/features/account/components/ChangePassword";
+import GeneralSettings from "@/features/account/components/GeneralSettings";
+import UserProfileFormServer from "@/features/account/components/UserProfileForm.server";
 import { getCurrentUser } from "@/lib/auth";
 import { Suspense } from "react";
 

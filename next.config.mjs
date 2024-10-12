@@ -13,20 +13,21 @@ const nextConfig = {
       fullUrl: true,
     },
   },
-  experimental: {
-    serverComponentsExternalPackages: ["pino", "pino-pretty"],
-  },
-  transpilePackages: ["react-pdf-highlighter"],
-  webpack: (config) => {
-    config.resolve.alias.canvas = false;
-    return config;
-  },
+  // experimental: {
+  //   serverComponentsExternalPackages: ["pino", "pino-pretty"],
+  // },
+  // transpilePackages: ["react-pdf-highlighter"],
+  // webpack: (config) => {
+  //   config.resolve.alias.canvas = false;
+  //   return config;
+  // },
+  output: "standalone",
   images: {
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "9ldo8wxnc3do2hc5.public.blob.vercel-storage.com",
-      },
+      // {
+      //   protocol: "https",
+      //   hostname: "9ldo8wxnc3do2hc5.public.blob.vercel-storage.com",
+      // },
       {
         protocol: "https",
         hostname: "assets.lumi-ai.io",

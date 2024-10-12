@@ -1,5 +1,5 @@
 import Page from "@/components/layout/Page";
-import AuthError from "../../../../../features/auth/components/AuthError";
+import AuthError from "@/features/auth/components/AuthError";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 const AuthErrorPage = ({
@@ -7,8 +7,6 @@ const AuthErrorPage = ({
 }: Readonly<{
   params: { locale: string };
 }>) => {
-  unstable_setRequestLocale(locale);
-
   return (
     <Page className="flex h-full w-full items-center justify-center">
       <AuthError />

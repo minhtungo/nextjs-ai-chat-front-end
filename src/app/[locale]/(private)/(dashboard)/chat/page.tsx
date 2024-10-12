@@ -1,5 +1,5 @@
-import ChatArea from "@/features/chat/components/ChatArea";
 import Spinner from "@/components/common/Spinner";
+import ChatArea from "@/features/chat/components/ChatArea";
 import { Suspense } from "react";
 
 const ChatIndexPage = () => {

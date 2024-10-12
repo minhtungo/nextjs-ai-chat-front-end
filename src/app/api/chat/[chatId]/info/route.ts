@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { logger } from "@/lib/logger";
 import { ApiResponse } from "@/lib/response";
 import { getChatInfoUseCase } from "@/use-cases/chat";
 import { StatusCodes } from "http-status-codes";
@@ -44,7 +43,6 @@ export const GET = auth(async (req, { params }) => {
       },
     );
   } catch (error) {
-    logger.error(error);
     return Response.json(
       ApiResponse.failure(
         "Failed to fetch messages",

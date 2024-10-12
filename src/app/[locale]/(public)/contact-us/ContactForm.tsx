@@ -14,13 +14,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { contactUsFormSchema } from "@/features/account/schemas";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
 import SubmitButton from "@/components/common/SubmitButton";
+import { contactUsFormSchema } from "@/features/feedback/schemas";
 
 const ContactUsForm = () => {
   const { isPending, execute, data, error } = useServerAction(

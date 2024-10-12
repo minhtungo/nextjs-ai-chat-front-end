@@ -1,8 +1,4 @@
 import authConfig from "@/auth/config";
-import NextAuth from "next-auth";
-import createIntlMiddleware from "next-intl/middleware";
-import { locales } from "@/lib/config";
-import { NextRequest, NextResponse } from "next/server";
 import {
   afterLoginUrl,
   apiAuthPrefix,
@@ -11,24 +7,22 @@ import {
   publicRoutes,
   signInUrl,
 } from "@/config/config";
-import { env } from "@/config/env";
+import { locales } from "@/lib/config";
+import NextAuth from "next-auth";
+import createIntlMiddleware from "next-intl/middleware";
+import { NextRequest } from "next/server";
+import { routing } from "./i18n/routing";
 
 const { auth } = NextAuth(authConfig);
 
 const publicPages = publicRoutes;
 
-const intlMiddleware = createIntlMiddleware({
-  locales,
-  defaultLocale: "vi",
-  localePrefix: "never",
-});
+const intlMiddleware = createIntlMiddleware(routing);
 
 const authMiddleware = auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth?.user;
   // const isOnboarded = !!req.auth?.user?.isOnboarded;
-
-  // console.log("isOnboarded", isOnboarded);
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
@@ -57,17 +51,7 @@ const authMiddleware = auth((req) => {
     );
   }
 
-  // if (isOnboardingRoute) {
-  //   if (isOnboarded) {
-  //     return Response.redirect(new URL(afterLoginUrl, nextUrl));
-  //   }
-  //   return intlMiddleware(req);
-  // }
-
   if (isLoggedIn) {
-    // if (!isOnboarded) {
-    //   return Response.redirect(new URL(onboardingUrl, nextUrl));
-    // }
     return intlMiddleware(req);
   }
   return;
@@ -75,8 +59,6 @@ const authMiddleware = auth((req) => {
 
 export default function middleware(req: NextRequest) {
   const chatToken = req.cookies.get(cookie.chat.token);
-
-  console.log("middleware", chatToken);
 
   const publicPathnameRegex = new RegExp(
     `^(/(${locales.join("|")})?)?(${publicPages

@@ -24,7 +24,6 @@ export default function PricingPage({
   params: { locale: string };
 }) {
   unstable_setRequestLocale(locale);
-
   const t = useTranslations("public.Pricing");
 
   return (

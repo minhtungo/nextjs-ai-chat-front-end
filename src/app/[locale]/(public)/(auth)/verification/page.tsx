@@ -23,8 +23,6 @@ const VerificationPage = ({
 }: Readonly<{
   params: { locale: string };
 }>) => {
-  unstable_setRequestLocale(locale);
-
   return (
     <Page className="flex h-full w-full items-center justify-center">
       <Suspense>

@@ -1,8 +1,8 @@
-import AccountSidebarLinks from "@/components/account/AccountSidebarLinks";
-import UserInfo from "@/components/account/UserInfo";
 import GoBackButton from "@/components/common/GoBackButton";
 import BaseSidebar from "@/components/layout/BaseSidebar";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import AccountSidebarLinks from "@/features/account/components/AccountSidebarLinks";
+import UserInfo from "@/features/account/components/UserInfo.client";
 
 const AccountSidebar = () => {
   return (

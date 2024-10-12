@@ -1,6 +1,5 @@
 import { DataTable } from "@/components/common/DataTable";
-import { columns } from "@/features/account/components/columns";
-import { data } from "@/components/files/data";
+import { columns, data } from "@/features/account/components/columns";
 
 interface FilesLibraryProps {}
 

@@ -1,6 +1,7 @@
 import Page from "@/components/layout/Page";
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
 import ResetPasswordForm from "@/features/auth/components/ResetPasswordForm";
+import { getTranslations, unstable_setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,11 +20,11 @@ export default function ResetPasswordPage({
 }: Readonly<{
   params: { locale: string };
 }>) {
-  unstable_setRequestLocale(locale);
-
   return (
     <Page className="flex h-full w-full items-center justify-center">
-      <ResetPasswordForm />
+      <Suspense>
+        <ResetPasswordForm />
+      </Suspense>
     </Page>
   );
 }

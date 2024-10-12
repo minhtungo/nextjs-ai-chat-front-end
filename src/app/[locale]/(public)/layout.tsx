@@ -4,6 +4,12 @@ import Footer from "@/components/layout/Footer";
 import PublicHeader from "@/components/layout/PublicHeader";
 import { unstable_setRequestLocale } from "next-intl/server";
 
+import { routing } from "@/i18n/routing";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default function PublicLayout({
   children,
   params: { locale },

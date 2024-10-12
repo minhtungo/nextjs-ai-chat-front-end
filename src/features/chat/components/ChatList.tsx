@@ -4,7 +4,7 @@ import { getChatListUseCase } from "@/use-cases/chat";
 interface ChatListProps extends React.ComponentProps<"div"> {}
 
 const ChatList = async ({ className, ...props }: ChatListProps) => {
-  const chats = await getChatListUseCase();
+  // const chats = await getChatListUseCase();
 
   // if (!chats || chats.length === 0) {
   //   return (

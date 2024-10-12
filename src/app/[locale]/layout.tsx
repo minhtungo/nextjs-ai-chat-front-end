@@ -3,11 +3,6 @@ import { locales } from "@/lib/config";
 import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
-import { unstable_setRequestLocale } from "next-intl/server";
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 
 export const metadata: Metadata = {
   title: {
@@ -24,8 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: any;
 }>) {
-  unstable_setRequestLocale(params.locale);
-
   return (
     <html
       suppressHydrationWarning
