@@ -1,11 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { useChat } from "@/features/chat/store/use-chat";
+import { FileType } from "@/features/chat/types";
 import { FileText } from "lucide-react";
 import { FC } from "react";
 
 interface DocPreviewProps {
   name: string;
-  type: "document" | "pdf" | "image";
+  type: FileType | undefined;
   url: string;
 }
 

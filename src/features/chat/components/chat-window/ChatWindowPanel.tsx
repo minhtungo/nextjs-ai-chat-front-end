@@ -2,7 +2,7 @@
 
 import PromptForm from "@/features/chat/components/PromptForm";
 import { Badge } from "@/components/ui/badge";
-import { useSendMessage } from "@/hooks/use-send-message";
+import { useSendMessage } from "@/features/chat/store/use-send-message";
 import { cn } from "@/lib/utils";
 
 interface ChatWindowPanelProps extends React.ComponentProps<"div"> {
@@ -18,7 +18,7 @@ const ChatWindowPanel = ({ isFocusMode, className }: ChatWindowPanelProps) => {
           Focus on selection
         </Badge>
       )}
-      <PromptForm onSubmit={() => sendMessage()} />
+      <PromptForm onSubmitMessage={(content) => sendMessage(content)} />
     </div>
   );
 };

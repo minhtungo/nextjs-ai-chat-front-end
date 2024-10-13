@@ -14,7 +14,6 @@ export const env = createEnv({
     JWT_SECRET: z.string().min(1),
     RESEND_API_KEY: z.string().min(1),
     DATABASE_URL: z.string().min(1),
-    DATABASE_URL_NON_POOLING: z.string().min(1),
     NODE_ENV: z.string().optional(),
   },
   client: {
@@ -35,7 +34,6 @@ export const env = createEnv({
     AUTH_SECRET: process.env.AUTH_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
-    DATABASE_URL_NON_POOLING: process.env.DATABASE_URL_NON_POOLING,
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     NEXT_PUBLIC_CHAT_SERVER_URL: process.env.NEXT_PUBLIC_CHAT_SERVER_URL,
     NEXT_PUBLIC_WS_ENDPOINT: process.env.NEXT_PUBLIC_WS_ENDPOINT,

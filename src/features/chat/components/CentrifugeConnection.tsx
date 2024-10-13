@@ -49,9 +49,9 @@ const CentrifugeConnection = ({
 
     setupSubscription(`rooms:${chatId}`);
 
-    return () => {
-      resetMessageState();
-    };
+    // return () => {
+    //   resetMessageState();
+    // };
   }, [centrifuge, chatId]);
 
   return <></>;

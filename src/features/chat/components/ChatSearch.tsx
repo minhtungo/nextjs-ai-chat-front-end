@@ -1,6 +1,6 @@
 "use client";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useChat } from "@/features/chat/store/use-chat";
@@ -26,7 +26,7 @@ const ChatSearch = ({ className }: ChatSearchProps) => {
           className="h-8 w-full border-primary/20 bg-transparent"
         />
       ) : (
-        <TooltipContainer content="Search chat">
+        <Hint label="Search chat">
           <Button
             className={cn("hidden lg:flex", className)}
             variant="ghost"
@@ -35,7 +35,7 @@ const ChatSearch = ({ className }: ChatSearchProps) => {
           >
             <Search className="size-5 text-muted-foreground sm:size-6" />
           </Button>
-        </TooltipContainer>
+        </Hint>
       )}
     </>
   );

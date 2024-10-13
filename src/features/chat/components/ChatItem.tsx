@@ -2,15 +2,15 @@
 
 import { chatUrl } from "@/config/config";
 
-import EditChatTitle from "@/features/chat/components/EditChatTitle";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { useDeleteChats } from "@/hooks/use-delete-chats";
-import { useUpdateChatTitle } from "@/hooks/use-update-chat-title";
+import { useDeleteChats } from "@/features/chat/api/use-delete-chats";
+import { useUpdateChatTitle } from "@/features/chat/api/use-update-chat-title";
+import EditChatTitle from "@/features/chat/components/EditChatTitle";
 import { cn } from "@/lib/utils";
 import { Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { FC, useState } from "react";
+import { useState } from "react";
 import ChatActions from "./ChatActions";
 
 interface ChatItemProps {

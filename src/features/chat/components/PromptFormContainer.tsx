@@ -1,12 +1,12 @@
 "use client";
 
 import PromptForm from "@/features/chat/components/PromptForm";
-import { useSendMessage } from "@/hooks/use-send-message";
+import { useSendMessage } from "@/features/chat/store/use-send-message";
 
 const PromptFormContainer = () => {
   const { sendMessage } = useSendMessage();
 
-  return <PromptForm onSubmit={sendMessage} />;
+  return <PromptForm onSubmitMessage={(content) => sendMessage(content)} />;
 };
 
 export default PromptFormContainer;

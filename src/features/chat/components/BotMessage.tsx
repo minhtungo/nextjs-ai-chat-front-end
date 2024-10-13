@@ -5,7 +5,7 @@ import { Bot, Copy, Redo, ThumbsDown, ThumbsUp } from "lucide-react";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import { MemoizedReactMarkdown } from "@/components/markdown";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { toast } from "sonner";
@@ -38,7 +38,7 @@ const BotMessage = ({ content }: BotMessageProps) => {
         </MemoizedReactMarkdown>
 
         <div className="flex items-center gap-[2px] text-muted-foreground">
-          <TooltipContainer content="Copy">
+          <Hint label="Copy">
             <Button
               variant="ghost"
               size="xs"
@@ -49,22 +49,22 @@ const BotMessage = ({ content }: BotMessageProps) => {
             >
               <Copy className="h-3.5 w-3.5" />
             </Button>
-          </TooltipContainer>
-          <TooltipContainer content="Good">
+          </Hint>
+          <Hint label="Good">
             <Button variant="ghost" size="xs">
               <ThumbsUp className="h-3.5 w-3.5" />
             </Button>
-          </TooltipContainer>
-          <TooltipContainer content="Bad">
+          </Hint>
+          <Hint label="Bad">
             <Button variant="ghost" size="xs">
               <ThumbsDown className="h-3.5 w-3.5" />
             </Button>
-          </TooltipContainer>
-          <TooltipContainer content="Redo">
+          </Hint>
+          <Hint label="Redo">
             <Button variant="ghost" size="xs">
               <Redo className="h-3.5 w-3.5" />
             </Button>
-          </TooltipContainer>
+          </Hint>
         </div>
       </div>
     </div>

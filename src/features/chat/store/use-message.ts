@@ -5,17 +5,14 @@ import {
   MAX_UPLOAD_FILE_SIZE_IN_MB,
 } from "@/config/config";
 import { getImageDimensions, nanoid } from "@/lib/utils";
-import { FileAtom, MessageAtom } from "@/features/chat/types";
+import { FileAtom } from "@/features/chat/types";
 import { atom } from "jotai";
 import { toast } from "sonner";
 import { uploadFileAction } from "@/features/chat/actions";
 
-const initialMessageState: MessageAtom = {
-  content: "",
-  mathEquation: "",
-};
+const initialMessageState = "";
 
-const messageAtom = atom<MessageAtom>(initialMessageState);
+const messageAtom = atom("");
 
 const initialMessageAtom = atom(null, (get, set) => {
   set(messageAtom, initialMessageState);
@@ -47,7 +44,6 @@ const uploadFileAtom = atom(null, async (get, set, files: File[]) => {
       totalFilesCount + validFiles.length <= MAX_UPLOAD_FILE_COUNT &&
       totalFilesSize <= MAX_UPLOAD_FILE_SIZE
     ) {
-      console.log("inside file", file);
       let originalWidth = undefined;
       let originalHeight = undefined;
 

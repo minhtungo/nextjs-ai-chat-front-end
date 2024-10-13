@@ -11,14 +11,8 @@ import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";
 
 export const useSendMessage = () => {
-  const {
-    message: { mathEquation, content },
-    pending,
-    images,
-    docs,
-    resetMessageState,
-    setInTokenLimit,
-  } = useMessage();
+  const { pending, images, docs, resetMessageState, setInTokenLimit } =
+    useMessage();
 
   const { chatId: currentChatId, chatUserId: userId } = useChat();
 
@@ -28,14 +22,13 @@ export const useSendMessage = () => {
 
   const { subscription, setupSubscription } = useSubscription();
 
-  const sendMessage = async () => {
+  const sendMessage = async (content: string) => {
+    console.log("content", content);
     if (pending) return;
 
     let newSub: Subscription | undefined;
 
-    const submitContent = mathEquation || content;
-
-    if (!submitContent || submitContent.trim() === "") {
+    if (!content || content.trim() === "") {
       return;
     }
 
@@ -52,14 +45,14 @@ export const useSendMessage = () => {
     }
 
     const newMessage = createNewMessageStore({
-      content: submitContent,
+      content,
       userId,
       docs,
       images,
     });
 
     const input = {
-      content: submitContent,
+      content,
       images: images.map((image) => ({
         ...image,
       })),
@@ -69,14 +62,10 @@ export const useSendMessage = () => {
 
     setMessages((currentMessages) => [...currentMessages, newMessage]);
 
-    console.log("use send message", messages);
-
     resetMessageState();
 
     if (!currentChatId && messages.length === 0) {
-      const [newRoom, error] = await createChatAction(
-        submitContent.substring(0, 50),
-      );
+      const [newRoom, error] = await createChatAction(content.substring(0, 50));
 
       if (error) {
         toast.error(error.message);

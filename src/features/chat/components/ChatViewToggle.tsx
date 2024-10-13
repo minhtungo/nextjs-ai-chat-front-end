@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { AppWindowMac } from "lucide-react";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import { useChat } from "@/features/chat/store/use-chat";
 
 const ChatViewToggle = () => {
@@ -12,7 +12,7 @@ const ChatViewToggle = () => {
   if (images.length === 0 || selectedImageIndex !== null) return null;
 
   return (
-    <TooltipContainer content="Toggle chat view">
+    <Hint label="Toggle chat view">
       <Button
         variant="ghost"
         size="sm"
@@ -23,7 +23,7 @@ const ChatViewToggle = () => {
       >
         <AppWindowMac className="size-5" />
       </Button>
-    </TooltipContainer>
+    </Hint>
   );
 };
 

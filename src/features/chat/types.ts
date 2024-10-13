@@ -1,6 +1,6 @@
 import { Message } from "@/features/chat/schemas";
 
-type FileType = "image" | "document" | "pdf";
+export type FileType = "image" | "document" | "pdf";
 
 export type FileAtom = {
   id?: string;
@@ -22,11 +22,6 @@ export type CreateMessageAtom = {
   docs?: FileAtom[];
   images?: FileAtom[];
   timestamp: number;
-};
-
-export type MessageAtom = {
-  content: string;
-  mathEquation: string;
 };
 
 export type ChatInfo = {

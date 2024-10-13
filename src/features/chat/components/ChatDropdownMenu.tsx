@@ -1,6 +1,6 @@
 "use client";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import ThemeSwitch from "@/components/common/ThemeSwitch";
 import UserAvatar from "@/components/common/UserAvatar";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,7 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
 
   return (
     <DropdownMenu modal={false}>
-      <TooltipContainer content="User Menu">
+      <Hint label="User Menu">
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
@@ -54,7 +54,7 @@ const ChatDropdownMenu = ({ user }: ChatDropdownMenuProps) => {
             <span className="sr-only">Toggle user menu</span>
           </Button>
         </DropdownMenuTrigger>
-      </TooltipContainer>
+      </Hint>
       <DropdownMenuContent align="end" className="min-w-72">
         <DropdownMenuLabel>
           <div className="flex items-center gap-x-2">

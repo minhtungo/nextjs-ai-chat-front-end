@@ -3,10 +3,10 @@ import { useChat } from "@/features/chat/store/use-chat";
 import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut } from "lucide-react";
 import { useState } from "react";
 
-import ChatWindowWrapper from "@/features/chat/components/chat-window/ChatWindowWrapper";
+import Hint from "@/components/common/Hint";
 import SlidesNav from "@/components/common/SlidesNav";
+import ChatWindowWrapper from "@/features/chat/components/chat-window/ChatWindowWrapper";
 import PdfPreview from "@/features/chat/components/PdfPreview";
-import TooltipContainer from "@/components/common/TooltipContainer";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -21,7 +21,7 @@ const DocPreviewWindow = () => {
       <div className="flex h-full w-full flex-col justify-between gap-3">
         <div className="flex h-14 w-full items-center justify-between gap-3 px-4 text-sm">
           <div className="flex items-center gap-x-2">
-            <TooltipContainer content="Zoom in">
+            <Hint label="Zoom in">
               <Button
                 size="icon"
                 variant="ghost"
@@ -29,8 +29,8 @@ const DocPreviewWindow = () => {
               >
                 <ZoomIn className="size-5" />
               </Button>
-            </TooltipContainer>
-            <TooltipContainer content="Zoom out">
+            </Hint>
+            <Hint label="Zoom out">
               <Button
                 size="icon"
                 variant="ghost"
@@ -38,7 +38,7 @@ const DocPreviewWindow = () => {
               >
                 <ZoomOut className="size-5" />
               </Button>
-            </TooltipContainer>
+            </Hint>
 
             <button
               disabled={pageNumber <= 1}
@@ -59,7 +59,7 @@ const DocPreviewWindow = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <TooltipContainer content="Close">
+            <Hint label="Close">
               <Button
                 size="icon"
                 variant="ghost"
@@ -70,11 +70,11 @@ const DocPreviewWindow = () => {
               >
                 <X className="size-5" />
               </Button>
-            </TooltipContainer>
+            </Hint>
           </div>
         </div>
         <PdfPreview
-          url={docs[selectedDocIndex!].url}
+          url={docs[selectedDocIndex!].url!}
           name={docs[selectedDocIndex!].name}
           pageNumber={pageNumber}
           setPageNumber={setPageNumber}

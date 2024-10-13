@@ -1,8 +1,8 @@
 "use client";
 
-import { chatUrl } from "@/config/config";
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import { buttonVariants } from "@/components/ui/button";
+import { chatUrl } from "@/config/config";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { Plus } from "lucide-react";
@@ -15,7 +15,7 @@ const NewChatButton = ({ className }: NewChatButtonProps) => {
   const path = usePathname();
   const { isSidebarOpen } = useSidebar("left");
   return (
-    <TooltipContainer content="New chat">
+    <Hint label="New chat">
       <Link
         href={path !== chatUrl ? chatUrl : "#"}
         className={cn(
@@ -37,7 +37,7 @@ const NewChatButton = ({ className }: NewChatButtonProps) => {
           New Chat
         </span>
       </Link>
-    </TooltipContainer>
+    </Hint>
   );
 };
 

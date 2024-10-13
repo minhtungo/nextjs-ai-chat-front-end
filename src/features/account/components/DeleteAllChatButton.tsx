@@ -13,7 +13,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { useDeleteChats } from "@/hooks/use-delete-chats";
+import { useDeleteChats } from "@/features/chat/api/use-delete-chats";
 import { useState } from "react";
 
 const DeleteAllChatButton = () => {

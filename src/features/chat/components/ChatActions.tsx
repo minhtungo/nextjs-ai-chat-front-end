@@ -1,26 +1,25 @@
 "use client";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Ellipsis } from "lucide-react";
-import { FC } from "react";
 
 interface ChatActionsProps {
   children: React.ReactNode;
 }
 
-const ChatActions: FC<ChatActionsProps> = ({ children }) => {
+const ChatActions = ({ children }: ChatActionsProps) => {
   return (
     <DropdownMenu modal={false}>
-      <TooltipContainer content="Options">
+      <Hint label="Options">
         <DropdownMenuTrigger>
           <Ellipsis className="size-4" />
         </DropdownMenuTrigger>
-      </TooltipContainer>
+      </Hint>
       <DropdownMenuContent>{children}</DropdownMenuContent>
     </DropdownMenu>
   );

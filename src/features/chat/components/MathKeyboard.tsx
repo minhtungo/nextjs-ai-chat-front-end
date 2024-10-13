@@ -4,15 +4,11 @@ import { RefObject, useEffect, useMemo, useRef } from "react";
 
 interface MathKeyboardProps {
   formRef: RefObject<HTMLFormElement>;
+  inputRef: RefObject<HTMLTextAreaElement>;
 }
 
-const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
-  const {
-    message: { mathEquation },
-    setMessage,
-  } = useMessage();
-
-  const containerRef = useRef(null);
+const MathKeyboard = ({ formRef, inputRef }: MathKeyboardProps) => {
+  const mathRef = useRef<HTMLDivElement>(null);
 
   const mf = useMemo(
     () =>
@@ -25,11 +21,11 @@ const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
 
   useEffect(() => {
     console.log("useEffect MathKeyboard");
-    if (!containerRef.current || !mf) return;
+    if (!mathRef.current || !mf) return;
 
     // mfe.value = "f(x)=\\frac{x}{2}";
     // @ts-ignore
-    containerRef.current.appendChild(mf);
+    mathRef.current.appendChild(mf);
 
     mf.focus();
 
@@ -37,16 +33,24 @@ const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
       window.mathVirtualKeyboard.show();
     };
 
-    mf.onbeforeinput = (evt: any) => {
-      if (evt.inputType === "insertLineBreak") {
+    mf.onbeforeinput = (e: any) => {
+      if (e.inputType === "insertLineBreak") {
+        if (inputRef.current) {
+          inputRef.current.value += e.target.value;
+        }
         formRef.current?.requestSubmit();
-        evt.preventDefault();
+        e.preventDefault();
       }
     };
 
-    mf.oninput = (evt: any) => {
-      setMessage((prev) => ({ ...prev, mathEquation: evt.target.value }));
-    };
+    // mf.oninput = (e: any) => {
+    //   console.log("on input", e.key);
+    //   console.log("on input", e.target.value);
+    //   if (inputRef.current) {
+    //     inputRef.current.value += e.target.value;
+    //   }
+    //   // setMessage(e.target.value);
+    // };
 
     window.mathVirtualKeyboard.container =
       document.getElementById("math-keyboard");
@@ -63,22 +67,17 @@ const MathKeyboard = ({ formRef }: MathKeyboardProps) => {
     window.mathVirtualKeyboard.show();
 
     return () => {
-      mf.remove();
-      // if (containerRef) {
-      //   // @ts-ignore
-      //   containerRef?.current = null;
-      // }
-      setMessage((prev) => ({ ...prev, mathEquation: "" }));
+      window.mathVirtualKeyboard.container = null;
     };
   }, []);
 
-  useEffect(() => {
-    if (mf) {
-      mf.value = mathEquation;
-    }
-  }, [mathEquation]);
+  // useEffect(() => {
+  //   if (mf) {
+  //     mf.value = content;
+  //   }
+  // }, [content]);
 
-  return <div className="mathKeyboard" ref={containerRef} />;
+  return <div className="mathKeyboard" ref={mathRef} />;
 };
 
 export default MathKeyboard;

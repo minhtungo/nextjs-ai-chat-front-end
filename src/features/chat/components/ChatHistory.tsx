@@ -1,11 +1,11 @@
 "use client";
 
-import MessageHistory from "@/features/chat/components/MessageHistory";
 import Spinner from "@/components/common/Spinner";
+import MessageHistory from "@/features/chat/components/MessageHistory";
 
-import { useInfiniteMessages } from "@/hooks/use-infinite-messages";
-import { usePreviews } from "@/hooks/use-previews";
-import { Message } from "@/features/account/schemas";
+import { Message } from "@/features/chat/schemas";
+import { useInfiniteMessages } from "@/features/chat/api/use-infinite-messages";
+import { usePreviews } from "@/features/chat/api/use-previews";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
   initialMessages?: Message[];

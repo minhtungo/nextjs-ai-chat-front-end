@@ -1,6 +1,6 @@
+import { Message } from "@/features/chat/schemas";
 import { useChat } from "@/features/chat/store/use-chat";
 import { getChatMessages } from "@/lib/chat";
-import { Message } from "@/features/account/schemas";
 import { getMessagesQueryKey } from "@/lib/query-keys";
 import { isGuestUser } from "@/lib/utils";
 import { useInfiniteQuery } from "@tanstack/react-query";

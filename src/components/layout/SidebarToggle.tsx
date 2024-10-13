@@ -1,12 +1,7 @@
 "use client";
 
-import TooltipContainer from "@/components/common/TooltipContainer";
+import Hint from "@/components/common/Hint";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { PanelLeft, PanelRight } from "lucide-react";
@@ -28,9 +23,7 @@ const SidebarToggle = ({
   }
 
   return (
-    <TooltipContainer
-      content={`Toggle ${side === "left" ? "chat" : "attachments"} sidebar`}
-    >
+    <Hint label={`Toggle ${side === "left" ? "chat" : "attachments"} sidebar`}>
       <Button
         className={cn("hidden lg:flex", className)}
         variant="ghost"
@@ -48,7 +41,7 @@ const SidebarToggle = ({
           Toggle {side === "left" ? "chat" : "attachments"} sidebar
         </span>
       </Button>
-    </TooltipContainer>
+    </Hint>
   );
 };
 
