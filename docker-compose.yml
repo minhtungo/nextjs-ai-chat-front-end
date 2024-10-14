@@ -2,14 +2,14 @@ services:
   web:
     build: .
     ports:
-      - "3000:3000"
+      - "9000:9000"
     env_file: ".env"
-    environment:
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_DB: ${DATABASE_DB}
-      DATABASE_URL: ${DATABASE_URL}
-      NODE_ENV: production
+    # environment:
+    #   DATABASE_USER: ${DATABASE_USER}
+    #   DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    #   DATABASE_DB: ${DATABASE_DB}
+    #   DATABASE_URL: ${DATABASE_URL}
+    #   NODE_ENV: production
     # depends_on:
     #   - db
     # networks:
