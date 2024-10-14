@@ -34,11 +34,11 @@ COPY --chown=nextjs:nodejs prisma ./prisma/
 
 USER nextjs
 
-EXPOSE 3000
+EXPOSE 9000
 
-ENV PORT 3000
+ENV PORT 9000
 
-ENV HOSTNAME "0.0.0.0"
+ENV HOSTNAME "45.76.61.175"
 
 
 # RUN npx prisma db push
