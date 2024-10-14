@@ -3,12 +3,12 @@
 import Spinner from "@/components/common/Spinner";
 import MessageHistory from "@/features/chat/components/MessageHistory";
 
-import { Message } from "@/features/chat/schemas";
 import { useInfiniteMessages } from "@/features/chat/api/use-infinite-messages";
 import { usePreviews } from "@/features/chat/api/use-previews";
+import { ChatMessage } from "@/domain/chat";
 
 export interface ChatHistoryProps extends React.ComponentProps<"div"> {
-  initialMessages?: Message[];
+  initialMessages?: ChatMessage[];
 }
 
 const ChatHistory = ({ className, initialMessages }: ChatHistoryProps) => {

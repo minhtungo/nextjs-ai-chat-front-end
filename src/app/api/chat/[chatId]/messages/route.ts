@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import { ApiResponse } from "@/lib/response";
-import { getMessagesUseCase } from "@/use-cases/chat";
+import { getChatMessagesUseCase } from "@/use-cases/chat";
 import { StatusCodes } from "http-status-codes";
 
 export const GET = auth(async (req, { params }) => {
@@ -32,7 +32,7 @@ export const GET = auth(async (req, { params }) => {
   }
 
   try {
-    const messages = await getMessagesUseCase({
+    const messages = await getChatMessagesUseCase({
       chatId,
       query: {
         offset: offset ? parseInt(offset) : undefined,

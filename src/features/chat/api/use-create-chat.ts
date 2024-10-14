@@ -7,7 +7,7 @@ export const useCreateChat = (toggleDialog?: (value: boolean) => void) => {
     onError: (error) => {
       toast.error(error.message);
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       if (toggleDialog) {
         toggleDialog(false);
       }

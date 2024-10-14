@@ -1,3 +1,4 @@
+import { ChatMessage } from "@/domain/chat";
 import { Message } from "@/features/chat/schemas";
 import { useChat } from "@/features/chat/store/use-chat";
 import { getChatMessages } from "@/lib/chat";
@@ -8,7 +9,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 export const useInfiniteMessages = ({
   initialMessages = [],
 }: {
-  initialMessages?: Message[];
+  initialMessages?: ChatMessage[];
 }) => {
   const { chatId, chatUserId: userId } = useChat();
 

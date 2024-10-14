@@ -1,34 +1,23 @@
-import { createChatRoom } from "@/lib/chat";
-
-import { cookie, MESSAGES_LIMIT } from "@/config/config";
-import { getCurrentUser } from "@/lib/auth";
-import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
+import ChatApi from "@/api/chat/api";
 import {
-  createGuestUserId,
-  createToken,
-  encodeToken,
-  nanoid,
-} from "@/lib/utils";
-import { ChatListItem, ChatRoom, MessageResponse } from "@/features/chat/types";
-import { cookies, headers } from "next/headers";
-import { ZSAError } from "zsa";
-import { chatApi } from "@/lib/api";
-import { ApiResponseType } from "@/lib/response";
-import { toast } from "sonner";
+  dtoToChatInfo,
+  dtoToChatList,
+  dtoToChatMessages,
+} from "@/api/chat/transform";
+import { cookie, MESSAGES_LIMIT } from "@/config/config";
 import { env } from "@/config/env";
-import { Message } from "@/features/chat/schemas";
+import { ChatInfo, ChatList } from "@/domain/chat";
+import { getCurrentUser } from "@/lib/auth";
+import { createGuestUserId, createToken, encodeToken } from "@/lib/utils";
+import { cookies, headers } from "next/headers";
 
 export const createChatUseCase = async (title: string) => {
-  try {
-    const data = await createChatRoom(title);
+  const data = await ChatApi.createChatRoom(title);
 
-    return {
-      ...data,
-      id: data.roomid!,
-    };
-  } catch (error) {
-    throw new ZSAError("ERROR", "error.generalError");
-  }
+  return {
+    ...data,
+    id: data.roomid!,
+  };
 };
 
 // export const getChatUserUseCase = async () => {
@@ -73,63 +62,23 @@ export const getChatUserUseCase = async () => {
 
 export const getChatInfoUseCase = async (
   chatId?: string,
-): Promise<ChatRoom | undefined> => {
-  console.log("-----------ChatInfo useCase Called");
+): Promise<ChatInfo | undefined> => {
   if (!chatId) return;
 
-  const response = await chatApi.get(
-    `/chat/info/${chatId}?limit=${MESSAGES_LIMIT}`,
+  const chatInfoDTO = await ChatApi.getChatInfo(chatId);
+
+  return dtoToChatInfo(chatInfoDTO);
+};
+
+export const getChatListUseCase = async (): Promise<ChatList[]> => {
+  const chatListDTO = await ChatApi.getChatList();
+
+  return dtoToChatList(chatListDTO).toSorted(
+    (a: any, b: any) => b.last_active - a.last_active,
   );
-
-  if (!response.success) {
-    throw new Error(`Failed to get chat`);
-  }
-
-  const {
-    data: {
-      result: { data },
-    },
-  } = response;
-
-  const chat = {
-    id: chatId,
-    title: data.title,
-    subject: data.subject,
-    messages: data.history.map((item: any) => ({
-      id: nanoid(),
-      content: item.message.content,
-      docs: item.message.docs,
-      images: item.message.images,
-      timestamp: item.timestamp,
-      userId: item.userid,
-    })),
-  };
-
-  return chat;
 };
 
-export const getChatListUseCase = async (): Promise<ChatListItem[]> => {
-  const response = await chatApi.get("/chat/list-rooms", {
-    next: { tags: [CHAT_LIST_QUERY_KEY] },
-  });
-
-  if (!response.success) {
-    return [];
-  }
-
-  return response.data
-    .map((data: any) => ({
-      id: data.id,
-      userId: data.user[0],
-      title: data.title,
-      subject: data.subject,
-      timestamp: data.timestamp,
-      last_active: data.last_active,
-    }))
-    .toSorted((a: any, b: any) => b.last_active - a.last_active);
-};
-
-export const getMessagesUseCase = async ({
+export const getChatMessagesUseCase = async ({
   chatId,
   query: { offset },
 }: {
@@ -143,36 +92,12 @@ export const getMessagesUseCase = async ({
     ...(offset && { offset: offset.toString() }),
   });
 
-  const response = await chatApi.get(
-    `/chat/rooms/${chatId}/messages?${query.toString()}`,
+  const chatMessagesDTO = await ChatApi.getChatMessages(
+    chatId!,
+    query.toString(),
   );
 
-  if (!response.success) {
-    throw new Error(`Failed to get messages`);
-  }
-
-  const messages: Message[] = response?.data?.result?.data?.history
-    .toReversed()
-    .map((item: MessageResponse) => ({
-      id: nanoid(),
-      content: item.message.content,
-      docs: item.message.docs?.map((doc) => ({
-        name: doc.name,
-        type: doc.type,
-        url: doc.url,
-      })),
-      images: item.message.images?.map((image) => ({
-        name: image.name,
-        type: image.type,
-        url: image.url,
-        originalWidth: image?.originalWidth,
-        originalHeight: image?.originalHeight,
-      })),
-      timestamp: item.timestamp,
-      userId: item.userid,
-    }));
-
-  return messages;
+  return dtoToChatMessages(chatMessagesDTO).toReversed();
 };
 
 export const updateChatUseCase = async ({
@@ -184,16 +109,13 @@ export const updateChatUseCase = async ({
   title?: string;
   subject?: string;
 }) => {
-  const response = await chatApi.put(`/chat/update/${chatId}`, {
-    ...(title && { title }),
-    ...(subject && { subject }),
+  const data = await ChatApi.updateChatInfo({
+    chatId,
+    title,
+    subject,
   });
 
-  if (response.success) {
-    return response.data;
-  } else {
-    throw new Error("Failed to update chat");
-  }
+  return data;
 };
 
 export const removeChatsUseCase = async ({
@@ -203,53 +125,24 @@ export const removeChatsUseCase = async ({
   chats: string[];
   deleteAll: boolean;
 }) => {
-  const response = await chatApi.delete(`/chat/delete`, {
-    body: {
-      ...(chats.length > 0 && { rooms: chats }),
-      ...(deleteAll && { deleteAll }),
-    },
+  const data = await ChatApi.deleteChats({
+    chats,
+    deleteAll,
   });
 
-  if (response.success) {
-    return response.data;
-  } else {
-    throw Error(`Failed to remove chat`);
-  }
+  return data;
 };
-
-// export const getChatInfoUseCase = cache(
-//   async (chatId?: string): Promise<Chat | undefined> => {
-//     if (!chatId) return;
-
-//     const response = await fetch(
-//       `${process.env.BASE_URL ?? ""}/api/chat/${chatId}/info`,
-//       {
-//         headers: headers(),
-//         next: {
-//           tags: [getChatInfoQueryKey(chatId).toString()],
-//         },
-//       },
-//     );
-
-//     const data = (await response.json()) as ApiResponseType;
-
-//     return data.data.chat;
-//   },
-// );
 
 export const getChatTokenUseCase = async () => {
   const response = await fetch(`${env.NEXT_PUBLIC_BASE_URL}/api/chat/token`, {
     headers: headers(),
   });
 
-  const { data } = await response.json();
-
-  if (!data) {
-    toast.error("Error getting chat user id");
-    return;
+  if (!response.ok) {
+    throw new Error("Failed to get chat token");
   }
 
-  console.log("*****************getChatTokenUseCase", data);
+  const { data } = await response.json();
 
   return data.token as string;
 };

@@ -57,17 +57,6 @@ export const getMessageFiles = (files: FileAtom[]) => {
   };
 };
 
-export const createChatRoom = async (
-  title: string,
-): Promise<CreateNewRoomResponse> => {
-  const { data } = await chatApi.post("/chat/create-room", {
-    subject: "General",
-    title,
-  });
-
-  return data;
-};
-
 export const createNewMessageStore = ({
   content,
   userId,

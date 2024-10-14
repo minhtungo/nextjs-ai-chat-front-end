@@ -1,9 +1,7 @@
 "use client";
 
 import { cookie } from "@/config/config";
-import { env } from "@/config/env";
 import { useCentrifuge } from "@/features/chat/store/use-centrifuge";
-import { useMessage } from "@/features/chat/store/use-message";
 import { useSubscription } from "@/features/chat/store/use-subscription";
 import { isGuestUser } from "@/lib/utils";
 import { setCookie } from "cookies-next";
@@ -22,8 +20,6 @@ const CentrifugeConnection = ({
 }: CentrifugeConnectionProps) => {
   const { connectCentrifuge, centrifuge } = useCentrifuge();
   const { setupSubscription } = useSubscription();
-
-  const { resetMessageState } = useMessage();
 
   useEffect(() => {
     console.log("CentrifugeConnection connectCentrifuge");
@@ -48,10 +44,6 @@ const CentrifugeConnection = ({
     if (!centrifuge || !chatId || isGuestUser(userId)) return;
 
     setupSubscription(`rooms:${chatId}`);
-
-    // return () => {
-    //   resetMessageState();
-    // };
   }, [centrifuge, chatId]);
 
   return <></>;

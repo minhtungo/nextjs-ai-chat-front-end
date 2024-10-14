@@ -11,8 +11,7 @@ import { isWithinTokenLimit } from "gpt-tokenizer/model/gpt-4o";
 import { toast } from "sonner";
 
 export const useSendMessage = () => {
-  const { pending, images, docs, resetMessageState, setInTokenLimit } =
-    useMessage();
+  const { pending, files, resetMessageState, setInTokenLimit } = useMessage();
 
   const { chatId: currentChatId, chatUserId: userId } = useChat();
 
@@ -44,6 +43,9 @@ export const useSendMessage = () => {
       return;
     }
 
+    const images = files.filter((file) => file.type === "image");
+    const docs = files.filter((file) => file.type !== "image");
+
     const newMessage = createNewMessageStore({
       content,
       userId,
@@ -53,9 +55,7 @@ export const useSendMessage = () => {
 
     const input = {
       content,
-      images: images.map((image) => ({
-        ...image,
-      })),
+      images,
       docs,
       ...(focusedImage ? { focusedImage } : {}),
     };

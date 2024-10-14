@@ -1,4 +1,4 @@
-import { Draw, Point } from "./../types/draw.d";
+import { Draw, Point } from "@/types/draw.d";
 import { useEffect, useRef, useState, useCallback } from "react";
 import convexHull from "convex-hull";
 

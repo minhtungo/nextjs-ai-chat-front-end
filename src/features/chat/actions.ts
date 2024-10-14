@@ -92,22 +92,17 @@ export const removeChatsAction = authenticatedAction
 
 export const uploadFileAction = authenticatedAction
   .input(
-    z.object({
-      file: z
-        .any()
-        .refine(
-          (file) => file?.size <= MAX_UPLOAD_FILE_SIZE,
-          `Max file size is 5MB.`,
-        )
-        .refine(
-          (file) => ACCEPTED_TYPES.includes(file.type),
-          "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
-        ),
-    }),
-    {
-      type: "formData",
-    },
+    z
+      .any()
+      .refine(
+        (file) => file?.size <= MAX_UPLOAD_FILE_SIZE,
+        `Max file size is 5MB.`,
+      )
+      .refine(
+        (file) => ACCEPTED_TYPES.includes(file.type),
+        "Only .jpg, .jpeg, .png, .webp, .docx and .pdf formats are supported.",
+      ),
   )
   .handler(async ({ input: { file }, ctx }) => {
-    return await uploadFileUseCase(file, ctx.user.id!);
+    return await uploadFileUseCase(file);
   });

@@ -1,21 +1,15 @@
-import { useAtomValue, useSetAtom } from "jotai";
 import {
   MAX_UPLOAD_FILE_COUNT,
   MAX_UPLOAD_FILE_SIZE,
   MAX_UPLOAD_FILE_SIZE_IN_MB,
 } from "@/config/config";
-import { getImageDimensions, nanoid } from "@/lib/utils";
-import { FileAtom } from "@/features/chat/types";
-import { atom } from "jotai";
-import { toast } from "sonner";
 import { uploadFileAction } from "@/features/chat/actions";
-
-const initialMessageState = "";
-
-const messageAtom = atom("");
+import { FileAtom } from "@/features/chat/types";
+import { getImageDimensions, nanoid } from "@/lib/utils";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { toast } from "sonner";
 
 const initialMessageAtom = atom(null, (get, set) => {
-  set(messageAtom, initialMessageState);
   set(filesAtom, []);
   set(pendingAtom, false);
   set(mathModeAtom, false);
@@ -84,23 +78,18 @@ const uploadFileAtom = atom(null, async (get, set, files: File[]) => {
       try {
         set(pendingAtom, true);
 
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("name", file.name);
-
-        const [data, error] = await uploadFileAction(formData);
+        const [data, error] = await uploadFileAction(file);
 
         if (error) {
           throw new Error(error.message);
         }
 
-        const url = data?.img_urls[0].url;
-        const thumbnail = data?.thumbnail;
+        const url = data?.url;
 
         set(filesAtom, (prev) =>
           prev.map((f) =>
             f.id === validFiles[index].id
-              ? { ...f, url, thumbnail, isUploading: false }
+              ? { ...f, url, isUploading: false }
               : f,
           ),
         );
@@ -120,39 +109,11 @@ const removeFileAtom = atom(null, async (_, set, fileId?: string) => {
   set(filesAtom, (prev) => prev.filter((f) => f.id !== fileId));
 });
 
-const imagesAtom = atom((get) =>
-  get(filesAtom)
-    .filter((f) => f.type === "image")
-    .map((f) => ({
-      url: f.url,
-      name: f.name,
-      type: f.type,
-      preview: f.preview,
-      originalWidth: f.originalWidth,
-      originalHeight: f.originalHeight,
-      size: f.size,
-    })),
-);
-
-const docsAtom = atom((get) =>
-  get(filesAtom)
-    .filter((f) => f.type !== "image")
-    .map((f) => ({
-      url: f.url,
-      name: f.name,
-      type: f.type,
-    })),
-);
-
 const isWithinTokenLimitAtom = atom<number | false>(1);
 
 export const useMessage = () => {
   return {
-    message: useAtomValue(messageAtom),
-    setMessage: useSetAtom(messageAtom),
     pending: useAtomValue(pendingAtom),
-    docs: useAtomValue(docsAtom),
-    images: useAtomValue(imagesAtom),
     files: useAtomValue(filesAtom),
     addFiles: useSetAtom(uploadFileAtom),
     removeFile: useSetAtom(removeFileAtom),
