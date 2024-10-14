@@ -38,8 +38,7 @@ EXPOSE 9000
 
 ENV PORT 9000
 
-ENV HOSTNAME "45.76.61.175"
-
+ENV HOSTNAME "0.0.0.0"
 
 # RUN npx prisma db push
 CMD ["node", "server.js"]
