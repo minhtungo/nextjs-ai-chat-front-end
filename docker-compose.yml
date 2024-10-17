@@ -4,33 +4,33 @@ services:
     ports:
       - "9000:9000"
     env_file: ".env"
-    # environment:
-    #   DATABASE_USER: ${DATABASE_USER}
-    #   DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-    #   DATABASE_DB: ${DATABASE_DB}
-    #   DATABASE_URL: ${DATABASE_URL}
-    #   NODE_ENV: production
-    # depends_on:
-    #   - db
-    # networks:
-    #   - my_network
-#   db:
-#     image: postgres:latest
-#     environment:
-#       DATABASE_USER: ${DATABASE_USER}
-#       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-#       DATABASE_DB: ${DATABASE_DB}
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - postgres_data:/var/lib/postgresql/data
-#     networks:
-#       - my_network
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DB: ${DATABASE_DB}
+      DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/verceldb
+      NODE_ENV: production
+    depends_on:
+      - db
+    networks:
+      - my_network
+  db:
+    image: postgres:latest
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_DB: ${DATABASE_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my_network
 
-# volumes:
-#   postgres_data:
+volumes:
+  postgres_data:
 
-# networks:
-#   my_network:
-#     name: my_network
-#     driver: bridge
+networks:
+  my_network:
+    name: my_network
+    driver: bridge

@@ -1,4 +1,5 @@
 import Spinner from "@/components/common/Spinner";
+import { getTotalUsers } from "@/data/admin/user";
 import ChatArea from "@/features/chat/components/ChatArea";
 import { Suspense } from "react";
 
@@ -11,6 +12,7 @@ const ChatIndexPage = () => {
         </div>
       }
     >
+      <div>Test: {getTotalUsers()}</div>
       <ChatArea />
     </Suspense>
   );

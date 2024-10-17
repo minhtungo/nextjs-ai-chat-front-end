@@ -5,6 +5,8 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: "standalone",
+  compress: false,
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -21,7 +23,6 @@ const nextConfig = {
   //   config.resolve.alias.canvas = false;
   //   return config;
   // },
-  output: "standalone",
   images: {
     remotePatterns: [
       // {
