@@ -1,15 +1,17 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "9000:9000"
     env_file: ".env"
+    volumes:
+      - .:/app
+      - /app/node_modules
     environment:
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_DB: ${DATABASE_DB}
-      DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/verceldb
-      NODE_ENV: production
+      DATABASE_URL: postgres://${DATABASE_USER}:${DATABASE_PASSWORD}@db:5432/${DATABASE_DB}
+      NODE_ENV: development
     depends_on:
       - db
     networks:
@@ -26,7 +28,6 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - my_network
-
 volumes:
   postgres_data:
 
