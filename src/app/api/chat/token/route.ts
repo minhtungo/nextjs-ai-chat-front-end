@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { cookie } from "@/config/config";
 import { ApiResponse } from "@/lib/response";
-import { createGuestUserId, createToken, encodeToken } from "@/lib/utils";
+import { createGuestUserId, encodeToken } from "@/lib/utils";
 import { StatusCodes } from "http-status-codes";
 import { cookies } from "next/headers";
 
@@ -15,11 +15,9 @@ export const GET = auth(async (req) => {
 
   const token =
     cookies().get(cookie.chat.token)?.value ||
-    encodeToken(
-      createToken({
-        uid: id,
-      }),
-    );
+    encodeToken({
+      uid: id,
+    });
 
   if (!cookies().get(cookie.chat.token)?.value) {
     cookies().set(cookie.chat.token, token, {

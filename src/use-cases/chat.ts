@@ -8,7 +8,7 @@ import { cookie, MESSAGES_LIMIT } from "@/config/config";
 import { env } from "@/config/env";
 import { ChatInfo, ChatList } from "@/domain/chat";
 import { getCurrentUser } from "@/lib/auth";
-import { createGuestUserId, createToken, encodeToken } from "@/lib/utils";
+import { createGuestUserId, decodeToken, encodeToken } from "@/lib/utils";
 import { cookies, headers } from "next/headers";
 
 export const createChatUseCase = async (title: string) => {
@@ -41,18 +41,19 @@ export const getChatUserUseCase = async () => {
     cookies().get(cookie.chat.userId)?.value ||
     createGuestUserId();
 
-  const token =
-    cookies().get(cookie.chat.token)?.value ||
-    encodeToken(
-      createToken({
-        uid: id,
-      }),
-    );
+  const currentChatToken =
+    cookies().get(cookie.chat.token)?.value &&
+    decodeToken(cookies().get(cookie.chat.token)?.value!);
 
-  console.log("getChatUserUseCase", {
-    id,
-    token,
-  });
+  const isValidToken = currentChatToken?.uid === id;
+
+  console.log(isValidToken, "isValidToken");
+
+  const token = isValidToken
+    ? cookies().get(cookie.chat.token)?.value
+    : encodeToken({ uid: id });
+
+  console.log("getChatUserToken", id, token);
 
   return {
     user: existingUser || { id },

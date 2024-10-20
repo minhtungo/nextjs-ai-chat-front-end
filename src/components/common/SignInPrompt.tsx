@@ -1,9 +1,12 @@
+"use client";
+
 import { signUpUrl } from "@/config/config";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Lock } from "lucide-react";
 import Link from "next/link";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 interface SignInPromptProps {
   title?: string;
@@ -14,6 +17,8 @@ const SignInPrompt = ({
   title = "Unlock More",
   description = "You must be logged in to view the chat history",
 }: SignInPromptProps) => {
+  const { isSidebarOpen } = useSidebar("left");
+  if (!isSidebarOpen) return null;
   return (
     <Card className="bg-muted/50 p-4 text-sm shadow sm:p-4">
       <div className="mb-2 flex items-center gap-x-2">

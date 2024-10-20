@@ -1,10 +1,9 @@
 "use client";
 
-import { cookie } from "@/config/config";
+import { setChatCookieAction } from "@/features/chat/actions";
 import { useCentrifuge } from "@/features/chat/store/use-centrifuge";
 import { useSubscription } from "@/features/chat/store/use-subscription";
 import { isGuestUser } from "@/lib/utils";
-import { setCookie } from "cookies-next";
 import { useEffect } from "react";
 
 interface CentrifugeConnectionProps {
@@ -27,15 +26,9 @@ const CentrifugeConnection = ({
   }, []);
 
   useEffect(() => {
-    setCookie(cookie.chat.token, token, {
-      expires: new Date(Date.now() + cookie.chat.expires),
-      path: "/",
-      sameSite: "lax",
-    });
-    setCookie(cookie.chat.userId, {
-      expires: new Date(Date.now() + cookie.chat.expires),
-      path: "/",
-      sameSite: "lax",
+    setChatCookieAction({
+      token,
+      userId,
     });
   }, []);
 

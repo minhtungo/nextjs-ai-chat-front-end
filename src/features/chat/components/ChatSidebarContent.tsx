@@ -7,17 +7,11 @@ import { getCurrentUser } from "@/lib/auth";
 
 const ChatSidebarContent = async () => {
   const user = await getCurrentUser();
+
+  console.log("user", user);
   return (
     <>
-      <ScrollArea className="h-full flex-1">
-        {user ? (
-          <ChatList />
-        ) : (
-          <div className="px-4 text-sm text-muted-foreground">
-            You must be logged in to view the chat history.
-          </div>
-        )}
-      </ScrollArea>
+      <ScrollArea className="h-full flex-1">{user && <ChatList />}</ScrollArea>
 
       {user && user.plan === "free" && (
         <div className="px-4">

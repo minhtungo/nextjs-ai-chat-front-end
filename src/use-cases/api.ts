@@ -1,7 +1,7 @@
 import "server-only";
 import NodeCache from "node-cache";
 
-import { createToken, decodeToken, encodeToken } from "@/lib/utils";
+import { decodeToken, encodeToken } from "@/lib/utils";
 import { AccessToken } from "@/types/api";
 
 const tokenCache = new NodeCache({ stdTTL: 3600 }); // Cache with 1-hour TTL
@@ -21,11 +21,9 @@ export const getTokenUseCase = async ({ userId }: { userId?: string }) => {
       }
     }
 
-    const payload = createToken({
+    const newToken = encodeToken({
       uid: userId,
     });
-
-    const newToken = encodeToken(payload);
     tokenCache.set("accessToken", newToken);
 
     return newToken;

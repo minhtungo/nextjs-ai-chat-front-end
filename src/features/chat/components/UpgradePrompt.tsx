@@ -1,3 +1,5 @@
+"use client";
+
 import { subscriptionUrl } from "@/config/config";
 import { buttonVariants } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -5,7 +7,15 @@ import Typography from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { Rocket } from "lucide-react";
 import Link from "next/link";
+import { useSidebar } from "@/hooks/use-sidebar";
+
 const UpgradePrompt = () => {
+  const { isSidebarOpen } = useSidebar("left");
+
+  console.log("isSidebarOpen", isSidebarOpen);
+
+  if (!isSidebarOpen) return null;
+
   return (
     <Card className="bg-muted/50 p-4 text-sm opacity-100 shadow transition-all duration-0 ease-in-out group-[[data-state=closed]]/chat:w-0 group-[[data-state=closed]]/chat:opacity-0 group-[[data-state=open]]/chat:duration-700 sm:p-4">
       <div className="mb-2 flex items-center gap-x-2">

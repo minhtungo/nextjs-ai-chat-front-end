@@ -92,24 +92,16 @@ export const generateBreadcrumbs = (pathname: string) => {
 };
 
 export const encodeToken = (data: AccessToken) => {
-  return jwt.sign(data, env.JWT_SECRET!, {
+  return jwt.sign(data, env.JWT_SECRET, {
     algorithm: "HS256",
+    expiresIn: "7d",
   });
 };
 
 export const decodeToken = (token: string) => {
-  return jwt.verify(token, env.JWT_SECRET!, {
+  return jwt.verify(token, env.JWT_SECRET, {
     algorithms: ["HS256"],
   });
-};
-
-export const createToken = (data: any) => {
-  return {
-    jti: uuid(),
-    iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60,
-    ...data,
-  };
 };
 
 export const parseMessages = (data: string[]) => {

@@ -1,6 +1,11 @@
 "use server";
 
-import { ACCEPTED_TYPES, chatUrl, MAX_UPLOAD_FILE_SIZE } from "@/config/config";
+import {
+  ACCEPTED_TYPES,
+  chatUrl,
+  cookie,
+  MAX_UPLOAD_FILE_SIZE,
+} from "@/config/config";
 import { CHAT_LIST_QUERY_KEY } from "@/lib/query-keys";
 import { authenticatedAction, chatAction } from "@/lib/safe-actions";
 import {
@@ -10,9 +15,31 @@ import {
 } from "@/use-cases/chat";
 import { uploadFileUseCase } from "@/use-cases/file";
 import { revalidateTag } from "next/cache";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { ZSAError } from "zsa";
+
+export const setChatCookieAction = ({
+  token,
+  userId,
+}: {
+  token: string;
+  userId: string;
+}) => {
+  cookies().set(cookie.chat.token, token, {
+    expires: new Date(Date.now() + cookie.chat.expires),
+    path: "/",
+    sameSite: "lax",
+    httpOnly: true,
+  });
+  cookies().set(cookie.chat.userId, userId, {
+    expires: new Date(Date.now() + cookie.chat.expires),
+    path: "/",
+    sameSite: "lax",
+    httpOnly: true,
+  });
+};
 
 export const createChatAction = chatAction
   .input(z.string())
