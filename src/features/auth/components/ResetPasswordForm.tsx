@@ -1,26 +1,25 @@
 "use client";
 
-import { setNewPasswordAction } from "@/features/auth/actions";
 import CardWrapper from "@/components/common/CardWrapper";
-import SubmitButton from "@/components/common/SubmitButton";
-import FormError from "@/features/auth/components/FormError";
-import FormSuccess from "@/features/auth/components/FormSuccess";
 import PasswordInput from "@/components/common/PasswordInput";
+import SubmitButton from "@/components/common/SubmitButton";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { setNewPasswordAction } from "@/features/auth/actions";
+import FormError from "@/features/auth/components/FormError";
+import FormSuccess from "@/features/auth/components/FormSuccess";
+import { resetPasswordSchema } from "@/features/auth/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useServerAction } from "zsa-react";
-import { resetPasswordSchema } from "@/features/auth/schemas";
 
 const ResetPasswordForm = () => {
   const searchParams = useSearchParams();

@@ -37,3 +37,4 @@ const ChatArea = async ({ chatId }: ChatAreaProps) => {
 };
 
 export default ChatArea;
+
